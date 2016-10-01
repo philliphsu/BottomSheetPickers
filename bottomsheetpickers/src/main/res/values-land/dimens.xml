@@ -1,0 +1,35 @@
+<!--
+  ~ Copyright (C) 2016 Phillip Hsu
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <dimen name="grid_element_text_size">24sp</dimen>
+
+    <!-- NumpadTimePickerDialog -->
+    <dimen name="numeric_keypad_cell_height">42dp</dimen>
+    <!--<dimen name="numeric_keypad_height">344dp</dimen> &lt;!&ndash; 4 * (numeric_keypad_cell_height) + 88dp pre-21 FAB height &ndash;&gt;-->
+    <!--<dimen name="numeric_keypad_backspace_height">88dp</dimen> &lt;!&ndash; Same as pre-21 FAB height &ndash;&gt;-->
+    <!--<dimen name="numeric_keypad_fab_bottom_margin">0dp</dimen> &lt;!&ndash; 88dp height already big enough &ndash;&gt;-->
+
+    <!-- NumberGridTimePickerDialog -->
+    <!--<dimen name="number_grid_height">220dp</dimen> &lt;!&ndash; 5 * (number_grid_minute_cell_height) &ndash;&gt;-->
+    <dimen name="number_grid_hour_cell_height">55dp</dimen> <!-- 4 * 55 == 5 * (number_grid_minute_cell_height) -->
+    <dimen name="number_grid_minute_cell_height">44dp</dimen>
+    <!--TODO: Change the height suffix to size or dimen, because this is used as a width in landscape and a height in portrait. -->
+    <dimen name="half_day_button_bar_height">72dp</dimen>
+    <dimen name="number_grid_24_hour_item_primary_text_size">26sp</dimen>
+    <dimen name="number_grid_minute_text_size">20sp</dimen>
+
+</resources>
