@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.philliphsu.bottomsheettimepickers.timepickers.BottomSheetTimePickerDialog;
-import com.philliphsu.bottomsheettimepickers.timepickers.GridTimePickerDialog;
-import com.philliphsu.bottomsheettimepickers.timepickers.NumpadTimePickerDialog;
+import com.philliphsu.bottomsheettimepickers.time.BottomSheetTimePickerDialog;
+import com.philliphsu.bottomsheettimepickers.time.GridTimePickerDialog;
+import com.philliphsu.bottomsheettimepickers.time.NumpadTimePickerDialog;
 
 import java.util.Calendar;
 

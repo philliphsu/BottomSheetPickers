@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.philliphsu.bottomsheettimepickers.timepickers;
+package com.philliphsu.bottomsheettimepickers.time;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;

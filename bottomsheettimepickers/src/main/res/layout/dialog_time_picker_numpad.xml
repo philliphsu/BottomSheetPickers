@@ -36,7 +36,7 @@ doesn't work. -->
     <!--<View style="@style/FocusGrabber"
           android:id="@+id/focus_grabber"/>-->
 
-    <com.philliphsu.bottomsheettimepickers.timepickers.NumpadTimePicker
+    <com.philliphsu.bottomsheettimepickers.time.NumpadTimePicker
         android:id="@+id/number_grid"
         android:layout_width="match_parent"
         android:layout_height="@dimen/numeric_keypad_height"

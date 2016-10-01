@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.philliphsu.bottomsheettimepickers.timepickers;
+package com.philliphsu.bottomsheettimepickers.time;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
