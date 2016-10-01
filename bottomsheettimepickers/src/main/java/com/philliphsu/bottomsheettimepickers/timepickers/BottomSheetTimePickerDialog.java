@@ -47,15 +47,8 @@ public abstract class BottomSheetTimePickerDialog extends BottomSheetDialogFragm
          * @param hourOfDay The hour that was set.
          * @param minute The minute that was set.
          */
-        // TODO: Consider removing VG param, since listeners probably won't need to use it....
         void onTimeSet(ViewGroup viewGroup, int hourOfDay, int minute);
     }
-
-    /**
-     * Empty constructor required for dialog fragment.
-     * Subclasses do not need to write their own.
-     */
-    public BottomSheetTimePickerDialog() {}
 
     @LayoutRes
     protected abstract int contentLayout();
