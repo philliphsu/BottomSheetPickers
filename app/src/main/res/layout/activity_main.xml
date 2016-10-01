@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,12 +10,56 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.philliphsu.bottomsheetpickers.MainActivity">
 
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:checkedButton="@+id/choice_number_pad">
+
+        <RadioButton
+            android:id="@id/choice_number_pad"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Number Pad, Light"/>
+
+        <RadioButton
+            android:id="@+id/choice_grid_selector"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Grid Selector, Light"/>
+
+        <RadioButton
+            android:id="@+id/choice_number_pad_dark"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Number Pad, Dark"/>
+
+        <RadioButton
+            android:id="@+id/choice_grid_selector_dark"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Grid Selector, Dark"/>
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_below="@id/radioGroup"
+        android:layout_centerHorizontal="true"
+        android:text="Time set: "/>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        app:srcCompat="@drawable/ic_dialpad_24dp"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        app:srcCompat="@drawable/ic_dialpad_24dp"/>
 
-</FrameLayout>
+</RelativeLayout>
