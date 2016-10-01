@@ -39,10 +39,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnLongClick;
-
 /**
  * Created by Phillip Hsu on 7/12/2016.
  */

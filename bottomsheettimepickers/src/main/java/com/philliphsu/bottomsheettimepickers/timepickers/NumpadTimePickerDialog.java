@@ -26,9 +26,6 @@ import android.widget.TextView;
 
 import com.philliphsu.bottomsheettimepickers.R;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-
 /**
  * Created by Phillip Hsu on 7/12/2016.
  *
@@ -102,7 +99,7 @@ public class NumpadTimePickerDialog extends BaseTimePickerDialog
         mInputField = (TextView) view.findViewById(R.id.input_time);
         mNumpad = (NumpadTimePicker) view.findViewById(R.id.number_grid);
 
-        final FloatingActionButton fab = mNumpad.findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) mNumpad.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

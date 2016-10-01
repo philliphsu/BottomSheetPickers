@@ -1,0 +1,101 @@
+<!--
+  ~ Copyright (C) 2016 Phillip Hsu
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <style name="NumberButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="grid_element_single">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:textSize">@dimen/grid_element_text_size</item>
+    </style>
+
+    <!-- TODO: Rename to GridLayoutElement -->
+    <style name="GridLayoutNumpadElement">
+        <!-- http://stackoverflow.com/a/6868308/5055032
+         Leave off the namespace to reference a custom attribute.
+         Here, we are referencing the "grid:" namespace -->
+        <item name="layout_columnWeight">1</item>
+        <!--<item name="layout_rowWeight">1</item>-->
+        <item name="android:layout_height">@dimen/numeric_keypad_cell_height</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- TODO: Rename to GridLayout[Text/Button/TextView]? -->
+    <style name="GridLayoutNumpadButton" parent="GridLayoutNumpadElement">
+        <item name="android:textSize">@dimen/grid_element_text_size</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="GridLayoutNumpadButton.Inverse">
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+    </style>
+
+    <style name="NumberGridButton" parent="GridLayoutNumpadButton">
+        <!-- TODO: Do we need this anymore? -->
+        <!-- This should give us 87% black. By default, TextView has a grayish text color.
+        The reason GridLayoutNumpadButton style used in the NumpadTimerPickerDialog is 87% black
+        already is because the numpad's buttons are actually of type Button. For whatever reason,
+        I decided to make the buttons for the NumbersGrid of type TextView... -->
+        <!--<item name="android:textColor">?android:attr/textColorPrimary</item>-->
+    </style>
+    <style name="NumberGridButton.Hour">
+        <item name="android:layout_height">@dimen/number_grid_hour_cell_height</item>
+    </style>
+    <style name="NumberGridButton.Minute">
+        <!-- Lowered text size, otherwise it looks weird that the minute grid, with 5 rows
+         of buttons, has the same text size as the hours grid, with 4 rows of buttons; they look
+         too big, and the space between them is smaller. -->
+        <item name="android:textSize">@dimen/number_grid_minute_text_size</item>
+        <item name="android:layout_height">@dimen/number_grid_minute_cell_height</item>
+    </style>
+
+    <style name="Divider">
+        <!-- This is robust against dark/light theme changes. -->
+        <!-- Normally not visible in bottom sheets; workaround is to manually change the background color of the divider-->
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
+
+    <style name="Divider.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="Divider.Vertical">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ModalStyle</item>
+        <!--TODO: See if defining a colorAccent item works.-->
+    </style>
+
+    <style name="ModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <!-- TODO: See if this can be set programmatically, or else we'd have to force users
+           ~ to declare a bottomSheetDialogTheme in their theme.
+         -->
+        <item name="behavior_peekHeight">@dimen/peek_height_upper_limit</item>
+    </style>
+</resources>

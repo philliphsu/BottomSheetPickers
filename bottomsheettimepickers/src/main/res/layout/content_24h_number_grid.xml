@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2016 Phillip Hsu
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<merge xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Although the style defines a textSize attribute, it will not be
+    applied because this is just a LinearLayout. -->
+    <com.philliphsu.clock2.timepickers.TwentyFourHourGridItem
+        style="@style/NumberGridButton.Hour"
+        app:primaryText="00"
+        app:secondaryText="12"/>
+    <com.philliphsu.clock2.timepickers.TwentyFourHourGridItem
+        style="@style/NumberGridButton.Hour"
+        app:primaryText="01"
+        app:secondaryText="13"/>
+    <com.philliphsu.clock2.timepickers.TwentyFourHourGridItem
+        style="@style/NumberGridButton.Hour"
+        app:primaryText="02"
+        app:secondaryText="14"/>
+    <com.philliphsu.clock2.timepickers.TwentyFourHourGridItem
+        style="@style/NumberGridButton.Hour"
+        app:primaryText="03"
+        app:secondaryText="15"/>
+    <com.philliphsu.clock2.timepickers.TwentyFourHourGridItem
+        style="@style/NumberGridButton.Hour"
+        app:primaryText="04"
+        app:secondaryText="16"/>
+    <com.philliphsu.clock2.timepickers.TwentyFourHourGridItem
+        style="@style/NumberGridButton.Hour"
+        app:primaryText="05"
+        app:secondaryText="17"/>
+    <com.philliphsu.clock2.timepickers.TwentyFourHourGridItem
+        style="@style/NumberGridButton.Hour"
+        app:primaryText="06"
+        app:secondaryText="18"/>
+    <com.philliphsu.clock2.timepickers.TwentyFourHourGridItem
+        style="@style/NumberGridButton.Hour"
+        app:primaryText="07"
+        app:secondaryText="19"/>
+    <com.philliphsu.clock2.timepickers.TwentyFourHourGridItem
+        style="@style/NumberGridButton.Hour"
+        app:primaryText="08"
+        app:secondaryText="20"/>
+    <com.philliphsu.clock2.timepickers.TwentyFourHourGridItem
+        style="@style/NumberGridButton.Hour"
+        app:primaryText="09"
+        app:secondaryText="21"/>
+    <com.philliphsu.clock2.timepickers.TwentyFourHourGridItem
+        style="@style/NumberGridButton.Hour"
+        app:primaryText="10"
+        app:secondaryText="22"/>
+    <com.philliphsu.clock2.timepickers.TwentyFourHourGridItem
+        style="@style/NumberGridButton.Hour"
+        app:primaryText="11"
+        app:secondaryText="23"/>
+</merge>

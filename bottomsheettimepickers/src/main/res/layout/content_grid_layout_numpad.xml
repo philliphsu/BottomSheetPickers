@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2016 Phillip Hsu
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:grid="http://schemas.android.com/apk/res-auto">
+    <Button
+        android:id="@+id/one"
+        style="@style/GridLayoutNumpadButton"
+        android:text="1"/>
+
+    <Button
+        android:id="@+id/two"
+        style="@style/GridLayoutNumpadButton"
+        android:text="2"/>
+
+    <Button
+        android:id="@+id/three"
+        style="@style/GridLayoutNumpadButton"
+        android:text="3"/>
+
+    <Button
+        android:id="@+id/four"
+        style="@style/GridLayoutNumpadButton"
+        android:text="4"/>
+
+    <Button
+        android:id="@+id/five"
+        style="@style/GridLayoutNumpadButton"
+        android:text="5"/>
+
+    <Button
+        android:id="@+id/six"
+        style="@style/GridLayoutNumpadButton"
+        android:text="6"/>
+
+    <Button
+        android:id="@+id/seven"
+        style="@style/GridLayoutNumpadButton"
+        android:text="7"/>
+
+    <Button
+        android:id="@+id/eight"
+        style="@style/GridLayoutNumpadButton"
+        android:text="8"/>
+
+    <Button
+        android:id="@+id/nine"
+        style="@style/GridLayoutNumpadButton"
+        android:text="9"/>
+
+    <Button
+        android:id="@+id/zero"
+        style="@style/GridLayoutNumpadButton"
+        grid:layout_column="1"
+        android:text="0"/>
+</merge>

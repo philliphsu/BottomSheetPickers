@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+
+    <color name="circle_background">#f2f2f2</color>
+    <color name="line_background">#1f000000</color> <!--12% black. Originally #cccccc-->
+    <color name="ampm_text_color">#8c8c8c</color>
+    <color name="done_text_color_normal">#000000</color>
+    <color name="done_text_color_disabled">#cccccc</color>
+    <color name="numbers_text_color">#8c8c8c</color>
+
+    <color name="transparent_black">#7f000000</color>
+    <color name="blue">#33b5e5</color>
+    <color name="blue_focused">#c1e8f7</color>
+    <color name="neutral_pressed">#33999999</color>
+    <color name="darker_blue">#0099cc</color>
+    <color name="date_picker_text_normal">#ff999999</color>
+    <color name="date_picker_text_disabled">#ccc</color>
+
+    <color name="calendar_header">#999999</color>
+    <color name="date_picker_view_animator">#f2f2f2</color>
+    <color name="calendar_selected_date_text">#ffd1d2d4</color>
+
+    <!-- Colors for red theme -->
+    <color name="red">#ff3333</color>
+    <color name="red_focused">#853333</color>
+    <color name="light_gray">#303030</color> <!--800 < Grey < 900. Originally #404040-->
+    <color name="dark_gray">#212121</color> <!--Grey 900. Originally #363636-->
+    <color name="line_dark">#1fffffff</color> <!--12% white. Originally #808080-->
+    <color name="done_text_color_dark_normal">#ffffff</color>
+    <color name="done_text_color_dark_disabled">#888888</color>
+    <color name="done_disabled_dark">#bfbfbf</color>
+
+    <!--My stuff-->
+    <color name="unselected_color">#80ffffff</color><!--50% white-->
+    <color name="text_color_primary_dark">#ffffffff</color> <!--100% white-->
+    <color name="text_color_primary_light">#de000000</color> <!--87% black-->
+    <color name="text_color_secondary_dark">#b3ffffff</color> <!--70% white-->
+    <color name="text_color_secondary_light">#8a000000</color> <!--54% black-->
+    <color name="text_color_disabled_dark">#80ffffff</color> <!--50% white TODO: same as unselected_color-->
+    <color name="text_color_disabled_light">#61000000</color> <!--38% black-->
+
+    <!-- Derived from Raised Button section of the guidelines. Make sure to set FAB elevation to 0dp! -->
+    <color name="fab_disabled_dark">#1fffffff</color> <!--12% white-->
+    <color name="fab_disabled_light">#1f000000</color> <!--12% black-->
+
+    <color name="icon_color_active_dark">#ffffffff</color> <!--100% white-->
+    <color name="icon_color_active_light">#8a000000</color> <!--54% black-->
+    <!-- TODO: This value is from the Icons page. The Colors page lists 50% white for "Icons and other elements". -->
+    <color name="icon_color_inactive_dark">#4dffffff</color> <!--30% white-->
+    <!-- TODO: This value is from the Icons page. The Colors page lists 38% black for "Icons and other elements". -->
+    <color name="icon_color_inactive_light">#42000000</color> <!--26% black-->
+</resources>

@@ -1,0 +1,65 @@
+<!--
+  ~ Copyright (C) 2016 Phillip Hsu
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <!--<dimen name="fab_total_height">88dp</dimen>-->
+
+    <dimen name="grid_element_text_size">34sp</dimen>
+    <dimen name="grid_element_touch_target">40dp</dimen>
+
+    <!-- NumpadTimePickerDialog -->
+    <dimen name="numpad_height">300dp</dimen> <!-- TODO: Deprecated -->
+    <dimen name="numeric_keypad_cell_height">64dp</dimen>
+    <dimen name="numeric_keypad_output_box_height">80dp</dimen>
+    <dimen name="numeric_keypad_height">344dp</dimen> <!-- 4 * (numeric_keypad_cell_height) + 88dp pre-21 FAB height -->
+    <dimen name="numeric_keypad_backspace_height">88dp</dimen> <!-- Same as pre-21 FAB height -->
+    <dimen name="numeric_keypad_fab_bottom_margin">0dp</dimen> <!-- 88dp height already big enough -->
+
+    <!-- NumberGridTimePickerDialog -->
+    <dimen name="number_grid_height">308dp</dimen> <!-- 5 * (number_grid_minute_cell_height) + half-FAB height bottom padding -->
+    <dimen name="number_grid_hour_cell_height">70dp</dimen> <!-- 4 * 70 == 5 * (number_grid_minute_cell_height) -->
+    <dimen name="number_grid_minute_cell_height">56dp</dimen>
+    <dimen name="half_day_button_bar_height">48dp</dimen>
+    <dimen name="number_grid_24_hour_item_primary_text_size">30sp</dimen>
+    <dimen name="number_grid_minute_text_size">28sp</dimen>
+
+    <!-- Bottom sheet specs -->
+    <dimen name="bottom_sheet_edge_margin">24dp</dimen>
+    <dimen name="bottom_sheet_vertical_space">16dp</dimen>
+    <dimen name="anchored_fab_vertical_space">28dp</dimen>
+    <!-- If the total height of the contents of a bottom sheet does not exceed this limit,
+    then the sheet will show fully expanded; the contents are not stretched to match this height.
+    This is large enough to accommodate most, if not all, of our layouts. -->
+    <dimen name="peek_height_upper_limit">500dp</dimen>
+
+    <dimen name="text_size_body_1">14sp</dimen>
+    <dimen name="text_size_body_2">14sp</dimen>
+    <dimen name="text_size_button">14sp</dimen>
+    <dimen name="text_size_caption">12sp</dimen>
+    <dimen name="text_size_display_1">34sp</dimen>
+    <dimen name="text_size_display_2">45sp</dimen>
+    <dimen name="text_size_display_3">56sp</dimen>
+    <dimen name="text_size_display_4">112sp</dimen>
+    <dimen name="text_size_headline">24sp</dimen>
+    <dimen name="text_size_large">22sp</dimen>
+    <dimen name="text_size_medium">18sp</dimen>
+    <dimen name="text_size_menu">16sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_subhead">16sp</dimen>
+    <dimen name="text_size_subtitle_toolbar">16dp</dimen>
+    <dimen name="text_size_title">20sp</dimen>
+    <dimen name="text_size_title_toolbar">20dp</dimen>
+</resources>
