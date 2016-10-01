@@ -30,7 +30,7 @@ import com.philliphsu.bottomsheettimepickers.R;
  * Created by Phillip Hsu on 7/12/2016.
  *
  */
-public class NumpadTimePickerDialog extends BaseTimePickerDialog
+public class NumpadTimePickerDialog extends BottomSheetTimePickerDialog
         implements NumpadTimePicker.OnInputChangeListener {
     private static final String TAG = "NumpadTimePickerDialog";
 

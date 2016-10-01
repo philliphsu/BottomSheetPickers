@@ -32,8 +32,8 @@ import com.philliphsu.bottomsheettimepickers.R;
 /**
  * Created by Phillip Hsu on 7/16/2016.
  */
-public abstract class BaseTimePickerDialog extends BottomSheetDialogFragment {
-    private static final String TAG = "BaseTimePickerDialog";
+public abstract class BottomSheetTimePickerDialog extends BottomSheetDialogFragment {
+    private static final String TAG = "BottomSheetTimePickerDialog";
 
     private OnTimeSetListener mCallback;
 
@@ -55,7 +55,7 @@ public abstract class BaseTimePickerDialog extends BottomSheetDialogFragment {
      * Empty constructor required for dialog fragment.
      * Subclasses do not need to write their own.
      */
-    public BaseTimePickerDialog() {}
+    public BottomSheetTimePickerDialog() {}
 
     @LayoutRes
     protected abstract int contentLayout();

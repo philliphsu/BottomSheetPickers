@@ -6,10 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.philliphsu.bottomsheettimepickers.timepickers.BaseTimePickerDialog;
+import com.philliphsu.bottomsheettimepickers.timepickers.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheettimepickers.timepickers.NumpadTimePickerDialog;
 
-public class MainActivity extends AppCompatActivity implements BaseTimePickerDialog.OnTimeSetListener {
+public class MainActivity extends AppCompatActivity implements BottomSheetTimePickerDialog.OnTimeSetListener {
     private static final String TAG = "MainActivity";
 
     @Override

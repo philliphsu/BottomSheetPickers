@@ -54,7 +54,7 @@ import java.util.Locale;
  *
  * TODO: Rename to GridSelectorTimePickerDialog
  */
-public class NumberGridTimePickerDialog extends BaseTimePickerDialog implements OnValueSelectedListener {
+public class NumberGridTimePickerDialog extends BottomSheetTimePickerDialog implements OnValueSelectedListener {
     private static final String TAG = "TimePickerDialog";
 
     private static final String KEY_HOUR_OF_DAY = "hour_of_day";
