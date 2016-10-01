@@ -65,7 +65,7 @@ public abstract class NumbersGrid extends GridLayout implements View.OnClickList
         // The reason we can use the Context passed here and get the correct accent color
         // is that this NumbersGrid is programmatically created by the GridSelectorLayout in
         // its initialize(), and the Context passed in there is from
-        // NumberGridTimePickerDialog.getActivity().
+        // GridTimePickerDialog.getActivity().
         mSelectedTextColor = Utils.getThemeAccentColor(context);
         final View defaultSelectedView = getChildAt(indexOfDefaultValue());
         mSelection = valueOf(defaultSelectedView);

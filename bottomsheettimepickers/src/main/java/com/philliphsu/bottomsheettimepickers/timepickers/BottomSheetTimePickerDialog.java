@@ -29,9 +29,6 @@ import android.view.ViewGroup;
 
 import com.philliphsu.bottomsheettimepickers.R;
 
-/**
- * Created by Phillip Hsu on 7/16/2016.
- */
 public abstract class BottomSheetTimePickerDialog extends BottomSheetDialogFragment {
     private static final String TAG = "BottomSheetTimePickerDialog";
 
@@ -50,8 +47,7 @@ public abstract class BottomSheetTimePickerDialog extends BottomSheetDialogFragm
         void onTimeSet(ViewGroup viewGroup, int hourOfDay, int minute);
     }
 
-    @LayoutRes
-    protected abstract int contentLayout();
+    @LayoutRes abstract int contentLayout();
 
     public final void setOnTimeSetListener(OnTimeSetListener callback) {
         mCallback = callback;
@@ -65,11 +61,11 @@ public abstract class BottomSheetTimePickerDialog extends BottomSheetDialogFragm
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public final Dialog onCreateDialog(Bundle savedInstanceState) {
         return new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
     }
 
-    protected final void onTimeSet(ViewGroup vg, int hourOfDay, int minute) {
+    final void onTimeSet(ViewGroup vg, int hourOfDay, int minute) {
         if (mCallback != null) {
             mCallback.onTimeSet(vg, hourOfDay, minute);
         }

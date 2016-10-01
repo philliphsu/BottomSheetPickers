@@ -138,8 +138,7 @@ public class NumpadTimePickerDialog extends BottomSheetTimePickerDialog
         return view;
     }
 
-    @Override
-    protected int contentLayout() {
+    @Override int contentLayout() {
         return R.layout.dialog_time_picker_numpad;
     }
 

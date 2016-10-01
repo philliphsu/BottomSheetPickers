@@ -48,13 +48,9 @@ import java.util.Locale;
 //import com.android.datetimepicker.time.RadialPickerLayout.OnValueSelectedListener;
 
 /**
- * Dialog to set a time.
- *
  * A derivative of the AOSP datetimepicker TimePickerDialog class.
- *
- * TODO: Rename to GridSelectorTimePickerDialog
  */
-public class NumberGridTimePickerDialog extends BottomSheetTimePickerDialog implements OnValueSelectedListener {
+public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements OnValueSelectedListener {
     private static final String TAG = "TimePickerDialog";
 
     private static final String KEY_HOUR_OF_DAY = "hour_of_day";
@@ -138,8 +134,7 @@ public class NumberGridTimePickerDialog extends BottomSheetTimePickerDialog impl
     private FrameLayout mLeftHalfDayToggle;
     private FrameLayout mRightHalfDayToggle;
 
-    @Override
-    protected int contentLayout() {
+    @Override int contentLayout() {
         return R.layout.dialog_time_picker_number_grid;
     }
 
@@ -193,18 +188,18 @@ public class NumberGridTimePickerDialog extends BottomSheetTimePickerDialog impl
 
     // =============================================================================================
 
-    public NumberGridTimePickerDialog() {
+    public GridTimePickerDialog() {
         // Empty constructor required for dialog fragment.
     }
 
-//    public NumberGridTimePickerDialog(Context context, int theme, OnTimeSetListener callback,
+//    public GridTimePickerDialog(Context context, int theme, OnTimeSetListener callback,
 //                                        int hourOfDay, int minute, boolean is24HourMode) {
 //        // Empty constructor required for dialog fragment.
 //    }
 
-    public static NumberGridTimePickerDialog newInstance(OnTimeSetListener callback,
-                                                         int hourOfDay, int minute, boolean is24HourMode) {
-        NumberGridTimePickerDialog ret = new NumberGridTimePickerDialog();
+    public static GridTimePickerDialog newInstance(OnTimeSetListener callback,
+                                                   int hourOfDay, int minute, boolean is24HourMode) {
+        GridTimePickerDialog ret = new GridTimePickerDialog();
         ret.initialize(callback, hourOfDay, minute, is24HourMode);
         return ret;
     }

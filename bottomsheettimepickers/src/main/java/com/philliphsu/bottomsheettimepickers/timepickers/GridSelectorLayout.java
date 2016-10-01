@@ -42,12 +42,12 @@ public class GridSelectorLayout extends ViewAnimator implements NumbersGrid.OnNu
 
     private static final int ANIMATION_DURATION = 300;
 
-    private static final int HOUR_INDEX = NumberGridTimePickerDialog.HOUR_INDEX;
-    private static final int MINUTE_INDEX = NumberGridTimePickerDialog.MINUTE_INDEX;
+    private static final int HOUR_INDEX = GridTimePickerDialog.HOUR_INDEX;
+    private static final int MINUTE_INDEX = GridTimePickerDialog.MINUTE_INDEX;
     // TODO: Rename to HALF_DAY_INDEX?
-    private static final int AMPM_INDEX = NumberGridTimePickerDialog.AMPM_INDEX;
-    private static final int HALF_DAY_1 = NumberGridTimePickerDialog.HALF_DAY_1;
-    private static final int HALF_DAY_2 = NumberGridTimePickerDialog.HALF_DAY_2;
+    private static final int AMPM_INDEX = GridTimePickerDialog.AMPM_INDEX;
+    private static final int HALF_DAY_1 = GridTimePickerDialog.HALF_DAY_1;
+    private static final int HALF_DAY_2 = GridTimePickerDialog.HALF_DAY_2;
 
     private OnValueSelectedListener mListener;
     private boolean mTimeInitialized;
