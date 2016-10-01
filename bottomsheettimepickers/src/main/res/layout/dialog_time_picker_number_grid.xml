@@ -43,7 +43,7 @@
         <!--TOneverDO: Change paddingBottom to marginBottom without also subtracting the
          margin amount from the height. -->
         <!--TODO: As a library, we probably also want to paddingLeft/Right-->
-        <com.philliphsu.bottomsheettimepickers.time.GridSelectorLayout
+        <com.philliphsu.bottomsheetpickers.time.GridSelectorLayout
             android:id="@+id/time_picker"
             android:layout_width="match_parent"
             android:layout_height="@dimen/number_grid_height"

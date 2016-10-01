@@ -1,4 +1,4 @@
-package com.philliphsu.bottomsheettimepickers;
+package com.philliphsu.bottomsheetpickers;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

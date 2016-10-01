@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.philliphsu.bottomsheettimepickers.time;
+package com.philliphsu.bottomsheetpickers.time;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -32,7 +32,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.philliphsu.bottomsheettimepickers.R;
+import com.philliphsu.bottomsheetpickers.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

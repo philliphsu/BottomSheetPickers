@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.philliphsu.bottomsheettimepickers.time;
+package com.philliphsu.bottomsheetpickers.time;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -27,7 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.philliphsu.bottomsheettimepickers.R;
+import com.philliphsu.bottomsheetpickers.R;
 
 public abstract class BottomSheetTimePickerDialog extends BottomSheetDialogFragment {
     private static final String TAG = "BottomSheetTimePickerDialog";

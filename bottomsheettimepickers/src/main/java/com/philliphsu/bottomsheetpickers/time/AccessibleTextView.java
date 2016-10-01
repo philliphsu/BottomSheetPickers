@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.philliphsu.bottomsheettimepickers.time;
+package com.philliphsu.bottomsheetpickers.time;
 
 import android.content.Context;
 import android.util.AttributeSet;

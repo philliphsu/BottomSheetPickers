@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.philliphsu.bottomsheettimepickers.time;
+package com.philliphsu.bottomsheetpickers.time;
 
 import android.content.Context;
 
-import com.philliphsu.bottomsheettimepickers.R;
+import com.philliphsu.bottomsheetpickers.R;
 
 /**
  * Created by Phillip Hsu on 8/17/2016.

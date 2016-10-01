@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.philliphsu.bottomsheettimepickers.time;
+package com.philliphsu.bottomsheetpickers.time;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -24,7 +24,7 @@ import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.philliphsu.bottomsheettimepickers.R;
+import com.philliphsu.bottomsheetpickers.R;
 
 /**
  * Created by Phillip Hsu on 7/21/2016.

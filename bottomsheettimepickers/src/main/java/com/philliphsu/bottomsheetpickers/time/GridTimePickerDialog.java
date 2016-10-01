@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package com.philliphsu.bottomsheettimepickers.time;
+package com.philliphsu.bottomsheetpickers.time;
 
 import android.animation.ObjectAnimator;
 import android.app.ActionBar.LayoutParams;
@@ -35,8 +35,8 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.philliphsu.bottomsheettimepickers.R;
-import com.philliphsu.bottomsheettimepickers.time.GridSelectorLayout.OnValueSelectedListener;
+import com.philliphsu.bottomsheetpickers.R;
+import com.philliphsu.bottomsheetpickers.time.GridSelectorLayout.OnValueSelectedListener;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;

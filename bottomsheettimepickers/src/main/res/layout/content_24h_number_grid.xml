@@ -18,51 +18,51 @@
 <merge xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- Although the style defines a textSize attribute, it will not be
     applied because this is just a LinearLayout. -->
-    <com.philliphsu.bottomsheettimepickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
         style="@style/NumberGridButton.Hour"
         app:primaryText="00"
         app:secondaryText="12"/>
-    <com.philliphsu.bottomsheettimepickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
         style="@style/NumberGridButton.Hour"
         app:primaryText="01"
         app:secondaryText="13"/>
-    <com.philliphsu.bottomsheettimepickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
         style="@style/NumberGridButton.Hour"
         app:primaryText="02"
         app:secondaryText="14"/>
-    <com.philliphsu.bottomsheettimepickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
         style="@style/NumberGridButton.Hour"
         app:primaryText="03"
         app:secondaryText="15"/>
-    <com.philliphsu.bottomsheettimepickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
         style="@style/NumberGridButton.Hour"
         app:primaryText="04"
         app:secondaryText="16"/>
-    <com.philliphsu.bottomsheettimepickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
         style="@style/NumberGridButton.Hour"
         app:primaryText="05"
         app:secondaryText="17"/>
-    <com.philliphsu.bottomsheettimepickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
         style="@style/NumberGridButton.Hour"
         app:primaryText="06"
         app:secondaryText="18"/>
-    <com.philliphsu.bottomsheettimepickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
         style="@style/NumberGridButton.Hour"
         app:primaryText="07"
         app:secondaryText="19"/>
-    <com.philliphsu.bottomsheettimepickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
         style="@style/NumberGridButton.Hour"
         app:primaryText="08"
         app:secondaryText="20"/>
-    <com.philliphsu.bottomsheettimepickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
         style="@style/NumberGridButton.Hour"
         app:primaryText="09"
         app:secondaryText="21"/>
-    <com.philliphsu.bottomsheettimepickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
         style="@style/NumberGridButton.Hour"
         app:primaryText="10"
         app:secondaryText="22"/>
-    <com.philliphsu.bottomsheettimepickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
         style="@style/NumberGridButton.Hour"
         app:primaryText="11"
         app:secondaryText="23"/>
