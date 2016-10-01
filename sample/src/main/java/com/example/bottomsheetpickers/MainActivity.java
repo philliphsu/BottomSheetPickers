@@ -1,4 +1,4 @@
-package com.philliphsu.bottomsheetpickers;
+package com.example.bottomsheetpickers;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
