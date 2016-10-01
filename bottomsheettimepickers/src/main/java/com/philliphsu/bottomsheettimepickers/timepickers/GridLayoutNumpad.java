@@ -51,7 +51,7 @@ public abstract class GridLayoutNumpad extends GridLayout implements View.OnClic
     private ColorStateList mTextColors;
     int mAccentColor;
 
-    TextView[] mButtons;
+    private final TextView[] mButtons = new TextView[10];
 
     /**
      * Informs clients how to output the digits inputted into this numpad.
@@ -292,6 +292,9 @@ public abstract class GridLayoutNumpad extends GridLayout implements View.OnClic
         mButtons[7] = (TextView) findViewById(R.id.seven);
         mButtons[8] = (TextView) findViewById(R.id.eight);
         mButtons[9] = (TextView) findViewById(R.id.nine);
+        for (TextView tv : mButtons) {
+            tv.setOnClickListener(this);
+        }
         // If capacity() < 0, we let the system throw the exception.
         mInput = new int[capacity()];
         Arrays.fill(mInput, UNMODIFIED);
