@@ -39,7 +39,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.philliphsu.clock2.R;
+import com.philliphsu.bottomsheettimepickers.R;
 
 import java.util.Calendar;
 

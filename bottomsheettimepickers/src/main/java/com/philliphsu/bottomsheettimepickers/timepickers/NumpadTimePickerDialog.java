@@ -17,14 +17,14 @@
 package com.philliphsu.bottomsheettimepickers.timepickers;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.philliphsu.clock2.R;
-import com.philliphsu.clock2.util.TimeTextUtils;
+import com.philliphsu.bottomsheettimepickers.R;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -57,19 +57,8 @@ public class NumpadTimePickerDialog extends BaseTimePickerDialog
     private boolean mThemeDark;
     private boolean mThemeSetAtRuntime;
 
-    // Don't need to keep a reference to the dismiss ImageButton
-    @Bind(R.id.input_time) TextView mInputField;
-    @Bind(R.id.number_grid) NumpadTimePicker mNumpad;
-//    @Bind(R.id.focus_grabber) View mFocusGrabber;
-
-    // TODO: We don't need to pass in an initial hour and minute for a new instance.
-    @Deprecated
-    public static NumpadTimePickerDialog newInstance(OnTimeSetListener callback,
-                                                     int hourOfDay, int minute, boolean is24HourMode) {
-        NumpadTimePickerDialog ret = new NumpadTimePickerDialog();
-        ret.initialize(callback, hourOfDay, minute, is24HourMode);
-        return ret;
-    }
+    private TextView mInputField;
+    private NumpadTimePicker mNumpad;
 
     // TODO: is24HourMode param
     public static NumpadTimePickerDialog newInstance(OnTimeSetListener callback) {
@@ -79,13 +68,6 @@ public class NumpadTimePickerDialog extends BaseTimePickerDialog
         ret.mThemeDark = false;
         ret.mThemeSetAtRuntime = false;
         return ret;
-    }
-
-    @Deprecated
-    public void initialize(OnTimeSetListener callback,
-                           int hourOfDay, int minute, boolean is24HourMode) {
-        setOnTimeSetListener(callback);
-        mIs24HourMode = is24HourMode;
     }
 
     /**
@@ -116,6 +98,20 @@ public class NumpadTimePickerDialog extends BaseTimePickerDialog
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
+
+        mInputField = (TextView) view.findViewById(R.id.input_time);
+        mNumpad = (NumpadTimePicker) view.findViewById(R.id.number_grid);
+
+        final FloatingActionButton fab = mNumpad.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mNumpad.checkTimeValid())
+                    return;
+                onTimeSet(mNumpad, mNumpad.getHour(), mNumpad.getMinute());
+            }
+        });
+
         if (!mThemeSetAtRuntime) {
             mThemeDark = Utils.isDarkTheme(getActivity(), mThemeDark);
         }
@@ -178,33 +174,10 @@ public class NumpadTimePickerDialog extends BaseTimePickerDialog
 
     @Override
     public void onInputDisabled() {
-        // Steals the focus from the EditText
-//        mFocusGrabber.requestFocus();
-    }
-
-//    @OnTouch(R.id.input_time)
-//    boolean captureTouchOnEditText() {
-//        // Capture touch events on the EditText field, because we want it to do nothing.
-//        return true;
-//    }
-
-    // The FAB is not defined directly in this dialog's layout, but rather in the layout
-    // of the NumpadTimePicker. We can always reference a child of a ViewGroup that is
-    // part of our layout.
-    @OnClick(R.id.fab)
-    void confirmSelection() {
-        if (!mNumpad.checkTimeValid())
-            return;
-        onTimeSet(mNumpad, mNumpad.getHour(), mNumpad.getMinute());
+        // No implementation.
     }
 
     private void updateInputText(String inputText) {
         TimeTextUtils.setText(inputText, mInputField);
-//        // Move the cursor
-//        mInputField.setSelection(mInputField.length());
-//        if (mFocusGrabber.isFocused()) {
-//            // Return focus to the EditText
-//            mInputField.requestFocus();
-//        }
     }
 }

@@ -18,7 +18,7 @@ package com.philliphsu.bottomsheettimepickers.timepickers;
 
 import android.content.Context;
 
-import com.philliphsu.clock2.R;
+import com.philliphsu.bottomsheettimepickers.R;
 
 /**
  * Created by Phillip Hsu on 8/17/2016.

@@ -26,12 +26,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.philliphsu.clock2.R;
+import com.philliphsu.bottomsheettimepickers.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -46,7 +47,6 @@ import butterknife.OnLongClick;
  * Created by Phillip Hsu on 7/12/2016.
  */
 public class NumpadTimePicker extends GridLayoutNumpad {
-    // Time can be represented with maximum of 4 digits
     private static final int MAX_DIGITS = 4;
 
     // Formatted time string has a maximum of 8 characters
@@ -71,15 +71,14 @@ public class NumpadTimePicker extends GridLayoutNumpad {
     @AmPmState
     private int mAmPmState = UNSPECIFIED;
     private final StringBuilder mFormattedInput = new StringBuilder(MAX_CHARS);
-    
-    @Bind({ R.id.leftAlt, R.id.rightAlt })
-    Button[] mAltButtons;
-    @Bind(R.id.fab) FloatingActionButton mFab;
-    @Bind(R.id.backspace) ImageButton mBackspace;
+
+    private final Button[] mAltButtons = new Button[2];
+    private final FloatingActionButton mFab;
+    private final ImageButton mBackspace;
 
     private boolean mThemeDark;
-    private int mFabDisabledColorDark;
-    private int mFabDisabledColorLight;
+    private final int mFabDisabledColorDark;
+    private final int mFabDisabledColorLight;
 
     @Nullable
     private final ObjectAnimator mElevationAnimator;
@@ -101,6 +100,11 @@ public class NumpadTimePicker extends GridLayoutNumpad {
 
     public NumpadTimePicker(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mAltButtons[0] = (Button) findViewById(R.id.leftAlt);
+        mAltButtons[1] = (Button) findViewById(R.id.rightAlt);
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mBackspace = (ImageButton) findViewById(R.id.backspace);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mElevationAnimator = ObjectAnimator.ofFloat(mFab, "elevation",
                     getResources().getDimension(R.dimen.fab_elevation))
@@ -112,7 +116,40 @@ public class NumpadTimePicker extends GridLayoutNumpad {
             // permanently set to 0 (in XML).
             mElevationAnimator = null;
         }
-        init();
+
+        mFabDisabledColorDark = ContextCompat.getColor(getContext(), R.color.fab_disabled_dark);
+        mFabDisabledColorLight = ContextCompat.getColor(getContext(), R.color.fab_disabled_light);
+
+        // TODO: We should have the user pass in is24HourMode when they create an instance of the dialog.
+        if (DateFormat.is24HourFormat(getContext())) {
+            mAltButtons[0].setText(R.string.left_alt_24hr);
+            mAltButtons[1].setText(R.string.right_alt_24hr);
+        } else {
+            String[] amPmTexts = new DateFormatSymbols().getAmPmStrings();
+            mAltButtons[0].setText(amPmTexts[Calendar.AM]);
+            mAltButtons[1].setText(amPmTexts[Calendar.PM]);
+        }
+        updateNumpadStates();
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        for (Button b : mAltButtons) {
+            b.setOnClickListener(mAltButtonClickListener);
+        }
+        mBackspace.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delete();
+            }
+        });
+        mBackspace.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return clear();
+            }
+        });
     }
 
     @Override
@@ -192,7 +229,6 @@ public class NumpadTimePicker extends GridLayoutNumpad {
     }
 
     @Override
-    @OnClick(R.id.backspace)
     public void delete() {
         int len = mFormattedInput.length();
         if (!is24HourFormat() && mAmPmState != UNSPECIFIED) {
@@ -207,12 +243,6 @@ public class NumpadTimePicker extends GridLayoutNumpad {
         } else {
             super.delete();
         }
-    }
-
-    @Override
-    @OnLongClick(R.id.backspace)
-    public boolean clear() {
-        return super.clear();
     }
 
     /** Returns the hour of day (0-23) regardless of clock system */
@@ -316,7 +346,7 @@ public class NumpadTimePicker extends GridLayoutNumpad {
 
         mAmPmState = amPmState;
         if (mAmPmState != HRS_24) {
-            onAltButtonClick(mAmPmState == AM ? mAltButtons[0] : mAltButtons[1]);
+            mAltButtonClickListener.onClick(mAmPmState == AM ? mAltButtons[0] : mAltButtons[1]);
         }
     }
 
@@ -338,7 +368,7 @@ public class NumpadTimePicker extends GridLayoutNumpad {
             case AM:
             case PM:
                 // mAmPmState is set for us
-                onAltButtonClick(mAltButtons[amPmState]);
+                mAltButtonClickListener.onClick(mAltButtons[amPmState]);
                 break;
             case HRS_24:
                 // Restoring the digits, if they make a valid time, should have already
@@ -350,55 +380,6 @@ public class NumpadTimePicker extends GridLayoutNumpad {
                 mAmPmState = amPmState;
                 break;
         }
-    }
-
-    private void init() {
-        mFabDisabledColorDark = ContextCompat.getColor(getContext(), R.color.fab_disabled_dark);
-        mFabDisabledColorLight = ContextCompat.getColor(getContext(), R.color.fab_disabled_light);
-        // TODO: We should have the user pass in is24HourMode when they create an instance of the dialog.
-        if (DateFormat.is24HourFormat(getContext())) {
-            mAltButtons[0].setText(R.string.left_alt_24hr);
-            mAltButtons[1].setText(R.string.right_alt_24hr);
-        } else {
-            String[] amPmTexts = new DateFormatSymbols().getAmPmStrings();
-            mAltButtons[0].setText(amPmTexts[Calendar.AM]);
-            mAltButtons[1].setText(amPmTexts[Calendar.PM]);
-        }
-        updateNumpadStates();
-    }
-
-    @OnClick({ R.id.leftAlt, R.id.rightAlt })
-    void onAltButtonClick(TextView altBtn) {
-        // Manually insert special characters for 12-hour clock
-        if (!is24HourFormat()) {
-            if (count() <= 2) {
-                // The colon is inserted for you
-                insertDigits(0, 0);
-            }
-            // text is AM or PM, so include space before
-            String ampm = altBtn.getText().toString();
-            mFormattedInput.append(' ').append(ampm);
-            String am = new DateFormatSymbols().getAmPmStrings()[0];
-            mAmPmState = ampm.equals(am) ? AM : PM;
-            // Digits will be shown for you on insert, but not AM/PM
-            super/*TOneverDO: remove super*/.onDigitInserted(mFormattedInput.toString());
-        } else {
-            CharSequence text = altBtn.getText();
-            int[] digits = new int[text.length() - 1];
-            // charAt(0) is the colon, so skip i = 0.
-            // We are only interested in storing the digits.
-            for (int i = 1; i < text.length(); i++) {
-                // The array and the text do not have the same lengths,
-                // so the iterator value does not correspond to the
-                // array index directly
-                digits[i - 1] = Character.digit(text.charAt(i), BASE_10);
-            }
-            // Colon is added for you
-            insertDigits(digits);
-            mAmPmState = HRS_24;
-        }
-
-        updateNumpadStates();
     }
 
     private boolean is24HourFormat() {
@@ -614,4 +595,41 @@ public class NumpadTimePicker extends GridLayoutNumpad {
             }
         }
     }
+
+    private final View.OnClickListener mAltButtonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            final TextView altBtn = (TextView) view;
+            // Manually insert special characters for 12-hour clock
+            if (!is24HourFormat()) {
+                if (count() <= 2) {
+                    // The colon is inserted for you
+                    insertDigits(0, 0);
+                }
+                // text is AM or PM, so include space before
+                String ampm = altBtn.getText().toString();
+                mFormattedInput.append(' ').append(ampm);
+                String am = new DateFormatSymbols().getAmPmStrings()[0];
+                mAmPmState = ampm.equals(am) ? AM : PM;
+                // Digits will be shown for you on insert, but not AM/PM
+                NumpadTimePicker.super/*TOneverDO: remove super*/.onDigitInserted(mFormattedInput.toString());
+            } else {
+                CharSequence text = altBtn.getText();
+                int[] digits = new int[text.length() - 1];
+                // charAt(0) is the colon, so skip i = 0.
+                // We are only interested in storing the digits.
+                for (int i = 1; i < text.length(); i++) {
+                    // The array and the text do not have the same lengths,
+                    // so the iterator value does not correspond to the
+                    // array index directly
+                    digits[i - 1] = Character.digit(text.charAt(i), BASE_10);
+                }
+                // Colon is added for you
+                insertDigits(digits);
+                mAmPmState = HRS_24;
+            }
+
+            updateNumpadStates();
+        }
+    };
 }

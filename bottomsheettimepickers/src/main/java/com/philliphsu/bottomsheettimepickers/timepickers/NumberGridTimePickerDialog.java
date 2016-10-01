@@ -35,17 +35,12 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.philliphsu.clock2.R;
-import com.philliphsu.clock2.timepickers.GridSelectorLayout.OnValueSelectedListener;
+import com.philliphsu.bottomsheettimepickers.R;
+import com.philliphsu.bottomsheettimepickers.timepickers.GridSelectorLayout.OnValueSelectedListener;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Locale;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-
-import static com.philliphsu.clock2.util.ConfigurationUtils.getOrientation;
 
 //import com.android.datetimepicker.HapticFeedbackController;
 //import com.android.datetimepicker.R;
@@ -134,40 +129,18 @@ public class NumberGridTimePickerDialog extends BaseTimePickerDialog implements 
     private int mHalfDayToggleUnselectedColor;
 
     // ====================================== MY STUFF =============================================
-
-    // Describes both AM/PM in the 12-hour clock and the half-days of the 24-hour clock.
     // TODO: Use the *values* of AM and PM instead.
     public static final int HALF_DAY_1 = AM;
     public static final int HALF_DAY_2 = PM;
 
     // TODO: Consider moving these to GridSelectorLayout?
-    // TODO: Consider using findViewById() instead. This could be useful if you plan on
-    // releasing a library with this timepicker, because then we have no dependence on
-    // other third party libraries.
-    @Bind(R.id.fab) FloatingActionButton mDoneButton;
-    // These are currently defined as Buttons in the dialog's layout,
-    // but we refer to them as TextViews to save an extra refactoring
-    // step in case we change them.
-    @Bind(R.id.half_day_toggle_1) FrameLayout mLeftHalfDayToggle;
-    @Bind(R.id.half_day_toggle_2) FrameLayout mRightHalfDayToggle;
+    private FloatingActionButton mDoneButton;
+    private FrameLayout mLeftHalfDayToggle;
+    private FrameLayout mRightHalfDayToggle;
 
     @Override
     protected int contentLayout() {
         return R.layout.dialog_time_picker_number_grid;
-    }
-
-    @OnClick({ R.id.half_day_toggle_1, R.id.half_day_toggle_2 })
-    void onHalfDayToggleClick(View v) {
-        final int halfDay = v == mLeftHalfDayToggle ? HALF_DAY_1 : HALF_DAY_2;
-        if (halfDay != mTimePicker.getIsCurrentlyAmOrPm()) {
-//            if (currentHalfDay == HALF_DAY_1) {
-//                currentHalfDay = HALF_DAY_2;
-//            } else if (currentHalfDay == HALF_DAY_2) {
-//                currentHalfDay = HALF_DAY_1;
-//            }
-            updateHalfDay(halfDay);
-            mTimePicker.setAmOrPm(halfDay);
-        }
     }
 
 //    private void toggleHalfDay() {
@@ -296,6 +269,22 @@ public class NumberGridTimePickerDialog extends BaseTimePickerDialog implements 
 
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
+        mDoneButton = (FloatingActionButton) view.findViewById(R.id.fab);
+        mLeftHalfDayToggle = (FrameLayout) view.findViewById(R.id.half_day_toggle_1);
+        mLeftHalfDayToggle.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryToggleHalfDay(HALF_DAY_1);
+            }
+        });
+        mRightHalfDayToggle = (FrameLayout) view.findViewById(R.id.half_day_toggle_2);
+        mRightHalfDayToggle.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryToggleHalfDay(HALF_DAY_2);
+            }
+        });
+
         if (!mThemeSetAtRuntime) {
             mThemeDark = Utils.isDarkTheme(getActivity(), mThemeDark);
         }
@@ -335,7 +324,7 @@ public class NumberGridTimePickerDialog extends BaseTimePickerDialog implements 
             final int icon2 = mThemeDark? R.drawable.ic_half_day_2_dark_24dp : R.drawable.ic_half_day_2_24dp;
             // Determine the direction the icons should be in
             int left1 = 0, left2 = 0, top1 = 0, top2 = 0;
-            switch (getOrientation(getResources())) {
+            switch (getResources().getConfiguration().orientation) {
                 case Configuration.ORIENTATION_PORTRAIT:
                     left1 = icon1;
                     left2 = icon2;
@@ -531,6 +520,13 @@ public class NumberGridTimePickerDialog extends BaseTimePickerDialog implements 
 
     public void tryVibrate() {
 //        mHapticFeedbackController.tryVibrate();
+    }
+
+    private void tryToggleHalfDay(int halfDay) {
+        if (halfDay != mTimePicker.getIsCurrentlyAmOrPm()) {
+            updateHalfDay(halfDay);
+            mTimePicker.setAmOrPm(halfDay);
+        }
     }
 
     private void updateHalfDay(int halfDay) {

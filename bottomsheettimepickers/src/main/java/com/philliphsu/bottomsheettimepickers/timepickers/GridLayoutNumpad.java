@@ -26,13 +26,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-import com.philliphsu.clock2.R;
+import com.philliphsu.bottomsheettimepickers.R;
 
 import java.util.Arrays;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by Phillip Hsu on 7/12/2016.
@@ -43,7 +39,7 @@ import butterknife.OnClick;
  * superclass? If we move the contents of this class to NumpadTimePicker,
  * the implementation of setTheme() would make more sense.
  */
-public abstract class GridLayoutNumpad extends GridLayout {
+public abstract class GridLayoutNumpad extends GridLayout implements View.OnClickListener {
     // TODO: change to private?
     protected static final int UNMODIFIED = -1;
     private static final int COLUMNS = 3;
@@ -55,8 +51,6 @@ public abstract class GridLayoutNumpad extends GridLayout {
     private ColorStateList mTextColors;
     int mAccentColor;
 
-    @Bind({ R.id.zero, R.id.one, R.id.two, R.id.three, R.id.four,
-            R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine })
     TextView[] mButtons;
 
     /**
@@ -215,7 +209,7 @@ public abstract class GridLayoutNumpad extends GridLayout {
      * {@link OnInputChangeListener OnInputChangeListener}
      * after a digit insertion. By default, the String
      * forwarded is just the String value of the inserted digit.
-     * @see #onClick(TextView)
+     * @see #onClick(View)
      * @param newDigit the formatted String that should be displayed
      */
     @CallSuper
@@ -276,11 +270,10 @@ public abstract class GridLayoutNumpad extends GridLayout {
         }
     }
 
-    @OnClick({ R.id.zero, R.id.one, R.id.two, R.id.three, R.id.four,
-            R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine })
-    final void onClick(TextView view) {
+    @Override
+    public final void onClick(View view) {
         if (mCount < mInput.length) {
-            String textNum = view.getText().toString();
+            String textNum = ((TextView) view).getText().toString();
             insertDigits(Integer.parseInt(textNum));
         }
     }
@@ -289,7 +282,16 @@ public abstract class GridLayoutNumpad extends GridLayout {
         setAlignmentMode(ALIGN_BOUNDS);
         setColumnCount(COLUMNS);
         View.inflate(getContext(), contentLayout(), this);
-        ButterKnife.bind(this);
+        mButtons[0] = (TextView) findViewById(R.id.zero);
+        mButtons[1] = (TextView) findViewById(R.id.one);
+        mButtons[2] = (TextView) findViewById(R.id.two);
+        mButtons[3] = (TextView) findViewById(R.id.three);
+        mButtons[4] = (TextView) findViewById(R.id.four);
+        mButtons[5] = (TextView) findViewById(R.id.five);
+        mButtons[6] = (TextView) findViewById(R.id.six);
+        mButtons[7] = (TextView) findViewById(R.id.seven);
+        mButtons[8] = (TextView) findViewById(R.id.eight);
+        mButtons[9] = (TextView) findViewById(R.id.nine);
         // If capacity() < 0, we let the system throw the exception.
         mInput = new int[capacity()];
         Arrays.fill(mInput, UNMODIFIED);

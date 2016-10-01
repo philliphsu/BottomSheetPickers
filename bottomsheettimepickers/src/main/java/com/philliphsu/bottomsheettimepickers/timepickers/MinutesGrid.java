@@ -21,7 +21,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.philliphsu.clock2.R;
+import com.philliphsu.bottomsheettimepickers.R;
 
 /**
  * Created by Phillip Hsu on 8/17/2016.

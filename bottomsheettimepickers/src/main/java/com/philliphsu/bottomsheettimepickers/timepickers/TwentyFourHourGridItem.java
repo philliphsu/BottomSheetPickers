@@ -24,28 +24,30 @@ import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.philliphsu.clock2.R;
-import com.philliphsu.clock2.util.ConfigurationUtils;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import com.philliphsu.bottomsheettimepickers.R;
 
 /**
  * Created by Phillip Hsu on 7/21/2016.
  */
 public class TwentyFourHourGridItem extends LinearLayout {
 
-    @Bind(R.id.primary) TextView mPrimaryText;
-    @Bind(R.id.secondary) TextView mSecondaryText;
+    private final TextView mPrimaryText;
+    private final TextView mSecondaryText;
 
     public TwentyFourHourGridItem(Context context) {
-        super(context);
-        init();
+        this(context, null);
     }
 
     public TwentyFourHourGridItem(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        final int orientation = context.getResources().getConfiguration().orientation;
+        setOrientation(orientation == Configuration.ORIENTATION_PORTRAIT ? VERTICAL : HORIZONTAL);
+        setGravity(Gravity.CENTER);
+        inflate(getContext(), R.layout.content_24h_grid_item, this);
+
+        mPrimaryText = (TextView) findViewById(R.id.primary);
+        mSecondaryText = (TextView) findViewById(R.id.secondary);
+
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs,
                 R.styleable.TwentyFourHourGridItem, 0, 0);
         try {
@@ -84,15 +86,5 @@ public class TwentyFourHourGridItem extends LinearLayout {
 
     public TextView getSecondaryTextView() {
         return (TextView) getChildAt(1);
-    }
-
-    private void init() {
-        // TODO: Why isn't ALT-ENTER giving us an option to static import this method?
-        final int orientation = ConfigurationUtils.getOrientation(getResources());
-        setOrientation(orientation == Configuration.ORIENTATION_PORTRAIT ?
-                VERTICAL : /*LANDSCAPE*/HORIZONTAL);
-        setGravity(Gravity.CENTER);
-        inflate(getContext(), R.layout.content_24h_grid_item, this);
-        ButterKnife.bind(this);
     }
 }
