@@ -89,13 +89,9 @@
 
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/ModalStyle</item>
-        <!--TODO: See if defining a colorAccent item works.-->
     </style>
 
     <style name="ModalStyle" parent="Widget.Design.BottomSheet.Modal">
-        <!-- TODO: See if this can be set programmatically, or else we'd have to force users
-           ~ to declare a bottomSheetDialogTheme in their theme.
-         -->
         <item name="behavior_peekHeight">@dimen/peek_height_upper_limit</item>
     </style>
 </resources>
