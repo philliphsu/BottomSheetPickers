@@ -15,7 +15,7 @@
   limitations under the License.
   -->
 
-<com.philliphsu.bottomsheetpickers.time.NumberPadLayout
+<com.philliphsu.bottomsheetpickers.time.TimePickerPadLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pad_numeric"
@@ -108,4 +108,4 @@
         app:primaryText="11"
         app:secondaryText="23" />
 
-</com.philliphsu.bottomsheetpickers.time.NumberPadLayout>
+</com.philliphsu.bottomsheetpickers.time.TimePickerPadLayout>

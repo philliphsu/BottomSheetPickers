@@ -28,20 +28,20 @@ import android.view.ViewGroup;
  *
  * @see <a href="https://android.googlesource.com/platform/packages/apps/Calculator/+/master/src/com/android/calculator2/CalculatorPadLayout.java">CalculatorPadLayout.java</a>
  */
-public class NumberPadLayout extends ViewGroup {
+public class TimePickerPadLayout extends ViewGroup {
 
     private int mRowCount;
     private int mColumnCount;
 
-    public NumberPadLayout(Context context) {
+    public TimePickerPadLayout(Context context) {
         this(context, null);
     }
 
-    public NumberPadLayout(Context context, AttributeSet attrs) {
+    public TimePickerPadLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public NumberPadLayout(Context context, AttributeSet attrs, int defStyle) {
+    public TimePickerPadLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         final TypedArray a = context.obtainStyledAttributes(attrs,
