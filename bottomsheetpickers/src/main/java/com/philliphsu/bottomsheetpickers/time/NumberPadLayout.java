@@ -17,26 +17,21 @@
 package com.philliphsu.bottomsheetpickers.time;
 
 import android.content.Context;
-import android.content.res.Configuration;
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ConfigurationHelper;
-import android.support.v4.content.res.ResourcesCompat;
+import android.content.res.TypedArray;
+import android.support.v7.widget.ViewUtils;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Button;
-
-import com.philliphsu.bottomsheetpickers.R;
-
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
+import android.view.ViewGroup;
 
 /**
- * Borrowed from AOSP Calculator's <code>CalculatorNumericPadLayout</code> class.
+ * Borrowed from AOSP Calculator's <code>CalculatorPadLayout</code> class.
  *
- * @see <a href="https://android.googlesource.com/platform/packages/apps/Calculator/+/master/src/com/android/calculator2/CalculatorNumericPadLayout.java">CalculatorNumericPadLayout.java</a>
+ * @see <a href="https://android.googlesource.com/platform/packages/apps/Calculator/+/master/src/com/android/calculator2/CalculatorPadLayout.java">CalculatorPadLayout.java</a>
  */
-public class NumberPadLayout extends BaseNumberPadLayout {
+public class NumberPadLayout extends ViewGroup {
+
+    private int mRowCount;
+    private int mColumnCount;
 
     public NumberPadLayout(Context context) {
         this(context, null);
@@ -48,73 +43,81 @@ public class NumberPadLayout extends BaseNumberPadLayout {
 
     public NumberPadLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+
+        final TypedArray a = context.obtainStyledAttributes(attrs,
+                new int[] { android.R.attr.rowCount, android.R.attr.columnCount }, defStyle, 0);
+        mRowCount = a.getInt(0, 1);
+        mColumnCount = a.getInt(1, 1);
+
+        a.recycle();
     }
 
     @Override
-    public void onFinishInflate() {
-        super.onFinishInflate();
+    public boolean shouldDelayChildPressedState() {
+        return false;
+    }
 
-        Locale locale;
-        final Configuration config = getResources().getConfiguration();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            locale = config.getLocales().get(0);
-        } else {
-            // TODO: No backward-compatible method in the support libraries?
-            //noinspection deprecation
-            locale = config.locale;
-        }
-        if (!getResources().getBoolean(R.bool.use_localized_digits)
-                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // TODO: Do we need something similar for pre-21?
-            locale = new Locale.Builder()
-                .setLocale(locale)
-                .setUnicodeLocaleKeyword("nu", "latn")
-                .build();
-        }
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        final int paddingLeft = getPaddingLeft();
+        final int paddingRight = getPaddingRight();
+        final int paddingTop = getPaddingTop();
+        final int paddingBottom = getPaddingBottom();
 
-        final DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance(locale);
-        final char zeroDigit = symbols.getZeroDigit();
-        for (int childIndex = getChildCount() - 1; childIndex >= 0; --childIndex) {
-            final View v = getChildAt(childIndex);
-            if (v instanceof Button) {
-                final Button b = (Button) v;
-                switch (b.getId()) {
-                    case R.id.digit_0:
-                        b.setText(String.valueOf(zeroDigit));
-                        break;
-                    case R.id.digit_1:
-                        b.setText(String.valueOf((char) (zeroDigit + 1)));
-                        break;
-                    case R.id.digit_2:
-                        b.setText(String.valueOf((char) (zeroDigit + 2)));
-                        break;
-                    case R.id.digit_3:
-                        b.setText(String.valueOf((char) (zeroDigit + 3)));
-                        break;
-                    case R.id.digit_4:
-                        b.setText(String.valueOf((char) (zeroDigit + 4)));
-                        break;
-                    case R.id.digit_5:
-                        b.setText(String.valueOf((char) (zeroDigit + 5)));
-                        break;
-                    case R.id.digit_6:
-                        b.setText(String.valueOf((char) (zeroDigit + 6)));
-                        break;
-                    case R.id.digit_7:
-                        b.setText(String.valueOf((char) (zeroDigit + 7)));
-                        break;
-                    case R.id.digit_8:
-                        b.setText(String.valueOf((char) (zeroDigit + 8)));
-                        break;
-                    case R.id.digit_9:
-                        b.setText(String.valueOf((char) (zeroDigit + 9)));
-                        break;
-                    case R.id.dec_point:
-                        b.setText(String.valueOf(symbols.getDecimalSeparator()));
-                        break;
-                }
+        final boolean isRTL = ViewUtils.isLayoutRtl(this);
+        final int columnWidth =
+                Math.round((float) (right - left - paddingLeft - paddingRight)) / mColumnCount;
+        final int rowHeight =
+                Math.round((float) (bottom - top - paddingTop - paddingBottom)) / mRowCount;
+
+        int rowIndex = 0, columnIndex = 0;
+        for (int childIndex = 0; childIndex < getChildCount(); ++childIndex) {
+            final View childView = getChildAt(childIndex);
+            if (childView.getVisibility() == View.GONE) {
+                continue;
             }
+
+            final MarginLayoutParams lp = (MarginLayoutParams) childView.getLayoutParams();
+
+            final int childTop = paddingTop + lp.topMargin + rowIndex * rowHeight;
+            final int childBottom = childTop - lp.topMargin - lp.bottomMargin + rowHeight;
+            final int childLeft = paddingLeft + lp.leftMargin +
+                    (isRTL ? (mColumnCount - 1) - columnIndex : columnIndex) * columnWidth;
+            final int childRight = childLeft - lp.leftMargin - lp.rightMargin + columnWidth;
+
+            final int childWidth = childRight - childLeft;
+            final int childHeight = childBottom - childTop;
+            if (childWidth != childView.getMeasuredWidth() ||
+                    childHeight != childView.getMeasuredHeight()) {
+                childView.measure(
+                        MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY),
+                        MeasureSpec.makeMeasureSpec(childHeight, MeasureSpec.EXACTLY));
+            }
+            childView.layout(childLeft, childTop, childRight, childBottom);
+
+            rowIndex = (rowIndex + (columnIndex + 1) / mColumnCount) % mRowCount;
+            columnIndex = (columnIndex + 1) % mColumnCount;
         }
     }
-}
 
+    @Override
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new MarginLayoutParams(getContext(), attrs);
+    }
+
+    @Override
+    protected LayoutParams generateDefaultLayoutParams() {
+        return new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+    }
+
+    @Override
+    protected ViewGroup.LayoutParams generateLayoutParams(ViewGroup.LayoutParams p) {
+        return new MarginLayoutParams(p);
+    }
+
+    @Override
+    protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
+        return p instanceof MarginLayoutParams;
+    }
+
+}
