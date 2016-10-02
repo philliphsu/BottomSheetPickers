@@ -135,7 +135,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
     private FrameLayout mRightHalfDayToggle;
 
     @Override int contentLayout() {
-        return R.layout.dialog_time_picker_number_grid;
+        return R.layout.dialog_time_picker_grid;
     }
 
 //    private void toggleHalfDay() {
