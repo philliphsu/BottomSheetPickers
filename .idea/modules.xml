@@ -3,8 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BottomSheetPickers.iml" filepath="$PROJECT_DIR$/BottomSheetPickers.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bottomsheetpickers/bottomsheettimepickers.iml" filepath="$PROJECT_DIR$/bottomsheetpickers/bottomsheettimepickers.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sample/app.iml" filepath="$PROJECT_DIR$/sample/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BottomSheetPickers.iml" filepath="$PROJECT_DIR$/BottomSheetPickers.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bottomsheetpickers/bottomsheetpickers.iml" filepath="$PROJECT_DIR$/bottomsheetpickers/bottomsheetpickers.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
     </modules>
   </component>
 </project>
