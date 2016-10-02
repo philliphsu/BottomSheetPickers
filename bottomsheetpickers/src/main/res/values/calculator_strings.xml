@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Content description for '+' button. [CHAR_LIMIT=NONE] -->
+    <string name="desc_op_add">plus</string>
+    <!-- Content description for '-' button. [CHAR_LIMIT=NONE] -->
+    <string name="desc_op_sub">minus</string>
+
+    <!-- Content description for '00-11' button. [CHAR_LIMIT=NONE] -->
+    <string name="desc_half_day_1">morning hours</string>
+    <!-- Content description for '12-23' button. [CHAR_LIMIT=NONE] -->
+    <string name="desc_half_day_2">noon to evening hours</string>
+    <!-- Content description for 'Done' floating action button. [CHAR_LIMIT=NONE] -->
+    <string name="desc_done">done</string>
+</resources>
