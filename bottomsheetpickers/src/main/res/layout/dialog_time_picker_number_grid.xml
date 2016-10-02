@@ -42,14 +42,15 @@
          padding amount to the height. -->
         <!--TOneverDO: Change paddingBottom to marginBottom without also subtracting the
          margin amount from the height. -->
-        <!--TODO: As a library, we probably also want to paddingLeft/Right-->
         <com.philliphsu.bottomsheetpickers.time.GridSelectorLayout
             android:id="@+id/time_picker"
             android:layout_width="match_parent"
             android:layout_height="@dimen/number_grid_height"
             android:layout_marginTop="@dimen/bottom_sheet_vertical_space"
             android:paddingStart="@dimen/bottom_sheet_edge_margin"
-            android:paddingEnd="@dimen/bottom_sheet_edge_margin"/>
+            android:paddingLeft="@dimen/bottom_sheet_edge_margin"
+            android:paddingEnd="@dimen/bottom_sheet_edge_margin"
+            android:paddingRight="@dimen/bottom_sheet_edge_margin"/>
 
         <View
             android:id="@+id/divider"
@@ -59,7 +60,8 @@
             android:id="@+id/half_day_toggles"
             android:layout_width="match_parent"
             android:layout_height="@dimen/half_day_button_bar_height"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false"> <!--Lint says this is for better performance-->
 
             <FrameLayout 
                 android:id="@+id/half_day_toggle_1"
@@ -99,8 +101,6 @@
 
     </LinearLayout>
 
-    <!-- app:borderWidth="0dp"
-    Remove the stroke that is otherwise visible when long pressed -->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
