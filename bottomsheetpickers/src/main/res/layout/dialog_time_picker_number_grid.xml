@@ -49,8 +49,7 @@
             android:layout_height="@dimen/number_grid_height"
             android:layout_marginTop="@dimen/bottom_sheet_vertical_space"
             android:paddingStart="@dimen/bottom_sheet_edge_margin"
-            android:paddingEnd="@dimen/bottom_sheet_edge_margin"
-            android:paddingBottom="@dimen/anchored_fab_vertical_space"/>
+            android:paddingEnd="@dimen/bottom_sheet_edge_margin"/>
 
         <View
             android:id="@+id/divider"
@@ -74,7 +73,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    style="@style/TextAppearance.AppCompat.Button"/>
+                    style="@style/TextAppearance.AppCompat.Button"
+                    android:textSize="@dimen/half_day_button_text_size"/>
 
             </FrameLayout>
 
@@ -90,7 +90,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    style="@style/TextAppearance.AppCompat.Button"/>
+                    style="@style/TextAppearance.AppCompat.Button"
+                    android:textSize="@dimen/half_day_button_text_size"/>
 
             </FrameLayout>
 

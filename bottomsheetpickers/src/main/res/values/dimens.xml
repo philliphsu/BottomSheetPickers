@@ -32,9 +32,10 @@
     <dimen name="number_grid_height">308dp</dimen> <!-- 5 * (number_grid_minute_cell_height) + half-FAB height bottom padding -->
     <dimen name="number_grid_hour_cell_height">70dp</dimen> <!-- 4 * 70 == 5 * (number_grid_minute_cell_height) -->
     <dimen name="number_grid_minute_cell_height">56dp</dimen>
-    <dimen name="half_day_button_bar_height">48dp</dimen>
+    <dimen name="half_day_button_bar_height">56dp</dimen>
     <dimen name="number_grid_24_hour_item_primary_text_size">30sp</dimen>
     <dimen name="number_grid_minute_text_size">28sp</dimen>
+    <dimen name="half_day_button_text_size">16sp</dimen>
 
     <!-- Bottom sheet specs -->
     <dimen name="bottom_sheet_edge_margin">24dp</dimen>
