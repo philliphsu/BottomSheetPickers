@@ -45,14 +45,15 @@
             android:layout_weight="1"
             android:paddingTop="@dimen/bottom_sheet_vertical_space"
             android:layout_marginStart="@dimen/bottom_sheet_edge_margin"
+            android:layout_marginLeft="@dimen/bottom_sheet_edge_margin"
             android:paddingEnd="@dimen/anchored_fab_vertical_space"
+            android:paddingRight="@dimen/anchored_fab_vertical_space"
             android:paddingBottom="@dimen/bottom_sheet_vertical_space"/>
 
         <View
             android:id="@+id/divider"
             style="@style/Divider.Vertical"/>
 
-        <!--TODO: Be wary of this vertical LL with weighted children.-->
         <LinearLayout
             android:id="@+id/half_day_toggles"
             android:layout_width="@dimen/half_day_button_bar_height"
@@ -97,8 +98,6 @@
 
     </LinearLayout>
 
-    <!-- app:borderWidth="0dp"
-    Remove the stroke that is otherwise visible when long pressed -->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
