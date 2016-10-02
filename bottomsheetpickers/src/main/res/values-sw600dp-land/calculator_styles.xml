@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2014 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<!-- Styles for landscape 600dip-wide tablet (e.g. Nexus 7). -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="DisplayEditTextStyle.Formula">
+        <item name="android:paddingTop">46dip</item>
+        <item name="android:paddingBottom">26dip</item>
+        <item name="android:paddingStart">44dip</item>
+        <item name="android:paddingEnd">44dip</item>
+        <item name="android:textSize">48sp</item>
+    </style>
+
+    <style name="DisplayEditTextStyle.Result">
+        <item name="android:paddingTop">26dip</item>
+        <item name="android:paddingBottom">46dip</item>
+        <item name="android:paddingStart">44dip</item>
+        <item name="android:paddingEnd">44dip</item>
+        <item name="android:textSize">48sp</item>
+    </style>
+
+    <style name="PadButtonStyle.Advanced">
+        <item name="android:layout_margin">6dip</item>
+        <item name="android:background">@drawable/pad_button_advanced_background</item>
+        <item name="android:textColor">@color/pad_button_advanced_text_color</item>
+        <item name="android:textSize">27sp</item>
+    </style>
+
+    <style name="PadButtonStyle.Numeric">
+        <item name="android:layout_margin">6dip</item>
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="PadButtonStyle.Numeric.Equals">
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="PadButtonStyle.Operator">
+        <item name="android:layout_margin">6dip</item>
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="PadButtonStyle.Operator.Text">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="PadLayoutStyle.Advanced">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_weight">508</item>
+        <item name="android:paddingTop">10dip</item>
+        <item name="android:paddingBottom">10dip</item>
+        <item name="android:paddingStart">18dip</item>
+        <item name="android:paddingEnd">22dip</item>
+        <item name="android:columnCount">3</item>
+        <item name="android:rowCount">4</item>
+    </style>
+
+    <style name="PadLayoutStyle.Numeric">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_weight">532</item>
+        <item name="android:paddingTop">10dip</item>
+        <item name="android:paddingBottom">10dip</item>
+        <item name="android:paddingStart">22dip</item>
+        <item name="android:paddingEnd">18dip</item>
+    </style>
+
+    <style name="PadLayoutStyle.Operator">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_weight">240</item>
+        <item name="android:paddingTop">10dip</item>
+        <item name="android:paddingBottom">10dip</item>
+        <item name="android:paddingStart">18dip</item>
+        <item name="android:paddingEnd">18dip</item>
+    </style>
+
+</resources>
