@@ -71,7 +71,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    style="@style/TextAppearance.AppCompat.Button"/>
+                    style="@style/TextAppearance.AppCompat.Button"
+                    android:textSize="@dimen/half_day_button_text_size"/>
 
             </FrameLayout>
 
@@ -87,7 +88,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    style="@style/TextAppearance.AppCompat.Button"/>
+                    style="@style/TextAppearance.AppCompat.Button"
+                    android:textSize="@dimen/half_day_button_text_size"/>
 
             </FrameLayout>
 
