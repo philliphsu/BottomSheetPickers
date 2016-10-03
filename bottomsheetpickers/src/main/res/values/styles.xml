@@ -15,20 +15,6 @@
   -->
 
 <resources>
-    <style name="NumberButton">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:padding">12dp</item>
-        <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:textSize">28sp</item>
-    </style>
-
-    <style name="grid_element_single">
-        <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:textSize">@dimen/grid_element_text_size</item>
-    </style>
-
     <!-- TODO: Rename to GridLayoutElement -->
     <style name="GridLayoutNumpadElement">
         <!-- http://stackoverflow.com/a/6868308/5055032
