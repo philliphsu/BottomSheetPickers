@@ -17,6 +17,7 @@
 
 <com.philliphsu.bottomsheetpickers.time.TimePickerPadLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pad_operator"
     style="@style/PadLayoutStyle.Operator"
     android:background="@color/pad_operator_background_color"
@@ -28,7 +29,6 @@
         android:id="@+id/half_day_1"
         style="@style/PadButtonStyle.Operator.Text"
         android:contentDescription="@string/desc_half_day_1"
-        android:onClick="onButtonClick"
         android:text="AM" />
 
     <!--TODO: ToggleButton-->
@@ -36,7 +36,6 @@
         android:id="@+id/half_day_2"
         style="@style/PadButtonStyle.Operator.Text"
         android:contentDescription="@string/desc_half_day_2"
-        android:onClick="onButtonClick"
         android:text="PM" />
 
     <Space
@@ -53,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:contentDescription="@string/desc_done"
-            android:onClick="onButtonClick" />
+            app:srcCompat="@drawable/ic_done_24dp" />
 
     </FrameLayout>
 
