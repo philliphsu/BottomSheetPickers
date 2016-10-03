@@ -19,7 +19,7 @@
     <!--TODO: This would be your GridSelectorLayout. The actual pads themselves are NumberGrids.-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="336dp"
+        android:layout_height="@dimen/time_picker_pad_height"
         android:orientation="horizontal">
 
         <include layout="@layout/pad_12h_grid_time_picker" />
