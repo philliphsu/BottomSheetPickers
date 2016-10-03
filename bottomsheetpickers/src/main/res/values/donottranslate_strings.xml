@@ -1,8 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Addition operator (e.g. "1 + 2"). [CHAR_LIMIT=1] -->
-    <string name="op_add">+</string>
-    <!-- Subtraction operator (e.g. "1 - 2"). [CHAR_LIMIT=1] -->
-    <string name="op_sub">−</string>
-
 </resources>
