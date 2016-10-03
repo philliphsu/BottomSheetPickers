@@ -95,8 +95,6 @@
         <item name="android:paddingTop">12dip</item>
         <item name="android:paddingBottom">20dip</item>
 
-        <item name="android:paddingStart">12dip</item>
-        <item name="android:paddingEnd">12dip</item>
         <item name="android:paddingLeft">12dip</item>
         <item name="android:paddingRight">12dip</item>
     </style>
@@ -110,8 +108,6 @@
         <item name="android:paddingTop">12dip</item>
         <item name="android:paddingBottom">20dip</item>
 
-        <item name="android:paddingStart">8dip</item>
-        <item name="android:paddingEnd">8dip</item>
         <item name="android:paddingLeft">8dip</item>
         <item name="android:paddingRight">8dip</item>
     </style>
