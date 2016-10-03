@@ -15,14 +15,14 @@
   limitations under the License.
   -->
 
-<com.philliphsu.bottomsheetpickers.time.TimePickerPadLayout
+<android.support.v7.widget.GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pad_operator"
     style="@style/PadLayoutStyle.Operator"
     android:background="@color/pad_operator_background_color"
-    android:columnCount="1"
-    android:rowCount="4">
+    app:columnCount="1"
+    app:rowCount="4">
 
     <Button
         android:id="@+id/half_day_toggle_1"
@@ -54,4 +54,4 @@
 
     </FrameLayout>
 
-</com.philliphsu.bottomsheetpickers.time.TimePickerPadLayout>
+</android.support.v7.widget.GridLayout>

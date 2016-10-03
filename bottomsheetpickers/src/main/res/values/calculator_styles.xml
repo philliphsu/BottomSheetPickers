@@ -32,6 +32,7 @@
         <item name="android:gravity">bottom|end</item>
     </style>
 
+    <!--TODO: Consider extending from SelectableButton style, to get the correct background for all versions.-->
     <style name="BasePadButtonStyle" parent="@android:style/Widget.Material.Light.Button.Borderless">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

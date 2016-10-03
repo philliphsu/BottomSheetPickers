@@ -61,9 +61,7 @@
         <!--<item name="android:textColor">?android:attr/textColorPrimary</item>-->
     </style>
     <style name="NumberGridButton.Hour">
-        <!--<item name="android:layout_height">@dimen/number_grid_hour_cell_height</item>-->
-        <item name="android:layout_height">0dp</item>
-        <item name="layout_rowWeight">1</item>
+        <item name="android:layout_height">@dimen/number_grid_hour_cell_height</item>
     </style>
     <style name="NumberGridButton.Minute">
         <!-- Lowered text size, otherwise it looks weird that the minute grid, with 5 rows
