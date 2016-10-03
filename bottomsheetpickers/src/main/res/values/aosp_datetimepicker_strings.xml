@@ -73,4 +73,6 @@
     <!--My stuff-->
     <string name="left_alt_24hr">:00</string>
     <string name="right_alt_24hr">:30</string>
+    <string name="hours_00_11">00 &#8211; 11</string>
+    <string name="hours_12_23">12 &#8211; 23</string>
 </resources>

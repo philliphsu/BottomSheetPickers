@@ -19,7 +19,6 @@ package com.philliphsu.bottomsheetpickers.time;
 import android.animation.ObjectAnimator;
 import android.app.ActionBar.LayoutParams;
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -31,7 +30,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -84,7 +83,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
 
 //    private HapticFeedbackController mHapticFeedbackController;
 
-//TODO: Delete    private TextView mDoneButton;
     private TextView mHourView;
     private TextView mHourSpaceView;
     private TextView mMinuteView;
@@ -131,8 +129,8 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
 
     // TODO: Consider moving these to GridSelectorLayout?
     private FloatingActionButton mDoneButton;
-    private FrameLayout mLeftHalfDayToggle;
-    private FrameLayout mRightHalfDayToggle;
+    private Button               mLeftHalfDayToggle;
+    private Button               mRightHalfDayToggle;
 
     @Override int contentLayout() {
         return R.layout.dialog_time_picker_grid;
@@ -265,14 +263,14 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
         mDoneButton = (FloatingActionButton) view.findViewById(R.id.fab);
-        mLeftHalfDayToggle = (FrameLayout) view.findViewById(R.id.half_day_toggle_1);
+        mLeftHalfDayToggle = (Button) view.findViewById(R.id.half_day_toggle_1);
         mLeftHalfDayToggle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 tryToggleHalfDay(HALF_DAY_1);
             }
         });
-        mRightHalfDayToggle = (FrameLayout) view.findViewById(R.id.half_day_toggle_2);
+        mRightHalfDayToggle = (Button) view.findViewById(R.id.half_day_toggle_2);
         mRightHalfDayToggle.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -306,39 +304,20 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
         String[] amPmTexts = new DateFormatSymbols().getAmPmStrings();
         mAmText = amPmTexts[0];
         mPmText = amPmTexts[1];
-
-        TextView tv1 = (TextView) mLeftHalfDayToggle.getChildAt(0);
-        TextView tv2 = (TextView) mRightHalfDayToggle.getChildAt(0);
+        
         if (mIs24HourMode) {
-            final int iconPadding = getResources().getDimensionPixelSize(R.dimen.half_day_icon_padding);
-            tv1.setText("00 - 11");
-            tv2.setText("12 - 23");
+            mLeftHalfDayToggle.setText(R.string.hours_00_11);
+            mRightHalfDayToggle.setText(R.string.hours_12_23);
             // We need different drawable resources for each case, not a single one that we
             // just tint differently, because the orientation of each one is different.
             final int icon1 = mThemeDark? R.drawable.ic_half_day_1_dark_24dp : R.drawable.ic_half_day_1_24dp;
             final int icon2 = mThemeDark? R.drawable.ic_half_day_2_dark_24dp : R.drawable.ic_half_day_2_24dp;
-            // Determine the direction the icons should be in
-            int left1 = 0, left2 = 0, top1 = 0, top2 = 0;
-            switch (getResources().getConfiguration().orientation) {
-                case Configuration.ORIENTATION_PORTRAIT:
-                    left1 = icon1;
-                    left2 = icon2;
-                    top1 = top2 = 0;
-                    break;
-                case Configuration.ORIENTATION_LANDSCAPE:
-                    left1 = left2 = 0;
-                    top1 = icon1;
-                    top2 = icon2;
-                    break;
-            }
             // Intrinsic bounds means the drawable's own bounds? So 24dp box.
-            tv1.setCompoundDrawablesWithIntrinsicBounds(left1, top1, 0, 0);
-            tv2.setCompoundDrawablesWithIntrinsicBounds(left2, top2, 0, 0);
-            tv1.setCompoundDrawablePadding(iconPadding);
-            tv2.setCompoundDrawablePadding(iconPadding);
+            mLeftHalfDayToggle.setCompoundDrawablesWithIntrinsicBounds(0, icon1, 0, 0);
+            mRightHalfDayToggle.setCompoundDrawablesWithIntrinsicBounds(0, icon2, 0, 0);
         } else {
-            tv1.setText(mAmText);
-            tv2.setText(mPmText);
+            mLeftHalfDayToggle.setText(mAmText);
+            mRightHalfDayToggle.setText(mPmText);
         }
 
 //        mHapticFeedbackController = new HapticFeedbackController(getActivity());
@@ -460,7 +439,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
         ((TextView) view.findViewById(R.id.separator)).setTextColor(/*mThemeDark? white : timeDisplay*/mUnselectedColor);
         ((TextView) view.findViewById(R.id.ampm_label)).setTextColor(/*mThemeDark? white : timeDisplay*/mUnselectedColor);
 //        view.findViewById(R.id.line).setBackgroundColor(mThemeDark? darkLine : line);
-        view.findViewById(R.id.divider).setBackgroundColor(mThemeDark? darkLine : line);
 //        mDoneButton.setTextColor(mThemeDark? darkDoneTextColor : doneTextColor);
         // The AOSP timepicker originally uses these colors for the CircleView
         // We already set the correct background color of the entire view tree.
@@ -548,8 +526,8 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
      * @param halfDay the half-day that should be shown as selected
      */
     private void updateHalfDayTogglesState(int halfDay) {
-        TextView leftHalfDayToggle = (TextView) mLeftHalfDayToggle.getChildAt(0);
-        TextView rightHalfDayToggle = (TextView) mRightHalfDayToggle.getChildAt(0);
+        TextView leftHalfDayToggle = (TextView) mLeftHalfDayToggle;
+        TextView rightHalfDayToggle = (TextView) mRightHalfDayToggle;
         switch (halfDay) {
             case HALF_DAY_1:
                 leftHalfDayToggle.setTextColor(mHalfDayToggleSelectedColor);
