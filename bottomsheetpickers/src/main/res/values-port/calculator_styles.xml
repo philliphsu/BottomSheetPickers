@@ -36,6 +36,7 @@
         <item name="android:textSize">36sp</item>
     </style>
 
+    <!--TODO: Delete-->
     <style name="PadButtonStyle.Advanced">
         <item name="android:layout_margin">4dip</item>
         <item name="android:background">@drawable/pad_button_advanced_background</item>
@@ -48,15 +49,20 @@
         <item name="android:textSize">32sp</item>
     </style>
 
+    <!--TODO: Delete-->
     <style name="PadButtonStyle.Numeric.Equals">
         <item name="android:visibility">visible</item>
     </style>
 
+    <!--TODO: Rename to .Sidebar-->
     <style name="PadButtonStyle.Operator">
         <item name="android:layout_margin">8dip</item>
+        <!--TODO: Delete, this is redundant. All usages of this style are from the
+         substyle .Text and it overrides this attribute. -->
         <item name="android:textSize">23sp</item>
     </style>
 
+    <!--TODO: Rename to .Sidebar.Text-->
     <style name="PadButtonStyle.Operator.Text">
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">15sp</item>
@@ -83,8 +89,11 @@
 
         <item name="android:paddingStart">12dip</item>
         <item name="android:paddingEnd">12dip</item>
+        <item name="android:paddingLeft">12dip</item>
+        <item name="android:paddingRight">12dip</item>
     </style>
 
+    <!--TODO: Rename to .Sidebar-->
     <style name="PadLayoutStyle.Operator">
         <item name="android:layout_width">0dip</item>
         <item name="android:layout_weight">88</item>
@@ -95,6 +104,8 @@
 
         <item name="android:paddingStart">8dip</item>
         <item name="android:paddingEnd">8dip</item>
+        <item name="android:paddingLeft">8dip</item>
+        <item name="android:paddingRight">8dip</item>
     </style>
 
 </resources>
