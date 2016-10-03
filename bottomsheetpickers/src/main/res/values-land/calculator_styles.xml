@@ -34,6 +34,7 @@
         <item name="android:textSize">30sp</item>
     </style>
 
+    <!--TODO: Delete-->
     <style name="PadButtonStyle.Advanced">
         <item name="android:layout_marginTop">4dip</item>
         <item name="android:layout_marginBottom">4dip</item>
@@ -49,50 +50,65 @@
         <item name="android:textSize">23sp</item>
     </style>
 
+    <!--TODO: Delete-->
     <style name="PadButtonStyle.Numeric.Equals">
         <item name="android:visibility">gone</item>
     </style>
 
+    <style name="PadButtonStyle.Numeric.Minute">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!--TODO: Rename to .Sidebar-->
     <style name="PadButtonStyle.Operator">
         <item name="android:layout_marginTop">4dip</item>
         <item name="android:layout_marginBottom">4dip</item>
-        <item name="android:layout_marginStart">8dip</item>
-        <item name="android:layout_marginEnd">8dip</item>
+        <item name="android:layout_marginLeft">8dip</item>
+        <item name="android:layout_marginRight">8dip</item>
+        <!--TODO: Delete, this is redundant. All usages of this style are from the
+         substyle .Text and it overrides this attribute. -->
         <item name="android:textSize">20sp</item>
     </style>
 
+    <!--TODO: Rename to .Sidebar.Text-->
     <style name="PadButtonStyle.Operator.Text">
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">15sp</item>
     </style>
 
+    <style name="BasePadButtonStyle.MinuteTuner">
+        <item name="android:layout_margin">4dip</item>
+    </style>
+
+    <!--TODO: Delete-->
     <style name="PadLayoutStyle.Advanced">
         <item name="android:layout_width">0dip</item>
         <item name="android:layout_weight">208</item>
         <item name="android:paddingTop">4dip</item>
         <item name="android:paddingBottom">4dip</item>
-        <item name="android:paddingStart">8dip</item>
-        <item name="android:paddingEnd">8dip</item>
+        <item name="android:paddingLeft">8dip</item>
+        <item name="android:paddingRight">8dip</item>
         <item name="android:columnCount">3</item>
         <item name="android:rowCount">4</item>
     </style>
 
     <style name="PadLayoutStyle.Numeric">
         <item name="android:layout_width">0dip</item>
-        <item name="android:layout_weight">240</item>
+        <item name="android:layout_weight">280</item>
         <item name="android:paddingTop">4dip</item>
         <item name="android:paddingBottom">4dip</item>
-        <item name="android:paddingStart">8dip</item>
-        <item name="android:paddingEnd">8dip</item>
+        <item name="android:paddingLeft">8dip</item>
+        <item name="android:paddingRight">8dip</item>
     </style>
 
+    <!--TODO: Rename to .Sidebar-->
     <style name="PadLayoutStyle.Operator">
         <item name="android:layout_width">0dip</item>
-        <item name="android:layout_weight">144</item>
+        <item name="android:layout_weight">96</item>
         <item name="android:paddingTop">4dip</item>
-        <item name="android:paddingBottom">4dip</item>
-        <item name="android:paddingStart">12dip</item>
-        <item name="android:paddingEnd">12dip</item>
+        <item name="android:paddingBottom">12dip</item>
+        <item name="android:paddingLeft">12dip</item>
+        <item name="android:paddingRight">12dip</item>
     </style>
 
 </resources>

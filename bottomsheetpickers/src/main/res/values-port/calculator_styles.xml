@@ -90,11 +90,8 @@
     <style name="PadLayoutStyle.Numeric">
         <item name="android:layout_width">0dip</item>
         <item name="android:layout_weight">272</item>
-
-        <!--TODO: Move these to parent-->
         <item name="android:paddingTop">12dip</item>
         <item name="android:paddingBottom">20dip</item>
-
         <item name="android:paddingLeft">12dip</item>
         <item name="android:paddingRight">12dip</item>
     </style>
@@ -103,11 +100,8 @@
     <style name="PadLayoutStyle.Operator">
         <item name="android:layout_width">0dip</item>
         <item name="android:layout_weight">88</item>
-
-        <!--TODO: Move these to parent-->
         <item name="android:paddingTop">12dip</item>
         <item name="android:paddingBottom">20dip</item>
-
         <item name="android:paddingLeft">8dip</item>
         <item name="android:paddingRight">8dip</item>
     </style>
