@@ -62,6 +62,7 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+    <!--TODO: Delete-->
     <style name="PadLayoutStyle.Advanced">
         <item name="android:elevation">4dip</item>
         <item name="android:paddingTop">12dip</item>
@@ -74,20 +75,26 @@
 
     <style name="PadLayoutStyle.Numeric">
         <item name="android:layout_width">0dip</item>
-        <item name="android:layout_weight">264</item>
+        <item name="android:layout_weight">272</item>
+
+        <!--TODO: Move these to parent-->
         <item name="android:paddingTop">12dip</item>
         <item name="android:paddingBottom">20dip</item>
+
         <item name="android:paddingStart">12dip</item>
         <item name="android:paddingEnd">12dip</item>
     </style>
 
     <style name="PadLayoutStyle.Operator">
         <item name="android:layout_width">0dip</item>
-        <item name="android:layout_weight">96</item>
-        <item name="android:paddingTop">8dip</item>
-        <item name="android:paddingBottom">24dip</item>
-        <item name="android:paddingStart">4dip</item>
-        <item name="android:paddingEnd">4dip</item>
+        <item name="android:layout_weight">88</item>
+
+        <!--TODO: Move these to parent-->
+        <item name="android:paddingTop">12dip</item>
+        <item name="android:paddingBottom">20dip</item>
+
+        <item name="android:paddingStart">8dip</item>
+        <item name="android:paddingEnd">8dip</item>
     </style>
 
 </resources>

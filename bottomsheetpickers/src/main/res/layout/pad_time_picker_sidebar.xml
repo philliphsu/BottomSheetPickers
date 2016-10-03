@@ -21,7 +21,7 @@
     style="@style/PadLayoutStyle.Operator"
     android:background="@color/pad_operator_background_color"
     android:columnCount="1"
-    android:rowCount="3">
+    android:rowCount="4">
 
     <!--TODO: ToggleButton-->
     <Button
@@ -38,6 +38,10 @@
         android:contentDescription="@string/desc_half_day_2"
         android:onClick="onButtonClick"
         android:text="PM" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <FrameLayout
         android:layout_width="wrap_content"
