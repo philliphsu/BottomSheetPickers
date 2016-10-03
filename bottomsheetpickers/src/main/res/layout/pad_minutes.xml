@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2014 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<com.philliphsu.bottomsheetpickers.time.TimePickerPadLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/pad_numeric"
+    style="@style/PadLayoutStyle.Numeric"
+    android:background="@color/pad_numeric_background_color"
+    android:columnCount="3"
+    android:rowCount="5">
+
+    <Button
+        android:id="@+id/minute_0"
+        style="@style/PadButtonStyle.Numeric.Minute"
+        android:text="00" />
+
+    <Button
+        android:id="@+id/minute_5"
+        style="@style/PadButtonStyle.Numeric.Minute"
+        android:text="05" />
+
+    <Button
+        android:id="@+id/minute_10"
+        style="@style/PadButtonStyle.Numeric.Minute"
+        android:text="10" />
+
+    <Button
+        android:id="@+id/minute_15"
+        style="@style/PadButtonStyle.Numeric.Minute"
+        android:text="15" />
+
+    <Button
+        android:id="@+id/minute_20"
+        style="@style/PadButtonStyle.Numeric.Minute"
+        android:text="20" />
+
+    <Button
+        android:id="@+id/minute_25"
+        style="@style/PadButtonStyle.Numeric.Minute"
+        android:text="25" />
+
+    <Button
+        android:id="@+id/minute_30"
+        style="@style/PadButtonStyle.Numeric.Minute"
+        android:text="30" />
+
+    <Button
+        android:id="@+id/minute_35"
+        style="@style/PadButtonStyle.Numeric.Minute"
+        android:text="35" />
+
+    <Button
+        android:id="@+id/minute_40"
+        style="@style/PadButtonStyle.Numeric.Minute"
+        android:text="40" />
+
+    <Button
+        android:id="@+id/minute_45"
+        style="@style/PadButtonStyle.Numeric.Minute"
+        android:text="45" />
+
+    <Button
+        android:id="@+id/minute_50"
+        style="@style/PadButtonStyle.Numeric.Minute"
+        android:text="50" />
+
+    <Button
+        android:id="@+id/minute_55"
+        style="@style/PadButtonStyle.Numeric.Minute"
+        android:text="55" />
+
+    <ImageButton
+        android:id="@+id/dec_min"
+        style="@style/BasePadButtonStyle.MinuteTuner"
+        app:srcCompat="@drawable/ic_minus_circle_24dp" />
+
+    <Space style="@style/BasePadButtonStyle.MinuteTuner" />
+
+    <ImageButton
+        android:id="@+id/inc_min"
+        style="@style/BasePadButtonStyle.MinuteTuner"
+        app:srcCompat="@drawable/ic_add_circle_24dp" />
+
+</com.philliphsu.bottomsheetpickers.time.TimePickerPadLayout>

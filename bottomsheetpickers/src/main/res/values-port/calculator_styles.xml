@@ -54,6 +54,10 @@
         <item name="android:visibility">visible</item>
     </style>
 
+    <style name="PadButtonStyle.Numeric.Minute">
+        <item name="android:textSize">24sp</item>
+    </style>
+
     <!--TODO: Rename to .Sidebar-->
     <style name="PadButtonStyle.Operator">
         <item name="android:layout_margin">8dip</item>
@@ -66,6 +70,10 @@
     <style name="PadButtonStyle.Operator.Text">
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="BasePadButtonStyle.MinuteTuner">
+        <item name="android:layout_margin">4dip</item>
     </style>
 
     <!--TODO: Delete-->
