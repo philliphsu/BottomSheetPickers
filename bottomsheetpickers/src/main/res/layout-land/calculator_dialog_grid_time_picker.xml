@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/dialog_height">
+
+    <FrameLayout
+        android:id="@+id/time_display_background"
+        android:layout_width="@dimen/left_side_width"
+        android:layout_height="match_parent"
+        android:background="@android:color/white" >
+        <include
+            layout="@layout/time_header_label"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/header_height"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+    <include layout="@layout/pad_12h_grid_time_picker" />
+    <include layout="@layout/pad_time_picker_sidebar" />
+
+</LinearLayout>
