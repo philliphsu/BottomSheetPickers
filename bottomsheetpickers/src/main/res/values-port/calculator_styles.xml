@@ -87,7 +87,7 @@
         <item name="android:paddingTop">8dip</item>
         <item name="android:paddingBottom">24dip</item>
         <item name="android:paddingStart">4dip</item>
-        <item name="android:paddingEnd">28dip</item>
+        <item name="android:paddingEnd">4dip</item>
     </style>
 
 </resources>
