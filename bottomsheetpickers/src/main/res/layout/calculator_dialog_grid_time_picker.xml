@@ -16,14 +16,10 @@
             android:layout_gravity="center" />
     </FrameLayout>
 
-    <LinearLayout
+    <!--TODO: This would be your GridSelectorLayout. The actual pads themselves are NumberGrids.-->
+    <include
+        layout="@layout/pad_12h_grid_time_picker"
         android:layout_width="match_parent"
-        android:layout_height="336dp"
-        android:orientation="horizontal">
-
-        <include layout="@layout/pad_12h_grid_time_picker" />
-        <include layout="@layout/pad_time_picker_sidebar" />
-
-    </LinearLayout>
+        android:layout_height="336dp"/>
 
 </LinearLayout>
