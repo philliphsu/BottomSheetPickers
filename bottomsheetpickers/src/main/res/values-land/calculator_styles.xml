@@ -67,7 +67,6 @@
     <style name="PadButtonStyle.Numeric.Secondary">
         <item name="android:layout_margin">0dp</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <!--TODO: Rename to .Sidebar-->
@@ -85,6 +84,7 @@
     <style name="PadButtonStyle.Operator.Text">
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="PadButtonStyle.MinuteTuner">

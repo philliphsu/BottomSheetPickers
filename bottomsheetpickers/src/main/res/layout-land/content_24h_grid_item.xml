@@ -27,7 +27,7 @@
         android:textSize="@dimen/number_grid_24_hour_item_primary_text_size"
         android:includeFontPadding="false"
         style="@style/TextAppearance.AppCompat"
-        android:layout_marginEnd="6dp"/>
+        android:layout_marginRight="6dp"/>
 
     <TextView
         android:id="@+id/secondary"

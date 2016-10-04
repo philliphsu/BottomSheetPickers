@@ -86,14 +86,14 @@
 
     <ImageButton
         android:id="@+id/dec_min"
-        style="@style/BasePadButtonStyle.MinuteTuner"
+        style="@style/PadButtonStyle.MinuteTuner"
         app:srcCompat="@drawable/ic_minus_circle_24dp" />
 
-    <Space style="@style/BasePadButtonStyle.MinuteTuner" />
+    <Space style="@style/PadButtonStyle" />
 
     <ImageButton
         android:id="@+id/inc_min"
-        style="@style/BasePadButtonStyle.MinuteTuner"
+        style="@style/PadButtonStyle.MinuteTuner"
         app:srcCompat="@drawable/ic_add_circle_24dp" />
 
 </com.philliphsu.bottomsheetpickers.time.MinutesGrid>
