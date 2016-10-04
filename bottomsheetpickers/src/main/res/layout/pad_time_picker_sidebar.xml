@@ -18,7 +18,7 @@
 <com.philliphsu.bottomsheetpickers.time.TimePickerPadLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/pad_operator"
+    android:id="@+id/sidebar"
     style="@style/PadLayoutStyle.Operator"
     android:columnCount="1"
     android:rowCount="4">

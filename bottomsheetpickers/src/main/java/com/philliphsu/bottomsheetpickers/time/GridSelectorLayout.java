@@ -34,6 +34,7 @@ import com.philliphsu.bottomsheetpickers.R;
  *
  * A ViewAnimator is a subclass of FrameLayout.
  */
+// TODO: Rename to GridPageAnimator?
 public class GridSelectorLayout extends ViewAnimator implements NumbersGrid.OnNumberSelectedListener {
     private static final String TAG = "GridSelectorLayout";
 

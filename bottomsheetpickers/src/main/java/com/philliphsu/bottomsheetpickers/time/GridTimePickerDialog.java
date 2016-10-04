@@ -445,6 +445,10 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
 //        mTimePicker.setBackgroundColor(mThemeDark? /*lightGray : circleBackground*/ darkGray : white);
 //        mDoneButton.setBackgroundResource(mThemeDark? darkDoneBackground : doneBackground);
 
+        int sidebarDark = ContextCompat.getColor(getActivity(), R.color.sidebar_color_dark);
+        int sidebarLight = ContextCompat.getColor(getActivity(), R.color.sidebar_color_light);
+        view.findViewById(R.id.sidebar).setBackgroundColor(mThemeDark ? sidebarDark : sidebarLight);
+
         // Set the color on the FAB
         // http://stackoverflow.com/a/32031019/5055032
         // *****************************************************************************************

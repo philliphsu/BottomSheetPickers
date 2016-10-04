@@ -64,4 +64,7 @@
     <color name="icon_color_inactive_dark">#4dffffff</color> <!--30% white-->
     <!-- TODO: This value is from the Icons page. The Colors page lists 38% black for "Icons and other elements". -->
     <color name="icon_color_inactive_light">#42000000</color> <!--26% black-->
+
+    <color name="sidebar_color_light">#F2F2F2</color>
+    <color name="sidebar_color_dark">#404040</color>
 </resources>
