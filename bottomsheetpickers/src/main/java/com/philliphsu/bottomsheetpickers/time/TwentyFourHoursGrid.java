@@ -39,11 +39,6 @@ public class TwentyFourHoursGrid extends NumbersGrid implements View.OnLongClick
     }
 
     @Override
-    protected int contentLayout() {
-        return R.layout.content_24h_number_grid;
-    }
-
-    @Override
     protected boolean canRegisterClickListener(View view) {
         return view instanceof TwentyFourHourGridItem;
     }

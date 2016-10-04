@@ -15,12 +15,12 @@
   limitations under the License.
   -->
 
-<com.philliphsu.bottomsheetpickers.time.TimePickerPadLayout
+<com.philliphsu.bottomsheetpickers.time.MinutesGrid
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pad_numeric"
-    style="@style/PadLayoutStyle.Numeric"
-    android:background="@color/pad_numeric_background_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:columnCount="3"
     android:rowCount="5">
 
@@ -96,4 +96,4 @@
         style="@style/BasePadButtonStyle.MinuteTuner"
         app:srcCompat="@drawable/ic_add_circle_24dp" />
 
-</com.philliphsu.bottomsheetpickers.time.TimePickerPadLayout>
+</com.philliphsu.bottomsheetpickers.time.MinutesGrid>

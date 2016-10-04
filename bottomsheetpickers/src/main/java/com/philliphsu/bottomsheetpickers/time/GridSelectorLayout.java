@@ -24,6 +24,8 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ViewAnimator;
 
+import com.philliphsu.bottomsheetpickers.R;
+
 /**
  * Created by Phillip Hsu on 8/17/2016.
  *
@@ -99,11 +101,11 @@ public class GridSelectorLayout extends ViewAnimator implements NumbersGrid.OnNu
             }
             addView(m24HoursGrid);
         } else {
-            mHoursGrid = new HoursGrid(context);
+            mHoursGrid = (HoursGrid) inflate(context, R.layout.pad_12h_grid_time_picker, null);
             mHoursGrid.initialize(this/*OnNumberSelectedListener*/);
             addView(mHoursGrid);
         }
-        mMinutesGrid = new MinutesGrid(context);
+        mMinutesGrid = (MinutesGrid) inflate(context, R.layout.pad_minutes, null);
         mMinutesGrid.initialize(this/*OnNumberSelectedListener*/);
         addView(mMinutesGrid);
 

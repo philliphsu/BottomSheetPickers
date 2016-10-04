@@ -18,6 +18,7 @@ package com.philliphsu.bottomsheetpickers.time;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -29,13 +30,26 @@ import com.philliphsu.bottomsheetpickers.R;
 public class MinutesGrid extends NumbersGrid {
     private static final String TAG = "MinutesGrid";
 
-    private final ImageButton mMinusButton;
-    private final ImageButton mPlusButton;
+    private ImageButton mMinusButton;
+    private ImageButton mPlusButton;
 
     public MinutesGrid(Context context) {
         super(context);
-        mMinusButton = (ImageButton) getChildAt(getChildCount() - 2);
-        mPlusButton = (ImageButton) getChildAt(getChildCount() - 1);
+    }
+
+    public MinutesGrid(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public MinutesGrid(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        mMinusButton = (ImageButton) findViewById(R.id.dec_min);
+        mPlusButton = (ImageButton) findViewById(R.id.inc_min);
         // We're not doing method binding because we don't have IDs set on these buttons.
         mMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,11 +83,6 @@ public class MinutesGrid extends NumbersGrid {
         } else {
             clearIndicator();
         }
-    }
-
-    @Override
-    protected int contentLayout() {
-        return R.layout.content_minutes_grid;
     }
 
     @Override

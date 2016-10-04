@@ -16,28 +16,28 @@
   -->
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView style="@style/NumberGridButton.Hour"
+    <TextView style="@style/PadButtonStyle.Numeric"
               android:text="1"/>
-    <TextView style="@style/NumberGridButton.Hour"
+    <TextView style="@style/PadButtonStyle.Numeric"
               android:text="2"/>
-    <TextView style="@style/NumberGridButton.Hour"
+    <TextView style="@style/PadButtonStyle.Numeric"
               android:text="3"/>
-    <TextView style="@style/NumberGridButton.Hour"
+    <TextView style="@style/PadButtonStyle.Numeric"
               android:text="4"/>
-    <TextView style="@style/NumberGridButton.Hour"
+    <TextView style="@style/PadButtonStyle.Numeric"
               android:text="5"/>
-    <TextView style="@style/NumberGridButton.Hour"
+    <TextView style="@style/PadButtonStyle.Numeric"
               android:text="6"/>
-    <TextView style="@style/NumberGridButton.Hour"
+    <TextView style="@style/PadButtonStyle.Numeric"
               android:text="7"/>
-    <TextView style="@style/NumberGridButton.Hour"
+    <TextView style="@style/PadButtonStyle.Numeric"
               android:text="8"/>
-    <TextView style="@style/NumberGridButton.Hour"
+    <TextView style="@style/PadButtonStyle.Numeric"
               android:text="9"/>
-    <TextView style="@style/NumberGridButton.Hour"
+    <TextView style="@style/PadButtonStyle.Numeric"
               android:text="10"/>
-    <TextView style="@style/NumberGridButton.Hour"
+    <TextView style="@style/PadButtonStyle.Numeric"
               android:text="11"/>
-    <TextView style="@style/NumberGridButton.Hour"
+    <TextView style="@style/PadButtonStyle.Numeric"
               android:text="12"/>
 </merge>

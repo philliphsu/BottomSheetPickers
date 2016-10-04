@@ -17,9 +17,8 @@
 package com.philliphsu.bottomsheetpickers.time;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.GridLayout;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -29,9 +28,8 @@ import com.philliphsu.bottomsheetpickers.R;
 /**
  * Created by Phillip Hsu on 8/17/2016.
  */
-public abstract class NumbersGrid extends GridLayout implements View.OnClickListener {
+public abstract class NumbersGrid extends TimePickerPadLayout implements View.OnClickListener {
     private static final String TAG = "NumbersGrid";
-    private static final int COLUMN_COUNT = 3;
 
     // Package visible so our concrete subclasses (in the same package) can access this.
     OnNumberSelectedListener mSelectionListener;
@@ -50,16 +48,16 @@ public abstract class NumbersGrid extends GridLayout implements View.OnClickList
         void onNumberSelected(int number);
     }
 
-    @LayoutRes
-    protected abstract int contentLayout();
-
     public NumbersGrid(Context context) {
-        super(context);
-        setColumnCount(COLUMN_COUNT);
-        inflate(context, contentLayout(), this);
-        // We don't do method binding because we don't know the IDs of
-        // our subclasses' buttons, if any.
-        registerClickListeners();
+        this(context, null);
+    }
+
+    public NumbersGrid(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public NumbersGrid(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
         mIsInitialized = false;
         mDefaultTextColor = ContextCompat.getColor(context, R.color.text_color_primary_light);
         // The reason we can use the Context passed here and get the correct accent color
@@ -67,6 +65,12 @@ public abstract class NumbersGrid extends GridLayout implements View.OnClickList
         // its initialize(), and the Context passed in there is from
         // GridTimePickerDialog.getActivity().
         mSelectedTextColor = Utils.getThemeAccentColor(context);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        registerClickListeners();
         final View defaultSelectedView = getChildAt(indexOfDefaultValue());
         mSelection = valueOf(defaultSelectedView);
         setIndicator(defaultSelectedView);
