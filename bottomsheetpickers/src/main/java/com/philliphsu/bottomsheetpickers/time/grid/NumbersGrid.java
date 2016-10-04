@@ -25,7 +25,7 @@ import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.time.TimePickerPadLayout;
-import com.philliphsu.bottomsheetpickers.time.Utils;
+import com.philliphsu.bottomsheetpickers.Utils;
 
 public abstract class NumbersGrid extends TimePickerPadLayout implements View.OnClickListener {
     private static final String TAG = "NumbersGrid";

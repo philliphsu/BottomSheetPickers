@@ -27,7 +27,7 @@ import android.widget.TextView;
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.TimeTextUtils;
-import com.philliphsu.bottomsheetpickers.time.Utils;
+import com.philliphsu.bottomsheetpickers.Utils;
 
 /**
  * Dialog to type in a time.

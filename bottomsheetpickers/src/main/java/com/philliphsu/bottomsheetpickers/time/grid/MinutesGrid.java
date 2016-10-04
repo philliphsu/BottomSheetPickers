@@ -23,7 +23,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.philliphsu.bottomsheetpickers.R;
-import com.philliphsu.bottomsheetpickers.time.Utils;
+import com.philliphsu.bottomsheetpickers.Utils;
 
 public class MinutesGrid extends NumbersGrid {
     private static final String TAG = "MinutesGrid";

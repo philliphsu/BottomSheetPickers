@@ -27,7 +27,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
-import com.philliphsu.bottomsheetpickers.time.Utils;
+import com.philliphsu.bottomsheetpickers.Utils;
 
 import java.util.Arrays;
 

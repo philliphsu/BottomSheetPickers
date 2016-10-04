@@ -19,5 +19,8 @@
 
     <dimen name="dialog_height">252dp</dimen> <!-- number_grid_height + + 16dp top margin + 16dp bottom margin -->
     <dimen name="left_side_width">250dip</dimen>
-
+	
+	<dimen name="selected_date_year_size">30dp</dimen>
+    <dimen name="selected_date_day_size">100dp</dimen>
+    <dimen name="selected_date_month_size">30dp</dimen>
 </resources>

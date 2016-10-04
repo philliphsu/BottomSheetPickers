@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.philliphsu.bottomsheetpickers.time;
+package com.philliphsu.bottomsheetpickers;
 
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
@@ -37,8 +37,6 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.format.Time;
 import android.view.View;
 import android.widget.ImageView;
-
-import com.philliphsu.bottomsheetpickers.R;
 
 import java.util.Calendar;
 

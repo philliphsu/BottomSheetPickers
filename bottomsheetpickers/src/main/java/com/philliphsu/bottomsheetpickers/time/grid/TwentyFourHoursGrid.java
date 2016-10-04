@@ -22,7 +22,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.philliphsu.bottomsheetpickers.R;
-import com.philliphsu.bottomsheetpickers.time.Utils;
+import com.philliphsu.bottomsheetpickers.Utils;
 
 public class TwentyFourHoursGrid extends NumbersGrid implements View.OnLongClickListener {
     private static final String TAG = "TwentyFourHoursGrid";
