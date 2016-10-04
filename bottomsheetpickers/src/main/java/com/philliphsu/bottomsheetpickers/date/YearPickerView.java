@@ -28,8 +28,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.datetimepicker.R;
-import com.android.datetimepicker.date.DatePickerDialog.OnDateChangedListener;
+import com.philliphsu.bottomsheetpickers.R;
+import com.philliphsu.bottomsheetpickers.date.DatePickerDialog.OnDateChangedListener;
 
 import java.util.ArrayList;
 import java.util.List;

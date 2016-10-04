@@ -16,8 +16,8 @@
 
 package com.philliphsu.bottomsheetpickers.date;
 
-import com.android.datetimepicker.date.DatePickerDialog.OnDateChangedListener;
-import com.android.datetimepicker.date.MonthAdapter.CalendarDay;
+import com.philliphsu.bottomsheetpickers.date.DatePickerDialog.OnDateChangedListener;
+import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
 
 import java.util.Calendar;
 

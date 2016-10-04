@@ -37,9 +37,9 @@ import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.android.datetimepicker.R;
-import com.android.datetimepicker.Utils;
-import com.android.datetimepicker.date.MonthAdapter.CalendarDay;
+import com.philliphsu.bottomsheetpickers.R;
+import com.philliphsu.bottomsheetpickers.Utils;
+import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
 
 import java.security.InvalidParameterException;
 import java.util.Calendar;
