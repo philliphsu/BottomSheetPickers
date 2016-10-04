@@ -8,13 +8,15 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.philliphsu.bottomsheetpickers.date.DatePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.grid.GridTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.numberpad.NumberPadTimePickerDialog;
 
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity implements BottomSheetTimePickerDialog.OnTimeSetListener {
+public class MainActivity extends AppCompatActivity implements
+        BottomSheetTimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
     private static final String TAG = "MainActivity";
 
     private TextView mText;
@@ -46,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements BottomSheetTimePi
                             DateFormat.is24HourFormat(MainActivity.this));
                     dialog.setThemeDark(checkedId == R.id.choice_grid_picker_dark);
                     dialog.show(getSupportFragmentManager(), TAG);
+                } else if (checkedId == R.id.choice_date_picker) {
+                    DatePickerDialog dialog = DatePickerDialog.newInstance(MainActivity.this, 0, 0, 0);
+                    dialog.show(getFragmentManager(), TAG);
                 }
             }
         });
@@ -57,5 +62,10 @@ public class MainActivity extends AppCompatActivity implements BottomSheetTimePi
         cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
         cal.set(Calendar.MINUTE, minute);
         mText.setText("Time set: " + DateFormat.getTimeFormat(this).format(cal.getTime()));
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth) {
+
     }
 }
