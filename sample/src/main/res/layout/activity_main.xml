@@ -41,12 +41,6 @@
             android:layout_height="48dp"
             android:text="Grid Selector, Dark"/>
 
-        <RadioButton
-            android:id="@+id/choice_test_calc_grid"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Calculator Grid"/>
-
     </RadioGroup>
 
     <TextView

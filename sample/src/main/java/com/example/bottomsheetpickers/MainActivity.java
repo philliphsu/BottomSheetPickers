@@ -9,7 +9,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
-import com.philliphsu.bottomsheetpickers.time.CalculatorGridTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.grid.GridTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.keypad.NumpadTimePickerDialog;
 
@@ -42,9 +41,6 @@ public class MainActivity extends AppCompatActivity implements BottomSheetTimePi
                     GridTimePickerDialog dialog = GridTimePickerDialog.newInstance(
                             MainActivity.this, 0, 0, DateFormat.is24HourFormat(MainActivity.this));
                     dialog.setThemeDark(checkedId == R.id.choice_grid_selector_dark);
-                    dialog.show(getSupportFragmentManager(), TAG);
-                } else {
-                    CalculatorGridTimePickerDialog dialog = new CalculatorGridTimePickerDialog();
                     dialog.show(getSupportFragmentManager(), TAG);
                 }
             }
