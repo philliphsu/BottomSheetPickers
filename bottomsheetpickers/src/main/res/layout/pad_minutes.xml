@@ -15,7 +15,7 @@
   limitations under the License.
   -->
 
-<com.philliphsu.bottomsheetpickers.time.MinutesGrid
+<com.philliphsu.bottomsheetpickers.time.grid.MinutesGrid
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pad_numeric"
@@ -96,4 +96,4 @@
         style="@style/PadButtonStyle.MinuteTuner"
         app:srcCompat="@drawable/ic_add_circle_24dp" />
 
-</com.philliphsu.bottomsheetpickers.time.MinutesGrid>
+</com.philliphsu.bottomsheetpickers.time.grid.MinutesGrid>

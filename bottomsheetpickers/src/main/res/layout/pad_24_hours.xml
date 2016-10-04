@@ -15,7 +15,7 @@
   limitations under the License.
   -->
 
-<com.philliphsu.bottomsheetpickers.time.TwentyFourHoursGrid
+<com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHoursGrid
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -23,76 +23,76 @@
     android:columnCount="3"
     android:rowCount="4">
 
-    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_0_12"
         style="@style/PadButtonStyle.Numeric"
         app:primaryText="00"
         app:secondaryText="12" />
     
-    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_1_13"
         style="@style/PadButtonStyle.Numeric"
         app:primaryText="01"
         app:secondaryText="13" />
 
-    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_2_14"
         style="@style/PadButtonStyle.Numeric"
         app:primaryText="02"
         app:secondaryText="14" />
 
-    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_3_15"
         style="@style/PadButtonStyle.Numeric"
         app:primaryText="03"
         app:secondaryText="15" />
 
-    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_4_16"
         style="@style/PadButtonStyle.Numeric"
         app:primaryText="04"
         app:secondaryText="16" />
 
-    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_5_17"
         style="@style/PadButtonStyle.Numeric"
         app:primaryText="05"
         app:secondaryText="17" />
 
-    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_6_18"
         style="@style/PadButtonStyle.Numeric"
         app:primaryText="06"
         app:secondaryText="18" />
 
-    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_7_19"
         style="@style/PadButtonStyle.Numeric"
         app:primaryText="07"
         app:secondaryText="19" />
 
-    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_8_20"
         style="@style/PadButtonStyle.Numeric"
         app:primaryText="08"
         app:secondaryText="20" />
 
-    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_9_21"
         style="@style/PadButtonStyle.Numeric"
         app:primaryText="09"
         app:secondaryText="21" />
 
-    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_10_22"
         style="@style/PadButtonStyle.Numeric"
         app:primaryText="10"
         app:secondaryText="22" />
 
-    <com.philliphsu.bottomsheetpickers.time.TwentyFourHourGridItem
+    <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_11_23"
         style="@style/PadButtonStyle.Numeric"
         app:primaryText="11"
         app:secondaryText="23" />
 
-</com.philliphsu.bottomsheetpickers.time.TwentyFourHoursGrid>
+</com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHoursGrid>

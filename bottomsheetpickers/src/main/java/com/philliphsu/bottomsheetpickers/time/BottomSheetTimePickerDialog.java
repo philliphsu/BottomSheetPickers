@@ -65,7 +65,7 @@ public abstract class BottomSheetTimePickerDialog extends BottomSheetDialogFragm
         return new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
     }
 
-    final void onTimeSet(ViewGroup vg, int hourOfDay, int minute) {
+    protected final void onTimeSet(ViewGroup vg, int hourOfDay, int minute) {
         if (mCallback != null) {
             mCallback.onTimeSet(vg, hourOfDay, minute);
         }

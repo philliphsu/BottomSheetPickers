@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.CalculatorGridTimePickerDialog;
-import com.philliphsu.bottomsheetpickers.time.GridTimePickerDialog;
+import com.philliphsu.bottomsheetpickers.time.grid.GridTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.NumpadTimePickerDialog;
 
 import java.util.Calendar;

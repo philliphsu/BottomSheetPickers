@@ -38,7 +38,7 @@
         android:layout_height="@dimen/dialog_height"
         android:orientation="horizontal">
 
-        <com.philliphsu.bottomsheetpickers.time.GridSelectorLayout
+        <com.philliphsu.bottomsheetpickers.time.grid.GridSelectorLayout
             android:id="@+id/time_picker"
             style="@style/PadLayoutStyle.Numeric"/>
 

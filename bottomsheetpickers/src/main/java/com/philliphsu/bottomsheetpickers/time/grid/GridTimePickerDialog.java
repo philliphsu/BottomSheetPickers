@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package com.philliphsu.bottomsheetpickers.time;
+package com.philliphsu.bottomsheetpickers.time.grid;
 
 import android.animation.ObjectAnimator;
 import android.app.ActionBar.LayoutParams;
@@ -35,7 +35,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
-import com.philliphsu.bottomsheetpickers.time.GridSelectorLayout.OnValueSelectedListener;
+import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
+import com.philliphsu.bottomsheetpickers.time.Utils;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ import java.util.Locale;
 /**
  * A derivative of the AOSP datetimepicker TimePickerDialog class.
  */
-public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements OnValueSelectedListener {
+public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements GridSelectorLayout.OnValueSelectedListener {
     private static final String TAG = "TimePickerDialog";
 
     private static final String KEY_HOUR_OF_DAY = "hour_of_day";
