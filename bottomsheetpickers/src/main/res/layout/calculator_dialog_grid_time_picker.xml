@@ -21,7 +21,7 @@
         android:layout_height="@dimen/time_picker_pad_height"
         android:orientation="horizontal">
 
-        <include layout="@layout/pad_24h_grid_time_picker" />
+        <include layout="@layout/pad_24_hours" />
         <include layout="@layout/pad_time_picker_sidebar" />
 
     </LinearLayout>

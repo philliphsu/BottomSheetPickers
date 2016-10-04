@@ -101,7 +101,7 @@ public class GridSelectorLayout extends ViewAnimator implements NumbersGrid.OnNu
             }
             addView(m24HoursGrid);
         } else {
-            mHoursGrid = (HoursGrid) inflate(context, R.layout.pad_12h_grid_time_picker, null);
+            mHoursGrid = (HoursGrid) inflate(context, R.layout.pad_12_hours, null);
             mHoursGrid.initialize(this/*OnNumberSelectedListener*/);
             addView(mHoursGrid);
         }
