@@ -20,7 +20,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pad_operator"
     style="@style/PadLayoutStyle.Operator"
-    android:background="@color/pad_operator_background_color"
     android:columnCount="1"
     android:rowCount="4">
 
