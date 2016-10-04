@@ -18,6 +18,7 @@ package com.philliphsu.bottomsheetpickers.time;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.util.AttributeSet;
 import android.view.View;
 
 import com.philliphsu.bottomsheetpickers.R;
@@ -31,11 +32,24 @@ public class TwentyFourHoursGrid extends NumbersGrid implements View.OnLongClick
     private int mSecondaryTextColor;
 
     public TwentyFourHoursGrid(Context context) {
-        super(context);
+        this(context, null);
+    }
+
+    public TwentyFourHoursGrid(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public TwentyFourHoursGrid(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        mSecondaryTextColor = ContextCompat.getColor(context, R.color.text_color_secondary_light);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
         for (int i = 0; i < getChildCount(); i++) {
             getChildAt(i).setOnLongClickListener(this);
         }
-        mSecondaryTextColor = ContextCompat.getColor(context, R.color.text_color_secondary_light);
     }
 
     @Override
