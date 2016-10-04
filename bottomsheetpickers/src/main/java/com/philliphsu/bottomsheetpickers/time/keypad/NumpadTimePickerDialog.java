@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.philliphsu.bottomsheetpickers.time;
+package com.philliphsu.bottomsheetpickers.time.keypad;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -25,6 +25,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
+import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
+import com.philliphsu.bottomsheetpickers.time.TimeTextUtils;
+import com.philliphsu.bottomsheetpickers.time.Utils;
 
 /**
  * Created by Phillip Hsu on 7/12/2016.
@@ -138,7 +141,8 @@ public class NumpadTimePickerDialog extends BottomSheetTimePickerDialog
         return view;
     }
 
-    @Override int contentLayout() {
+    @Override
+    protected int contentLayout() {
         return R.layout.dialog_time_picker_numpad;
     }
 

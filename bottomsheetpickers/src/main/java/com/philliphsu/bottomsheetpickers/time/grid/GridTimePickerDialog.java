@@ -133,7 +133,8 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
     private Button               mLeftHalfDayToggle;
     private Button               mRightHalfDayToggle;
 
-    @Override int contentLayout() {
+    @Override
+    protected int contentLayout() {
         return R.layout.dialog_time_picker_grid;
     }
 

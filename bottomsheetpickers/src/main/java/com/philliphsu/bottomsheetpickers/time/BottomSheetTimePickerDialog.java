@@ -47,7 +47,8 @@ public abstract class BottomSheetTimePickerDialog extends BottomSheetDialogFragm
         void onTimeSet(ViewGroup viewGroup, int hourOfDay, int minute);
     }
 
-    @LayoutRes abstract int contentLayout();
+    @LayoutRes
+    protected abstract int contentLayout();
 
     public final void setOnTimeSetListener(OnTimeSetListener callback) {
         mCallback = callback;

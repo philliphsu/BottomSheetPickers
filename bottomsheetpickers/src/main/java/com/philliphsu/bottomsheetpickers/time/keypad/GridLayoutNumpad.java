@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.philliphsu.bottomsheetpickers.time;
+package com.philliphsu.bottomsheetpickers.time.keypad;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
+import com.philliphsu.bottomsheetpickers.time.Utils;
 
 import java.util.Arrays;
 
