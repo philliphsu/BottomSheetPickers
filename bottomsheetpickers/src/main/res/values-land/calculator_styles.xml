@@ -84,7 +84,7 @@
     <!--TODO: Rename to .Sidebar.Text-->
     <style name="PadButtonStyle.Operator.Text">
         <item name="android:textAllCaps">true</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="BasePadButtonStyle.MinuteTuner">
