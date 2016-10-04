@@ -84,7 +84,7 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
-    <style name="BasePadButtonStyle.MinuteTuner">
+    <style name="PadButtonStyle.MinuteTuner">
         <item name="android:layout_margin">4dip</item>
     </style>
 
