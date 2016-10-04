@@ -18,53 +18,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/day_picker_selected_date_layout"
     android:layout_width="@dimen/date_picker_component_width"
-    android:layout_height="0dip"
-    android:layout_weight="1"
+    android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:gravity="center"
+    android:gravity="center_vertical"
     android:orientation="vertical" >
-
-    <com.philliphsu.bottomsheetpickers.AccessibleLinearLayout
-        android:id="@+id/date_picker_month_and_day"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:clickable="true"
-        android:orientation="vertical"
-        android:textColor="@color/date_picker_selector" >
-
-        <TextView
-            android:id="@+id/date_picker_month"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:duplicateParentState="true"
-            android:gravity="center_horizontal|bottom"
-            android:includeFontPadding="false"
-            android:textColor="@color/date_picker_selector"
-            android:textSize="@dimen/selected_date_month_size" />
-
-        <TextView
-            android:id="@+id/date_picker_day"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="-10dip"
-            android:layout_marginTop="-10dip"
-            android:duplicateParentState="true"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:textColor="@color/date_picker_selector"
-            android:textSize="@dimen/selected_date_day_size" />
-    </com.philliphsu.bottomsheetpickers.AccessibleLinearLayout>
 
     <com.philliphsu.bottomsheetpickers.AccessibleTextView
         android:id="@+id/date_picker_year"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal|top"
         android:includeFontPadding="false"
         android:textColor="@color/date_picker_selector"
         android:textSize="@dimen/selected_date_year_size" />
+
+    <com.philliphsu.bottomsheetpickers.AccessibleLinearLayout
+        android:id="@+id/date_picker_month_and_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:textColor="@color/date_picker_selector" >
+
+        <TextView
+            android:id="@+id/date_picker_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:duplicateParentState="true"
+            android:includeFontPadding="false"
+            android:textColor="@color/date_picker_selector"
+            android:textSize="@dimen/selected_date_month_size" />
+
+        <Space
+            android:layout_width="8dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/date_picker_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:duplicateParentState="true"
+            android:includeFontPadding="false"
+            android:textColor="@color/date_picker_selector"
+            android:textSize="@dimen/selected_date_month_size" />
+    </com.philliphsu.bottomsheetpickers.AccessibleLinearLayout>
 
 </LinearLayout>
