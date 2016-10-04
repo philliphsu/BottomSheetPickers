@@ -24,5 +24,5 @@
     <dimen name="selected_calendar_layout_height">120dp</dimen>
     <dimen name="selected_date_year_size">30dp</dimen>
     <dimen name="selected_date_day_size">100dp</dimen>
-    <dimen name="selected_date_month_size">30dp</dimen>
+    <dimen name="selected_date_month_size">50dp</dimen>
 </resources>
