@@ -21,17 +21,15 @@
               android:gravity="center"
               android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:background="@android:color/white"
-        android:orientation="vertical" >
+        android:layout_weight="1"
+        android:background="@android:color/white" >
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dip"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical" >
 
             <include layout="@layout/date_picker_header_view" />
@@ -40,14 +38,19 @@
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="@dimen/fab_margin"
             app:srcCompat="@drawable/ic_done_24dp"/>
 
-    </LinearLayout>
+    </FrameLayout>
 
-    <include layout="@layout/date_picker_view_animator" />
+    <include
+        layout="@layout/date_picker_view_animator"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
 </LinearLayout>

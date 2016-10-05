@@ -17,20 +17,21 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/date_picker_view_animator" >
 
     <LinearLayout
-        android:layout_width="@dimen/date_picker_component_width"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical" >
 
         <LinearLayout
             android:id="@+id/selected_calendar_layout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/selected_calendar_layout_height"
+            android:background="@color/pad_operator_background_color"
             android:orientation="vertical" >
 
             <include layout="@layout/date_picker_selected_date" />
