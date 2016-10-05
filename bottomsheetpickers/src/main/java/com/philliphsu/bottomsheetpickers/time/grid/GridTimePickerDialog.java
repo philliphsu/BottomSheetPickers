@@ -121,8 +121,8 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
 
     // TODO: Consider moving these to GridSelectorLayout?
     private FloatingActionButton mDoneButton;
-    private Button               mLeftHalfDayToggle;
-    private Button               mRightHalfDayToggle;
+    private Button               mFirstHalfDayToggle;
+    private Button               mSecondHalfDayToggle;
 
     @Override
     protected int contentLayout() {
@@ -212,21 +212,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         String[] amPmTexts = new DateFormatSymbols().getAmPmStrings();
         mAmText = amPmTexts[0];
         mPmText = amPmTexts[1];
-        
-        if (mIs24HourMode) {
-            mLeftHalfDayToggle.setText(R.string.hours_00_11);
-            mRightHalfDayToggle.setText(R.string.hours_12_23);
-            // We need different drawable resources for each case, not a single one that we
-            // just tint differently, because the orientation of each one is different.
-            final int icon1 = mThemeDark? R.drawable.ic_half_day_1_dark_24dp : R.drawable.ic_half_day_1_24dp;
-            final int icon2 = mThemeDark? R.drawable.ic_half_day_2_dark_24dp : R.drawable.ic_half_day_2_24dp;
-            // Intrinsic bounds means the drawable's own bounds? So 24dp box.
-            mLeftHalfDayToggle.setCompoundDrawablesWithIntrinsicBounds(0, icon1, 0, 0);
-            mRightHalfDayToggle.setCompoundDrawablesWithIntrinsicBounds(0, icon2, 0, 0);
-        } else {
-            mLeftHalfDayToggle.setText(mAmText);
-            mRightHalfDayToggle.setText(mPmText);
-        }
 
         // TODO: Restore
 //        mHapticFeedbackController = new HapticFeedbackController(getActivity());
@@ -273,6 +258,23 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         });
         mDoneButton.setOnKeyListener(keyboardListener);
 
+        // TODO: setOnKeyListener?
+        mFirstHalfDayToggle = (Button) view.findViewById(R.id.half_day_toggle_1);
+        mFirstHalfDayToggle.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryToggleHalfDay(HALF_DAY_1);
+            }
+        });
+        // TODO: setOnKeyListener?
+        mSecondHalfDayToggle = (Button) view.findViewById(R.id.half_day_toggle_2);
+        mSecondHalfDayToggle.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryToggleHalfDay(HALF_DAY_2);
+            }
+        });
+
         // Enable or disable the AM/PM view.
         mAmPmHitspace = view.findViewById(R.id.ampm_hitspace);
         if (mIs24HourMode) {
@@ -283,6 +285,15 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             paramsSeparator.addRule(RelativeLayout.CENTER_IN_PARENT);
             TextView separatorView = (TextView) view.findViewById(R.id.separator);
             separatorView.setLayoutParams(paramsSeparator);
+
+            mFirstHalfDayToggle.setText(R.string.hours_00_11);
+            mSecondHalfDayToggle.setText(R.string.hours_12_23);
+            // We need different drawable resources for each case, not a single one that we
+            // just tint differently, because the orientation of each one is different.
+            final int icon1 = mThemeDark? R.drawable.ic_half_day_1_dark_24dp : R.drawable.ic_half_day_1_24dp;
+            final int icon2 = mThemeDark? R.drawable.ic_half_day_2_dark_24dp : R.drawable.ic_half_day_2_24dp;
+            mFirstHalfDayToggle.setCompoundDrawablesWithIntrinsicBounds(0, icon1, 0, 0);
+            mSecondHalfDayToggle.setCompoundDrawablesWithIntrinsicBounds(0, icon2, 0, 0);
         } else {
             mAmPmTextView.setVisibility(View.VISIBLE);
             mAmPmHitspace.setOnClickListener(new OnClickListener() {
@@ -299,22 +310,9 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
                     mTimePicker.setAmOrPm(amOrPm);
                 }
             });
+            mFirstHalfDayToggle.setText(mAmText);
+            mSecondHalfDayToggle.setText(mPmText);
         }
-
-        mLeftHalfDayToggle = (Button) view.findViewById(R.id.half_day_toggle_1);
-        mLeftHalfDayToggle.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tryToggleHalfDay(HALF_DAY_1);
-            }
-        });
-        mRightHalfDayToggle = (Button) view.findViewById(R.id.half_day_toggle_2);
-        mRightHalfDayToggle.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tryToggleHalfDay(HALF_DAY_2);
-            }
-        });
 
         mAllowAutoAdvance = true;
         setHour(mInitialHourOfDay, true);
@@ -370,8 +368,8 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         mHalfDayToggleUnselectedColor = getColor(ctx, mThemeDark?
                 R.color.text_color_primary_dark : R.color.text_color_primary_light);
 
-        Utils.setColorControlHighlight(mLeftHalfDayToggle, accentColor);
-        Utils.setColorControlHighlight(mRightHalfDayToggle, accentColor);
+        Utils.setColorControlHighlight(mFirstHalfDayToggle, accentColor);
+        Utils.setColorControlHighlight(mSecondHalfDayToggle, accentColor);
 
         // Update the half day at the end when the state colors have been initialized
         updateHalfDay(mInitialHourOfDay < 12? AM : PM);
@@ -427,12 +425,12 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
     private void updateHalfDayTogglesState(int halfDay) {
         switch (halfDay) {
             case HALF_DAY_1:
-                mLeftHalfDayToggle.setTextColor(mHalfDayToggleSelectedColor);
-                mRightHalfDayToggle.setTextColor(mHalfDayToggleUnselectedColor);
+                mFirstHalfDayToggle.setTextColor(mHalfDayToggleSelectedColor);
+                mSecondHalfDayToggle.setTextColor(mHalfDayToggleUnselectedColor);
                 break;
             case HALF_DAY_2:
-                mRightHalfDayToggle.setTextColor(mHalfDayToggleSelectedColor);
-                mLeftHalfDayToggle.setTextColor(mHalfDayToggleUnselectedColor);
+                mSecondHalfDayToggle.setTextColor(mHalfDayToggleSelectedColor);
+                mFirstHalfDayToggle.setTextColor(mHalfDayToggleUnselectedColor);
                 break;
         }
     }
