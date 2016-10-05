@@ -40,9 +40,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
-/**
- * Created by Phillip Hsu on 7/12/2016.
- */
 public class NumpadTimePicker extends GridLayoutNumpad {
     private static final int MAX_DIGITS = 4;
 

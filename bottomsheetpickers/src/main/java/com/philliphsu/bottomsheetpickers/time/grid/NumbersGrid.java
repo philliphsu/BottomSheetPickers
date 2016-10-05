@@ -27,9 +27,6 @@ import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.time.TimePickerPadLayout;
 import com.philliphsu.bottomsheetpickers.time.Utils;
 
-/**
- * Created by Phillip Hsu on 8/17/2016.
- */
 public abstract class NumbersGrid extends TimePickerPadLayout implements View.OnClickListener {
     private static final String TAG = "NumbersGrid";
 

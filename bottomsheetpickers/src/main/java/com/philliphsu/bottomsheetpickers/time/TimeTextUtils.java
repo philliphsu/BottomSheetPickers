@@ -21,9 +21,6 @@ import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
 import android.widget.TextView;
 
-/**
- * Created by Phillip Hsu on 7/16/2016.
- */
 public class TimeTextUtils {
 
     private TimeTextUtils() {}
@@ -38,6 +35,7 @@ public class TimeTextUtils {
      * @param textView the TextView to display {@code textTime}
      */
     public static void setText(String textTime, TextView textView) {
+        // TODO: This is not localized. Get the AM/PM translation from DateFormatSymbols.
         if (textTime.contains("AM") || textTime.contains("PM")) {
             SpannableString s = new SpannableString(textTime);
             s.setSpan(AMPM_SIZE_SPAN, textTime.indexOf(" "), textTime.length(),

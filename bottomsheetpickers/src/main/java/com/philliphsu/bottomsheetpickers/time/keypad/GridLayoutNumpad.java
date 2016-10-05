@@ -31,11 +31,7 @@ import com.philliphsu.bottomsheetpickers.time.Utils;
 
 import java.util.Arrays;
 
-/**
- * Created by Phillip Hsu on 7/12/2016.
- *
- * Successor to the Numpad class that was based on TableLayout.
- *
+/*
  * TODO: Is NumpadTimePicker the only subclass? If so, why do we need this
  * superclass? If we move the contents of this class to NumpadTimePicker,
  * the implementation of setTheme() would make more sense.

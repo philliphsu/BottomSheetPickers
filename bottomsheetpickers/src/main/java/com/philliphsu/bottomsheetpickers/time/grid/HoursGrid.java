@@ -19,9 +19,6 @@ package com.philliphsu.bottomsheetpickers.time.grid;
 import android.content.Context;
 import android.util.AttributeSet;
 
-/**
- * Created by Phillip Hsu on 8/17/2016.
- */
 public class HoursGrid extends NumbersGrid {
 
     public HoursGrid(Context context) {

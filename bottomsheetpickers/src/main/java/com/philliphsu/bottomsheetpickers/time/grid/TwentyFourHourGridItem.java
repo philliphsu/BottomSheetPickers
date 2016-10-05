@@ -26,9 +26,6 @@ import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
 
-/**
- * Created by Phillip Hsu on 7/21/2016.
- */
 public class TwentyFourHourGridItem extends LinearLayout {
 
     private final TextView mPrimaryText;

@@ -24,9 +24,6 @@ import android.view.View;
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.time.Utils;
 
-/**
- * Created by Phillip Hsu on 8/17/2016.
- */
 public class TwentyFourHoursGrid extends NumbersGrid implements View.OnLongClickListener {
     private static final String TAG = "TwentyFourHoursGrid";
 

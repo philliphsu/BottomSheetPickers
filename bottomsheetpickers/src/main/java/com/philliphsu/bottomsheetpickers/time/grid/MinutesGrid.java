@@ -25,9 +25,6 @@ import android.widget.ImageButton;
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.time.Utils;
 
-/**
- * Created by Phillip Hsu on 8/17/2016.
- */
 public class MinutesGrid extends NumbersGrid {
     private static final String TAG = "MinutesGrid";
 

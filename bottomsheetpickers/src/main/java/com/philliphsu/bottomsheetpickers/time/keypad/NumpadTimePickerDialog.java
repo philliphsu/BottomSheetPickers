@@ -29,10 +29,6 @@ import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.TimeTextUtils;
 import com.philliphsu.bottomsheetpickers.time.Utils;
 
-/**
- * Created by Phillip Hsu on 7/12/2016.
- *
- */
 public class NumpadTimePickerDialog extends BottomSheetTimePickerDialog
         implements NumpadTimePicker.OnInputChangeListener {
     private static final String TAG = "NumpadTimePickerDialog";
