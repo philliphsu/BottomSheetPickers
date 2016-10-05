@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.philliphsu.bottomsheetpickers.time.keypad;
+package com.philliphsu.bottomsheetpickers.time.numberpad;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -29,9 +29,12 @@ import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.TimeTextUtils;
 import com.philliphsu.bottomsheetpickers.time.Utils;
 
-public class NumpadTimePickerDialog extends BottomSheetTimePickerDialog
-        implements NumpadTimePicker.OnInputChangeListener {
-    private static final String TAG = "NumpadTimePickerDialog";
+/**
+ * Dialog to type in a time.
+ */
+public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
+        implements NumberPadTimePicker.OnInputChangeListener {
+    private static final String TAG = "NumberPadTimePickerDialog";
 
     private static final String KEY_IS_24_HOUR_VIEW = "is_24_hour_view";
     private static final String KEY_DIGITS_INPUTTED = "digits_inputted";
@@ -39,31 +42,38 @@ public class NumpadTimePickerDialog extends BottomSheetTimePickerDialog
     private static final String KEY_THEME_DARK = "theme_dark";
     private static final String KEY_THEME_SET_AT_RUNTIME = "theme_set_at_runtime";
 
-    private boolean mIs24HourMode; // TODO: Why do we need this?
+    private boolean mIs24HourMode;
     /**
      * The digits stored in the numpad from the last time onSaveInstanceState() was called.
      *
-     * Why not have the NumpadTimePicker class save state itself? Because it's a lot more
+     * Why not have the NumberPadTimePicker class save state itself? Because it's a lot more
      * code to do so, as you have to create your own SavedState subclass. Also, we modeled
      * this dialog class on the RadialTimePickerDialog, where the RadialPickerLayout also
      * depends on the dialog to save its state.
      */
     private int[] mInputtedDigits;
-    private int mAmPmState = NumpadTimePicker.UNSPECIFIED; // TOneverDO: zero initial value, b/c 0 == AM
+    private int mAmPmState = NumberPadTimePicker.UNSPECIFIED; // TOneverDO: zero initial value, b/c 0 == AM
     private boolean mThemeDark;
     private boolean mThemeSetAtRuntime;
 
-    private TextView mInputField;
-    private NumpadTimePicker mNumpad;
+    private TextView            mInputField;
+    private NumberPadTimePicker mNumpad;
 
-    // TODO: is24HourMode param
-    public static NumpadTimePickerDialog newInstance(OnTimeSetListener callback) {
-        NumpadTimePickerDialog ret = new NumpadTimePickerDialog();
-        // TODO: Do these in initialize()
+    /**
+     * The number pad will be configured according to the user preference for 24-hour format.
+     */
+    public static NumberPadTimePickerDialog newInstance(OnTimeSetListener callback) {
+        NumberPadTimePickerDialog ret = new NumberPadTimePickerDialog();
+        // TODO: Write an initialize() to do these
         ret.setOnTimeSetListener(callback);
         ret.mThemeDark = false;
         ret.mThemeSetAtRuntime = false;
         return ret;
+    }
+
+    // TODO: Implement and make public
+    private static NumberPadTimePickerDialog newInstance(OnTimeSetListener callback, boolean is24HourMode) {
+        return null;
     }
 
     /**
@@ -96,7 +106,7 @@ public class NumpadTimePickerDialog extends BottomSheetTimePickerDialog
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
         mInputField = (TextView) view.findViewById(R.id.input_time);
-        mNumpad = (NumpadTimePicker) view.findViewById(R.id.number_grid);
+        mNumpad = (NumberPadTimePicker) view.findViewById(R.id.number_grid);
 
         final FloatingActionButton fab = (FloatingActionButton) mNumpad.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -114,9 +124,6 @@ public class NumpadTimePickerDialog extends BottomSheetTimePickerDialog
         mNumpad.setOnInputChangeListener(this);
         mNumpad.insertDigits(mInputtedDigits); // TOneverDO: before mNumpad.setOnInputChangeListener(this);
         mNumpad.setAmPmState(mAmPmState);
-        // Show the cursor immediately
-//        mInputField.requestFocus();
-        //updateInputText(""); // Primarily to disable 'OK'
 
         // Prepare colors
         int accentColor = Utils.getThemeAccentColor(getContext());

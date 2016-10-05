@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.philliphsu.bottomsheetpickers.time.keypad;
+package com.philliphsu.bottomsheetpickers.time.numberpad;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -40,7 +40,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
-public class NumpadTimePicker extends GridLayoutNumpad {
+class NumberPadTimePicker extends GridLayoutNumberPad {
     private static final int MAX_DIGITS = 4;
 
     // Formatted time string has a maximum of 8 characters
@@ -80,7 +80,7 @@ public class NumpadTimePicker extends GridLayoutNumpad {
     /**
      * Provides additional APIs to configure clients' display output.
      */
-    public interface OnInputChangeListener extends GridLayoutNumpad.OnInputChangeListener {
+    public interface OnInputChangeListener extends GridLayoutNumberPad.OnInputChangeListener {
         /**
          * Called when this numpad's buttons are all disabled, indicating no further
          * digits can be inserted.
@@ -88,11 +88,11 @@ public class NumpadTimePicker extends GridLayoutNumpad {
         void onInputDisabled();
     }
 
-    public NumpadTimePicker(Context context) {
+    public NumberPadTimePicker(Context context) {
         this(context, null);
     }
 
-    public NumpadTimePicker(Context context, AttributeSet attrs) {
+    public NumberPadTimePicker(Context context, AttributeSet attrs) {
         super(context, attrs);
         mAltButtons[0] = (Button) findViewById(R.id.leftAlt);
         mAltButtons[1] = (Button) findViewById(R.id.rightAlt);
@@ -152,7 +152,7 @@ public class NumpadTimePicker extends GridLayoutNumpad {
         mThemeDark = themeDark;
         // this.getContext() ==> default teal accent color
         // application context ==> white
-        // The Context that was passed in is NumpadTimePickerDialog.getContext() which
+        // The Context that was passed in is NumberPadTimePickerDialog.getContext() which
         // is probably the host Activity. I have no idea what this.getContext() returns,
         // but its probably some internal type that isn't tied to any of our application
         // components.
@@ -606,7 +606,7 @@ public class NumpadTimePicker extends GridLayoutNumpad {
                 String am = new DateFormatSymbols().getAmPmStrings()[0];
                 mAmPmState = ampm.equals(am) ? AM : PM;
                 // Digits will be shown for you on insert, but not AM/PM
-                NumpadTimePicker.super/*TOneverDO: remove super*/.onDigitInserted(mFormattedInput.toString());
+                NumberPadTimePicker.super/*TOneverDO: remove super*/.onDigitInserted(mFormattedInput.toString());
             } else {
                 CharSequence text = altBtn.getText();
                 int[] digits = new int[text.length() - 1];

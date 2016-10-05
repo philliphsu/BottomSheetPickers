@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.grid.GridTimePickerDialog;
-import com.philliphsu.bottomsheetpickers.time.keypad.NumpadTimePickerDialog;
+import com.philliphsu.bottomsheetpickers.time.numberpad.NumberPadTimePickerDialog;
 
 import java.util.Calendar;
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements BottomSheetTimePi
                 final int checkedId = group.getCheckedRadioButtonId();
                 if (checkedId == R.id.choice_number_pad
                         || checkedId == R.id.choice_number_pad_dark) {
-                    NumpadTimePickerDialog dialog = NumpadTimePickerDialog.newInstance(MainActivity.this);
+                    NumberPadTimePickerDialog dialog = NumberPadTimePickerDialog.newInstance(MainActivity.this);
                     dialog.setThemeDark(checkedId == R.id.choice_number_pad_dark);
                     dialog.show(getSupportFragmentManager(), TAG);
                 } else if (checkedId == R.id.choice_grid_picker

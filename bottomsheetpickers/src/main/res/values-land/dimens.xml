@@ -17,7 +17,7 @@
 <resources>
     <dimen name="grid_element_text_size">24sp</dimen>
 
-    <!-- NumpadTimePickerDialog -->
+    <!-- NumberPadTimePickerDialog -->
     <dimen name="numeric_keypad_cell_height">42dp</dimen>
     <!--<dimen name="numeric_keypad_height">344dp</dimen> &lt;!&ndash; 4 * (numeric_keypad_cell_height) + 88dp pre-21 FAB height &ndash;&gt;-->
     <!--<dimen name="numeric_keypad_backspace_height">88dp</dimen> &lt;!&ndash; Same as pre-21 FAB height &ndash;&gt;-->

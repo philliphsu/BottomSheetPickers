@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.philliphsu.bottomsheetpickers.time.keypad;
+package com.philliphsu.bottomsheetpickers.time.numberpad;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -32,11 +32,11 @@ import com.philliphsu.bottomsheetpickers.time.Utils;
 import java.util.Arrays;
 
 /*
- * TODO: Is NumpadTimePicker the only subclass? If so, why do we need this
- * superclass? If we move the contents of this class to NumpadTimePicker,
+ * TODO: Is NumberPadTimePicker the only subclass? If so, why do we need this
+ * superclass? If we move the contents of this class to NumberPadTimePicker,
  * the implementation of setTheme() would make more sense.
  */
-public abstract class GridLayoutNumpad extends GridLayout implements View.OnClickListener {
+abstract class GridLayoutNumberPad extends GridLayout implements View.OnClickListener {
     // TODO: change to private?
     protected static final int UNMODIFIED = -1;
     private static final int COLUMNS = 3;
@@ -67,11 +67,11 @@ public abstract class GridLayoutNumpad extends GridLayout implements View.OnClic
         void onDigitsCleared();
     }
 
-    public GridLayoutNumpad(Context context) {
+    public GridLayoutNumberPad(Context context) {
         this(context, null);
     }
 
-    public GridLayoutNumpad(Context context, AttributeSet attrs) {
+    public GridLayoutNumberPad(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
@@ -96,8 +96,8 @@ public abstract class GridLayoutNumpad extends GridLayout implements View.OnClic
         // which happens at compile time.
         // TOneverDO: Use any other Context to retrieve the accent color. We must use
         // the Context param passed to us, because we know this context to be
-        // NumpadTimePickerDialog.getContext(), which is equivalent to
-        // NumpadTimePickerDialog.getActivity(). It is from that Activity where we
+        // NumberPadTimePickerDialog.getContext(), which is equivalent to
+        // NumberPadTimePickerDialog.getActivity(). It is from that Activity where we
         // get its theme's colorAccent.
         mAccentColor = Utils.getThemeAccentColor(context);
         for (TextView b : mButtons) {
