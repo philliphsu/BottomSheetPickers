@@ -29,15 +29,9 @@
         <include layout="@layout/date_picker_header_view" />
 
         <include layout="@layout/date_picker_selected_date" />
+
     </LinearLayout>
 
     <include layout="@layout/date_picker_view_animator" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:background="@color/line_background" />
-
-    <include layout="@layout/date_picker_done_button" />
 
 </LinearLayout>
