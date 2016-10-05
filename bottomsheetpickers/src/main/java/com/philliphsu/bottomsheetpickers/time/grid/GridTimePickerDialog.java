@@ -18,11 +18,11 @@ package com.philliphsu.bottomsheetpickers.time.grid;
 
 import android.animation.ObjectAnimator;
 import android.app.ActionBar.LayoutParams;
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -42,15 +42,13 @@ import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Locale;
 
-//import com.android.datetimepicker.HapticFeedbackController;
-//import com.android.datetimepicker.R;
-//import com.android.datetimepicker.Utils;
-//import com.android.datetimepicker.time.RadialPickerLayout.OnValueSelectedListener;
+import static android.support.v4.content.ContextCompat.getColor;
 
 /**
  * A derivative of the AOSP datetimepicker TimePickerDialog class.
  */
-public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements GridSelectorLayout.OnValueSelectedListener {
+public class GridTimePickerDialog extends BottomSheetTimePickerDialog
+        implements GridSelectorLayout.OnValueSelectedListener {
     private static final String TAG = "TimePickerDialog";
 
     private static final String KEY_HOUR_OF_DAY = "hour_of_day";
@@ -65,23 +63,21 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
     public static final int HOUR_INDEX = 0;
     public static final int MINUTE_INDEX = 1;
     // NOT a real index for the purpose of what's showing.
-    // TODO: Rename to HALF_DAY_INDEX?
+    // TODO: Rename to HALF_DAY_INDEX
     public static final int AMPM_INDEX = 2;
     // Also NOT a real index, just used for keyboard mode.
     public static final int ENABLE_PICKER_INDEX = 3;
-    /**
-     * TODO: Use HALF_DAY_1 instead
-     */
+    // TODO: Use HALF_DAY_1 instead
     public static final int AM = 0;
-    /**
-     * TODO: Use HALF_DAY_2 instead
-     */
+    // TODO: Use HALF_DAY_2 instead
     public static final int PM = 1;
+    public static final int HALF_DAY_1 = 0;
+    public static final int HALF_DAY_2 = 1;
 
     // Delay before starting the pulse animation, in ms.
     private static final int PULSE_ANIMATOR_DELAY = 300;
-//    private OnTimeSetListener mCallback;
 
+    // TODO: Restore
 //    private HapticFeedbackController mHapticFeedbackController;
 
     private TextView mHourView;
@@ -123,11 +119,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
     private int mHalfDayToggleSelectedColor;
     private int mHalfDayToggleUnselectedColor;
 
-    // ====================================== MY STUFF =============================================
-    // TODO: Use the *values* of AM and PM instead.
-    public static final int HALF_DAY_1 = AM;
-    public static final int HALF_DAY_2 = PM;
-
     // TODO: Consider moving these to GridSelectorLayout?
     private FloatingActionButton mDoneButton;
     private Button               mLeftHalfDayToggle;
@@ -137,65 +128,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
     protected int contentLayout() {
         return R.layout.dialog_time_picker_grid;
     }
-
-//    private void toggleHalfDay() {
-//        int amOrPm = mTimePicker.getIsCurrentlyAmOrPm();
-//        // TODO: Use HALF_DAY_1 and 2 instead
-//        if (amOrPm == AM) {
-//            amOrPm = PM;
-//        } else if (amOrPm == PM){
-//            amOrPm = AM;
-//        }
-//        updateAmPmDisplay(amOrPm);
-//        mTimePicker.setAmOrPm(amOrPm);
-//        // TODO: Pretty sure we don't need this
-////        mSelectedHalfDay = amOrPm;
-//
-//        // TODO: Verify the corresponding TwentyFourHourGridItem retains its indicator
-//        // TODO: Don't use mSelectedHourOfDay anymore. Use mTimePicker.getHours()?
-//        if (amOrPm == HALF_DAY_1) {
-//            mSelectedHourOfDay %= 12;
-//        } else if (amOrPm == HALF_DAY_2) {
-//            mSelectedHourOfDay = (mSelectedHourOfDay % 12) + 12;
-//        }
-//        // Updates the header display
-//        onValueSelected(HOUR_INDEX, mSelectedHourOfDay, false);
-//    }
-
-//    private final OnClickListener mOnNumberClickListener = new OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            String number;
-//            if (v instanceof TextView) {
-//                number = ((TextView) v).getText().toString();
-//            } else if (v instanceof TwentyFourHourGridItem) {
-//                number = ((TwentyFourHourGridItem) v).getPrimaryText().toString();
-//            } else {
-//                Log.e(TAG, "TimePicker does not support button type " + v.getClass().getName());
-//                return;
-//            }
-//            int value = Integer.parseInt(number);
-//            if (mCurrentIndex == HOUR_INDEX && !mIs24HourMode) {
-//                if (value == 12 && mSelectedHalfDay == HALF_DAY_1) {
-//                    value = 0;
-//                } else if (value != 12 && mSelectedHalfDay == HALF_DAY_2) {
-//                    value += 12;
-//                }
-//            }
-//            onValueSelected(mCurrentIndex, value, true);
-//        }
-//    };
-
-    // =============================================================================================
-
-    public GridTimePickerDialog() {
-        // Empty constructor required for dialog fragment.
-    }
-
-//    public GridTimePickerDialog(Context context, int theme, OnTimeSetListener callback,
-//                                        int hourOfDay, int minute, boolean is24HourMode) {
-//        // Empty constructor required for dialog fragment.
-//    }
 
     public static GridTimePickerDialog newInstance(OnTimeSetListener callback,
                                                    int hourOfDay, int minute, boolean is24HourMode) {
@@ -227,11 +159,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
         return mThemeDark;
     }
 
-    // Defined as final in our base class.
-//    public void setOnTimeSetListener(OnTimeSetListener callback) {
-//        mCallback = callback;
-//    }
-
     public void setStartTime(int hourOfDay, int minute) {
         mInitialHourOfDay = hourOfDay;
         mInitialMinute = minute;
@@ -256,13 +183,11 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-//        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
 
-//        View view = inflater.inflate(R.layout.time_picker_dialog, null);
+        // TODO: What is this?
 //        KeyboardListener keyboardListener = new KeyboardListener();
 //        view.findViewById(R.id.time_picker_dialog).setOnKeyListener(keyboardListener);
-
-        View view = super.onCreateView(inflater, container, savedInstanceState);
 
         mDoneButton = (FloatingActionButton) view.findViewById(R.id.fab);
         mLeftHalfDayToggle = (Button) view.findViewById(R.id.half_day_toggle_1);
@@ -284,16 +209,14 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
             mThemeDark = Utils.isDarkTheme(getActivity(), mThemeDark);
         }
 
-        Resources res = getResources();
+        final Resources res = getResources();
+        final Context ctx = getActivity();
         mHourPickerDescription = res.getString(R.string.hour_picker_description);
         mSelectHours = res.getString(R.string.select_hours);
         mMinutePickerDescription = res.getString(R.string.minute_picker_description);
         mSelectMinutes = res.getString(R.string.select_minutes);
-//        mSelectedColor = res.getColor(mThemeDark? R.color.red : R.color.blue);
-//        mUnselectedColor =
-//                res.getColor(mThemeDark? android.R.color.white : R.color.numbers_text_color);
-        mSelectedColor = res.getColor(android.R.color.white);
-        mUnselectedColor = res.getColor(R.color.unselected_color);
+        mSelectedColor = getColor(ctx, android.R.color.white);
+        mUnselectedColor = getColor(ctx, R.color.unselected_color);
 
         mHourView = (TextView) view.findViewById(R.id.hours);
 //        mHourView.setOnKeyListener(keyboardListener);
@@ -322,6 +245,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
             mRightHalfDayToggle.setText(mPmText);
         }
 
+        // TODO: Restore
 //        mHapticFeedbackController = new HapticFeedbackController(getActivity());
         mTimePicker = (GridSelectorLayout) view.findViewById(R.id.time_picker);
         mTimePicker.setOnValueSelectedListener(this);
@@ -352,8 +276,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
             }
         });
 
-//        mDoneButton = (TextView) view.findViewById(R.id.done_button);
-        // This is our FAB.
         mDoneButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -416,39 +338,20 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
         // Set the theme at the end so that the initialize()s above don't counteract the theme.
         mTimePicker.setTheme(getActivity().getApplicationContext(), mThemeDark);
         // Prepare some colors to use.
-        int white = res.getColor(android.R.color.white);
-        int circleBackground = res.getColor(R.color.circle_background);
-        int line = res.getColor(R.color.line_background);
-        int timeDisplay = res.getColor(R.color.numbers_text_color);
-        // TODO: Port the AOSP timepicker files that contain these resources.
-//        ColorStateList doneTextColor = res.getColorStateList(R.color.done_text_color);
-//        int doneBackground = R.drawable.done_background_color;
+        final int white = getColor(ctx, android.R.color.white);
+        final int darkGray = getColor(ctx, R.color.dark_gray);
+        final int lightGray = getColor(ctx, R.color.light_gray);
+        final int accentColor = Utils.getThemeAccentColor(getActivity());
+        final int sidebarDark = getColor(ctx, R.color.sidebar_color_dark);
+        final int sidebarLight = getColor(ctx, R.color.sidebar_color_light);
 
-        int darkGray = res.getColor(R.color.dark_gray);
-        int lightGray = res.getColor(R.color.light_gray);
-        int darkLine = res.getColor(R.color.line_dark);
-        // TODO: Port the AOSP timepicker files that contain these resources.
-//        ColorStateList darkDoneTextColor = res.getColorStateList(R.color.done_text_color_dark);
-//        int darkDoneBackground = R.drawable.done_background_color_dark;
-
-        // My colors
-        int accentColor = Utils.getThemeAccentColor(getContext());
-
-        // Set the colors for each view based on the theme.
+        // Set the whole view's background color first
         view.setBackgroundColor(mThemeDark? darkGray : white);
+        // Set the colors for each view based on the theme.
         view.findViewById(R.id.time_display_background).setBackgroundColor(mThemeDark? lightGray : accentColor);
         view.findViewById(R.id.time_display).setBackgroundColor(mThemeDark? lightGray : accentColor);
-        ((TextView) view.findViewById(R.id.separator)).setTextColor(/*mThemeDark? white : timeDisplay*/mUnselectedColor);
-        ((TextView) view.findViewById(R.id.ampm_label)).setTextColor(/*mThemeDark? white : timeDisplay*/mUnselectedColor);
-//        view.findViewById(R.id.line).setBackgroundColor(mThemeDark? darkLine : line);
-//        mDoneButton.setTextColor(mThemeDark? darkDoneTextColor : doneTextColor);
-        // The AOSP timepicker originally uses these colors for the CircleView
-        // We already set the correct background color of the entire view tree.
-//        mTimePicker.setBackgroundColor(mThemeDark? /*lightGray : circleBackground*/ darkGray : white);
-//        mDoneButton.setBackgroundResource(mThemeDark? darkDoneBackground : doneBackground);
-
-        int sidebarDark = ContextCompat.getColor(getActivity(), R.color.sidebar_color_dark);
-        int sidebarLight = ContextCompat.getColor(getActivity(), R.color.sidebar_color_light);
+        ((TextView) view.findViewById(R.id.separator)).setTextColor(mUnselectedColor);
+        ((TextView) view.findViewById(R.id.ampm_label)).setTextColor(mUnselectedColor);
         view.findViewById(R.id.sidebar).setBackgroundColor(mThemeDark ? sidebarDark : sidebarLight);
 
         // Set the color on the FAB
@@ -462,20 +365,11 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
         // *****************************************************************************************
         // Color in normal state
         mDoneButton.setBackgroundTintList(ColorStateList.valueOf(accentColor));
-        // Color in pressed state. A ripple expands outwards from the point of contact throughout
-        // the fab when it is long pressed.
-//        mDoneButton.setRippleColor(/*your color here*/);
+//TODO        mDoneButton.setRippleColor();
 
-        // Set the color on the half-day toggles
-        // We already set the correct background color of the entire view tree.
-//        view.findViewById(R.id.half_day_toggles).setBackgroundColor(mThemeDark? /*lightGray : circleBackground*/ darkGray : white);
         mHalfDayToggleSelectedColor = accentColor;
-//        mHalfDayToggleUnselectedColor = Utils.getTextColorFromThemeAttr(getContext(),
-//                // The colors are in the correct order, which happens to be the reverse of the order
-//                // used in the NumbersGrids...
-//                mThemeDark? android.R.attr.textColorPrimaryInverse : android.R.attr.textColorPrimary);
-        mHalfDayToggleUnselectedColor = ContextCompat.getColor(getContext(),
-                mThemeDark? R.color.text_color_primary_dark : R.color.text_color_primary_light);
+        mHalfDayToggleUnselectedColor = getColor(ctx, mThemeDark?
+                R.color.text_color_primary_dark : R.color.text_color_primary_light);
 
         Utils.setColorControlHighlight(mLeftHalfDayToggle, accentColor);
         Utils.setColorControlHighlight(mRightHalfDayToggle, accentColor);
@@ -532,16 +426,14 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog implements
      * @param halfDay the half-day that should be shown as selected
      */
     private void updateHalfDayTogglesState(int halfDay) {
-        TextView leftHalfDayToggle = (TextView) mLeftHalfDayToggle;
-        TextView rightHalfDayToggle = (TextView) mRightHalfDayToggle;
         switch (halfDay) {
             case HALF_DAY_1:
-                leftHalfDayToggle.setTextColor(mHalfDayToggleSelectedColor);
-                rightHalfDayToggle.setTextColor(mHalfDayToggleUnselectedColor);
+                mLeftHalfDayToggle.setTextColor(mHalfDayToggleSelectedColor);
+                mRightHalfDayToggle.setTextColor(mHalfDayToggleUnselectedColor);
                 break;
             case HALF_DAY_2:
-                rightHalfDayToggle.setTextColor(mHalfDayToggleSelectedColor);
-                leftHalfDayToggle.setTextColor(mHalfDayToggleUnselectedColor);
+                mRightHalfDayToggle.setTextColor(mHalfDayToggleSelectedColor);
+                mLeftHalfDayToggle.setTextColor(mHalfDayToggleUnselectedColor);
                 break;
         }
     }
