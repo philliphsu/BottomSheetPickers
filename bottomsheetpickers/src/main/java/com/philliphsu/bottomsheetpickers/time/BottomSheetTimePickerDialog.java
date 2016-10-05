@@ -16,20 +16,11 @@
 
 package com.philliphsu.bottomsheetpickers.time;
 
-import android.app.Dialog;
-import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import com.philliphsu.bottomsheetpickers.R;
+import com.philliphsu.bottomsheetpickers.BottomSheetPickerDialog;
 
-public abstract class BottomSheetTimePickerDialog extends BottomSheetDialogFragment {
+public abstract class BottomSheetTimePickerDialog extends BottomSheetPickerDialog {
     private static final String TAG = "BottomSheetTimePickerDialog";
 
     private OnTimeSetListener mCallback;
@@ -47,23 +38,8 @@ public abstract class BottomSheetTimePickerDialog extends BottomSheetDialogFragm
         void onTimeSet(ViewGroup viewGroup, int hourOfDay, int minute);
     }
 
-    @LayoutRes
-    protected abstract int contentLayout();
-
     public final void setOnTimeSetListener(OnTimeSetListener callback) {
         mCallback = callback;
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(contentLayout(), container, false);
-    }
-
-    @NonNull
-    @Override
-    public final Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
     }
 
     protected final void onTimeSet(ViewGroup vg, int hourOfDay, int minute) {

@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.philliphsu.bottomsheetpickers.BottomSheetPickerDialog;
 import com.philliphsu.bottomsheetpickers.HapticFeedbackController;
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
@@ -49,7 +51,7 @@ import java.util.Locale;
 /**
  * Dialog allowing users to select a date.
  */
-public class DatePickerDialog extends DialogFragment implements
+public class DatePickerDialog extends BottomSheetPickerDialog implements
         OnClickListener, DatePickerController {
 
     private static final String TAG = "DatePickerDialog";
@@ -83,14 +85,14 @@ public class DatePickerDialog extends DialogFragment implements
 
     private AccessibleDateAnimator mAnimator;
 
-    private TextView mDayOfWeekView;
-    private LinearLayout mMonthAndDayView;
-    private TextView mSelectedMonthTextView;
-    private TextView mSelectedDayTextView;
-    private TextView mYearView;
-    private DayPickerView mDayPickerView;
-    private YearPickerView mYearPickerView;
-//    private Button mDoneButton; // TODO: FloatingActionButton
+    private TextView             mDayOfWeekView;
+    private LinearLayout         mMonthAndDayView;
+    private TextView             mSelectedMonthTextView;
+    private TextView             mSelectedDayTextView;
+    private TextView             mYearView;
+    private DayPickerView        mDayPickerView;
+    private YearPickerView       mYearPickerView;
+    private FloatingActionButton mDoneButton;
 
     private int mCurrentView = UNINITIALIZED;
 
@@ -195,10 +197,9 @@ public class DatePickerDialog extends DialogFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+//        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        final View view = super.onCreateView(inflater, container, savedInstanceState);
         Log.d(TAG, "onCreateView: ");
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-
-        View view = inflater.inflate(R.layout.date_picker_dialog, null);
 
         mDayOfWeekView = (TextView) view.findViewById(R.id.date_picker_header);
         mMonthAndDayView = (LinearLayout) view.findViewById(R.id.date_picker_month_and_day);
@@ -243,20 +244,18 @@ public class DatePickerDialog extends DialogFragment implements
         animation2.setDuration(ANIMATION_DURATION);
         mAnimator.setOutAnimation(animation2);
 
-        // TODO: Initialize the FAB here.
-//        mDoneButton = (Button) view.findViewById(R.id.done);
-//        mDoneButton.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                tryVibrate();
-//                if (mCallBack != null) {
-//                    mCallBack.onDateSet(DatePickerDialog.this, mCalendar.get(Calendar.YEAR),
-//                            mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
-//                }
-//                dismiss();
-//            }
-//        });
+        mDoneButton = (FloatingActionButton) view.findViewById(R.id.done);
+        mDoneButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryVibrate();
+                if (mCallBack != null) {
+                    mCallBack.onDateSet(DatePickerDialog.this, mCalendar.get(Calendar.YEAR),
+                            mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
+                }
+                dismiss();
+            }
+        });
 
         updateDisplay(false);
         setCurrentView(currentView);
@@ -506,5 +505,10 @@ public class DatePickerDialog extends DialogFragment implements
     @Override
     public void tryVibrate() {
         mHapticFeedbackController.tryVibrate();
+    }
+
+    @Override
+    protected int contentLayout() {
+        return R.layout.date_picker_dialog;
     }
 }

@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements
                     dialog.show(getSupportFragmentManager(), TAG);
                 } else if (checkedId == R.id.choice_date_picker) {
                     DatePickerDialog dialog = DatePickerDialog.newInstance(MainActivity.this, 0, 0, 0);
-                    dialog.show(getFragmentManager(), TAG);
+                    dialog.show(getSupportFragmentManager(), TAG);
                 }
             }
         });
