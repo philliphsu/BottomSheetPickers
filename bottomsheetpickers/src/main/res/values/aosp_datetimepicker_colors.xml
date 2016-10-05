@@ -66,5 +66,5 @@
     <color name="icon_color_inactive_light">#42000000</color> <!--26% black-->
 
     <color name="sidebar_color_light">#F2F2F2</color>
-    <color name="sidebar_color_dark">#404040</color>
+    <color name="sidebar_color_dark">#363636</color>
 </resources>
