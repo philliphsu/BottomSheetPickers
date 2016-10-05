@@ -36,11 +36,11 @@ public class MainActivity extends AppCompatActivity implements BottomSheetTimePi
                     NumpadTimePickerDialog dialog = NumpadTimePickerDialog.newInstance(MainActivity.this);
                     dialog.setThemeDark(checkedId == R.id.choice_number_pad_dark);
                     dialog.show(getSupportFragmentManager(), TAG);
-                } else if (checkedId == R.id.choice_grid_selector
-                        || checkedId == R.id.choice_grid_selector_dark) {
+                } else if (checkedId == R.id.choice_grid_picker
+                        || checkedId == R.id.choice_grid_picker_dark) {
                     GridTimePickerDialog dialog = GridTimePickerDialog.newInstance(
                             MainActivity.this, 0, 0, DateFormat.is24HourFormat(MainActivity.this));
-                    dialog.setThemeDark(checkedId == R.id.choice_grid_selector_dark);
+                    dialog.setThemeDark(checkedId == R.id.choice_grid_picker_dark);
                     dialog.show(getSupportFragmentManager(), TAG);
                 }
             }

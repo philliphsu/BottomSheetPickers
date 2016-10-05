@@ -24,10 +24,10 @@
             android:text="Number Pad, Light"/>
 
         <RadioButton
-            android:id="@+id/choice_grid_selector"
+            android:id="@+id/choice_grid_picker"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Grid Selector, Light"/>
+            android:text="Grid Picker, Light"/>
 
         <RadioButton
             android:id="@+id/choice_number_pad_dark"
@@ -36,10 +36,10 @@
             android:text="Number Pad, Dark"/>
 
         <RadioButton
-            android:id="@+id/choice_grid_selector_dark"
+            android:id="@+id/choice_grid_picker_dark"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Grid Selector, Dark"/>
+            android:text="Grid Picker, Dark"/>
 
     </RadioGroup>
 
