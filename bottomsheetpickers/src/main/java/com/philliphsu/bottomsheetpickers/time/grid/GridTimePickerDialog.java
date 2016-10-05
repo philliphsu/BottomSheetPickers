@@ -188,22 +188,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         KeyboardListener keyboardListener = new KeyboardListener();
         view.findViewById(R.id.time_picker_dialog).setOnKeyListener(keyboardListener);
 
-        mDoneButton = (FloatingActionButton) view.findViewById(R.id.fab);
-        mLeftHalfDayToggle = (Button) view.findViewById(R.id.half_day_toggle_1);
-        mLeftHalfDayToggle.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tryToggleHalfDay(HALF_DAY_1);
-            }
-        });
-        mRightHalfDayToggle = (Button) view.findViewById(R.id.half_day_toggle_2);
-        mRightHalfDayToggle.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tryToggleHalfDay(HALF_DAY_2);
-            }
-        });
-
         if (!mThemeSetAtRuntime) {
             mThemeDark = Utils.isDarkTheme(getActivity(), mThemeDark);
         }
@@ -275,11 +259,12 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             }
         });
 
+        mDoneButton = (FloatingActionButton) view.findViewById(R.id.fab);
         mDoneButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mInKbMode && isTypedTimeFullyLegal()) { //  TODO: Delete
-//                    finishKbMode(false);
+                if (mInKbMode && isTypedTimeFullyLegal()) {
+                    finishKbMode(false);
                 } else {
                     tryVibrate();
                 }
@@ -316,6 +301,21 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             });
         }
 
+        mLeftHalfDayToggle = (Button) view.findViewById(R.id.half_day_toggle_1);
+        mLeftHalfDayToggle.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryToggleHalfDay(HALF_DAY_1);
+            }
+        });
+        mRightHalfDayToggle = (Button) view.findViewById(R.id.half_day_toggle_2);
+        mRightHalfDayToggle.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryToggleHalfDay(HALF_DAY_2);
+            }
+        });
+
         mAllowAutoAdvance = true;
         setHour(mInitialHourOfDay, true);
         setMinute(mInitialMinute);
@@ -328,7 +328,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         generateLegalTimesTree();
         if (mInKbMode) {
             mTypedTimes = savedInstanceState.getIntegerArrayList(KEY_TYPED_TIMES);
-//            tryStartingKbMode(-1);
+            tryStartingKbMode(-1);
             mHourView.invalidate();
         } else if (mTypedTimes == null) {
             mTypedTimes = new ArrayList<Integer>();
@@ -478,7 +478,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             if (!isTypedTimeFullyLegal()) {
                 mTypedTimes.clear();
             }
-//            finishKbMode(true);
+            finishKbMode(true);
         }
     }
 
@@ -576,10 +576,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
                 }
                 finishKbMode(false);
             }
-            // Checks if callback is null before proceeding.
-            // Calls dismiss() for you; extra calls will be ignored.
             onTimeSet(mTimePicker, mTimePicker.getHours(), mTimePicker.getMinutes());
-            dismiss();
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_DEL) {
             if (mInKbMode) {
