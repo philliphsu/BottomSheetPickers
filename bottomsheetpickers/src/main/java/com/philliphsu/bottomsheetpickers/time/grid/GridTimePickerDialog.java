@@ -184,11 +184,9 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-
         // TODO: What is this? Check MDTP if they use this.
         KeyboardListener keyboardListener = new KeyboardListener();
-        // TODO: What did this id point to?
-//        view.findViewById(R.id.time_picker_dialog).setOnKeyListener(keyboardListener);
+        view.findViewById(R.id.time_picker_dialog).setOnKeyListener(keyboardListener);
 
         mDoneButton = (FloatingActionButton) view.findViewById(R.id.fab);
         mLeftHalfDayToggle = (Button) view.findViewById(R.id.half_day_toggle_1);
