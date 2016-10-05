@@ -185,8 +185,9 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        // TODO: What is this?
-//        KeyboardListener keyboardListener = new KeyboardListener();
+        // TODO: What is this? Check MDTP if they use this.
+        KeyboardListener keyboardListener = new KeyboardListener();
+        // TODO: What did this id point to?
 //        view.findViewById(R.id.time_picker_dialog).setOnKeyListener(keyboardListener);
 
         mDoneButton = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -219,13 +220,13 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         mUnselectedColor = getColor(ctx, R.color.unselected_color);
 
         mHourView = (TextView) view.findViewById(R.id.hours);
-//        mHourView.setOnKeyListener(keyboardListener);
+        mHourView.setOnKeyListener(keyboardListener);
         mHourSpaceView = (TextView) view.findViewById(R.id.hour_space);
         mMinuteSpaceView = (TextView) view.findViewById(R.id.minutes_space);
         mMinuteView = (TextView) view.findViewById(R.id.minutes);
-//        mMinuteView.setOnKeyListener(keyboardListener);
+        mMinuteView.setOnKeyListener(keyboardListener);
         mAmPmTextView = (TextView) view.findViewById(R.id.ampm_label);
-//        mAmPmTextView.setOnKeyListener(keyboardListener);
+        mAmPmTextView.setOnKeyListener(keyboardListener);
         String[] amPmTexts = new DateFormatSymbols().getAmPmStrings();
         mAmText = amPmTexts[0];
         mPmText = amPmTexts[1];
@@ -249,7 +250,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
 //        mHapticFeedbackController = new HapticFeedbackController(getActivity());
         mTimePicker = (GridSelectorLayout) view.findViewById(R.id.time_picker);
         mTimePicker.setOnValueSelectedListener(this);
-//        mTimePicker.setOnKeyListener(keyboardListener);
+        mTimePicker.setOnKeyListener(keyboardListener);
         mTimePicker.initialize(getActivity(), /*mHapticFeedbackController,*/ mInitialHourOfDay,
             mInitialMinute, mIs24HourMode);
 
@@ -287,7 +288,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
                 onTimeSet(mTimePicker, mTimePicker.getHours(), mTimePicker.getMinutes());
             }
         });
-//        mDoneButton.setOnKeyListener(keyboardListener);
+        mDoneButton.setOnKeyListener(keyboardListener);
 
         // Enable or disable the AM/PM view.
         mAmPmHitspace = view.findViewById(R.id.ampm_hitspace);
@@ -554,137 +555,137 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
     // END RELEVANT CODE
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-//    /**
-//     * For keyboard mode, processes key events.
-//     * @param keyCode the pressed key.
-//     * @return true if the key was successfully processed, false otherwise.
-//     */
-//    private boolean processKeyUp(int keyCode) {
-//        if (keyCode == KeyEvent.KEYCODE_ESCAPE || keyCode == KeyEvent.KEYCODE_BACK) {
-//            dismiss();
-//            return true;
-//        } else if (keyCode == KeyEvent.KEYCODE_TAB) {
-//            if(mInKbMode) {
-//                if (isTypedTimeFullyLegal()) {
-//                    finishKbMode(true);
-//                }
-//                return true;
-//            }
-//        } else if (keyCode == KeyEvent.KEYCODE_ENTER) {
-//            if (mInKbMode) {
-//                if (!isTypedTimeFullyLegal()) {
-//                    return true;
-//                }
-//                finishKbMode(false);
-//            }
-//            if (mCallback != null) {
-//                mCallback.onTimeSet(mTimePicker,
-//                        mTimePicker.getHours(), mTimePicker.getMinutes());
-//            }
-//            dismiss();
-//            return true;
-//        } else if (keyCode == KeyEvent.KEYCODE_DEL) {
-//            if (mInKbMode) {
-//                if (!mTypedTimes.isEmpty()) {
-//                    int deleted = deleteLastTypedKey();
-//                    String deletedKeyStr;
-//                    if (deleted == getAmOrPmKeyCode(AM)) {
-//                        deletedKeyStr = mAmText;
-//                    } else if (deleted == getAmOrPmKeyCode(PM)) {
-//                        deletedKeyStr = mPmText;
-//                    } else {
-//                        deletedKeyStr = String.format("%d", getValFromKeyCode(deleted));
-//                    }
-//                    Utils.tryAccessibilityAnnounce(mTimePicker,
-//                            String.format(mDeletedKeyFormat, deletedKeyStr));
-//                    updateDisplay(true);
-//                }
-//            }
-//        } else if (keyCode == KeyEvent.KEYCODE_0 || keyCode == KeyEvent.KEYCODE_1
-//                || keyCode == KeyEvent.KEYCODE_2 || keyCode == KeyEvent.KEYCODE_3
-//                || keyCode == KeyEvent.KEYCODE_4 || keyCode == KeyEvent.KEYCODE_5
-//                || keyCode == KeyEvent.KEYCODE_6 || keyCode == KeyEvent.KEYCODE_7
-//                || keyCode == KeyEvent.KEYCODE_8 || keyCode == KeyEvent.KEYCODE_9
-//                || (!mIs24HourMode &&
-//                        (keyCode == getAmOrPmKeyCode(AM) || keyCode == getAmOrPmKeyCode(PM)))) {
-//            if (!mInKbMode) {
-//                if (mTimePicker == null) {
-//                    // Something's wrong, because time picker should definitely not be null.
-//                    Log.e(TAG, "Unable to initiate keyboard mode, TimePicker was null.");
-//                    return true;
-//                }
-//                mTypedTimes.clear();
-//                tryStartingKbMode(keyCode);
-//                return true;
-//            }
-//            // We're already in keyboard mode.
-//            if (addKeyIfLegal(keyCode)) {
-//                updateDisplay(false);
-//            }
-//            return true;
-//        }
-//        return false;
-//    }
+    /**
+     * For keyboard mode, processes key events.
+     * @param keyCode the pressed key.
+     * @return true if the key was successfully processed, false otherwise.
+     */
+    private boolean processKeyUp(int keyCode) {
+        if (keyCode == KeyEvent.KEYCODE_ESCAPE || keyCode == KeyEvent.KEYCODE_BACK) {
+            dismiss();
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_TAB) {
+            if(mInKbMode) {
+                if (isTypedTimeFullyLegal()) {
+                    finishKbMode(true);
+                }
+                return true;
+            }
+        } else if (keyCode == KeyEvent.KEYCODE_ENTER) {
+            if (mInKbMode) {
+                if (!isTypedTimeFullyLegal()) {
+                    return true;
+                }
+                finishKbMode(false);
+            }
+            // Checks if callback is null before proceeding.
+            // Calls dismiss() for you; extra calls will be ignored.
+            onTimeSet(mTimePicker, mTimePicker.getHours(), mTimePicker.getMinutes());
+            dismiss();
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_DEL) {
+            if (mInKbMode) {
+                if (!mTypedTimes.isEmpty()) {
+                    int deleted = deleteLastTypedKey();
+                    String deletedKeyStr;
+                    if (deleted == getAmOrPmKeyCode(AM)) {
+                        deletedKeyStr = mAmText;
+                    } else if (deleted == getAmOrPmKeyCode(PM)) {
+                        deletedKeyStr = mPmText;
+                    } else {
+                        deletedKeyStr = String.format("%d", getValFromKeyCode(deleted));
+                    }
+                    Utils.tryAccessibilityAnnounce(mTimePicker,
+                            String.format(mDeletedKeyFormat, deletedKeyStr));
+                    updateDisplay(true);
+                }
+            }
+        } else if (keyCode == KeyEvent.KEYCODE_0 || keyCode == KeyEvent.KEYCODE_1
+                || keyCode == KeyEvent.KEYCODE_2 || keyCode == KeyEvent.KEYCODE_3
+                || keyCode == KeyEvent.KEYCODE_4 || keyCode == KeyEvent.KEYCODE_5
+                || keyCode == KeyEvent.KEYCODE_6 || keyCode == KeyEvent.KEYCODE_7
+                || keyCode == KeyEvent.KEYCODE_8 || keyCode == KeyEvent.KEYCODE_9
+                || (!mIs24HourMode &&
+                        (keyCode == getAmOrPmKeyCode(AM) || keyCode == getAmOrPmKeyCode(PM)))) {
+            if (!mInKbMode) {
+                if (mTimePicker == null) {
+                    // Something's wrong, because time picker should definitely not be null.
+                    Log.e(TAG, "Unable to initiate keyboard mode, TimePicker was null.");
+                    return true;
+                }
+                mTypedTimes.clear();
+                tryStartingKbMode(keyCode);
+                return true;
+            }
+            // We're already in keyboard mode.
+            if (addKeyIfLegal(keyCode)) {
+                updateDisplay(false);
+            }
+            return true;
+        }
+        return false;
+    }
 
-//    /**
-//     * Try to start keyboard mode with the specified key, as long as the timepicker is not in the
-//     * middle of a touch-event.
-//     * @param keyCode The key to use as the first press. Keyboard mode will not be started if the
-//     * key is not legal to start with. Or, pass in -1 to get into keyboard mode without a starting
-//     * key.
-//     */
-//    private void tryStartingKbMode(int keyCode) {
-//        if (mTimePicker.trySettingInputEnabled(false) &&
-//                (keyCode == -1 || addKeyIfLegal(keyCode))) {
-//            mInKbMode = true;
-//            mDoneButton.setEnabled(false);
-//            updateDisplay(false);
-//        }
-//    }
-//
-//    private boolean addKeyIfLegal(int keyCode) {
-//        // If we're in 24hour mode, we'll need to check if the input is full. If in AM/PM mode,
-//        // we'll need to see if AM/PM have been typed.
-//        if ((mIs24HourMode && mTypedTimes.size() == 4) ||
-//                (!mIs24HourMode && isTypedTimeFullyLegal())) {
-//            return false;
-//        }
-//
-//        mTypedTimes.add(keyCode);
-//        if (!isTypedTimeLegalSoFar()) {
-//            deleteLastTypedKey();
-//            return false;
-//        }
-//
-//        int val = getValFromKeyCode(keyCode);
-//        Utils.tryAccessibilityAnnounce(mTimePicker, String.format("%d", val));
-//        // Automatically fill in 0's if AM or PM was legally entered.
-//        if (isTypedTimeFullyLegal()) {
-//            if (!mIs24HourMode && mTypedTimes.size() <= 3) {
-//                mTypedTimes.add(mTypedTimes.size() - 1, KeyEvent.KEYCODE_0);
-//                mTypedTimes.add(mTypedTimes.size() - 1, KeyEvent.KEYCODE_0);
-//            }
-//            mDoneButton.setEnabled(true);
-//        }
-//
-//        return true;
-//    }
-//
-//    /**
-//     * Traverse the tree to see if the keys that have been typed so far are legal as is,
-//     * or may become legal as more keys are typed (excluding backspace).
-//     */
-//    private boolean isTypedTimeLegalSoFar() {
-//        Node node = mLegalTimesTree;
-//        for (int keyCode : mTypedTimes) {
-//            node = node.canReach(keyCode);
-//            if (node == null) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
-//
+    /**
+     * Try to start keyboard mode with the specified key, as long as the timepicker is not in the
+     * middle of a touch-event.
+     * @param keyCode The key to use as the first press. Keyboard mode will not be started if the
+     * key is not legal to start with. Or, pass in -1 to get into keyboard mode without a starting
+     * key.
+     */
+    private void tryStartingKbMode(int keyCode) {
+        // TODO: What is this method?
+        if (/*mTimePicker.trySettingInputEnabled(false) &&*/
+                (keyCode == -1 || addKeyIfLegal(keyCode))) {
+            mInKbMode = true;
+            mDoneButton.setEnabled(false);
+            updateDisplay(false);
+        }
+    }
+
+    private boolean addKeyIfLegal(int keyCode) {
+        // If we're in 24hour mode, we'll need to check if the input is full. If in AM/PM mode,
+        // we'll need to see if AM/PM have been typed.
+        if ((mIs24HourMode && mTypedTimes.size() == 4) ||
+                (!mIs24HourMode && isTypedTimeFullyLegal())) {
+            return false;
+        }
+
+        mTypedTimes.add(keyCode);
+        if (!isTypedTimeLegalSoFar()) {
+            deleteLastTypedKey();
+            return false;
+        }
+
+        int val = getValFromKeyCode(keyCode);
+        Utils.tryAccessibilityAnnounce(mTimePicker, String.format("%d", val));
+        // Automatically fill in 0's if AM or PM was legally entered.
+        if (isTypedTimeFullyLegal()) {
+            if (!mIs24HourMode && mTypedTimes.size() <= 3) {
+                mTypedTimes.add(mTypedTimes.size() - 1, KeyEvent.KEYCODE_0);
+                mTypedTimes.add(mTypedTimes.size() - 1, KeyEvent.KEYCODE_0);
+            }
+            mDoneButton.setEnabled(true);
+        }
+
+        return true;
+    }
+
+    /**
+     * Traverse the tree to see if the keys that have been typed so far are legal as is,
+     * or may become legal as more keys are typed (excluding backspace).
+     */
+    private boolean isTypedTimeLegalSoFar() {
+        Node node = mLegalTimesTree;
+        for (int keyCode : mTypedTimes) {
+            node = node.canReach(keyCode);
+            if (node == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * Check if the time that has been typed so far is completely legal, as is.
      */
@@ -701,73 +702,74 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
                     mTypedTimes.contains(getAmOrPmKeyCode(PM)));
         }
     }
-//
-//    private int deleteLastTypedKey() {
-//        int deleted = mTypedTimes.remove(mTypedTimes.size() - 1);
-//        if (!isTypedTimeFullyLegal()) {
-//            mDoneButton.setEnabled(false);
-//        }
-//        return deleted;
-//    }
-//
-//    /**
-//     * Get out of keyboard mode. If there is nothing in typedTimes, revert to TimePicker's time.
-//     * @param changeDisplays If true, update the displays with the relevant time.
-//     */
-//    private void finishKbMode(boolean updateDisplays) {
-//        mInKbMode = false;
-//        if (!mTypedTimes.isEmpty()) {
-//            int values[] = getEnteredTime(null);
-//            mTimePicker.setTime(values[0], values[1]);
-//            if (!mIs24HourMode) {
-//                mTimePicker.setAmOrPm(values[2]);
-//            }
-//            mTypedTimes.clear();
-//        }
-//        if (updateDisplays) {
-//            updateDisplay(false);
+
+    private int deleteLastTypedKey() {
+        int deleted = mTypedTimes.remove(mTypedTimes.size() - 1);
+        if (!isTypedTimeFullyLegal()) {
+            mDoneButton.setEnabled(false);
+        }
+        return deleted;
+    }
+
+    /**
+     * Get out of keyboard mode. If there is nothing in typedTimes, revert to TimePicker's time.
+     * @param updateDisplays If true, update the displays with the relevant time.
+     */
+    private void finishKbMode(boolean updateDisplays) {
+        mInKbMode = false;
+        if (!mTypedTimes.isEmpty()) {
+            int values[] = getEnteredTime(null);
+            mTimePicker.setTime(values[0], values[1]);
+            if (!mIs24HourMode) {
+                mTimePicker.setAmOrPm(values[2]);
+            }
+            mTypedTimes.clear();
+        }
+        if (updateDisplays) {
+            updateDisplay(false);
+            // TODO: What is this method?
 //            mTimePicker.trySettingInputEnabled(true);
-//        }
-//    }
-//
-//    /**
-//     * Update the hours, minutes, and AM/PM displays with the typed times. If the typedTimes is
-//     * empty, either show an empty display (filled with the placeholder text), or update from the
-//     * timepicker's values.
-//     * @param allowEmptyDisplay if true, then if the typedTimes is empty, use the placeholder text.
-//     * Otherwise, revert to the timepicker's values.
-//     */
-//    private void updateDisplay(boolean allowEmptyDisplay) {
-//        if (!allowEmptyDisplay && mTypedTimes.isEmpty()) {
-//            int hour = mTimePicker.getHours();
-//            int minute = mTimePicker.getMinutes();
-//            setHour(hour, true);
-//            setMinute(minute);
-//            if (!mIs24HourMode) {
-//                updateAmPmDisplay(hour < 12? AM : PM);
-//            }
-//            setCurrentItemShowing(mTimePicker.getCurrentItemShowing(), true, true, true);
-//            mDoneButton.setEnabled(true);
-//        } else {
-//            Boolean[] enteredZeros = {false, false};
-//            int[] values = getEnteredTime(enteredZeros);
-//            String hourFormat = enteredZeros[0]? "%02d" : "%2d";
-//            String minuteFormat = (enteredZeros[1])? "%02d" : "%2d";
-//            String hourStr = (values[0] == -1)? mDoublePlaceholderText :
-//                String.format(hourFormat, values[0]).replace(' ', mPlaceholderText);
-//            String minuteStr = (values[1] == -1)? mDoublePlaceholderText :
-//                String.format(minuteFormat, values[1]).replace(' ', mPlaceholderText);
-//            mHourView.setText(hourStr);
-//            mHourSpaceView.setText(hourStr);
-//            mHourView.setTextColor(mUnselectedColor);
-//            mMinuteView.setText(minuteStr);
-//            mMinuteSpaceView.setText(minuteStr);
-//            mMinuteView.setTextColor(mUnselectedColor);
-//            if (!mIs24HourMode) {
-//                updateAmPmDisplay(values[2]);
-//            }
-//        }
-//    }
+        }
+    }
+
+    /**
+     * Update the hours, minutes, and AM/PM displays with the typed times. If the typedTimes is
+     * empty, either show an empty display (filled with the placeholder text), or update from the
+     * timepicker's values.
+     * @param allowEmptyDisplay if true, then if the typedTimes is empty, use the placeholder text.
+     * Otherwise, revert to the timepicker's values.
+     */
+    private void updateDisplay(boolean allowEmptyDisplay) {
+        if (!allowEmptyDisplay && mTypedTimes.isEmpty()) {
+            int hour = mTimePicker.getHours();
+            int minute = mTimePicker.getMinutes();
+            setHour(hour, true);
+            setMinute(minute);
+            if (!mIs24HourMode) {
+                updateAmPmDisplay(hour < 12? AM : PM);
+            }
+            setCurrentItemShowing(mTimePicker.getCurrentItemShowing(), true, true, true);
+            mDoneButton.setEnabled(true);
+        } else {
+            Boolean[] enteredZeros = {false, false};
+            int[] values = getEnteredTime(enteredZeros);
+            String hourFormat = enteredZeros[0]? "%02d" : "%2d";
+            String minuteFormat = (enteredZeros[1])? "%02d" : "%2d";
+            String hourStr = (values[0] == -1)? mDoublePlaceholderText :
+                String.format(hourFormat, values[0]).replace(' ', mPlaceholderText);
+            String minuteStr = (values[1] == -1)? mDoublePlaceholderText :
+                String.format(minuteFormat, values[1]).replace(' ', mPlaceholderText);
+            mHourView.setText(hourStr);
+            mHourSpaceView.setText(hourStr);
+            mHourView.setTextColor(mUnselectedColor);
+            mMinuteView.setText(minuteStr);
+            mMinuteSpaceView.setText(minuteStr);
+            mMinuteView.setTextColor(mUnselectedColor);
+            if (!mIs24HourMode) {
+                updateAmPmDisplay(values[2]);
+            }
+        }
+    }
 
     private static int getValFromKeyCode(int keyCode) {
         switch (keyCode) {
@@ -1047,13 +1049,13 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         }
     }
 
-//    private class KeyboardListener implements OnKeyListener {
-//        @Override
-//        public boolean onKey(View v, int keyCode, KeyEvent event) {
-//            if (event.getAction() == KeyEvent.ACTION_UP) {
-//                return processKeyUp(keyCode);
-//            }
-//            return false;
-//        }
-//    }
+    private class KeyboardListener implements View.OnKeyListener {
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if (event.getAction() == KeyEvent.ACTION_UP) {
+                return processKeyUp(keyCode);
+            }
+            return false;
+        }
+    }
 }
