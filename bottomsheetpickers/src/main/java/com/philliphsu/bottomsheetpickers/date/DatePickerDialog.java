@@ -90,7 +90,7 @@ public class DatePickerDialog extends DialogFragment implements
     private TextView mYearView;
     private DayPickerView mDayPickerView;
     private YearPickerView mYearPickerView;
-    private Button mDoneButton;
+//    private Button mDoneButton; // TODO: FloatingActionButton
 
     private int mCurrentView = UNINITIALIZED;
 
@@ -243,19 +243,20 @@ public class DatePickerDialog extends DialogFragment implements
         animation2.setDuration(ANIMATION_DURATION);
         mAnimator.setOutAnimation(animation2);
 
-        mDoneButton = (Button) view.findViewById(R.id.done);
-        mDoneButton.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                tryVibrate();
-                if (mCallBack != null) {
-                    mCallBack.onDateSet(DatePickerDialog.this, mCalendar.get(Calendar.YEAR),
-                            mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
-                }
-                dismiss();
-            }
-        });
+        // TODO: Initialize the FAB here.
+//        mDoneButton = (Button) view.findViewById(R.id.done);
+//        mDoneButton.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                tryVibrate();
+//                if (mCallBack != null) {
+//                    mCallBack.onDateSet(DatePickerDialog.this, mCalendar.get(Calendar.YEAR),
+//                            mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
+//                }
+//                dismiss();
+//            }
+//        });
 
         updateDisplay(false);
         setCurrentView(currentView);
