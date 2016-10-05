@@ -26,8 +26,6 @@ import android.widget.ViewAnimator;
 import com.philliphsu.bottomsheetpickers.R;
 
 /**
- * Created by Phillip Hsu on 8/17/2016.
- *
  * A derivative of the AOSP datetimepicker RadialPickerLayout class.
  * The animations used here are taken from the DatePickerDialog class.
  */
@@ -38,7 +36,7 @@ public class GridPickerLayout extends ViewAnimator implements NumbersGrid.OnNumb
     private static final int ANIMATION_DURATION = 300;
     private static final int HOUR_INDEX         = GridTimePickerDialog.HOUR_INDEX;
     private static final int MINUTE_INDEX       = GridTimePickerDialog.MINUTE_INDEX;
-    private static final int HALF_DAY_INDEX     = GridTimePickerDialog.AMPM_INDEX;
+    private static final int HALF_DAY_INDEX     = GridTimePickerDialog.HALF_DAY_INDEX;
     private static final int HALF_DAY_1         = GridTimePickerDialog.HALF_DAY_1;
     private static final int HALF_DAY_2         = GridTimePickerDialog.HALF_DAY_2;
 

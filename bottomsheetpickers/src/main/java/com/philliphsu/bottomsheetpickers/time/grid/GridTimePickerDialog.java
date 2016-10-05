@@ -60,19 +60,14 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
     private static final String KEY_DARK_THEME = "dark_theme";
     private static final String KEY_THEME_SET_AT_RUNTIME = "theme_set_at_runtime";
 
-    public static final int HOUR_INDEX = 0;
-    public static final int MINUTE_INDEX = 1;
+    public static final int HOUR_INDEX          = 0;
+    public static final int MINUTE_INDEX        = 1;
     // NOT a real index for the purpose of what's showing.
-    // TODO: Rename to HALF_DAY_INDEX
-    public static final int AMPM_INDEX = 2;
+    public static final int HALF_DAY_INDEX      = 2;
     // Also NOT a real index, just used for keyboard mode.
     public static final int ENABLE_PICKER_INDEX = 3;
-    // TODO: Use HALF_DAY_1 instead
-    public static final int AM = 0;
-    // TODO: Use HALF_DAY_2 instead
-    public static final int PM = 1;
-    public static final int HALF_DAY_1 = 0;
-    public static final int HALF_DAY_2 = 1;
+    public static final int HALF_DAY_1          = 0;
+    public static final int HALF_DAY_2          = 1;
 
     // Delay before starting the pulse animation, in ms.
     private static final int PULSE_ANIMATOR_DELAY = 300;
@@ -301,10 +296,10 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
                 public void onClick(View v) {
                     tryVibrate();
                     int amOrPm = mTimePicker.getIsCurrentlyAmOrPm();
-                    if (amOrPm == AM) {
-                        amOrPm = PM;
-                    } else if (amOrPm == PM){
-                        amOrPm = AM;
+                    if (amOrPm == HALF_DAY_1) {
+                        amOrPm = HALF_DAY_2;
+                    } else if (amOrPm == HALF_DAY_2) {
+                        amOrPm = HALF_DAY_1;
                     }
                     updateHalfDay(amOrPm);
                     mTimePicker.setHalfDay(amOrPm);
@@ -372,7 +367,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         Utils.setColorControlHighlight(mSecondHalfDayToggle, accentColor);
 
         // Update the half day at the end when the state colors have been initialized
-        updateHalfDay(mInitialHourOfDay < 12? AM : PM);
+        updateHalfDay(mInitialHourOfDay < 12? HALF_DAY_1 : HALF_DAY_2);
         return view;
     }
 
@@ -405,11 +400,11 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
     }
 
     private void updateAmPmDisplay(int amOrPm) {
-        if (amOrPm == AM) {
+        if (amOrPm == HALF_DAY_1) {
             mAmPmTextView.setText(mAmText);
             Utils.tryAccessibilityAnnounce(mTimePicker, mAmText);
             mAmPmHitspace.setContentDescription(mAmText);
-        } else if (amOrPm == PM){
+        } else if (amOrPm == HALF_DAY_2){
             mAmPmTextView.setText(mPmText);
             Utils.tryAccessibilityAnnounce(mTimePicker, mPmText);
             mAmPmHitspace.setContentDescription(mPmText);
@@ -470,7 +465,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         } else if (pickerIndex == MINUTE_INDEX){
             setMinute(newValue);
             mTimePicker.setContentDescription(mMinutePickerDescription + ": " + newValue);
-        } else if (pickerIndex == AMPM_INDEX) {
+        } else if (pickerIndex == HALF_DAY_INDEX) {
             updateHalfDay(newValue);
         } else if (pickerIndex == ENABLE_PICKER_INDEX) {
             if (!isTypedTimeFullyLegal()) {
@@ -581,9 +576,9 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
                 if (!mTypedTimes.isEmpty()) {
                     int deleted = deleteLastTypedKey();
                     String deletedKeyStr;
-                    if (deleted == getAmOrPmKeyCode(AM)) {
+                    if (deleted == getAmOrPmKeyCode(HALF_DAY_1)) {
                         deletedKeyStr = mAmText;
-                    } else if (deleted == getAmOrPmKeyCode(PM)) {
+                    } else if (deleted == getAmOrPmKeyCode(HALF_DAY_2)) {
                         deletedKeyStr = mPmText;
                     } else {
                         deletedKeyStr = String.format("%d", getValFromKeyCode(deleted));
@@ -599,7 +594,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
                 || keyCode == KeyEvent.KEYCODE_6 || keyCode == KeyEvent.KEYCODE_7
                 || keyCode == KeyEvent.KEYCODE_8 || keyCode == KeyEvent.KEYCODE_9
                 || (!mIs24HourMode &&
-                        (keyCode == getAmOrPmKeyCode(AM) || keyCode == getAmOrPmKeyCode(PM)))) {
+                        (keyCode == getAmOrPmKeyCode(HALF_DAY_1) || keyCode == getAmOrPmKeyCode(HALF_DAY_2)))) {
             if (!mInKbMode) {
                 if (mTimePicker == null) {
                     // Something's wrong, because time picker should definitely not be null.
@@ -691,8 +686,8 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         } else {
             // For AM/PM mode, the time is legal if it contains an AM or PM, as those can only be
             // legally added at specific times based on the tree's algorithm.
-            return (mTypedTimes.contains(getAmOrPmKeyCode(AM)) ||
-                    mTypedTimes.contains(getAmOrPmKeyCode(PM)));
+            return (mTypedTimes.contains(getAmOrPmKeyCode(HALF_DAY_1)) ||
+                    mTypedTimes.contains(getAmOrPmKeyCode(HALF_DAY_2)));
         }
     }
 
@@ -739,7 +734,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             setHour(hour, true);
             setMinute(minute);
             if (!mIs24HourMode) {
-                updateAmPmDisplay(hour < 12? AM : PM);
+                updateAmPmDisplay(hour < 12? HALF_DAY_1 : HALF_DAY_2);
             }
             setCurrentItemShowing(mTimePicker.getCurrentItemShowing(), true, true, true);
             mDoneButton.setEnabled(true);
@@ -804,10 +799,10 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         int startIndex = 1;
         if (!mIs24HourMode && isTypedTimeFullyLegal()) {
             int keyCode = mTypedTimes.get(mTypedTimes.size() - 1);
-            if (keyCode == getAmOrPmKeyCode(AM)) {
-                amOrPm = AM;
-            } else if (keyCode == getAmOrPmKeyCode(PM)){
-                amOrPm = PM;
+            if (keyCode == getAmOrPmKeyCode(HALF_DAY_1)) {
+                amOrPm = HALF_DAY_1;
+            } else if (keyCode == getAmOrPmKeyCode(HALF_DAY_2)){
+                amOrPm = HALF_DAY_2;
             }
             startIndex = 2;
         }
@@ -862,9 +857,9 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
                 }
             }
         }
-        if (amOrPm == AM) {
+        if (amOrPm == HALF_DAY_1) {
             return mAmKeyCode;
-        } else if (amOrPm == PM) {
+        } else if (amOrPm == HALF_DAY_2) {
             return mPmKeyCode;
         }
 
@@ -941,7 +936,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         } else {
             // We'll need to use the AM/PM node a lot.
             // Set up AM and PM to respond to "a" and "p".
-            Node ampm = new Node(getAmOrPmKeyCode(AM), getAmOrPmKeyCode(PM));
+            Node ampm = new Node(getAmOrPmKeyCode(HALF_DAY_1), getAmOrPmKeyCode(HALF_DAY_2));
 
             // The first hour digit may be 1.
             Node firstDigit = new Node(k1);
