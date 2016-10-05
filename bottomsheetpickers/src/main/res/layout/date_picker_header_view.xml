@@ -16,11 +16,10 @@
 -->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/date_picker_header"
-    android:layout_width="@dimen/date_picker_component_width"
-    android:layout_height="@dimen/date_picker_header_height"
-    android:background="@color/calendar_header"
-    android:gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:duplicateParentState="true"
     android:includeFontPadding="false"
-    android:textColor="@android:color/white"
+    android:textColor="@color/date_picker_selector"
     android:textSize="@dimen/date_picker_header_text_size"
     android:importantForAccessibility="no" />

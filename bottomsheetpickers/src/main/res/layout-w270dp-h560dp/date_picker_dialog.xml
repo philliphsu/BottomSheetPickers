@@ -26,8 +26,6 @@
         android:layout_height="@dimen/selected_calendar_layout_height"
         android:orientation="vertical" >
 
-        <include layout="@layout/date_picker_header_view" />
-
         <include layout="@layout/date_picker_selected_date" />
     </LinearLayout>
 

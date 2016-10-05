@@ -41,6 +41,8 @@
         android:orientation="horizontal"
         android:textColor="@color/date_picker_selector" >
 
+        <include layout="@layout/date_picker_header_view" />
+
         <TextView
             android:id="@+id/date_picker_month"
             android:layout_width="wrap_content"
