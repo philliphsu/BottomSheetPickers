@@ -17,7 +17,6 @@
 package com.philliphsu.bottomsheetpickers.time.grid;
 
 import android.content.Context;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.animation.AlphaAnimation;
@@ -31,26 +30,17 @@ import com.philliphsu.bottomsheetpickers.R;
  *
  * A derivative of the AOSP datetimepicker RadialPickerLayout class.
  * The animations used here are taken from the DatePickerDialog class.
- *
- * A ViewAnimator is a subclass of FrameLayout.
  */
-// TODO: Rename to GridPageAnimator?
-public class GridSelectorLayout extends ViewAnimator implements NumbersGrid.OnNumberSelectedListener {
+// TODO: Accessibility related code was stripped. Restore?
+public class GridPickerLayout extends ViewAnimator implements NumbersGrid.OnNumberSelectedListener {
     private static final String TAG = "GridSelectorLayout";
 
-    // Delay before auto-advancing the page, in ms.
-    // TODO: If we animate the page change, then we don't need this delay. This was
-    // my own logic, not ported from AOSP timepicker.
-    public static final int ADVANCE_PAGE_DELAY = 150;
-
     private static final int ANIMATION_DURATION = 300;
-
-    private static final int HOUR_INDEX = GridTimePickerDialog.HOUR_INDEX;
-    private static final int MINUTE_INDEX = GridTimePickerDialog.MINUTE_INDEX;
-    // TODO: Rename to HALF_DAY_INDEX?
-    private static final int AMPM_INDEX = GridTimePickerDialog.AMPM_INDEX;
-    private static final int HALF_DAY_1 = GridTimePickerDialog.HALF_DAY_1;
-    private static final int HALF_DAY_2 = GridTimePickerDialog.HALF_DAY_2;
+    private static final int HOUR_INDEX         = GridTimePickerDialog.HOUR_INDEX;
+    private static final int MINUTE_INDEX       = GridTimePickerDialog.MINUTE_INDEX;
+    private static final int HALF_DAY_INDEX     = GridTimePickerDialog.AMPM_INDEX;
+    private static final int HALF_DAY_1         = GridTimePickerDialog.HALF_DAY_1;
+    private static final int HALF_DAY_2         = GridTimePickerDialog.HALF_DAY_2;
 
     private OnValueSelectedListener mListener;
     private boolean mTimeInitialized;
@@ -59,10 +49,9 @@ public class GridSelectorLayout extends ViewAnimator implements NumbersGrid.OnNu
     private boolean mIs24HourMode;
     private int mCurrentItemShowing;
 
-    private HoursGrid mHoursGrid = null;
-    private TwentyFourHoursGrid m24HoursGrid = null;
+    private HoursGrid mHoursGrid;
+    private TwentyFourHoursGrid m24HoursGrid;
     private MinutesGrid mMinutesGrid;
-    private final Handler mHandler = new Handler();
 
     private final Animation mInAnimation;
     private final Animation mOutAnimation;
@@ -71,17 +60,14 @@ public class GridSelectorLayout extends ViewAnimator implements NumbersGrid.OnNu
         void onValueSelected(int pickerIndex, int newValue, boolean autoAdvance);
     }
 
-    public GridSelectorLayout(Context context, AttributeSet attrs) {
+    public GridPickerLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        // Taken from AOSP DatePickerDialog class
-        // TODO: They look terrible on our views. Create new animations.
         mInAnimation = new AlphaAnimation(0.0f, 1.0f);
         mInAnimation.setDuration(ANIMATION_DURATION);
         mOutAnimation = new AlphaAnimation(1.0f, 0.0f);
         mOutAnimation.setDuration(ANIMATION_DURATION);
     }
 
-    // TODO: Why do we need a Context param? RadialPickerLayout does it too.
     public void initialize(Context context, int initialHoursOfDay, int initialMinutes, boolean is24HourMode) {
         if (mTimeInitialized) {
             Log.e(TAG, "Time has already been initialized.");
@@ -89,9 +75,9 @@ public class GridSelectorLayout extends ViewAnimator implements NumbersGrid.OnNu
         }
 
         // *****************************************************************************************
-        // * TODO: Should we move this block to the Dialog class? This is pretty similar
-        // * to what AOSP's DatePickerDialog class does. I don't immediately see any
-        // * code that REALLY needs to be done in this class instead.
+        // TODO: Should we move this block to GridTimePickerDialog? It would be pretty similar
+        // to what AOSP's DatePickerDialog does. I don't immediately see any
+        // code that REALLY needs to be done in this class instead.
         mIs24HourMode = is24HourMode;
         if (is24HourMode) {
             m24HoursGrid = (TwentyFourHoursGrid) inflate(context, R.layout.pad_24_hours, null);
@@ -123,9 +109,6 @@ public class GridSelectorLayout extends ViewAnimator implements NumbersGrid.OnNu
     }
 
     void setTheme(Context context, boolean themeDark) {
-        // TODO: This logic needs to be in the Dialog class, since the am/pm view is contained there.
-//        mAmPmView.setTheme(context, themeDark);
-
         if (m24HoursGrid != null) {
             m24HoursGrid.setTheme(context, themeDark);
         } else if (mHoursGrid != null) {
@@ -174,17 +157,9 @@ public class GridSelectorLayout extends ViewAnimator implements NumbersGrid.OnNu
         }
     }
 
-    // TODO: The Dialog should be telling us that AM/PM was selected, via setAmOrPm().
-//    @Override
-//    public void onAmPmSelected(int amOrPm) {
-//        setValueForItem(AMPM_INDEX, amOrPm);
-//        mListener.onValueSelected(AMPM_INDEX, amOrPm, false);
-//    }
-
     @Override
     public void onNumberSelected(int number) {
-        // Flag set to true if this onNumberSelected() event was caused by
-        // long clicking in a TwentyFourHoursGrid.
+        // This will be set to true if this event was caused by long clicking in a TwentyFourHoursGrid.
         boolean fakeHourItemShowing = false;
 
         if (getCurrentItemShowing() == HOUR_INDEX) {
@@ -202,7 +177,7 @@ public class GridSelectorLayout extends ViewAnimator implements NumbersGrid.OnNu
                 if (mCurrentHoursOfDay < 12 && number >= 12 || mCurrentHoursOfDay >= 12 && number < 12) {
                     int newHalfDay = getIsCurrentlyAmOrPm() == HALF_DAY_1 ? HALF_DAY_2 : HALF_DAY_1;
                     // Update the half-day toggles states
-                    mListener.onValueSelected(AMPM_INDEX, newHalfDay, false);
+                    mListener.onValueSelected(HALF_DAY_INDEX, newHalfDay, false);
                     // Advance the index prematurely to bypass the animation that would otherwise
                     // be forced on us if we let the listener autoAdvance us.
                     setCurrentItemShowing(MINUTE_INDEX, false/*animate?*/);
@@ -259,16 +234,12 @@ public class GridSelectorLayout extends ViewAnimator implements NumbersGrid.OnNu
     }
 
     /**
-     * Set the internal as either AM or PM.
+     * Set the internal as either {@link #HALF_DAY_1} or {@link #HALF_DAY_2}.
      */
-    // TODO: Rename to setHalfDay
-    public void setAmOrPm(int amOrPm) {
+    public void setHalfDay(int halfDay) {
         final int initialHalfDay = getIsCurrentlyAmOrPm();
-        setValueForItem(AMPM_INDEX, amOrPm);
-        if (amOrPm != initialHalfDay
-                && mIs24HourMode
-//                && getCurrentItemShowing() == HOUR_INDEX
-                && m24HoursGrid != null) {
+        setValueForItem(HALF_DAY_INDEX, halfDay);
+        if (halfDay != initialHalfDay && mIs24HourMode && m24HoursGrid != null) {
             m24HoursGrid.swapTexts();
             mListener.onValueSelected(HOUR_INDEX, mCurrentHoursOfDay, false);
         }
@@ -278,14 +249,13 @@ public class GridSelectorLayout extends ViewAnimator implements NumbersGrid.OnNu
      * Set the internal value for the hour, minute, or AM/PM.
      */
     private void setValueForItem(int index, int value) {
-//        Log.d(TAG, String.format("setValueForItem(%d, %d)", index, value));
         if (index == HOUR_INDEX) {
             mCurrentHoursOfDay = value;
             setHourGridSelection(value);
         } else if (index == MINUTE_INDEX){
             mCurrentMinutes = value;
             mMinutesGrid.setSelection(value);
-        } else if (index == AMPM_INDEX) {
+        } else if (index == HALF_DAY_INDEX) {
             if (value == HALF_DAY_1) {
                 mCurrentHoursOfDay = mCurrentHoursOfDay % 12;
             } else if (value == HALF_DAY_2) {

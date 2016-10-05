@@ -48,7 +48,7 @@ import static android.support.v4.content.ContextCompat.getColor;
  * A derivative of the AOSP datetimepicker TimePickerDialog class.
  */
 public class GridTimePickerDialog extends BottomSheetTimePickerDialog
-        implements GridSelectorLayout.OnValueSelectedListener {
+        implements GridPickerLayout.OnValueSelectedListener {
     private static final String TAG = "TimePickerDialog";
 
     private static final String KEY_HOUR_OF_DAY = "hour_of_day";
@@ -80,13 +80,13 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
     // TODO: Restore
 //    private HapticFeedbackController mHapticFeedbackController;
 
-    private TextView mHourView;
-    private TextView mHourSpaceView;
-    private TextView mMinuteView;
-    private TextView mMinuteSpaceView;
-    private TextView mAmPmTextView;
-    private View mAmPmHitspace;
-    private GridSelectorLayout mTimePicker;
+    private TextView         mHourView;
+    private TextView         mHourSpaceView;
+    private TextView         mMinuteView;
+    private TextView         mMinuteSpaceView;
+    private TextView         mAmPmTextView;
+    private View             mAmPmHitspace;
+    private GridPickerLayout mTimePicker;
 
     private int mSelectedColor;
     private int mUnselectedColor;
@@ -215,7 +215,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
 
         // TODO: Restore
 //        mHapticFeedbackController = new HapticFeedbackController(getActivity());
-        mTimePicker = (GridSelectorLayout) view.findViewById(R.id.time_picker);
+        mTimePicker = (GridPickerLayout) view.findViewById(R.id.time_picker);
         mTimePicker.setOnValueSelectedListener(this);
         mTimePicker.setOnKeyListener(keyboardListener);
         mTimePicker.initialize(getActivity(), /*mHapticFeedbackController,*/ mInitialHourOfDay,
@@ -307,7 +307,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
                         amOrPm = AM;
                     }
                     updateHalfDay(amOrPm);
-                    mTimePicker.setAmOrPm(amOrPm);
+                    mTimePicker.setHalfDay(amOrPm);
                 }
             });
             mFirstHalfDayToggle.setText(mAmText);
@@ -395,7 +395,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
     private void tryToggleHalfDay(int halfDay) {
         if (halfDay != mTimePicker.getIsCurrentlyAmOrPm()) {
             updateHalfDay(halfDay);
-            mTimePicker.setAmOrPm(halfDay);
+            mTimePicker.setHalfDay(halfDay);
         }
     }
 
@@ -714,7 +714,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             int values[] = getEnteredTime(null);
             mTimePicker.setTime(values[0], values[1]);
             if (!mIs24HourMode) {
-                mTimePicker.setAmOrPm(values[2]);
+                mTimePicker.setHalfDay(values[2]);
             }
             mTypedTimes.clear();
         }

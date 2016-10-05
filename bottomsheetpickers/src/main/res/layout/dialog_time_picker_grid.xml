@@ -40,7 +40,7 @@
         android:layout_height="@dimen/time_picker_pad_height"
         android:orientation="horizontal">
 
-        <com.philliphsu.bottomsheetpickers.time.grid.GridSelectorLayout
+        <com.philliphsu.bottomsheetpickers.time.grid.GridPickerLayout
             android:id="@+id/time_picker"
             style="@style/PadLayoutStyle.Numeric"/>
 
