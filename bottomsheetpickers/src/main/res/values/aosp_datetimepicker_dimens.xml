@@ -65,4 +65,5 @@
     <!--My stuff-->
     <dimen name="fab_elevation">6dp</dimen>
     <dimen name="half_day_icon_padding">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
