@@ -38,8 +38,12 @@ public class MainActivity extends AppCompatActivity implements BottomSheetTimePi
                     dialog.show(getSupportFragmentManager(), TAG);
                 } else if (checkedId == R.id.choice_grid_picker
                         || checkedId == R.id.choice_grid_picker_dark) {
+                    Calendar now = Calendar.getInstance();
                     GridTimePickerDialog dialog = GridTimePickerDialog.newInstance(
-                            MainActivity.this, 0, 0, DateFormat.is24HourFormat(MainActivity.this));
+                            MainActivity.this,
+                            now.get(Calendar.HOUR_OF_DAY),
+                            now.get(Calendar.MINUTE),
+                            DateFormat.is24HourFormat(MainActivity.this));
                     dialog.setThemeDark(checkedId == R.id.choice_grid_picker_dark);
                     dialog.show(getSupportFragmentManager(), TAG);
                 }
