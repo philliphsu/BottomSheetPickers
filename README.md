@@ -80,23 +80,19 @@ You can specify whether to use a light (default) or dark theme:
 > Why is the library named **BottomSheetPickers** if it only has time pickers?
 Will there be more pickers in the future other than for time (e.g. date picker)?
 
-My original plan was to release only time pickers, so the library's working name was
-**BottomSheetTimePickers**. Then, I figured the library needed a matching date picker, so I
-refactored the package structure to accommodate the addition, as well as renamed the library to the
-more general **BottomSheetPickers**. Unfortunately, as of October 2016, a date picker is not a
-priority feature. In case of future developments, I left the packages and library name as
-general as possible.
+My original plan was to release only time pickers, but then I figured the library should have a
+matching date picker. So I refactored the package structure to accommodate the addition, as well
+as renamed the library to the more general **BottomSheetPickers**. However, as of October 2016,
+a date picker is not a priority feature. Though in case of future developments, I left the
+packages and library name as general as possible.
 
 > Why isn't the date picker a priority feature?
 
-In terms of UX, I don't see much that can be improved about the stock date picker.
-Additionally, making a bottom sheet date picker would involve changing the direction of scrolling in
-both the calendar grid and the year list from vertical to horizontal, because the vertical swiping
-gesture is already used for sliding the bottom sheet up and down. The latest stock date picker
-introduced in Android 6.0 and seen in the
-[Material Design spec](https://material.google.com/components/pickers.html#pickers-date-pickers)
-did change the scrolling direction of the calendar grid, but the AOSP `datetimepicker` repository
-has not been updated to that latest style.
+In my opinion, there's not much to improve on the stock date picker; the interaction with a
+bottom sheet date picker would feel almost the same as the stock date picker. Additionally,
+I would want to retain the general look and feel of the stock date picker, but the latest style
+seen in the [Material Design spec](https://material.google.com/components/pickers.html#pickers-date-pickers)
+and introduced in Android 6.0 is not reflected in the AOSP `datetimepicker` repository.
 
 ## License
 ```
