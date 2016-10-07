@@ -64,7 +64,6 @@ dialog.show(getSupportFragmentManager(), TAG);
 so you should pass the support library's version of `FragmentManager` to `show()`.
 
 ### Theming
-// TODO: Verify that android.R.attr.colorAccent is read as well! I.e. is R.attr.colorAccent applicable for both the support library attr and the native attr?
 The pickers automatically use your current theme's `colorAccent` defined in your `styles.xml`.
 
 You can specify whether to use a light (default) or dark theme:
@@ -97,11 +96,10 @@ general as possible.
 
 > Why isn't the date picker a priority feature?
 
-It's a combination of the lack of time and not seeing the need for one. In terms of UX, I don't see
-much that can be improved about the stock date picker.
+In terms of UX, I don't see much that can be improved about the stock date picker.
 Additionally, making a bottom sheet date picker would involve changing the direction of scrolling in
 both the calendar grid and the year list from vertical to horizontal, because the vertical swiping
-gesture is already used for sliding the bottom sheet up and down. The latest stock date picker style
+gesture is already used for sliding the bottom sheet up and down. The latest stock date picker
 introduced in Android 6.0 and seen in the
 [Material Design spec](https://material.google.com/components/pickers.html#pickers-date-pickers)
 did change the scrolling direction of the calendar grid, but the AOSP `datetimepicker` repository

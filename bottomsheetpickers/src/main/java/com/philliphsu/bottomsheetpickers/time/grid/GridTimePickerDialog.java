@@ -114,7 +114,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
     private int mHalfDayToggleSelectedColor;
     private int mHalfDayToggleUnselectedColor;
 
-    // TODO: Consider moving these to GridSelectorLayout?
+    // TODO: Consider moving these to GridPickerLayout?
     private FloatingActionButton mDoneButton;
     private Button               mFirstHalfDayToggle;
     private Button               mSecondHalfDayToggle;
@@ -179,7 +179,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        // TODO: What is this? Check MDTP if they use this.
         KeyboardListener keyboardListener = new KeyboardListener();
         view.findViewById(R.id.time_picker_dialog).setOnKeyListener(keyboardListener);
 
@@ -328,6 +327,10 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         }
 
         // Set the theme at the end so that the initialize()s above don't counteract the theme.
+        //
+        // If you decide to move the FAB and the half day toggles to the GridPickerLayout
+        // class, you should remove getApplicationContext(). Otherwise, you would not
+        // retrieve the correct accent color.
         mTimePicker.setTheme(getActivity().getApplicationContext(), mThemeDark);
         // Prepare some colors to use.
         final int white = getColor(ctx, android.R.color.white);
@@ -346,15 +349,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         ((TextView) view.findViewById(R.id.ampm_label)).setTextColor(mUnselectedColor);
         view.findViewById(R.id.sidebar).setBackgroundColor(mThemeDark ? sidebarDark : sidebarLight);
 
-        // Set the color on the FAB
-        // http://stackoverflow.com/a/32031019/5055032
-        // *****************************************************************************************
-        // NOTE: IF YOU DECIDE TO MOVE THE FAB AND THE HALF DAY TOGGLES TO THE GRIDSELECTORLAYOUT
-        // CLASS, YOU SHOULD CHANGE THE CONTEXT PASSED TO GridSelectorLayout#setTheme() FROM THE
-        // APPLICATION CONTEXT TO THE LOCAL CONTEXT. OTHERWISE, IT WOULD NOT BE ABLE TO RETRIEVE
-        // THE CORRECT ACCENT COLOR. WE ALREADY FACED THIS ISSUE WITH THE NUMPADTIMEPICKERDIALOG.
-        // DO A CTRL+F FOR mTimePicker.setTheme FOR THE CODE IN DISCUSSION.
-        // *****************************************************************************************
         // Color in normal state
         mDoneButton.setBackgroundTintList(ColorStateList.valueOf(accentColor));
 //TODO        mDoneButton.setRippleColor();
