@@ -35,7 +35,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.format.Time;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -160,45 +159,17 @@ public class Utils {
      * @return the accent color of the current context
      */
     public static int getThemeAccentColor(Context context) {
-        // Source from MDTP
-//        TypedValue typedValue = new TypedValue();
-//        // First, try the android:colorAccent
-//        if (Build.VERSION.SDK_INT >= 21) {
-//            context.getTheme().resolveAttribute(android.R.attr.colorAccent, typedValue, true);
-//            return typedValue.data;
-//        }
-//        // Next, try colorAccent from support lib
-//        int colorAccentResId = context.getResources().getIdentifier("colorAccent", "attr", context.getPackageName());
-//        if (colorAccentResId != 0 && context.getTheme().resolveAttribute(colorAccentResId, typedValue, true)) {
-//            return typedValue.data;
-//        }
-//
-//        return ContextCompat.getColor(context, R.color.accent_color);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return getColorFromThemeAttr(context, android.R.attr.colorAccent);
+        }
         return getColorFromThemeAttr(context, R.attr.colorAccent);
     }
 
-    public static int getTextColorFromThemeAttr(Context context, int resid) {
-        // http://stackoverflow.com/a/33839580/5055032
-//        final TypedValue value = new TypedValue();
-//        context.getTheme().resolveAttribute(resid, value, true);
-//        TypedArray a = context.obtainStyledAttributes(value.data,
-//                new int[] {resid});
+    public static int getColorFromThemeAttr(Context context, int resid) {
         TypedArray a = context.getTheme().obtainStyledAttributes(new int[] {resid});
         final int color = a.getColor(0/*index*/, 0/*defValue*/);
         a.recycle();
         return color;
-        // Didn't work! Gave me white!
-//        return getColorFromThemeAttr(context, android.R.attr.textColorPrimary);
-    }
-
-    /**
-     * @param resId The resource identifier of the desired theme attribute.
-     */
-    public static int getColorFromThemeAttr(Context context, int resId) {
-        // http://stackoverflow.com/a/28777489/5055032
-        final TypedValue value = new TypedValue();
-        context.getTheme().resolveAttribute(resId, value, true);
-        return value.data;
     }
 
     /**
