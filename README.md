@@ -32,6 +32,9 @@ dependencies {
 ```
 
 ## Usage
+**You must be using the support library version of `Activity` or `Fragment` to use this library
+properly.** The pickers are indirect subclasses of `android.support.v4.app.DialogFragment`.
+
 Implement `BottomSheetTimePickerDialog.OnTimeSetListener` in your `Activity` or `Fragment`:
 
 ```java
@@ -59,9 +62,6 @@ GridTimePickerDialog dialog = GridTimePickerDialog.newInstance(
     DateFormat.is24HourFormat(MainActivity.this));
 dialog.show(getSupportFragmentManager(), TAG);
 ```
-
-> **NOTE**: Both dialogs are subclasses of `android.support.v4.app.DialogFragment`,
-so you should pass the support library's version of `FragmentManager` to `show()`.
 
 ### Theming
 The pickers automatically use your current theme's `colorAccent` defined in your `styles.xml`.
