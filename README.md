@@ -9,7 +9,7 @@ time picker. As seen in my [Clock+](https://github.com/philliphsu/ClockPlus) app
 <img src="screenshots/number-pad-12h-dark.png" width="180" height="320">
 <img src="screenshots/number-pad-24h-dark.png" width="180" height="320">
 
-**Grid**
+**Grid Picker**
 
 <img src="screenshots/12h-grid-light.png" width="180" height="320">
 <img src="screenshots/minutes-grid-light.png" width="180" height="320">
@@ -75,13 +75,6 @@ You can specify whether to use a light (default) or dark theme:
 ```
 
 > **NOTE**: `setThemeDark(boolean dark)` takes precedence over the value specified in XML.
-
-## Possible Improvements
-* Optimize layouts for larger form factors
-* Grid picker's floating action button elevation shadow is cut off
-* Improve appearance of number pad
-* Optimize landscape layout for number pad
-* Fix applying size span to localized AM/PM text in number pad header
 
 ## FAQ
 > Why is the library named **BottomSheetPickers** if it only has time pickers?
