@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!--Makes all resources private-->
-    <public name="string_res_that_does_not_exist" type="string"/>
-</resources>
