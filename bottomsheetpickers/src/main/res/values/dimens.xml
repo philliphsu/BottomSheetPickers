@@ -23,9 +23,9 @@
     <dimen name="numeric_keypad_height">344dp</dimen> <!-- 4 * (numeric_keypad_cell_height) + 88dp pre-21 FAB height -->
     <dimen name="numeric_keypad_backspace_height">88dp</dimen> <!-- Same as pre-21 FAB height -->
     <dimen name="numeric_keypad_fab_bottom_margin">0dp</dimen> <!-- 88dp height already big enough -->
+    <dimen name="text_size_display_3">56sp</dimen>
 
     <!-- GridTimePickerDialog -->
-    <dimen name="number_grid_hour_cell_height">70dp</dimen> <!-- 4 * 70 == 5 * (number_grid_minute_cell_height) -->
     <dimen name="number_grid_24_hour_item_primary_text_size">30sp</dimen>
     <dimen name="number_grid_minute_text_size">28sp</dimen>
     <dimen name="time_picker_pad_height">336dp</dimen>

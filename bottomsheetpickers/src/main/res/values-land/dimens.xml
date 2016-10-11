@@ -21,7 +21,6 @@
     <dimen name="numeric_keypad_cell_height">42dp</dimen>
 
     <!-- NumberGridTimePickerDialog -->
-    <dimen name="number_grid_hour_cell_height">55dp</dimen> <!-- 4 * 55 == 5 * (number_grid_minute_cell_height) -->
     <dimen name="number_grid_24_hour_item_primary_text_size">26sp</dimen>
     <dimen name="number_grid_minute_text_size">20sp</dimen>
 
