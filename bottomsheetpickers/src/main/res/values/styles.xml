@@ -52,27 +52,6 @@
         <item name="elevation">0dp</item>
     </style>
 
-    <style name="NumberGridButton" parent="GridLayoutNumpadButton">
-        <!-- TODO: Do we need this anymore? -->
-        <!-- This should give us 87% black. By default, TextView has a grayish text color.
-        The reason GridLayoutNumpadButton style used in the NumpadTimerPickerDialog is 87% black
-        already is because the numpad's buttons are actually of type Button. For whatever reason,
-        I decided to make the buttons for the NumbersGrid of type TextView... -->
-        <!--<item name="android:textColor">?android:attr/textColorPrimary</item>-->
-    </style>
-    <style name="NumberGridButton.Hour">
-        <item name="android:layout_height">@dimen/number_grid_hour_cell_height</item>
-    </style>
-    <style name="NumberGridButton.Minute">
-        <!-- Lowered text size, otherwise it looks weird that the minute grid, with 5 rows
-         of buttons, has the same text size as the hours grid, with 4 rows of buttons; they look
-         too big, and the space between them is smaller. -->
-        <item name="android:textSize">@dimen/number_grid_minute_text_size</item>
-        <!--<item name="android:layout_height">@dimen/number_grid_minute_cell_height</item>-->
-        <item name="android:layout_height">0dp</item>
-        <item name="layout_rowWeight">1</item>
-    </style>
-
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/ModalStyle</item>
     </style>
