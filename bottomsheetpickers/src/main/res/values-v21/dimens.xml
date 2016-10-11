@@ -16,8 +16,8 @@
   -->
 
 <resources>
-    <!-- 4 * (numeric_keypad_cell_height) + 56dp FAB height + 16dp FAB bottom margin -->
-    <dimen name="numeric_keypad_height">328dp</dimen>
+    <!-- 4 * (numeric_keypad_cell_height) + 56dp FAB height + 4dp FAB top margin + 16dp FAB bottom margin -->
+    <dimen name="numeric_keypad_height">332dp</dimen>
     <dimen name="numeric_keypad_backspace_height">56dp</dimen> <!-- Same as FAB height -->
     <dimen name="numeric_keypad_fab_bottom_margin">16dp</dimen>
 

@@ -26,5 +26,8 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="NumberPadFabStyle" parent="BaseNumberPadFabStyle"/>
+    <style name="NumberPadFabStyle" parent="BaseNumberPadFabStyle">
+        <!-- Hardcoded is fine since this file is the only usage -->
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
 </resources>
