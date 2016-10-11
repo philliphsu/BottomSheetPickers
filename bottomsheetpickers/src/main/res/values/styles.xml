@@ -73,22 +73,6 @@
         <item name="layout_rowWeight">1</item>
     </style>
 
-    <style name="Divider">
-        <!-- This is robust against dark/light theme changes. -->
-        <!-- Normally not visible in bottom sheets; workaround is to manually change the background color of the divider-->
-        <item name="android:background">?android:attr/listDivider</item>
-    </style>
-
-    <style name="Divider.Horizontal">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-    </style>
-
-    <style name="Divider.Vertical">
-        <item name="android:layout_width">1dp</item>
-        <item name="android:layout_height">match_parent</item>
-    </style>
-
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/ModalStyle</item>
     </style>
