@@ -49,7 +49,11 @@ public class MainActivity extends AppCompatActivity implements
                     dialog.setThemeDark(checkedId == R.id.choice_grid_picker_dark);
                     dialog.show(getSupportFragmentManager(), TAG);
                 } else if (checkedId == R.id.choice_date_picker) {
-                    DatePickerDialog dialog = DatePickerDialog.newInstance(MainActivity.this, 0, 0, 0);
+                    Calendar now = Calendar.getInstance();
+                    DatePickerDialog dialog = DatePickerDialog.newInstance(MainActivity.this,
+                            now.get(Calendar.YEAR),
+                            now.get(Calendar.MONTH),
+                            now.get(Calendar.DAY_OF_MONTH));
                     dialog.show(getSupportFragmentManager(), TAG);
                 }
             }

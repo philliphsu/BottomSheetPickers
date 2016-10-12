@@ -18,7 +18,7 @@ package com.philliphsu.bottomsheetpickers.date;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.DialogFragment;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -28,11 +28,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -86,10 +84,9 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
     private AccessibleDateAnimator mAnimator;
 
     private TextView             mDayOfWeekView;
-    private LinearLayout         mMonthAndDayView;
-    private TextView             mSelectedMonthTextView;
-    private TextView             mSelectedDayTextView;
-    private TextView             mYearView;
+    private LinearLayout         mMonthDayYearView;
+    private TextView             mFirstTextView;
+    private TextView             mSecondTextView;
     private DayPickerView        mDayPickerView;
     private YearPickerView       mYearPickerView;
     private FloatingActionButton mDoneButton;
@@ -197,17 +194,14 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-//        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         final View view = super.onCreateView(inflater, container, savedInstanceState);
-        Log.d(TAG, "onCreateView: ");
 
         mDayOfWeekView = (TextView) view.findViewById(R.id.date_picker_header);
-        mMonthAndDayView = (LinearLayout) view.findViewById(R.id.date_picker_month_and_day);
-        mMonthAndDayView.setOnClickListener(this);
-        mSelectedMonthTextView = (TextView) view.findViewById(R.id.date_picker_month);
-        mSelectedDayTextView = (TextView) view.findViewById(R.id.date_picker_day);
-        mYearView = (TextView) view.findViewById(R.id.date_picker_year);
-        mYearView.setOnClickListener(this);
+        mMonthDayYearView = (LinearLayout) view.findViewById(R.id.date_picker_month_day_year);
+        mMonthDayYearView.setOnClickListener(this);
+        mFirstTextView = (TextView) view.findViewById(R.id.date_picker_first_textview);
+        mSecondTextView = (TextView) view.findViewById(R.id.date_picker_second_textview);
+        mSecondTextView.setOnClickListener(this);
 
         int listPosition = -1;
         int listPositionOffset = 0;
@@ -289,7 +283,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
 
         switch (viewIndex) {
             case MONTH_AND_DAY_VIEW:
-                ObjectAnimator pulseAnimator = Utils.getPulseAnimator(mMonthAndDayView, 0.9f,
+                ObjectAnimator pulseAnimator = Utils.getPulseAnimator(mMonthDayYearView, 0.9f,
                         1.05f);
                 if (mDelayAnimation) {
                     pulseAnimator.setStartDelay(ANIMATION_DELAY);
@@ -297,8 +291,8 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
                 }
                 mDayPickerView.onDateChanged();
                 if (mCurrentView != viewIndex) {
-                    mMonthAndDayView.setSelected(true);
-                    mYearView.setSelected(false);
+                    mMonthDayYearView.setSelected(true);
+                    mSecondTextView.setSelected(false);
                     mAnimator.setDisplayedChild(MONTH_AND_DAY_VIEW);
                     mCurrentView = viewIndex;
                 }
@@ -310,15 +304,15 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
                 Utils.tryAccessibilityAnnounce(mAnimator, mSelectDay);
                 break;
             case YEAR_VIEW:
-                pulseAnimator = Utils.getPulseAnimator(mYearView, 0.85f, 1.1f);
+                pulseAnimator = Utils.getPulseAnimator(mSecondTextView, 0.85f, 1.1f);
                 if (mDelayAnimation) {
                     pulseAnimator.setStartDelay(ANIMATION_DELAY);
                     mDelayAnimation = false;
                 }
                 mYearPickerView.onDateChanged();
                 if (mCurrentView != viewIndex) {
-                    mMonthAndDayView.setSelected(false);
-                    mYearView.setSelected(true);
+                    mMonthDayYearView.setSelected(false);
+                    mSecondTextView.setSelected(true);
                     mAnimator.setDisplayedChild(YEAR_VIEW);
                     mCurrentView = viewIndex;
                 }
@@ -336,24 +330,60 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
             mDayOfWeekView.setText(mCalendar.getDisplayName(Calendar.DAY_OF_WEEK,
                     Calendar.LONG, Locale.getDefault()));
         }
-
-        mSelectedMonthTextView.setText(mCalendar.getDisplayName(Calendar.MONTH,
-                Calendar.SHORT, Locale.getDefault()));
-        mSelectedDayTextView.setText(DAY_FORMAT.format(mCalendar.getTime()));
-        mYearView.setText(YEAR_FORMAT.format(mCalendar.getTime()));
+        // Determine the relative positions of (MD) and Y according to the formatting style
+        // of the current locale. All locales format the M and D together; which comes
+        // first is not a necessary consideration for the comparison.
+        //
+        // Why not just get the completely formatted date and split the string
+        // around the year delimiter? Different locales use different year delimiters,
+        // and some don't use one at all. For example, a fully formatted date in
+        // the French locale is "30 juin 2009".
+        final int baseFlags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH;
+        int flags_MD  = baseFlags | DateUtils.FORMAT_NO_YEAR;
+        int flags_MDY = baseFlags | DateUtils.FORMAT_SHOW_YEAR;
+        String formattedDate = formatDateTime(mCalendar, flags_MDY);
+        String monthAndDay = formatDateTime(mCalendar, flags_MD);
+        // This won't give us a localized year.
+        String year = YEAR_FORMAT.format(mCalendar.getTime());
+        // Get the localized year from the formatted date.
+        String[] parts = formattedDate.split(monthAndDay);
+        for (String part : parts) {
+            // If the locale's date format is (MD)Y, then split(MD) = {"", Y}.
+            // If it is Y(MD), then split(MD) = {Y}. "Trailing empty strings are
+            // [...] not included in the resulting array."
+            if (!part.isEmpty()) {
+                year = part;
+            }
+        }
+//        Log.d(TAG, String.format("monthAndDay = %s, year = %s, formattedDate = %s",
+//                monthAndDay, year, formattedDate));
+//        Log.d(TAG, String.format("In formattedDate, indexOf(monthAndDay) = %d, indexOf(year) = %d",
+//                formattedDate.indexOf(monthAndDay),
+//                formattedDate.indexOf(year)));
+        if (formattedDate.indexOf(monthAndDay) < formattedDate.indexOf(year)) {
+            mFirstTextView.setText(monthAndDay);
+            mSecondTextView.setText(year);
+        } else {
+            mFirstTextView.setText(year);
+            mSecondTextView.setText(monthAndDay);
+        }
 
         // Accessibility.
         long millis = mCalendar.getTimeInMillis();
         mAnimator.setDateMillis(millis);
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_YEAR;
         String monthAndDayText = DateUtils.formatDateTime(getActivity(), millis, flags);
-        mMonthAndDayView.setContentDescription(monthAndDayText);
+        mMonthDayYearView.setContentDescription(monthAndDayText);
 
         if (announce) {
             flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR;
             String fullDateText = DateUtils.formatDateTime(getActivity(), millis, flags);
             Utils.tryAccessibilityAnnounce(mAnimator, fullDateText);
         }
+    }
+
+    private String formatDateTime(Calendar calendar, int flags) {
+        return DateUtils.formatDateTime(null, calendar.getTimeInMillis(), flags);
     }
 
     public void setFirstDayOfWeek(int startOfWeek) {
@@ -439,9 +469,9 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
     @Override
     public void onClick(View v) {
         tryVibrate();
-        if (v.getId() == R.id.date_picker_year) {
+        if (v.getId() == R.id.date_picker_second_textview) {
             setCurrentView(YEAR_VIEW);
-        } else if (v.getId() == R.id.date_picker_month_and_day) {
+        } else if (v.getId() == R.id.date_picker_month_day_year) {
             setCurrentView(MONTH_AND_DAY_VIEW);
         }
     }
