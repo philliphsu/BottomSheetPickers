@@ -1,4 +1,6 @@
 # BottomSheetPickers
+[ ![Download](https://api.bintray.com/packages/philliphsu/maven/bottom-sheet-pickers/images/download.svg) ](https://bintray.com/philliphsu/maven/bottom-sheet-pickers/_latestVersion)
+
 BottomSheetPickers is a set of new time pickers for Android that can be used in place of the stock
 time picker. As seen in my [Clock+](https://github.com/philliphsu/ClockPlus) app.
 
