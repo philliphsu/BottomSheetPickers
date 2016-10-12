@@ -24,13 +24,7 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp" >
 
-    <com.philliphsu.bottomsheetpickers.AccessibleTextView
-        android:id="@+id/date_picker_year"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:textColor="@color/date_picker_selector"
-        android:textSize="@dimen/selected_date_year_size" />
+    <include layout="@layout/date_picker_header_view" />
 
     <com.philliphsu.bottomsheetpickers.AccessibleLinearLayout
         android:id="@+id/date_picker_month_and_day"
@@ -39,8 +33,6 @@
         android:clickable="true"
         android:orientation="horizontal"
         android:textColor="@color/date_picker_selector" >
-
-        <include layout="@layout/date_picker_header_view" />
 
         <TextView
             android:id="@+id/date_picker_month"
@@ -53,7 +45,7 @@
 
         <Space
             android:layout_width="8dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/date_picker_day"
@@ -63,6 +55,19 @@
             android:includeFontPadding="false"
             android:textColor="@color/date_picker_selector"
             android:textSize="@dimen/selected_date_month_size" />
+
+        <Space
+            android:layout_width="8dp"
+            android:layout_height="match_parent" />
+
+        <com.philliphsu.bottomsheetpickers.AccessibleTextView
+            android:id="@+id/date_picker_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:textColor="@color/date_picker_selector"
+            android:textSize="@dimen/selected_date_month_size" />
+
     </com.philliphsu.bottomsheetpickers.AccessibleLinearLayout>
 
 </LinearLayout>
