@@ -337,8 +337,8 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
                     Calendar.LONG, Locale.getDefault()));
         }
 
-        mSelectedMonthTextView.setText(mCalendar.getDisplayName(Calendar.MONTH, Calendar.SHORT,
-                Locale.getDefault()).toUpperCase(Locale.getDefault()));
+        mSelectedMonthTextView.setText(mCalendar.getDisplayName(Calendar.MONTH,
+                Calendar.SHORT, Locale.getDefault()));
         mSelectedDayTextView.setText(DAY_FORMAT.format(mCalendar.getTime()));
         mYearView.setText(YEAR_FORMAT.format(mCalendar.getTime()));
 
