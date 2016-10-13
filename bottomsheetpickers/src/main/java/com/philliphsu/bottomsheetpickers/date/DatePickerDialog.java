@@ -511,9 +511,9 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
     public void onClick(View v) {
         tryVibrate();
         if (v.getId() == R.id.date_picker_second_textview) {
-            setCurrentView(YEAR_VIEW);
+            setCurrentView(mLocaleMonthDayIndex == 0 ? YEAR_VIEW : MONTH_AND_DAY_VIEW);
         } else if (v.getId() == R.id.date_picker_month_day_year) {
-            setCurrentView(MONTH_AND_DAY_VIEW);
+            setCurrentView(mLocaleMonthDayIndex == 0 ? MONTH_AND_DAY_VIEW : YEAR_VIEW);
         }
     }
 
