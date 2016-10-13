@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <TextView
+        <com.philliphsu.bottomsheetpickers.AccessibleTextView
             android:id="@+id/date_picker_first_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,7 +40,6 @@
             android:textColor="@color/date_picker_selector"
             android:textSize="@dimen/selected_date_month_size" />
 
-        <!--TODO: Why is this an AccessibleTextView and the above sibling a regular TextView?-->
         <com.philliphsu.bottomsheetpickers.AccessibleTextView
             android:id="@+id/date_picker_second_textview"
             android:layout_width="wrap_content"
