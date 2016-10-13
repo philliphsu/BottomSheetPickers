@@ -47,8 +47,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginEnd="@dimen/fab_margin"
+        app:fabSize="mini"
         app:layout_anchor="@id/selected_calendar_layout"
-        app:layout_anchorGravity="right|bottom"
+        app:layout_anchorGravity="right|end|bottom"
         app:srcCompat="@drawable/ic_done_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>
