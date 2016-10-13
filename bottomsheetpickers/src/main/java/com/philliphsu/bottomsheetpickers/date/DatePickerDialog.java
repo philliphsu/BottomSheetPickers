@@ -18,12 +18,10 @@ package com.philliphsu.bottomsheetpickers.date;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -108,6 +106,13 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
     private String mSelectDay;
     private String mYearPickerDescription;
     private String mSelectYear;
+    
+    // Relative positions of (MD) and Y in the locale's date formatting style.
+    // TODO: Verify that these don't need to be saved in state when rotating.
+    // Because in the new instance, onCreateView() will get called again and
+    // so will determinteLocale_MD_Y_Indices().
+    private int mLocaleMonthDayIndex;
+    private int mLocaleYearIndex;
 
     /**
      * The callback used to indicate the user is done filling in the date.
@@ -251,6 +256,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
             }
         });
 
+        determineLocale_MD_Y_Indices();
         updateDisplay(false);
         setCurrentView(currentView);
 
@@ -291,8 +297,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
                 }
                 mDayPickerView.onDateChanged();
                 if (mCurrentView != viewIndex) {
-                    mMonthDayYearView.setSelected(true);
-                    mSecondTextView.setSelected(false);
+                    updateHeaderSelectedText(MONTH_AND_DAY_VIEW);
                     mAnimator.setDisplayedChild(MONTH_AND_DAY_VIEW);
                     mCurrentView = viewIndex;
                 }
@@ -311,8 +316,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
                 }
                 mYearPickerView.onDateChanged();
                 if (mCurrentView != viewIndex) {
-                    mMonthDayYearView.setSelected(false);
-                    mSecondTextView.setSelected(true);
+                    updateHeaderSelectedText(YEAR_VIEW);
                     mAnimator.setDisplayedChild(YEAR_VIEW);
                     mCurrentView = viewIndex;
                 }
@@ -324,49 +328,86 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
                 break;
         }
     }
-
-    private void updateDisplay(boolean announce) {
-        if (mDayOfWeekView != null) {
-            mDayOfWeekView.setText(mCalendar.getDisplayName(Calendar.DAY_OF_WEEK,
-                    Calendar.LONG, Locale.getDefault()));
+    
+    private void updateHeaderSelectedText(final int viewIndex) {
+        switch (viewIndex) {
+            case MONTH_AND_DAY_VIEW:
+                // TODO: This should be mFirstTextView
+                mMonthDayYearView.setSelected(mLocaleMonthDayIndex == 0);
+                mSecondTextView.setSelected(mLocaleMonthDayIndex != 0);
+                break;
+            case YEAR_VIEW:
+                // TODO: This should be mFirstTextView
+                mMonthDayYearView.setSelected(mLocaleYearIndex == 0);
+                mSecondTextView.setSelected(mLocaleYearIndex != 0);
+                break;
         }
-        // Determine the relative positions of (MD) and Y according to the formatting style
-        // of the current locale. All locales format the M and D together; which comes
-        // first is not a necessary consideration for the comparison.
+    }
+
+    /**
+     * Determine the relative positions of (MD) and Y according to the formatting style
+     * of the current locale.
+     */
+    private void determineLocale_MD_Y_Indices() {
+        String formattedDate = formatMonthDayYear(mCalendar);
+        // Get the (MD) and Y parts of the formatted date in the current locale,
+        // so that we can compare their relative positions.
         //
-        // Why not just get the completely formatted date and split the string
-        // around the year delimiter? Different locales use different year delimiters,
-        // and some don't use one at all. For example, a fully formatted date in
-        // the French locale is "30 juin 2009".
-        final int baseFlags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH;
-        int flags_MD  = baseFlags | DateUtils.FORMAT_NO_YEAR;
-        int flags_MDY = baseFlags | DateUtils.FORMAT_SHOW_YEAR;
-        String formattedDate = formatDateTime(mCalendar, flags_MDY);
-        String monthAndDay = formatDateTime(mCalendar, flags_MD);
-        // This won't give us a localized year.
-        String year = YEAR_FORMAT.format(mCalendar.getTime());
-        // Get the localized year from the formatted date.
+        // You may be wondering why we need this method at all.
+        // "Just split() the formattedDate string around the year delimiter
+        // to get the two parts in an array already positioned correctly!
+        // Then setText() on mFirstTextView and mSecondTextView with the contents of that array!"
+        // That is harder than it sounds.
+        // Different locales use different year delimiters, and some don't use one at all.
+        // For example, a fully formatted date in the French locale is "30 juin 2009".
+        String monthAndDay = formatMonthAndDay(mCalendar);
+        String year = extractYearFromFormattedDate(formattedDate, monthAndDay);
+
+        // All locales format the M and D together; which comes
+        // first is not a necessary consideration for the comparison.
+        if (formattedDate.indexOf(monthAndDay) < formattedDate.indexOf(year/*not null*/)) {
+            mLocaleMonthDayIndex = 0;
+            mLocaleYearIndex = 1;
+        } else {
+            mLocaleYearIndex = 0;
+            mLocaleMonthDayIndex = 1;
+        }
+    }
+
+    private static String formatMonthDayYear(Calendar calendar) {
+        int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH | DateUtils.FORMAT_SHOW_YEAR;
+        return formatDateTime(calendar, flags);
+    }
+
+    private static String formatMonthAndDay(Calendar calendar) {
+        int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH | DateUtils.FORMAT_NO_YEAR;
+        return formatDateTime(calendar, flags);
+    }
+
+    private String extractYearFromFormattedDate(String formattedDate, String monthAndDay) {
         String[] parts = formattedDate.split(monthAndDay);
         for (String part : parts) {
             // If the locale's date format is (MD)Y, then split(MD) = {"", Y}.
             // If it is Y(MD), then split(MD) = {Y}. "Trailing empty strings are
             // [...] not included in the resulting array."
             if (!part.isEmpty()) {
-                year = part;
+                return part;
             }
         }
-//        Log.d(TAG, String.format("monthAndDay = %s, year = %s, formattedDate = %s",
-//                monthAndDay, year, formattedDate));
-//        Log.d(TAG, String.format("In formattedDate, indexOf(monthAndDay) = %d, indexOf(year) = %d",
-//                formattedDate.indexOf(monthAndDay),
-//                formattedDate.indexOf(year)));
-        if (formattedDate.indexOf(monthAndDay) < formattedDate.indexOf(year)) {
-            mFirstTextView.setText(monthAndDay);
-            mSecondTextView.setText(year);
-        } else {
-            mFirstTextView.setText(year);
-            mSecondTextView.setText(monthAndDay);
+        // We will NEVER reach here, as long as the parameters are valid strings.
+        // We don't want this because it is not localized.
+        return YEAR_FORMAT.format(mCalendar.getTime());
+    }
+
+    private void updateDisplay(boolean announce) {
+        if (mDayOfWeekView != null) {
+            mDayOfWeekView.setText(mCalendar.getDisplayName(Calendar.DAY_OF_WEEK,
+                    Calendar.LONG, Locale.getDefault()));
         }
+        String monthAndDay = formatMonthAndDay(mCalendar);
+        String year = extractYearFromFormattedDate(formatMonthDayYear(mCalendar), monthAndDay);
+        mFirstTextView.setText(mLocaleMonthDayIndex == 0 ? monthAndDay : year);
+        mSecondTextView.setText(mLocaleMonthDayIndex == 0 ? year : monthAndDay);
 
         // Accessibility.
         long millis = mCalendar.getTimeInMillis();
@@ -382,7 +423,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         }
     }
 
-    private String formatDateTime(Calendar calendar, int flags) {
+    private static String formatDateTime(Calendar calendar, int flags) {
         return DateUtils.formatDateTime(null, calendar.getTimeInMillis(), flags);
     }
 
