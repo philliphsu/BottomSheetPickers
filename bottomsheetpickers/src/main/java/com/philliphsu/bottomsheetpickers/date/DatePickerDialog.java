@@ -512,6 +512,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         tryVibrate();
         if (v.getId() == R.id.date_picker_second_textview) {
             setCurrentView(mLocaleMonthDayIndex == 0 ? YEAR_VIEW : MONTH_AND_DAY_VIEW);
+            // TODO: This id should be *_first_textview
         } else if (v.getId() == R.id.date_picker_month_day_year) {
             setCurrentView(mLocaleMonthDayIndex == 0 ? MONTH_AND_DAY_VIEW : YEAR_VIEW);
         }
