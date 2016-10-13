@@ -289,19 +289,12 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
 
         switch (viewIndex) {
             case MONTH_AND_DAY_VIEW:
-                ObjectAnimator pulseAnimator = Utils.getPulseAnimator(mMonthDayYearView, 0.9f,
-                        1.05f);
-                if (mDelayAnimation) {
-                    pulseAnimator.setStartDelay(ANIMATION_DELAY);
-                    mDelayAnimation = false;
-                }
                 mDayPickerView.onDateChanged();
                 if (mCurrentView != viewIndex) {
                     updateHeaderSelectedView(MONTH_AND_DAY_VIEW);
                     mAnimator.setDisplayedChild(MONTH_AND_DAY_VIEW);
                     mCurrentView = viewIndex;
                 }
-                pulseAnimator.start();
 
                 int flags = DateUtils.FORMAT_SHOW_DATE;
                 String dayString = DateUtils.formatDateTime(getActivity(), millis, flags);
@@ -309,18 +302,12 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
                 Utils.tryAccessibilityAnnounce(mAnimator, mSelectDay);
                 break;
             case YEAR_VIEW:
-                pulseAnimator = Utils.getPulseAnimator(mSecondTextView, 0.85f, 1.1f);
-                if (mDelayAnimation) {
-                    pulseAnimator.setStartDelay(ANIMATION_DELAY);
-                    mDelayAnimation = false;
-                }
                 mYearPickerView.onDateChanged();
                 if (mCurrentView != viewIndex) {
                     updateHeaderSelectedView(YEAR_VIEW);
                     mAnimator.setDisplayedChild(YEAR_VIEW);
                     mCurrentView = viewIndex;
                 }
-                pulseAnimator.start();
 
                 CharSequence yearString = YEAR_FORMAT.format(millis);
                 mAnimator.setContentDescription(mYearPickerDescription+": "+yearString);
