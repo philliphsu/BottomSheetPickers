@@ -203,8 +203,8 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
 
         mDayOfWeekView = (TextView) view.findViewById(R.id.date_picker_header);
         mMonthDayYearView = (LinearLayout) view.findViewById(R.id.date_picker_month_day_year);
-        mMonthDayYearView.setOnClickListener(this);
         mFirstTextView = (TextView) view.findViewById(R.id.date_picker_first_textview);
+        mFirstTextView.setOnClickListener(this);
         mSecondTextView = (TextView) view.findViewById(R.id.date_picker_second_textview);
         mSecondTextView.setOnClickListener(this);
 
@@ -297,7 +297,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
                 }
                 mDayPickerView.onDateChanged();
                 if (mCurrentView != viewIndex) {
-                    updateHeaderSelectedText(MONTH_AND_DAY_VIEW);
+                    updateHeaderSelectedView(MONTH_AND_DAY_VIEW);
                     mAnimator.setDisplayedChild(MONTH_AND_DAY_VIEW);
                     mCurrentView = viewIndex;
                 }
@@ -316,7 +316,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
                 }
                 mYearPickerView.onDateChanged();
                 if (mCurrentView != viewIndex) {
-                    updateHeaderSelectedText(YEAR_VIEW);
+                    updateHeaderSelectedView(YEAR_VIEW);
                     mAnimator.setDisplayedChild(YEAR_VIEW);
                     mCurrentView = viewIndex;
                 }
@@ -329,16 +329,14 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         }
     }
     
-    private void updateHeaderSelectedText(final int viewIndex) {
+    private void updateHeaderSelectedView(final int viewIndex) {
         switch (viewIndex) {
             case MONTH_AND_DAY_VIEW:
-                // TODO: This should be mFirstTextView
-                mMonthDayYearView.setSelected(mLocaleMonthDayIndex == 0);
+                mFirstTextView.setSelected(mLocaleMonthDayIndex == 0);
                 mSecondTextView.setSelected(mLocaleMonthDayIndex != 0);
                 break;
             case YEAR_VIEW:
-                // TODO: This should be mFirstTextView
-                mMonthDayYearView.setSelected(mLocaleYearIndex == 0);
+                mFirstTextView.setSelected(mLocaleYearIndex == 0);
                 mSecondTextView.setSelected(mLocaleYearIndex != 0);
                 break;
         }
@@ -512,8 +510,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         tryVibrate();
         if (v.getId() == R.id.date_picker_second_textview) {
             setCurrentView(mLocaleMonthDayIndex == 0 ? YEAR_VIEW : MONTH_AND_DAY_VIEW);
-            // TODO: This id should be *_first_textview
-        } else if (v.getId() == R.id.date_picker_month_day_year) {
+        } else if (v.getId() == R.id.date_picker_first_textview) {
             setCurrentView(mLocaleMonthDayIndex == 0 ? MONTH_AND_DAY_VIEW : YEAR_VIEW);
         }
     }
