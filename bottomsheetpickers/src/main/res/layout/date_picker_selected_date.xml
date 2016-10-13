@@ -21,7 +21,8 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:paddingLeft="16dp" >
+    android:layout_marginLeft="@dimen/selected_calendar_layout_keyline"
+    android:layout_marginStart="@dimen/selected_calendar_layout_keyline" >
 
     <include layout="@layout/date_picker_header_view" />
 
