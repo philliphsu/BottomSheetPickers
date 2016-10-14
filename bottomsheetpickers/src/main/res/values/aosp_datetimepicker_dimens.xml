@@ -64,7 +64,7 @@
     <dimen name="day_number_size">16sp</dimen>
     <dimen name="year_label_height">64dp</dimen>
     <dimen name="year_label_text_size">22dp</dimen>
-    <dimen name="month_view_edge_padding">10dp</dimen>
+    <dimen name="month_view_edge_padding">12dp</dimen>
     <dimen name="month_view_bottom_padding">20dp</dimen>
 
     <!--My stuff-->
