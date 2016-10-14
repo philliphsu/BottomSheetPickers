@@ -101,7 +101,7 @@ public abstract class MonthView extends View {
      */
     public static final String VIEW_PARAMS_SHOW_WK_NUM = "show_wk_num";
 
-    protected static int DEFAULT_HEIGHT = 32;
+    protected static int DEFAULT_HEIGHT = 40;
     protected static int MIN_HEIGHT = 10;
     protected static final int DEFAULT_SELECTED_DAY = -1;
     protected static final int DEFAULT_WEEK_START = Calendar.SUNDAY;
