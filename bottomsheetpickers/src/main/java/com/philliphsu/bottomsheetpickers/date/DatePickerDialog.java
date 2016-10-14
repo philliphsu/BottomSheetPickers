@@ -16,11 +16,13 @@
 
 package com.philliphsu.bottomsheetpickers.date;
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -201,6 +203,10 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
             Bundle savedInstanceState) {
         final View view = super.onCreateView(inflater, container, savedInstanceState);
 
+        final int accentColor = Utils.getThemeAccentColor(getActivity());
+        View selectedDateLayout = view.findViewById(R.id.day_picker_selected_date_layout);
+        selectedDateLayout.setBackgroundColor(accentColor);
+
         mDayOfWeekView = (TextView) view.findViewById(R.id.date_picker_header);
         mMonthDayYearView = (LinearLayout) view.findViewById(R.id.date_picker_month_day_year);
         mFirstTextView = (TextView) view.findViewById(R.id.date_picker_first_textview);
@@ -244,6 +250,15 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         mAnimator.setOutAnimation(animation2);
 
         mDoneButton = (FloatingActionButton) view.findViewById(R.id.done);
+
+        // Setup FAB color.
+        int white = ContextCompat.getColor(getActivity(), android.R.color.white);
+        Drawable fabIcon = mDoneButton.getDrawable();
+        Utils.setTint(fabIcon, accentColor);
+        mDoneButton.setImageDrawable(fabIcon);
+        // TODO: Use accent color as normal for dark theme
+        mDoneButton.setBackgroundTintList(ColorStateList.valueOf(white));
+
         mDoneButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

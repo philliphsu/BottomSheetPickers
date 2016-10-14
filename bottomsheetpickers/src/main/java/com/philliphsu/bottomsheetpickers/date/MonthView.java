@@ -111,7 +111,8 @@ public abstract class MonthView extends View {
     protected static final int DEFAULT_NUM_ROWS = 6;
     protected static final int MAX_NUM_ROWS = 6;
 
-    private static final int SELECTED_CIRCLE_ALPHA = 60;
+    // TODO: If we're keeping 255, then delete this.
+    private static final int SELECTED_CIRCLE_ALPHA = 255;
 
     protected static int DAY_SEPARATOR_WIDTH = 1;
     protected static int MINI_DAY_NUMBER_TEXT_SIZE;

@@ -27,16 +27,9 @@
         android:gravity="center"
         android:orientation="vertical" >
 
-        <LinearLayout
-            android:id="@+id/selected_calendar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/selected_calendar_layout_height"
-            android:background="@color/pad_operator_background_color"
-            android:orientation="vertical" >
-
-            <include layout="@layout/date_picker_selected_date" />
-
-        </LinearLayout>
+        <include
+            android:id="@+id/day_picker_selected_date_layout"
+            layout="@layout/date_picker_selected_date" />
 
         <include layout="@layout/date_picker_view_animator" />
 
@@ -49,7 +42,7 @@
         android:layout_marginRight="@dimen/fab_margin"
         android:layout_marginEnd="@dimen/fab_margin"
         app:fabSize="mini"
-        app:layout_anchor="@id/selected_calendar_layout"
+        app:layout_anchor="@id/day_picker_selected_date_layout"
         app:layout_anchorGravity="right|end|bottom"
         app:srcCompat="@drawable/ic_done_24dp" />
 

@@ -37,9 +37,9 @@ public class SimpleMonthView extends MonthView {
         if (isOutOfRange(year, month, day)) {
             mMonthNumPaint.setColor(mDisabledDayTextColor);
         } else if (mHasToday && mToday == day) {
-            mMonthNumPaint.setColor(mTodayNumberColor);
+            mMonthNumPaint.setColor(mSelectedDay == day ? mSelectedDayTextColor : mTodayNumberColor);
         } else {
-            mMonthNumPaint.setColor(mDayTextColor);
+            mMonthNumPaint.setColor(mSelectedDay == day ? mSelectedDayTextColor : mDayTextColor);
         }
         canvas.drawText(String.format("%d", day), x, y, mMonthNumPaint);
     }
