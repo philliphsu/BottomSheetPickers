@@ -163,6 +163,18 @@ public class Utils {
         return getColorFromThemeAttr(context, R.attr.colorAccent);
     }
 
+    /**
+     * Gets the colorPrimary from the current context, if possible/available
+     * @param context The context to use as reference for the color
+     * @return the primary color of the current context
+     */
+    public static int getThemePrimaryColor(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return getColorFromThemeAttr(context, android.R.attr.colorPrimary);
+        }
+        return getColorFromThemeAttr(context, R.attr.colorPrimary);
+    }
+
     public static int getColorFromThemeAttr(Context context, int resid) {
         TypedArray a = context.getTheme().obtainStyledAttributes(new int[] {resid});
         final int color = a.getColor(0/*index*/, 0/*defValue*/);
