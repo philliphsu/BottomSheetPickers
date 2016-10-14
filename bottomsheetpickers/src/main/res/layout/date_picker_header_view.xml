@@ -20,6 +20,6 @@
     android:layout_height="wrap_content"
     android:duplicateParentState="true"
     android:includeFontPadding="false"
-    android:textColor="@android:color/white"
+    android:textColor="@color/text_color_secondary_dark"
     android:textSize="@dimen/date_picker_header_text_size"
     android:importantForAccessibility="no" />

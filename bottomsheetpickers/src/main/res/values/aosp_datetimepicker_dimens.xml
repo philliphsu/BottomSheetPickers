@@ -62,6 +62,7 @@
     <dimen name="day_number_size">16sp</dimen>
     <dimen name="year_label_height">64dp</dimen>
     <dimen name="year_label_text_size">22dp</dimen>
+    <dimen name="month_view_edge_padding">8dp</dimen>
 
     <!--My stuff-->
     <dimen name="fab_elevation">6dp</dimen>

@@ -48,6 +48,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import static android.support.v4.content.ContextCompat.getColor;
+
 /**
  * A calendar-like view displaying a specified month and the appropriate selectable day numbers
  * within the specified month.
@@ -186,6 +188,8 @@ public abstract class MonthView extends View {
     protected int mDisabledDayTextColor;
     protected int mMonthTitleColor;
     protected int mMonthTitleBGColor;
+    protected int mSelectedDayTextColor;
+    protected int mMonthDayLabelTextColor;
 
     public MonthView(Context context) {
         this(context, null);
@@ -201,11 +205,17 @@ public abstract class MonthView extends View {
         mDayOfWeekTypeface = res.getString(R.string.day_of_week_label_typeface);
         mMonthTitleTypeface = res.getString(R.string.sans_serif);
 
-        mDayTextColor = res.getColor(R.color.date_picker_text_normal);
-        mTodayNumberColor = res.getColor(R.color.blue);
+        // TODO: dark variant for dark theme
+        mDayTextColor = res.getColor(R.color.text_color_primary_light);
+        // Same as background color
+        // TODO: dark variant for dark theme
+        mSelectedDayTextColor = getColor(context, R.color.date_picker_view_animator);
+        mTodayNumberColor = Utils.getThemeAccentColor(context);
         mDisabledDayTextColor = res.getColor(R.color.date_picker_text_disabled);
         mMonthTitleColor = res.getColor(android.R.color.white);
         mMonthTitleBGColor = res.getColor(R.color.circle_background);
+        // TODO: dark variant for dark theme
+        mMonthDayLabelTextColor = getColor(context, R.color.text_color_secondary_light);
 
         mStringBuilder = new StringBuilder(50);
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
@@ -219,6 +229,7 @@ public abstract class MonthView extends View {
 
         mRowHeight = (res.getDimensionPixelOffset(R.dimen.date_picker_view_animator_height)
                 - getMonthHeaderSize()) / MAX_NUM_ROWS;
+        mEdgePadding = res.getDimensionPixelSize(R.dimen.month_view_edge_padding);
 
         // Set up accessibility components.
         mTouchHelper = getMonthViewTouchHelper();
@@ -300,12 +311,11 @@ public abstract class MonthView extends View {
         mSelectedCirclePaint.setColor(mTodayNumberColor);
         mSelectedCirclePaint.setTextAlign(Align.CENTER);
         mSelectedCirclePaint.setStyle(Style.FILL);
-        mSelectedCirclePaint.setAlpha(SELECTED_CIRCLE_ALPHA);
 
         mMonthDayLabelPaint = new Paint();
         mMonthDayLabelPaint.setAntiAlias(true);
         mMonthDayLabelPaint.setTextSize(MONTH_DAY_LABEL_TEXT_SIZE);
-        mMonthDayLabelPaint.setColor(mDayTextColor);
+        mMonthDayLabelPaint.setColor(mMonthDayLabelTextColor);
         mMonthDayLabelPaint.setTypeface(Typeface.create(mDayOfWeekTypeface, Typeface.NORMAL));
         mMonthDayLabelPaint.setStyle(Style.FILL);
         mMonthDayLabelPaint.setTextAlign(Align.CENTER);

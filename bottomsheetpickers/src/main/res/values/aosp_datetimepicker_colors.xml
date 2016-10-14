@@ -51,7 +51,7 @@
     <color name="text_color_primary_light">#de000000</color> <!--87% black-->
     <color name="text_color_secondary_dark">#b3ffffff</color> <!--70% white-->
     <color name="text_color_secondary_light">#8a000000</color> <!--54% black-->
-    <color name="text_color_disabled_dark">#80ffffff</color> <!--50% white TODO: same as unselected_color-->
+    <color name="text_color_disabled_dark">#80ffffff</color> <!--50% white-->
     <color name="text_color_disabled_light">#61000000</color> <!--38% black-->
 
     <!-- Derived from Raised Button section of the guidelines. Make sure to set FAB elevation to 0dp! -->
