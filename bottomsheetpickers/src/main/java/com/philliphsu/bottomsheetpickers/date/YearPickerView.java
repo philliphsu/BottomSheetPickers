@@ -83,16 +83,16 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
         TextViewWithIndicator clickedView = (TextViewWithIndicator) view;
         if (clickedView != null) {
             if (clickedView != mSelectedView) {
-                if (mSelectedView != null) {
-                    mSelectedView.drawIndicator(false);
-                    mSelectedView.requestLayout();
-                }
-                clickedView.drawIndicator(true);
-                clickedView.requestLayout();
+//                if (mSelectedView != null) {
+//                    mSelectedView.drawIndicator(false);
+//                    mSelectedView.requestLayout();
+//                }
+//                clickedView.drawIndicator(true);
+//                clickedView.requestLayout();
                 mSelectedView = clickedView;
             }
             mController.onYearSelected(getYearFromTextView(clickedView));
-            mAdapter.notifyDataSetChanged();
+//            mAdapter.notifyDataSetChanged();
         }
     }
 

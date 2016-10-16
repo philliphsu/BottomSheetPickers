@@ -55,6 +55,13 @@ public class MainActivity extends AppCompatActivity implements
                             now.get(Calendar.MONTH),
                             now.get(Calendar.DAY_OF_MONTH));
                     dialog.show(getSupportFragmentManager(), TAG);
+//                    android.app.DatePickerDialog dialog = new android.app.DatePickerDialog(
+//                            MainActivity.this, null,
+//                            now.get(Calendar.YEAR),
+//                            now.get(Calendar.MONTH),
+//                            now.get(Calendar.DAY_OF_MONTH)
+//                    );
+//                    dialog.show();
                 }
             }
         });
