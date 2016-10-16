@@ -205,13 +205,6 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         final View view = super.onCreateView(inflater, container, savedInstanceState);
-        mThemeDark = true;
-        // This is so the margin gets colored as well.
-        if (mThemeDark) {
-            view.setBackgroundColor(mDarkGray);
-        }
-        View selectedDateLayout = view.findViewById(R.id.day_picker_selected_date_layout);
-        selectedDateLayout.setBackgroundColor(mThemeDark ? mLightGray : mAccentColor);
 
         mDayOfWeekView = (TextView) view.findViewById(R.id.date_picker_header);
         mMonthDayYearView = (LinearLayout) view.findViewById(R.id.date_picker_month_day_year);
@@ -244,7 +237,6 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         mSelectYear = res.getString(R.string.select_year);
 
         mAnimator = (AccessibleDateAnimator) view.findViewById(R.id.animator);
-        mAnimator.setBackgroundColor(mDarkGray);
         mAnimator.addView(mDayPickerView);
         mAnimator.addView(mYearPickerView);
         mAnimator.setDateMillis(mCalendar.getTimeInMillis());
@@ -258,16 +250,6 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         mAnimator.setOutAnimation(animation2);
 
         mDoneButton = (FloatingActionButton) view.findViewById(R.id.done);
-
-        // Setup FAB color.
-        if (!mThemeDark) {
-            Drawable fabIcon = mDoneButton.getDrawable();
-            Utils.setTint(fabIcon, mAccentColor);
-            mDoneButton.setImageDrawable(fabIcon);
-        }
-        int white = ContextCompat.getColor(getActivity(), android.R.color.white);
-        mDoneButton.setBackgroundTintList(ColorStateList.valueOf(mThemeDark ? mAccentColor : white));
-
         mDoneButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -279,6 +261,25 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
                 dismiss();
             }
         });
+
+        // Theme-specific configurations.
+        if (mThemeDark) {
+            // This is so the margin gets colored as well.
+            view.setBackgroundColor(mDarkGray);
+            mAnimator.setBackgroundColor(mDarkGray);
+        } else {
+            // Setup FAB icon color.
+            Drawable fabIcon = mDoneButton.getDrawable();
+            Utils.setTint(fabIcon, mAccentColor);
+            mDoneButton.setImageDrawable(fabIcon);
+        }
+
+        // Configurations for both themes.
+        View selectedDateLayout = view.findViewById(R.id.day_picker_selected_date_layout);
+        selectedDateLayout.setBackgroundColor(mThemeDark ? mLightGray : mAccentColor);
+
+        int white = ContextCompat.getColor(getActivity(), android.R.color.white);
+        mDoneButton.setBackgroundTintList(ColorStateList.valueOf(mThemeDark ? mAccentColor : white));
 
         determineLocale_MD_Y_Indices();
         updateDisplay(false);
