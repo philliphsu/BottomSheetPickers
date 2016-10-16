@@ -27,10 +27,20 @@ public class SimpleMonthAdapter extends MonthAdapter {
         super(context, controller);
     }
 
+    public SimpleMonthAdapter(Context context, DatePickerController controller, boolean themeDark) {
+        super(context, controller, themeDark);
+    }
+
     @Override
     public MonthView createMonthView(Context context) {
+        return createMonthView(context, false);
+    }
+
+    @Override
+    public MonthView createMonthView(Context context, boolean themeDark) {
         final MonthView monthView = new SimpleMonthView(context);
         monthView.setDatePickerController(mController);
+        monthView.setTheme(context, themeDark);
         return monthView;
     }
 }

@@ -32,9 +32,18 @@ public class SimpleDayPickerView extends DayPickerView {
         super(context, controller);
     }
 
+    public SimpleDayPickerView(Context context, DatePickerController controller, boolean themeDark) {
+        super(context, controller, themeDark);
+    }
+
     @Override
     public MonthAdapter createMonthAdapter(Context context, DatePickerController controller) {
         return new SimpleMonthAdapter(context, controller);
     }
 
+    @Override
+    public MonthAdapter createMonthAdapter(Context context,
+           DatePickerController controller, boolean themeDark) {
+        return new SimpleMonthAdapter(context, controller, themeDark);
+    }
 }

@@ -38,6 +38,7 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
 
     private final Context mContext;
     protected final DatePickerController mController;
+    private final boolean mThemeDark;
 
     private CalendarDay mSelectedDay;
 
@@ -117,8 +118,15 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
 
     public MonthAdapter(Context context,
             DatePickerController controller) {
+        this(context, controller, false);
+    }
+
+    public MonthAdapter(Context context,
+                        DatePickerController controller,
+                        boolean themeDark) {
         mContext = context;
         mController = controller;
+        mThemeDark = themeDark;
         init();
         setSelectedDay(mController.getSelectedDay());
     }
@@ -175,7 +183,7 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
             // We store the drawing parameters in the view so it can be recycled
             drawingParams = (HashMap<String, Integer>) v.getTag();
         } else {
-            v = createMonthView(mContext);
+            v = createMonthView(mContext, mThemeDark);
             // Set up the new view
             LayoutParams params = new LayoutParams(
                     LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -210,6 +218,8 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
     }
 
     public abstract MonthView createMonthView(Context context);
+
+    public abstract MonthView createMonthView(Context context, boolean themeDark);
 
     private boolean isSelectedDayInMonth(int year, int month) {
         return mSelectedDay.year == year && mSelectedDay.month == month;

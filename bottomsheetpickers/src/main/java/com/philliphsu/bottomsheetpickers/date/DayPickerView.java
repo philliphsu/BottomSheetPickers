@@ -92,14 +92,21 @@ public abstract class DayPickerView extends ListView implements OnScrollListener
     private DatePickerController mController;
     private boolean mPerformingScroll;
 
+    private boolean mThemeDark;
+
     public DayPickerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
     public DayPickerView(Context context, DatePickerController controller) {
+        this(context, controller, false);
+    }
+
+    public DayPickerView(Context context, DatePickerController controller, boolean themeDark) {
         super(context);
         init(context);
+        mThemeDark = themeDark;
         setController(controller);
     }
 
@@ -120,7 +127,7 @@ public abstract class DayPickerView extends ListView implements OnScrollListener
     }
 
     void setTheme(Context context, boolean themeDark) {
-
+        mThemeDark = themeDark;
     }
 
     public void onChange() {
@@ -133,7 +140,7 @@ public abstract class DayPickerView extends ListView implements OnScrollListener
      */
     protected void refreshAdapter() {
         if (mAdapter == null) {
-            mAdapter = createMonthAdapter(getContext(), mController);
+            mAdapter = createMonthAdapter(getContext(), mController, mThemeDark);
         } else {
             mAdapter.setSelectedDay(mSelectedDay);
         }
@@ -143,6 +150,9 @@ public abstract class DayPickerView extends ListView implements OnScrollListener
 
     public abstract MonthAdapter createMonthAdapter(Context context,
             DatePickerController controller);
+
+    public abstract MonthAdapter createMonthAdapter(Context context,
+            DatePickerController controller, boolean themeDark);
 
     /*
      * Sets all the required fields for the list view. Override this method to

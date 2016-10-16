@@ -187,7 +187,9 @@ public abstract class MonthView extends View {
     protected int mDayTextColor;
     protected int mTodayNumberColor;
     protected int mDisabledDayTextColor;
+    // TODO: Delete--no usages.
     protected int mMonthTitleColor;
+    // TODO: Delete--doesn't seem to be applied to anything.
     protected int mMonthTitleBGColor;
     protected int mSelectedDayTextColor;
     protected int mMonthDayLabelTextColor;
@@ -206,16 +208,13 @@ public abstract class MonthView extends View {
         mDayOfWeekTypeface = res.getString(R.string.day_of_week_label_typeface);
         mMonthTitleTypeface = res.getString(R.string.sans_serif);
 
-        // TODO: dark variant for dark theme
         mDayTextColor = res.getColor(R.color.text_color_primary_light);
         // Same as background color
-        // TODO: dark variant for dark theme
         mSelectedDayTextColor = getColor(context, R.color.date_picker_view_animator);
         mTodayNumberColor = Utils.getThemeAccentColor(context);
-        mDisabledDayTextColor = res.getColor(R.color.date_picker_text_disabled);
+        mDisabledDayTextColor = res.getColor(R.color.text_color_disabled_light);
         mMonthTitleColor = res.getColor(android.R.color.white);
         mMonthTitleBGColor = res.getColor(R.color.circle_background);
-        // TODO: dark variant for dark theme
         mMonthDayLabelTextColor = getColor(context, R.color.text_color_secondary_light);
 
         mStringBuilder = new StringBuilder(50);
@@ -244,6 +243,16 @@ public abstract class MonthView extends View {
 
     public void setDatePickerController(DatePickerController controller) {
         mController = controller;
+    }
+
+    void setTheme(Context context, boolean themeDark) {
+        if (themeDark) {
+            mDayTextColor = getColor(context, R.color.text_color_primary_dark);
+            mSelectedDayTextColor = getColor(context, R.color.dark_gray);
+            mMonthDayLabelTextColor = getColor(context, R.color.text_color_secondary_dark);
+            mDisabledDayTextColor = getColor(context, R.color.text_color_disabled_dark);
+            initView();
+        }
     }
 
     protected MonthViewTouchHelper getMonthViewTouchHelper() {
