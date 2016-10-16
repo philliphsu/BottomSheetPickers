@@ -33,6 +33,7 @@
     <dimen name="selected_date_month_size">45dp</dimen>
     <dimen name="year_label_height">96dp</dimen>
     <dimen name="year_label_text_size">33dp</dimen>
+    <dimen name="year_label_selected_text_size">42dp</dimen>
     <dimen name="date_picker_header_text_size">21dp</dimen>
     <dimen name="month_list_item_size">24sp</dimen>
     <dimen name="month_label_size">24sp</dimen>

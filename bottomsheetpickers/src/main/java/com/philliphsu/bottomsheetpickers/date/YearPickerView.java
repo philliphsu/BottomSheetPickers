@@ -44,7 +44,7 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
     private YearAdapter mAdapter;
     private int mViewSize;
     private int mChildSize;
-    private TextViewWithCircularIndicator mSelectedView;
+    private TextViewWithIndicator mSelectedView;
 
     /**
      * @param context
@@ -80,7 +80,7 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         mController.tryVibrate();
-        TextViewWithCircularIndicator clickedView = (TextViewWithCircularIndicator) view;
+        TextViewWithIndicator clickedView = (TextViewWithIndicator) view;
         if (clickedView != null) {
             if (clickedView != mSelectedView) {
                 if (mSelectedView != null) {
@@ -108,7 +108,7 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            TextViewWithCircularIndicator v = (TextViewWithCircularIndicator)
+            TextViewWithIndicator v = (TextViewWithIndicator)
                     super.getView(position, convertView, parent);
             v.requestLayout();
             int year = getYearFromTextView(v);
