@@ -3,7 +3,6 @@ package com.philliphsu.bottomsheetpickers.date;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 
@@ -20,7 +19,6 @@ public class TextViewWithHighlightIndicator extends TextViewWithIndicator {
     private final String mItemIsSelectedText;
     private final float  mDefaultTextSize;
     private final float  mSelectedTextSize;
-    private final int    mDefaultTextColor;
 
     private boolean mDrawHighlight;
 
@@ -31,9 +29,6 @@ public class TextViewWithHighlightIndicator extends TextViewWithIndicator {
         mItemIsSelectedText = context.getResources().getString(R.string.item_is_selected);
         mDefaultTextSize = getTextSize();
         mSelectedTextSize = res.getDimension(R.dimen.year_label_selected_text_size);
-        // TODO: Dark variant for dark theme.
-        mDefaultTextColor = ContextCompat.getColor(context, R.color.text_color_primary_light);
-        setTextColor(mDefaultTextColor);
     }
 
     public void drawIndicator(boolean drawHighlight) {

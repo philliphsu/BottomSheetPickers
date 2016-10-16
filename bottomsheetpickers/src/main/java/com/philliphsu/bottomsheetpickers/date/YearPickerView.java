@@ -46,6 +46,8 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
     private int mChildSize;
     private TextViewWithIndicator mSelectedView;
 
+    private boolean mThemeDark;
+
     /**
      * @param context
      */
@@ -75,6 +77,10 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
         }
         mAdapter = new YearAdapter(context, R.layout.year_label_text_view, years);
         setAdapter(mAdapter);
+    }
+
+    void setTheme(Context context, boolean themeDark) {
+        mThemeDark = themeDark;
     }
 
     @Override
@@ -110,6 +116,7 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
         public View getView(int position, View convertView, ViewGroup parent) {
             TextViewWithIndicator v = (TextViewWithIndicator)
                     super.getView(position, convertView, parent);
+            v.setTheme(parent.getContext(), mThemeDark);
             v.requestLayout();
             int year = getYearFromTextView(v);
             boolean selected = mController.getSelectedDay().year == year;

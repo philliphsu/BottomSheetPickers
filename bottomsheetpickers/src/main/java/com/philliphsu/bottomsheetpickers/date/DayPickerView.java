@@ -119,6 +119,10 @@ public abstract class DayPickerView extends ListView implements OnScrollListener
         setUpListView();
     }
 
+    void setTheme(Context context, boolean themeDark) {
+
+    }
+
     public void onChange() {
         refreshAdapter();
     }
