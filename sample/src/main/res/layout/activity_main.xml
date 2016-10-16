@@ -47,6 +47,12 @@
             android:layout_height="48dp"
             android:text="Date Picker, Light"/>
 
+        <RadioButton
+            android:id="@+id/choice_date_picker_dark"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Date Picker, Dark"/>
+
     </RadioGroup>
 
     <TextView

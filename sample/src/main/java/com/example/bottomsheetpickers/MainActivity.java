@@ -48,20 +48,15 @@ public class MainActivity extends AppCompatActivity implements
                             DateFormat.is24HourFormat(MainActivity.this));
                     dialog.setThemeDark(checkedId == R.id.choice_grid_picker_dark);
                     dialog.show(getSupportFragmentManager(), TAG);
-                } else if (checkedId == R.id.choice_date_picker) {
+                } else if (checkedId == R.id.choice_date_picker
+                        || checkedId == R.id.choice_date_picker_dark) {
                     Calendar now = Calendar.getInstance();
                     DatePickerDialog dialog = DatePickerDialog.newInstance(MainActivity.this,
                             now.get(Calendar.YEAR),
                             now.get(Calendar.MONTH),
                             now.get(Calendar.DAY_OF_MONTH));
+                    dialog.setThemeDark(checkedId == R.id.choice_date_picker_dark);
                     dialog.show(getSupportFragmentManager(), TAG);
-//                    android.app.DatePickerDialog dialog = new android.app.DatePickerDialog(
-//                            MainActivity.this, null,
-//                            now.get(Calendar.YEAR),
-//                            now.get(Calendar.MONTH),
-//                            now.get(Calendar.DAY_OF_MONTH)
-//                    );
-//                    dialog.show();
                 }
             }
         });
