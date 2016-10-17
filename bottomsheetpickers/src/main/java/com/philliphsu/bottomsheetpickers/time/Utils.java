@@ -249,7 +249,7 @@ public class Utils {
         }
     }
 
-    private static boolean isTv(Context context) {
+    public static boolean isTv(Context context) {
         UiModeManager uiModeManager =
                 (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
         return uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION;
