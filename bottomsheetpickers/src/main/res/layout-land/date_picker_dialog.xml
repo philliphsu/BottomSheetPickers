@@ -17,25 +17,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
-              android:layout_height="@dimen/date_picker_view_animator_height"
+              android:layout_height="wrap_content"
               android:gravity="center"
               android:orientation="horizontal">
 
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@android:color/white" >
+        android:layout_weight="0.5"
+        android:background="@color/date_picker_view_animator" >
 
-        <LinearLayout
+        <include
+            android:id="@+id/day_picker_selected_date_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <include layout="@layout/date_picker_header_view" />
-
-            <include layout="@layout/date_picker_selected_date" />
-        </LinearLayout>
+            layout="@layout/date_picker_selected_date" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/done"
@@ -43,14 +39,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="@dimen/fab_margin"
-            app:srcCompat="@drawable/ic_done_24dp"/>
+            app:srcCompat="@drawable/ic_done_24dp" />
 
     </FrameLayout>
 
     <include
         layout="@layout/date_picker_view_animator"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_height="@dimen/date_picker_view_animator_height"
+        android:layout_weight="0.5" />
 
 </LinearLayout>
