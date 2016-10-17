@@ -22,7 +22,7 @@
 
     <dimen name="date_picker_component_width">400dp</dimen>
     <dimen name="date_picker_view_animator_height">400dp</dimen>
-    <dimen name="selected_calendar_layout_height">360dp</dimen>
+    <dimen name="selected_calendar_layout_height">165dp</dimen>
     <dimen name="date_picker_header_height">45dp</dimen>
     <dimen name="month_list_item_header_height">75dp</dimen>
     <dimen name="month_list_item_padding">24dp</dimen>
@@ -50,5 +50,8 @@
     <dimen name="minimum_margin_sides">48dip</dimen>
     <dimen name="minimum_margin_top_bottom">24dip</dimen>
     <dimen name="picker_dimen">400dip</dimen>
+
+    <dimen name="fab_margin">64dp</dimen>
+    <dimen name="peek_height_upper_limit">1000dp</dimen>
 
 </resources>
