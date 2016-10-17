@@ -26,72 +26,106 @@
     <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_0_12"
         style="@style/PadButtonStyle.Numeric"
+        android:nextFocusLeft="@+id/hour_1_13"
+        android:nextFocusDown="@+id/hour_3_15"
         app:primaryText="00"
         app:secondaryText="12" />
     
     <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_1_13"
         style="@style/PadButtonStyle.Numeric"
+        android:nextFocusLeft="@+id/hour_0_12"
+        android:nextFocusRight="@+id/hour_2_14"
+        android:nextFocusDown="@+id/hour_4_16"
         app:primaryText="01"
         app:secondaryText="13" />
 
     <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_2_14"
         style="@style/PadButtonStyle.Numeric"
+        android:nextFocusLeft="@+id/hour_1_13"
+        android:nextFocusDown="@+id/hour_5_17"
         app:primaryText="02"
         app:secondaryText="14" />
 
     <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_3_15"
         style="@style/PadButtonStyle.Numeric"
+        android:nextFocusUp="@+id/hour_0_12"
+        android:nextFocusRight="@+id/hour_4_16"
+        android:nextFocusDown="@+id/hour_6_18"
         app:primaryText="03"
         app:secondaryText="15" />
 
     <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_4_16"
         style="@style/PadButtonStyle.Numeric"
+        android:nextFocusUp="@+id/hour_1_13"
+        android:nextFocusLeft="@+id/hour_3_15"
+        android:nextFocusRight="@+id/hour_5_17"
+        android:nextFocusDown="@+id/hour_7_19"
         app:primaryText="04"
         app:secondaryText="16" />
 
     <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_5_17"
         style="@style/PadButtonStyle.Numeric"
+        android:nextFocusUp="@+id/hour_2_14"
+        android:nextFocusLeft="@+id/hour_4_16"
+        android:nextFocusDown="@+id/hour_8_20"
         app:primaryText="05"
         app:secondaryText="17" />
 
     <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_6_18"
         style="@style/PadButtonStyle.Numeric"
+        android:nextFocusUp="@+id/hour_3_15"
+        android:nextFocusRight="@+id/hour_7_19"
+        android:nextFocusDown="@+id/hour_9_21"
         app:primaryText="06"
         app:secondaryText="18" />
 
     <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_7_19"
         style="@style/PadButtonStyle.Numeric"
+        android:nextFocusUp="@+id/hour_4_16"
+        android:nextFocusLeft="@+id/hour_6_18"
+        android:nextFocusRight="@+id/hour_8_20"
+        android:nextFocusDown="@+id/hour_10_22"
         app:primaryText="07"
         app:secondaryText="19" />
 
     <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_8_20"
         style="@style/PadButtonStyle.Numeric"
+        android:nextFocusUp="@+id/hour_5_17"
+        android:nextFocusLeft="@+id/hour_7_19"
+        android:nextFocusDown="@+id/hour_11_23"
         app:primaryText="08"
         app:secondaryText="20" />
 
     <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_9_21"
         style="@style/PadButtonStyle.Numeric"
+        android:nextFocusUp="@+id/hour_6_18"
+        android:nextFocusRight="@+id/hour_10_22"
         app:primaryText="09"
         app:secondaryText="21" />
 
     <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_10_22"
         style="@style/PadButtonStyle.Numeric"
+        android:nextFocusUp="@+id/hour_7_19"
+        android:nextFocusLeft="@+id/hour_9_21"
+        android:nextFocusRight="@+id/hour_11_23"
         app:primaryText="10"
         app:secondaryText="22" />
 
     <com.philliphsu.bottomsheetpickers.time.grid.TwentyFourHourGridItem
         android:id="@+id/hour_11_23"
         style="@style/PadButtonStyle.Numeric"
+        android:nextFocusUp="@+id/hour_8_20"
+        android:nextFocusLeft="@+id/hour_10_22"
         app:primaryText="11"
         app:secondaryText="23" />
 
