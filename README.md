@@ -1,17 +1,27 @@
 # BottomSheetPickers
-[ ![Download](https://api.bintray.com/packages/philliphsu/maven/bottom-sheet-pickers/images/download.svg) ](https://bintray.com/philliphsu/maven/bottom-sheet-pickers/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/philliphsu/maven/bottom-sheet-pickers/images/download.svg) ]
+(https://bintray.com/philliphsu/maven/bottom-sheet-pickers/_latestVersion)
 
-BottomSheetPickers is a set of new time pickers for Android that can be used in place of the stock
-time picker. As seen in my [Clock+](https://github.com/philliphsu/ClockPlus) app.
+BottomSheetPickers is a library of new date and time pickers for Android,
+supporting API level 14 and up.
 
-**Number Pad**
+## Date Picker
+
+<img src="screenshots/date-picker-light.png" width="180" height="320">
+<img src="screenshots/year-picker-light.png" width="180" height="320">
+<img src="screenshots/date-picker-dark.png" width="180" height="320">
+<img src="screenshots/year-picker-dark.png" width="180" height="320">
+
+## Time Pickers
+
+### Number Pad
 
 <img src="screenshots/number-pad-12h-light.png" width="180" height="320">
 <img src="screenshots/number-pad-24h-light.png" width="180" height="320">
 <img src="screenshots/number-pad-12h-dark.png" width="180" height="320">
 <img src="screenshots/number-pad-24h-dark.png" width="180" height="320">
 
-**Grid Picker**
+### Grid Picker
 
 <img src="screenshots/12h-grid-light.png" width="180" height="320">
 <img src="screenshots/minutes-grid-light.png" width="180" height="320">
@@ -21,49 +31,78 @@ time picker. As seen in my [Clock+](https://github.com/philliphsu/ClockPlus) app
 <img src="screenshots/minutes-grid-dark.png" width="180" height="320">
 <img src="screenshots/24h-grid-dark.png" width="180" height="320">
 
-Support for API level 14 and up. This library is based on code from the following AOSP repositories:
-* https://android.googlesource.com/platform/frameworks/opt/datetimepicker
-* https://android.googlesource.com/platform/packages/apps/Calculator
-
 ## Installation
 Add the following dependency to your module's `build.gradle`:
 ```groovy
 dependencies {
-  compile 'com.philliphsu:bottomsheetpickers:1.0.1'
+  compile 'com.philliphsu:bottomsheetpickers:2.0.0'
 }
 ```
 
 ## Usage
-**You must be using the support library version of `Activity` or `Fragment` to use this library
-properly.** The pickers are indirect subclasses of `android.support.v4.app.DialogFragment`.
+You must be using a `android.support.v4.app.FragmentActivity` or `android.support.v4.app.Fragment`.
+The pickers are indirect subclasses of `android.support.v4.app.DialogFragment`.
 
-Implement `BottomSheetTimePickerDialog.OnTimeSetListener` in your `Activity` or `Fragment`:
+### Implement callbacks
+
+To retrieve the date or time set in the pickers, implement an appropriate callback interface.
+
+* `com.philliphsu.bottomsheetpickers.date.DatePickerDialog.OnDateSetListener`
+* `BottomSheetTimePickerDialog.OnTimeSetListener`
 
 ```java
 @Override
+public void onDateSet(DatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth) {
+    Calendar cal = new java.util.GregorianCalendar();
+    cal.set(Calendar.YEAR, year);
+    cal.set(Calendar.MONTH, monthOfYear);
+    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+    mText.setText("Date set: " + DateFormat.getDateFormat(this).format(cal.getTime()));
+}
+
+@Override
 public void onTimeSet(ViewGroup viewGroup, int hourOfDay, int minute) {
-    // Do something with the time.
+    Calendar cal = new java.util.GregorianCalendar();
+    cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
+    cal.set(Calendar.MINUTE, minute);
+    mText.setText("Time set: " + DateFormat.getTimeFormat(this).format(cal.getTime()));
 }
 ```
 
-Then create an instance of your desired time picker dialog and `show()` it.
-
-```java
-NumberPadTimePickerDialog dialog = NumberPadTimePickerDialog.newInstance(
-    MainActivity.this  // your implementation of OnTimeSetListener
-);
-dialog.show(getSupportFragmentManager(), TAG);
-```
+### Create your desired picker
 
 ```java
 Calendar now = Calendar.getInstance();
-GridTimePickerDialog dialog = GridTimePickerDialog.newInstance(
-    MainActivity.this,  // your implementation of OnTimeSetListener
+BottomSheetDatePickerDialog date = BottomSheetDatePickerDialog.newInstance(
+    MainActivity.this,
+    now.get(Calendar.YEAR),
+    now.get(Calendar.MONTH),
+    now.get(Calendar.DAY_OF_MONTH));
+
+NumberPadTimePickerDialog pad = NumberPadTimePickerDialog.newInstance(MainActivity.this);
+
+GridTimePickerDialog grid = GridTimePickerDialog.newInstance(
+    MainActivity.this,
     now.get(Calendar.HOUR_OF_DAY),
     now.get(Calendar.MINUTE),
     DateFormat.is24HourFormat(MainActivity.this));
-dialog.show(getSupportFragmentManager(), TAG);
 ```
+
+### Show the dialog
+
+Pass in a `android.support.v4.app.FragmentManager` to the dialog's `show()`.
+
+```java
+// For a `android.support.v4.app.FragmentActivity`:
+dialog.show(getSupportFragmentManager(), TAG);
+
+// For a `android.support.v4.app.Fragment`:
+dialog.show(getFragmentManager(), TAG);
+```
+
+> **NOTE:** Currently, `BottomSheetDatePickerDialog` cannot be dismissed by swiping the sheet down.
+This is to allow vertical swiping to scroll the date picker. Touching outside of the sheet also
+does not dismiss it. It is dismissed normally when you confirm your date selection.
 
 ### Theming
 The pickers automatically use your current theme's `colorAccent` defined in your `styles.xml`.
@@ -76,25 +115,13 @@ You can specify whether to use a light (default) or dark theme:
 <item name="themeDark">true</item>
 ```
 
-> **NOTE**: `setThemeDark(boolean dark)` takes precedence over the value specified in XML.
+> **NOTE:** `setThemeDark(boolean dark)` overwrites the value specified in XML.
 
-## FAQ
-> Why is the library named **BottomSheetPickers** if it only has time pickers?
-Will there be more pickers in the future other than for time (e.g. date picker)?
+## Attribution
 
-My original plan was to release only time pickers, but then I figured the library should have a
-matching date picker. So I refactored the package structure to accommodate the addition, as well
-as renamed the library to the more general **BottomSheetPickers**. However, as of October 2016,
-a date picker is not a priority feature. Though in case of future developments, I left the
-packages and library name as general as possible.
-
-> Why isn't the date picker a priority feature?
-
-In my opinion, there's not much to improve on the stock date picker; the interaction with a
-bottom sheet date picker would feel almost the same as the stock date picker. Additionally,
-I would want to retain the general look and feel of the stock date picker, but the latest style
-seen in the [Material Design spec](https://material.google.com/components/pickers.html#pickers-date-pickers)
-and introduced in Android 6.0 is not reflected in the AOSP `datetimepicker` repository.
+This library is based on code from the following AOSP repositories:
+* https://android.googlesource.com/platform/frameworks/opt/datetimepicker
+* https://android.googlesource.com/platform/packages/apps/Calculator
 
 ## License
 ```

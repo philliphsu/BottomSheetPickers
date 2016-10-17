@@ -17,6 +17,7 @@ import static android.support.v4.content.ContextCompat.getColor;
 /**
  * Created by Phillip Hsu on 10/4/2016.
  */
+// TODO: Consider renaming this to BasePickerDialog(Fragment?) and extend from AppCompatDialogFragment.
 public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment {
 
     // TODO: Other classes in this package may need these? If not, make private.

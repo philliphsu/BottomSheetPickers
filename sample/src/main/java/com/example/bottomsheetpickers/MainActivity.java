@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.philliphsu.bottomsheetpickers.date.BottomSheetDatePickerDialog;
 import com.philliphsu.bottomsheetpickers.date.DatePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.grid.GridTimePickerDialog;
@@ -35,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements
                 final int checkedId = group.getCheckedRadioButtonId();
                 if (checkedId == R.id.choice_number_pad
                         || checkedId == R.id.choice_number_pad_dark) {
-                    NumberPadTimePickerDialog dialog = NumberPadTimePickerDialog.newInstance(MainActivity.this);
+                    NumberPadTimePickerDialog dialog = NumberPadTimePickerDialog.newInstance(
+                            MainActivity.this);
                     dialog.setThemeDark(checkedId == R.id.choice_number_pad_dark);
                     dialog.show(getSupportFragmentManager(), TAG);
                 } else if (checkedId == R.id.choice_grid_picker
@@ -51,7 +53,8 @@ public class MainActivity extends AppCompatActivity implements
                 } else if (checkedId == R.id.choice_date_picker
                         || checkedId == R.id.choice_date_picker_dark) {
                     Calendar now = Calendar.getInstance();
-                    DatePickerDialog dialog = DatePickerDialog.newInstance(MainActivity.this,
+                    BottomSheetDatePickerDialog dialog = BottomSheetDatePickerDialog.newInstance(
+                            MainActivity.this,
                             now.get(Calendar.YEAR),
                             now.get(Calendar.MONTH),
                             now.get(Calendar.DAY_OF_MONTH));
@@ -72,6 +75,10 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onDateSet(DatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth) {
-
+        Calendar cal = new java.util.GregorianCalendar();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, monthOfYear);
+        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        mText.setText("Date set: " + DateFormat.getDateFormat(this).format(cal.getTime()));
     }
 }
