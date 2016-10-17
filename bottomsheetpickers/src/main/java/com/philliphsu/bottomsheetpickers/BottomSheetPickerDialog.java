@@ -37,6 +37,15 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     @LayoutRes
     protected abstract int contentLayout();
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mThemeDark = savedInstanceState.getBoolean(KEY_DARK_THEME);
+            mThemeSetAtRuntime = savedInstanceState.getBoolean(KEY_THEME_SET_AT_RUNTIME);
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
