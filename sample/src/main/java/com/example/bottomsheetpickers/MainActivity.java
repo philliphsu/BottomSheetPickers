@@ -59,4 +59,17 @@ public class MainActivity extends AppCompatActivity implements BottomSheetTimePi
         cal.set(Calendar.MINUTE, minute);
         mText.setText("Time set: " + DateFormat.getTimeFormat(this).format(cal.getTime()));
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                findViewById(R.id.fab).requestFocus();
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                findViewById(R.id.radioGroup).requestFocus();
+                break;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
