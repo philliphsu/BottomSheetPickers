@@ -67,4 +67,6 @@
 
     <color name="sidebar_color_light">#F2F2F2</color>
     <color name="sidebar_color_dark">#363636</color>
+
+    <color name="selectable_item_background_dark">#1fffffff</color>
 </resources>

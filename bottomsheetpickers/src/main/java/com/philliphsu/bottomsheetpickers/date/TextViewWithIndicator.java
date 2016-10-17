@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
+import com.philliphsu.bottomsheetpickers.Utils;
 
 /**
  * Alias for {@link TextViewWithHighlightIndicator} and {@link TextViewWithCircularIndicator}
@@ -29,5 +30,9 @@ abstract class TextViewWithIndicator extends TextView {
         mDefaultTextColor = ContextCompat.getColor(context, themeDark?
                 R.color.text_color_primary_dark : R.color.text_color_primary_light);
         setTextColor(mDefaultTextColor);
+        if (themeDark) {
+            int selectableItemBg = ContextCompat.getColor(context, R.color.selectable_item_background_dark);
+            Utils.setColorControlHighlight(this, selectableItemBg);
+        }
     }
 }
