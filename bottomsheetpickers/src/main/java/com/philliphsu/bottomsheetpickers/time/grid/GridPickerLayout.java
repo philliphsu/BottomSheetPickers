@@ -24,7 +24,7 @@ import android.view.animation.Animation;
 import android.widget.ViewAnimator;
 
 import com.philliphsu.bottomsheetpickers.R;
-import com.philliphsu.bottomsheetpickers.time.Utils;
+import com.philliphsu.bottomsheetpickers.Utils;
 
 /**
  * A derivative of the AOSP datetimepicker RadialPickerLayout class.
