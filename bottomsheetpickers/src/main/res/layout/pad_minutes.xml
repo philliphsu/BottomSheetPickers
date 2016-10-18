@@ -26,66 +26,104 @@
 
     <Button
         android:id="@+id/minute_0"
+        android:nextFocusRight="@+id/minute_5"
+        android:nextFocusDown="@+id/minute_15"
         style="@style/PadButtonStyle.Numeric.Minute"
         android:text="00" />
 
     <Button
         android:id="@+id/minute_5"
+        android:nextFocusLeft="@+id/minute_0"
+        android:nextFocusRight="@+id/minute_10"
+        android:nextFocusDown="@+id/minute_20"
         style="@style/PadButtonStyle.Numeric.Minute"
         android:text="05" />
 
     <Button
         android:id="@+id/minute_10"
+        android:nextFocusLeft="@+id/minute_5"
+        android:nextFocusDown="@+id/minute_25"
         style="@style/PadButtonStyle.Numeric.Minute"
         android:text="10" />
 
     <Button
         android:id="@+id/minute_15"
+        android:nextFocusUp="@+id/minute_0"
+        android:nextFocusRight="@+id/minute_20"
+        android:nextFocusDown="@+id/minute_30"
         style="@style/PadButtonStyle.Numeric.Minute"
         android:text="15" />
 
     <Button
         android:id="@+id/minute_20"
+        android:nextFocusUp="@+id/minute_5"
+        android:nextFocusLeft="@+id/minute_15"
+        android:nextFocusRight="@+id/minute_25"
+        android:nextFocusDown="@+id/minute_35"
         style="@style/PadButtonStyle.Numeric.Minute"
         android:text="20" />
 
     <Button
         android:id="@+id/minute_25"
+        android:nextFocusUp="@+id/minute_10"
+        android:nextFocusLeft="@+id/minute_20"
+        android:nextFocusDown="@+id/minute_40"
         style="@style/PadButtonStyle.Numeric.Minute"
         android:text="25" />
 
     <Button
         android:id="@+id/minute_30"
+        android:nextFocusUp="@+id/minute_15"
+        android:nextFocusRight="@+id/minute_35"
+        android:nextFocusDown="@+id/minute_45"
         style="@style/PadButtonStyle.Numeric.Minute"
         android:text="30" />
 
     <Button
         android:id="@+id/minute_35"
+        android:nextFocusUp="@+id/minute_20"
+        android:nextFocusLeft="@+id/minute_30"
+        android:nextFocusRight="@+id/minute_40"
+        android:nextFocusDown="@+id/minute_50"
         style="@style/PadButtonStyle.Numeric.Minute"
         android:text="35" />
 
     <Button
         android:id="@+id/minute_40"
+        android:nextFocusUp="@+id/minute_25"
+        android:nextFocusLeft="@+id/minute_35"
+        android:nextFocusDown="@+id/minute_55"
         style="@style/PadButtonStyle.Numeric.Minute"
         android:text="40" />
 
     <Button
         android:id="@+id/minute_45"
+        android:nextFocusUp="@+id/minute_30"
+        android:nextFocusRight="@+id/minute_50"
+        android:nextFocusDown="@+id/dec_min"
         style="@style/PadButtonStyle.Numeric.Minute"
         android:text="45" />
 
     <Button
         android:id="@+id/minute_50"
+        android:nextFocusUp="@+id/minute_35"
+        android:nextFocusLeft="@+id/minute_45"
+        android:nextFocusRight="@+id/minute_55"
         style="@style/PadButtonStyle.Numeric.Minute"
         android:text="50" />
 
     <Button
         android:id="@+id/minute_55"
+        android:nextFocusUp="@+id/minute_40"
+        android:nextFocusLeft="@+id/minute_50"
+        android:nextFocusDown="@+id/inc_min"
         style="@style/PadButtonStyle.Numeric.Minute"
         android:text="55" />
 
     <ImageButton
         android:id="@+id/dec_min"
+        android:nextFocusUp="@+id/minute_45"
+        android:nextFocusRight="@+id/inc_min"
         style="@style/PadButtonStyle.MinuteTuner"
         app:srcCompat="@drawable/ic_minus_circle_24dp" />
 
@@ -93,6 +131,8 @@
 
     <ImageButton
         android:id="@+id/inc_min"
+        android:nextFocusLeft="@+id/dec_min"
+        android:nextFocusUp="@+id/minute_55"
         style="@style/PadButtonStyle.MinuteTuner"
         app:srcCompat="@drawable/ic_add_circle_24dp" />
 

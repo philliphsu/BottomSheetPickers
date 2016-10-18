@@ -24,6 +24,7 @@ import android.view.animation.Animation;
 import android.widget.ViewAnimator;
 
 import com.philliphsu.bottomsheetpickers.R;
+import com.philliphsu.bottomsheetpickers.time.Utils;
 
 /**
  * A derivative of the AOSP datetimepicker RadialPickerLayout class.
@@ -143,6 +144,19 @@ public class GridPickerLayout extends ViewAnimator implements NumbersGrid.OnNumb
         if (index != HOUR_INDEX && index != MINUTE_INDEX) {
             Log.e(TAG, "TimePicker does not support view at index "+index);
             return;
+        }
+
+        // Only highlight on TVs
+        if (Utils.isTv(getContext())) {
+            if (index == MINUTE_INDEX) {
+                findViewById(R.id.minute_0).requestFocus();
+            } else if (index == HOUR_INDEX) {
+                if (findViewById(R.id.hour_0_12) != null) {
+                    findViewById(R.id.hour_0_12).requestFocus();
+                } else {
+                    findViewById(R.id.hour_1).requestFocus();
+                }
+            }
         }
 
         int lastIndex = getCurrentItemShowing();
