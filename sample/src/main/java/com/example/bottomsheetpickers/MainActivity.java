@@ -3,6 +3,7 @@ package com.example.bottomsheetpickers;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
@@ -80,5 +81,17 @@ public class MainActivity extends AppCompatActivity implements
         cal.set(Calendar.MONTH, monthOfYear);
         cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         mText.setText("Date set: " + DateFormat.getDateFormat(this).format(cal.getTime()));
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                findViewById(R.id.fab).requestFocus();
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                findViewById(R.id.radioGroup).requestFocus();
+                break;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

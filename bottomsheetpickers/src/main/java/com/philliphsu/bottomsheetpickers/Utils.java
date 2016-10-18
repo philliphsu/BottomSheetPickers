@@ -20,8 +20,10 @@ import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
+import android.app.UiModeManager;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -243,6 +245,9 @@ public class Utils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
                 && selectableItemBackground instanceof RippleDrawable) {
             ((RippleDrawable) selectableItemBackground).setColor(ColorStateList.valueOf(color));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Utils.isTv(view.getContext())) {
+                ((RippleDrawable) selectableItemBackground).setRadius(72);
+            }
         } else {
             // Draws the color (src) onto the background (dest) *in the same plane*.
             // That means the color is not overlapping (i.e. on a higher z-plane, covering)
@@ -253,6 +258,12 @@ public class Utils {
             // the drawable.
             selectableItemBackground.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
         }
+    }
+
+    public static boolean isTv(Context context) {
+        UiModeManager uiModeManager =
+                (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
+        return uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION;
     }
 
     /**
