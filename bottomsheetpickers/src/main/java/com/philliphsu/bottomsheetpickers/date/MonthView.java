@@ -215,7 +215,7 @@ public abstract class MonthView extends View {
         mDisabledDayTextColor = res.getColor(R.color.text_color_disabled_light);
         mMonthTitleColor = res.getColor(android.R.color.white);
         mMonthTitleBGColor = res.getColor(R.color.circle_background);
-        mMonthDayLabelTextColor = getColor(context, R.color.text_color_secondary_light);
+        mMonthDayLabelTextColor = getColor(context, R.color.text_color_disabled_light);
 
         mStringBuilder = new StringBuilder(50);
         mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
@@ -224,8 +224,7 @@ public abstract class MonthView extends View {
         MONTH_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.month_label_size);
         MONTH_DAY_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.month_day_label_text_size);
         MONTH_HEADER_SIZE = res.getDimensionPixelOffset(R.dimen.month_list_item_header_height);
-        DAY_SELECTED_CIRCLE_SIZE = res
-                .getDimensionPixelSize(R.dimen.day_number_select_circle_radius);
+        DAY_SELECTED_CIRCLE_SIZE = res.getDimensionPixelSize(R.dimen.day_number_select_circle_radius);
 
         mRowHeight = (res.getDimensionPixelOffset(R.dimen.date_picker_view_animator_height)
                 - getMonthHeaderSize()) / MAX_NUM_ROWS;
@@ -249,7 +248,7 @@ public abstract class MonthView extends View {
         if (themeDark) {
             mDayTextColor = getColor(context, R.color.text_color_primary_dark);
             mSelectedDayTextColor = getColor(context, R.color.dark_gray);
-            mMonthDayLabelTextColor = getColor(context, R.color.text_color_secondary_dark);
+            mMonthDayLabelTextColor = getColor(context, R.color.text_color_disabled_dark);
             mDisabledDayTextColor = getColor(context, R.color.text_color_disabled_dark);
             initView();
         }
