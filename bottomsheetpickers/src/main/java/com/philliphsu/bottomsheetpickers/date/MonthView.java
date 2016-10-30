@@ -24,6 +24,7 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
@@ -42,6 +43,7 @@ import com.philliphsu.bottomsheetpickers.Utils;
 import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
 
 import java.security.InvalidParameterException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Formatter;
 import java.util.HashMap;
@@ -193,6 +195,8 @@ public abstract class MonthView extends View {
     protected int mMonthTitleBGColor;
     protected int mSelectedDayTextColor;
     protected int mMonthDayLabelTextColor;
+
+    private static SimpleDateFormat sMonthDayLabelFormat;
 
     public MonthView(Context context) {
         this(context, null);
@@ -483,9 +487,29 @@ public abstract class MonthView extends View {
             int calendarDay = (i + mWeekStart) % mNumDays;
             int x = (2 * i + 1) * dayWidthHalf + mEdgePadding;
             mDayLabelCalendar.set(Calendar.DAY_OF_WEEK, calendarDay);
-            canvas.drawText(mDayLabelCalendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT,
-                    Locale.getDefault()).toUpperCase(Locale.getDefault()), x, y,
-                    mMonthDayLabelPaint);
+            canvas.drawText(getDayOfWeekString(mDayLabelCalendar), x, y, mMonthDayLabelPaint);
+        }
+    }
+
+    private static String getDayOfWeekString(Calendar calendar) {
+        if (Build.VERSION.SDK_INT >= 18) {
+            if (sMonthDayLabelFormat == null) {
+                // http://stackoverflow.com/a/5122016/5055032
+                // http://stackoverflow.com/a/24412045/5055032
+                // The output of "EEEEE" is not officially documented AFAIK, but it outputs
+                // a one-letter weekday label. It also only works for API >= 18.
+                sMonthDayLabelFormat = new SimpleDateFormat("EEEEE", Locale.getDefault());
+            }
+            return sMonthDayLabelFormat.format(calendar.getTime());
+        } else {
+            // TODO: Find alternative to this deprecated API. If not possible, you may want
+            // to just use the label from
+            // calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault())
+            //         .toUpperCase(Locale.getDefault());
+            // For Asian languages, the above already outputs a single character.
+            // Hopefully, most clients will be on API >= 18.
+            return DateUtils.getDayOfWeekString(calendar.get(Calendar.DAY_OF_WEEK),
+                    DateUtils.LENGTH_SHORTEST);
         }
     }
 
