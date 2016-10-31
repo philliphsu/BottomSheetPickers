@@ -16,7 +16,6 @@
 
 package com.philliphsu.bottomsheetpickers.time.grid;
 
-import android.animation.ObjectAnimator;
 import android.app.ActionBar.LayoutParams;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -69,9 +68,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
     public static final int ENABLE_PICKER_INDEX = 3;
     public static final int HALF_DAY_1          = 0;
     public static final int HALF_DAY_2          = 1;
-
-    // Delay before starting the pulse animation, in ms.
-    private static final int PULSE_ANIMATOR_DELAY = 300;
 
     // TODO: Restore
 //    private HapticFeedbackController mHapticFeedbackController;
@@ -509,7 +505,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             boolean announce) {
         mTimePicker.setCurrentItemShowing(index, animateCircle);
 
-        TextView labelToAnimate;
         if (index == HOUR_INDEX) {
             int hours = mTimePicker.getHours();
             if (!mIs24HourMode) {
@@ -519,26 +514,18 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             if (announce) {
                 Utils.tryAccessibilityAnnounce(mTimePicker, mSelectHours);
             }
-            labelToAnimate = mHourView;
         } else {
             int minutes = mTimePicker.getMinutes();
             mTimePicker.setContentDescription(mMinutePickerDescription + ": " + minutes);
             if (announce) {
                 Utils.tryAccessibilityAnnounce(mTimePicker, mSelectMinutes);
             }
-            labelToAnimate = mMinuteView;
         }
 
         int hourColor = (index == HOUR_INDEX)? mSelectedColor : mUnselectedColor;
         int minuteColor = (index == MINUTE_INDEX)? mSelectedColor : mUnselectedColor;
         mHourView.setTextColor(hourColor);
         mMinuteView.setTextColor(minuteColor);
-
-        ObjectAnimator pulseAnimator = Utils.getPulseAnimator(labelToAnimate, 0.85f, 1.1f);
-        if (delayLabelAnimate) {
-            pulseAnimator.setStartDelay(PULSE_ANIMATOR_DELAY);
-        }
-        pulseAnimator.start();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
