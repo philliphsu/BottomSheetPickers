@@ -17,6 +17,7 @@
 package com.philliphsu.bottomsheetpickers.time.grid;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -24,8 +25,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
-import com.philliphsu.bottomsheetpickers.time.TimePickerPadLayout;
 import com.philliphsu.bottomsheetpickers.Utils;
+import com.philliphsu.bottomsheetpickers.time.TimePickerPadLayout;
 
 public abstract class NumbersGrid extends TimePickerPadLayout implements View.OnClickListener {
     private static final String TAG = "NumbersGrid";
@@ -127,6 +128,7 @@ public abstract class NumbersGrid extends TimePickerPadLayout implements View.On
         clearIndicator(); // Does nothing if there was no indicator last selected
         TextView tv = (TextView) view;
         tv.setTextColor(mSelectedTextColor);
+        tv.setTypeface(Utils.SELECTED_TYPEFACE);
         mLastSelectedView = view;
     }
 
@@ -138,6 +140,7 @@ public abstract class NumbersGrid extends TimePickerPadLayout implements View.On
         if (mLastSelectedView != null) {
             TextView tv = (TextView) mLastSelectedView;
             tv.setTextColor(mDefaultTextColor);
+            tv.setTypeface(Utils.isJellybeanOrLater() ? Utils.SANS_SERIF_LIGHT : Typeface.DEFAULT);
             mLastSelectedView = null;
         }
     }

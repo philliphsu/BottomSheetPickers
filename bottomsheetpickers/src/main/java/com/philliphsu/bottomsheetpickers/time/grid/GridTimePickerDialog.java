@@ -21,6 +21,7 @@ import android.app.ActionBar.LayoutParams;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
@@ -35,8 +36,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
-import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.Utils;
+import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -415,11 +416,15 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         switch (halfDay) {
             case HALF_DAY_1:
                 mFirstHalfDayToggle.setTextColor(mHalfDayToggleSelectedColor);
+                mFirstHalfDayToggle.setTypeface(Utils.HIGHLIGHT_TYPEFACE);
                 mSecondHalfDayToggle.setTextColor(mHalfDayToggleUnselectedColor);
+                mSecondHalfDayToggle.setTypeface(Typeface.DEFAULT);
                 break;
             case HALF_DAY_2:
                 mSecondHalfDayToggle.setTextColor(mHalfDayToggleSelectedColor);
+                mSecondHalfDayToggle.setTypeface(Utils.HIGHLIGHT_TYPEFACE);
                 mFirstHalfDayToggle.setTextColor(mHalfDayToggleUnselectedColor);
+                mFirstHalfDayToggle.setTypeface(Typeface.DEFAULT);
                 break;
         }
     }

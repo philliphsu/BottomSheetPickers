@@ -27,6 +27,7 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
@@ -35,6 +36,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.format.Time;
@@ -58,6 +60,26 @@ public class Utils {
     public static final int FULL_ALPHA = 255;
 
     static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
+
+    /** The NORMAL style of the default sans serif light typeface. */
+    @Nullable
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
+    public static final Typeface SANS_SERIF_LIGHT;
+    /** Typeface for year picker selection and selected half day toggle. */
+    public static final Typeface HIGHLIGHT_TYPEFACE;
+    /** Typeface for grid time picker selection. */
+    public static final Typeface SELECTED_TYPEFACE;
+
+    static {
+        if (isJellybeanOrLater()) {
+            SANS_SERIF_LIGHT = Typeface.create("sans-serif-light", 0);
+            HIGHLIGHT_TYPEFACE = Typeface.create(SANS_SERIF_LIGHT, Typeface.BOLD);
+            SELECTED_TYPEFACE = Typeface.create("sans-serif-thin", Typeface.BOLD);
+        } else {
+            SANS_SERIF_LIGHT = null;
+            SELECTED_TYPEFACE = HIGHLIGHT_TYPEFACE = Typeface.DEFAULT_BOLD;
+        }
+    }
 
     public static boolean isJellybeanOrLater() {
       return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;

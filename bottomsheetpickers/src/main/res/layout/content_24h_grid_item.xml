@@ -21,11 +21,12 @@
 
     <TextView
         android:id="@+id/primary"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:textSize="@dimen/number_grid_24_hour_item_primary_text_size"
         android:includeFontPadding="false"
+        android:gravity="center_horizontal"
         style="@style/TextAppearance.AppCompat"/>
 
     <TextView
