@@ -141,6 +141,8 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
 
         TextView inputTime = (TextView) view.findViewById(R.id.input_time);
         inputTime.setTextColor(ContextCompat.getColor(getContext(), android.R.color.white));
+        inputTime.setHintTextColor(ContextCompat.getColor(getContext(), android.R.color.white));
+
 
         if(mHint != null) {
             inputTime.setHint(mHint);
