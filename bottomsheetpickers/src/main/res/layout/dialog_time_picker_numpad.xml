@@ -24,6 +24,11 @@ doesn't work. -->
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <FrameLayout
+        android:id="@+id/input_time_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/numeric_keypad_output_box_height">
+
     <TextView
         android:id="@+id/input_time"
         android:layout_width="match_parent"
@@ -32,6 +37,8 @@ doesn't work. -->
         android:textSize="@dimen/text_size_display_3"
         android:fontFamily="sans-serif"
         style="@style/TextAppearance.AppCompat"/>
+
+    </FrameLayout>
 
     <!--<View style="@style/FocusGrabber"
           android:id="@+id/focus_grabber"/>-->

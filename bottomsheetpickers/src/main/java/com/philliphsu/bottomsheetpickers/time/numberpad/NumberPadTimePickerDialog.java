@@ -22,6 +22,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
@@ -135,8 +136,10 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         view.setBackgroundColor(mThemeDark? darkGray : white);
 
         TextView inputTime = (TextView) view.findViewById(R.id.input_time);
-        inputTime.setBackgroundColor(mThemeDark? lightGray : accentColor);
         inputTime.setTextColor(ContextCompat.getColor(getContext(), android.R.color.white));
+
+        FrameLayout inputTimeContainer = (FrameLayout) view.findViewById(R.id.input_time_container);
+        inputTimeContainer.setBackgroundColor(mThemeDark? lightGray : accentColor);
 
         mNumpad.setTheme(getContext()/*DO NOT GIVE THE APPLICATION CONTEXT, OR ELSE THE NUMPAD
         CAN'T GET THE CORRECT ACCENT COLOR*/, mThemeDark);
@@ -158,6 +161,10 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
             outState.putBoolean(KEY_THEME_DARK, mThemeDark);
             outState.putBoolean(KEY_THEME_SET_AT_RUNTIME, mThemeSetAtRuntime);
         }
+    }
+
+    public TextView getTextView() {
+        return mInputField;
     }
 
     @Override
