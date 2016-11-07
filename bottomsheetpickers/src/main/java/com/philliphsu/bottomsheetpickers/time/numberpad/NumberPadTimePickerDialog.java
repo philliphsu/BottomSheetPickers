@@ -19,6 +19,7 @@ package com.philliphsu.bottomsheetpickers.time.numberpad;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,8 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
 
     private TextView            mInputField;
     private String mHint;
+    private int mTextSize;
+
     private NumberPadTimePicker mNumpad;
 
     /**
@@ -170,7 +173,23 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
 
     public void setHint(String hint) {
         mHint = hint;
+
+        if(mInputField != null) {
+            mInputField.setHint(mHint);
+        }
+
     }
+
+    public void setTextSize(int textSize) {
+
+        mTextSize = textSize;
+
+        if(mInputField != null) {
+            mInputField.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        }
+
+    }
+
     public TextView getTextView() {
         return mInputField;
     }
