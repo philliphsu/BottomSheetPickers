@@ -60,7 +60,7 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
 
     private TextView            mInputField;
     private String mHint;
-    private int mTextSize;
+    private int mTextSize = 0;
 
     private NumberPadTimePicker mNumpad;
 
@@ -144,6 +144,10 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
 
         if(mHint != null) {
             inputTime.setHint(mHint);
+        }
+
+        if(mTextSize != 0) {
+            inputTime.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
         }
 
         FrameLayout inputTimeContainer = (FrameLayout) view.findViewById(R.id.input_time_container);
