@@ -58,6 +58,7 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
     private boolean mThemeSetAtRuntime;
 
     private TextView            mInputField;
+    private String mHint;
     private NumberPadTimePicker mNumpad;
 
     /**
@@ -138,6 +139,10 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         TextView inputTime = (TextView) view.findViewById(R.id.input_time);
         inputTime.setTextColor(ContextCompat.getColor(getContext(), android.R.color.white));
 
+        if(mHint != null) {
+            inputTime.setHint(mHint);
+        }
+
         FrameLayout inputTimeContainer = (FrameLayout) view.findViewById(R.id.input_time_container);
         inputTimeContainer.setBackgroundColor(mThemeDark? lightGray : accentColor);
 
@@ -163,6 +168,9 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         }
     }
 
+    public void setHint(String hint) {
+        mHint = hint;
+    }
     public TextView getTextView() {
         return mInputField;
     }
