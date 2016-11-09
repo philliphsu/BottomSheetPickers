@@ -14,27 +14,29 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
-<!-- TOneverDO: Use LinearLayout as root container when the
-dialog is a DialogFragment (or a subclass of), or else LWM
-doesn't work. -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/input_time"
+    <FrameLayout
+        android:id="@+id/input_time_container"
         android:layout_width="@dimen/left_side_width"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="@dimen/text_size_display_3"
-        android:fontFamily="sans-serif"
-        style="@style/TextAppearance.AppCompat"/>
+        android:layout_height="match_parent">
 
-    <!--<View style="@style/FocusGrabber"
-          android:id="@+id/focus_grabber"/>-->
+        <TextView
+            android:id="@+id/input_time"
+            android:layout_width="@dimen/left_side_width"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_display_3"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/text_color_primary_dark"
+            android:textColorHint="@color/text_color_disabled_dark"
+            style="@style/TextAppearance.AppCompat"/>
+
+    </FrameLayout>
 
     <com.philliphsu.bottomsheetpickers.time.numberpad.NumberPadTimePicker
         android:id="@+id/number_grid"
