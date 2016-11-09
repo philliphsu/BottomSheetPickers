@@ -17,10 +17,13 @@
 package com.philliphsu.bottomsheetpickers.time.grid;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
@@ -86,20 +89,17 @@ public class MinutesGrid extends NumbersGrid {
     @Override
     void setTheme(Context context, boolean themeDark) {
         super.setTheme(context, themeDark);
-        if (themeDark) {
-            // Resources default to dark-themed color (#FFFFFF)
-            // If vector fill color is transparent, programmatically tinting will not work.
-            // Since dark-themed active icon color is fully opaque, use that color as the
-            // base color and tint at runtime as needed.
-            mMinusButton.setImageResource(R.drawable.ic_minus_circle_24dp);
-            mPlusButton.setImageResource(R.drawable.ic_add_circle_24dp);
-        } else {
-            // Tint drawables
+        if (!themeDark) {
             final int colorActiveLight = ContextCompat.getColor(context, R.color.icon_color_active_light);
-            mMinusButton.setImageDrawable(Utils.getTintedDrawable(
-                    context, R.drawable.ic_minus_circle_24dp, colorActiveLight));
-            mPlusButton.setImageDrawable(Utils.getTintedDrawable(
-                    context, R.drawable.ic_add_circle_24dp, colorActiveLight));
+            applyTint(mMinusButton, colorActiveLight);
+            applyTint(mPlusButton, colorActiveLight);
         }
+    }
+
+    // TODO: Consider moving this to Utils.
+    private static void applyTint(ImageView view, @ColorInt int color) {
+        Drawable drawable = view.getDrawable();
+        Utils.setTint(drawable, color);
+        view.setImageDrawable(drawable);
     }
 }
