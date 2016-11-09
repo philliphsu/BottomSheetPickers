@@ -17,17 +17,20 @@
 package com.philliphsu.bottomsheetpickers.time.numberpad;
 
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
+import com.philliphsu.bottomsheetpickers.Utils;
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.TimeTextUtils;
-import com.philliphsu.bottomsheetpickers.Utils;
 
 /**
  * Dialog to type in a time.
@@ -43,7 +46,7 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
     private static final String KEY_THEME_SET_AT_RUNTIME = "theme_set_at_runtime";
 
     private boolean mIs24HourMode;
-    /**
+    /*
      * The digits stored in the numpad from the last time onSaveInstanceState() was called.
      *
      * Why not have the NumberPadTimePicker class save state itself? Because it's a lot more
@@ -52,9 +55,12 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
      * depends on the dialog to save its state.
      */
     private int[] mInputtedDigits;
-    private int mAmPmState = NumberPadTimePicker.UNSPECIFIED; // TOneverDO: zero initial value, b/c 0 == AM
+    private int mAmPmState = NumberPadTimePicker.UNSPECIFIED;
     private boolean mThemeDark;
     private boolean mThemeSetAtRuntime;
+    private String mHint;
+    private int mTextSize;
+    private int mHintResId;
 
     private TextView            mInputField;
     private NumberPadTimePicker mNumpad;
@@ -134,9 +140,20 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         // Set background color of entire view
         view.setBackgroundColor(mThemeDark? darkGray : white);
 
-        TextView inputTime = (TextView) view.findViewById(R.id.input_time);
-        inputTime.setBackgroundColor(mThemeDark? lightGray : accentColor);
-        inputTime.setTextColor(ContextCompat.getColor(getContext(), android.R.color.white));
+        FrameLayout inputTimeContainer = (FrameLayout) view.findViewById(R.id.input_time_container);
+        inputTimeContainer.setBackgroundColor(mThemeDark? lightGray : accentColor);
+
+        if (mHint != null || mHintResId != 0) {
+            if (mHint != null) {
+                mInputField.setHint(mHint);
+            } else {
+                mInputField.setHint(mHintResId);
+            }
+        }
+
+        if (mTextSize != 0) {
+            mInputField.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
+        }
 
         mNumpad.setTheme(getContext()/*DO NOT GIVE THE APPLICATION CONTEXT, OR ELSE THE NUMPAD
         CAN'T GET THE CORRECT ACCENT COLOR*/, mThemeDark);
@@ -158,6 +175,45 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
             outState.putBoolean(KEY_THEME_DARK, mThemeDark);
             outState.putBoolean(KEY_THEME_SET_AT_RUNTIME, mThemeSetAtRuntime);
         }
+    }
+
+    /**
+     * Sets the hint of the input time TextView.
+     */
+    public void setHint(String hint) {
+        if (mInputField != null) {
+            mInputField.setHint(mHint);
+        }
+        mHint = hint;
+        mHintResId = 0;
+    }
+
+    /**
+     * Sets the hint of the input time TextView.
+     */
+    public void setHint(@StringRes int resid) {
+        if (mInputField != null) {
+            mInputField.setHint(resid);
+        }
+        mHintResId = resid;
+        mHint = null;
+    }
+
+    /**
+     * Sets the text size in px of the input time TextView.
+     */
+    public void setInputTextSize(int textSize) {
+        if (mInputField != null) {
+            mInputField.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        }
+        mTextSize = textSize;
+    }
+
+    /**
+     * @return The TextView that stores the inputted time.
+     */
+    public TextView getInputTextView() {
+        return mInputField;
     }
 
     @Override
