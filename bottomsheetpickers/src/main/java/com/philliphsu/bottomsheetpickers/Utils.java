@@ -33,11 +33,9 @@ import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.format.Time;
 import android.view.View;
@@ -245,29 +243,6 @@ public class Utils {
     public static void setTint(Drawable drawable, @ColorInt int color) {
         drawable = DrawableCompat.wrap(drawable.mutate());
         DrawableCompat.setTint(drawable, color);
-    }
-
-    /**
-     * Returns a tinted drawable from the given drawable resource, if {@code tintList != null}.
-     * Otherwise, no tint will be applied.
-     */
-    public static Drawable getTintedDrawable(@NonNull Context context,
-                                             @DrawableRes int drawableRes,
-                                             @Nullable ColorStateList tintList) {
-        Drawable d = DrawableCompat.wrap(ContextCompat.getDrawable(context, drawableRes).mutate());
-        DrawableCompat.setTintList(d, tintList);
-        return d;
-    }
-
-    /**
-     * Returns a tinted drawable from the given drawable resource and color resource.
-     */
-    public static Drawable getTintedDrawable(@NonNull Context context,
-                                             @DrawableRes int drawableRes,
-                                             @ColorInt int colorInt) {
-        Drawable d = DrawableCompat.wrap(ContextCompat.getDrawable(context, drawableRes).mutate());
-        DrawableCompat.setTint(d, colorInt);
-        return d;
     }
 
     /**
