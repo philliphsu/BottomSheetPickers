@@ -35,7 +35,7 @@ supporting API level 14 and up.
 Add the following dependency to your module's `build.gradle`:
 ```groovy
 dependencies {
-  compile 'com.philliphsu:bottomsheetpickers:2.0.1'
+  compile 'com.philliphsu:bottomsheetpickers:2.0.2'
 }
 ```
 
