@@ -73,16 +73,29 @@ public class Utils {
     static {
         if (isJellybeanOrLater()) {
             SANS_SERIF_LIGHT = Typeface.create("sans-serif-light", 0);
+        } else {
+            SANS_SERIF_LIGHT = null;
+        }
+
+        if (isLollipopOrLater()) {
             HIGHLIGHT_TYPEFACE = Typeface.create(SANS_SERIF_LIGHT, Typeface.BOLD);
             SELECTED_TYPEFACE = Typeface.create("sans-serif-thin", Typeface.BOLD);
         } else {
-            SANS_SERIF_LIGHT = null;
-            SELECTED_TYPEFACE = HIGHLIGHT_TYPEFACE = Typeface.DEFAULT_BOLD;
+            if (SANS_SERIF_LIGHT != null) {
+                SELECTED_TYPEFACE = SANS_SERIF_LIGHT;
+            } else {
+                SELECTED_TYPEFACE = Typeface.DEFAULT;
+            }
+            HIGHLIGHT_TYPEFACE = Typeface.DEFAULT;
         }
     }
 
     public static boolean isJellybeanOrLater() {
-      return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+    }
+
+    public static boolean isLollipopOrLater() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
     /**
