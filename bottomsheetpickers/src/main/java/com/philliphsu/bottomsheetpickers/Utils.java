@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -300,22 +299,5 @@ public class Utils {
         } finally {
             a.recycle();
         }
-    }
-
-    public static int darkenColor(int color) {
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
-        // Decreasing the scale factor (i.e. 0.8f here) makes the color more light
-        hsv[2] = hsv[2] * 0.8f; // value component
-        return Color.HSVToColor(hsv);
-    }
-
-    public static int lightenColor(int color) {
-        // http://stackoverflow.com/a/4928826/5055032
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
-        // Decreasing the scale factor (i.e. -0.1f here) makes the color increasingly lighter
-        hsv[2] = 1.0f - 0.1f * (1.0f - hsv[2]);
-        return Color.HSVToColor(hsv);
     }
 }
