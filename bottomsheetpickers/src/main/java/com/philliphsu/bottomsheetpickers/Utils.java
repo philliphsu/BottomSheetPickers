@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -33,11 +32,9 @@ import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.format.Time;
 import android.view.View;
@@ -73,16 +70,29 @@ public class Utils {
     static {
         if (isJellybeanOrLater()) {
             SANS_SERIF_LIGHT = Typeface.create("sans-serif-light", 0);
+        } else {
+            SANS_SERIF_LIGHT = null;
+        }
+
+        if (isLollipopOrLater()) {
             HIGHLIGHT_TYPEFACE = Typeface.create(SANS_SERIF_LIGHT, Typeface.BOLD);
             SELECTED_TYPEFACE = Typeface.create("sans-serif-thin", Typeface.BOLD);
         } else {
-            SANS_SERIF_LIGHT = null;
-            SELECTED_TYPEFACE = HIGHLIGHT_TYPEFACE = Typeface.DEFAULT_BOLD;
+            if (SANS_SERIF_LIGHT != null) {
+                SELECTED_TYPEFACE = SANS_SERIF_LIGHT;
+            } else {
+                SELECTED_TYPEFACE = Typeface.DEFAULT;
+            }
+            HIGHLIGHT_TYPEFACE = Typeface.DEFAULT;
         }
     }
 
     public static boolean isJellybeanOrLater() {
-      return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+    }
+
+    public static boolean isLollipopOrLater() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
     /**
@@ -235,29 +245,6 @@ public class Utils {
     }
 
     /**
-     * Returns a tinted drawable from the given drawable resource, if {@code tintList != null}.
-     * Otherwise, no tint will be applied.
-     */
-    public static Drawable getTintedDrawable(@NonNull Context context,
-                                             @DrawableRes int drawableRes,
-                                             @Nullable ColorStateList tintList) {
-        Drawable d = DrawableCompat.wrap(ContextCompat.getDrawable(context, drawableRes).mutate());
-        DrawableCompat.setTintList(d, tintList);
-        return d;
-    }
-
-    /**
-     * Returns a tinted drawable from the given drawable resource and color resource.
-     */
-    public static Drawable getTintedDrawable(@NonNull Context context,
-                                             @DrawableRes int drawableRes,
-                                             @ColorInt int colorInt) {
-        Drawable d = DrawableCompat.wrap(ContextCompat.getDrawable(context, drawableRes).mutate());
-        DrawableCompat.setTint(d, colorInt);
-        return d;
-    }
-
-    /**
      * Sets the color on the {@code view}'s {@code selectableItemBackground} or the
      * borderless variant, whichever was set as the background.
      * @param view the view that should have its highlight color changed
@@ -312,22 +299,5 @@ public class Utils {
         } finally {
             a.recycle();
         }
-    }
-
-    public static int darkenColor(int color) {
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
-        // Decreasing the scale factor (i.e. 0.8f here) makes the color more light
-        hsv[2] = hsv[2] * 0.8f; // value component
-        return Color.HSVToColor(hsv);
-    }
-
-    public static int lightenColor(int color) {
-        // http://stackoverflow.com/a/4928826/5055032
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
-        // Decreasing the scale factor (i.e. -0.1f here) makes the color increasingly lighter
-        hsv[2] = 1.0f - 0.1f * (1.0f - hsv[2]);
-        return Color.HSVToColor(hsv);
     }
 }

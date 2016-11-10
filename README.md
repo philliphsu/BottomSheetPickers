@@ -35,7 +35,7 @@ supporting API level 14 and up.
 Add the following dependency to your module's `build.gradle`:
 ```groovy
 dependencies {
-  compile 'com.philliphsu:bottomsheetpickers:2.0.1'
+  compile 'com.philliphsu:bottomsheetpickers:2.0.2'
 }
 ```
 
@@ -116,6 +116,12 @@ You can specify whether to use a light (default) or dark theme:
 ```
 
 > **NOTE:** `setThemeDark(boolean dark)` overwrites the value specified in XML.
+
+### Additional Options
+`NumberPadTimePickerDialog` exposes the following additional APIs:
+* `setHint(String hint)` or `setHint(@StringRes int resid)`: Sets the hint of the input time TextView.
+* `setInputTextSize(int textSize)`: Sets the text size in px of the input time TextView.
+* `getInputTextView()`: Returns the `TextView` that stores the inputted time.
 
 ## Attribution
 
