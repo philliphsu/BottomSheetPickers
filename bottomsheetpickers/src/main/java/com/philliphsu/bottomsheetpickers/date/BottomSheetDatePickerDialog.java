@@ -180,11 +180,14 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         final View view = super.onCreateView(inflater, container, savedInstanceState);
 
         mDayOfWeekView = (TextView) view.findViewById(R.id.date_picker_header);
+        mDayOfWeekView.setTypeface(Utils.SANS_SERIF_LIGHT_BOLD);
         mMonthDayYearView = (LinearLayout) view.findViewById(R.id.date_picker_month_day_year);
         mFirstTextView = (TextView) view.findViewById(R.id.date_picker_first_textview);
         mFirstTextView.setOnClickListener(this);
+        mFirstTextView.setTypeface(Utils.SANS_SERIF_LIGHT_BOLD);
         mSecondTextView = (TextView) view.findViewById(R.id.date_picker_second_textview);
         mSecondTextView.setOnClickListener(this);
+        mSecondTextView.setTypeface(Utils.SANS_SERIF_LIGHT_BOLD);
 
         int listPosition = -1;
         int listPositionOffset = 0;

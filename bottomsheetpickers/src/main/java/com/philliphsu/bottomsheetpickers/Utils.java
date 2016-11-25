@@ -58,32 +58,22 @@ public class Utils {
 
     static final String SHARED_PREFS_NAME = "com.android.calendar_preferences";
 
-    /** The NORMAL style of the default sans serif light typeface. */
     @Nullable
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     public static final Typeface SANS_SERIF_LIGHT;
-    /** Typeface for year picker selection and selected half day toggle. */
-    public static final Typeface HIGHLIGHT_TYPEFACE;
-    /** Typeface for grid time picker selection. */
-    public static final Typeface SELECTED_TYPEFACE;
+    public static final Typeface SANS_SERIF_LIGHT_BOLD;
+    public static final Typeface SANS_SERIF_THIN_BOLD;
 
     static {
-        if (isJellybeanOrLater()) {
-            SANS_SERIF_LIGHT = Typeface.create("sans-serif-light", 0);
-        } else {
-            SANS_SERIF_LIGHT = null;
-        }
+        SANS_SERIF_LIGHT = isJellybeanOrLater() ? Typeface.create("sans-serif-light", 0) : null;
 
         if (isLollipopOrLater()) {
-            HIGHLIGHT_TYPEFACE = Typeface.create(SANS_SERIF_LIGHT, Typeface.BOLD);
-            SELECTED_TYPEFACE = Typeface.create("sans-serif-thin", Typeface.BOLD);
+            SANS_SERIF_LIGHT_BOLD = Typeface.create(SANS_SERIF_LIGHT, Typeface.BOLD);
+            SANS_SERIF_THIN_BOLD = Typeface.create("sans-serif-thin", Typeface.BOLD);
         } else {
-            if (SANS_SERIF_LIGHT != null) {
-                SELECTED_TYPEFACE = SANS_SERIF_LIGHT;
-            } else {
-                SELECTED_TYPEFACE = Typeface.DEFAULT;
-            }
-            HIGHLIGHT_TYPEFACE = Typeface.DEFAULT;
+            // Fall back on the normal style of the font weight that is one level heavier.
+            SANS_SERIF_THIN_BOLD = SANS_SERIF_LIGHT != null ? SANS_SERIF_LIGHT : Typeface.DEFAULT;
+            SANS_SERIF_LIGHT_BOLD = Typeface.DEFAULT;
         }
     }
 

@@ -41,7 +41,7 @@ public class TextViewWithHighlightIndicator extends TextViewWithIndicator {
         super.onDraw(canvas);
         setTextColor(mDrawHighlight ? mHighlightColor : mDefaultTextColor);
         setTextSize(TypedValue.COMPLEX_UNIT_PX, mDrawHighlight ? mSelectedTextSize : mDefaultTextSize);
-        setTypeface(mDrawHighlight ? Utils.HIGHLIGHT_TYPEFACE : Typeface.DEFAULT);
+        setTypeface(mDrawHighlight ? Utils.SANS_SERIF_LIGHT_BOLD : Typeface.DEFAULT);
     }
 
     @Override

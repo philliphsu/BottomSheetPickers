@@ -128,7 +128,7 @@ public abstract class NumbersGrid extends TimePickerPadLayout implements View.On
         clearIndicator(); // Does nothing if there was no indicator last selected
         TextView tv = (TextView) view;
         tv.setTextColor(mSelectedTextColor);
-        tv.setTypeface(Utils.SELECTED_TYPEFACE);
+        tv.setTypeface(Utils.SANS_SERIF_THIN_BOLD);
         mLastSelectedView = view;
     }
 

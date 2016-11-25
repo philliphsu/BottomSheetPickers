@@ -412,13 +412,13 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         switch (halfDay) {
             case HALF_DAY_1:
                 mFirstHalfDayToggle.setTextColor(mHalfDayToggleSelectedColor);
-                mFirstHalfDayToggle.setTypeface(Utils.HIGHLIGHT_TYPEFACE);
+                mFirstHalfDayToggle.setTypeface(Utils.SANS_SERIF_LIGHT_BOLD);
                 mSecondHalfDayToggle.setTextColor(mHalfDayToggleUnselectedColor);
                 mSecondHalfDayToggle.setTypeface(Typeface.DEFAULT);
                 break;
             case HALF_DAY_2:
                 mSecondHalfDayToggle.setTextColor(mHalfDayToggleSelectedColor);
-                mSecondHalfDayToggle.setTypeface(Utils.HIGHLIGHT_TYPEFACE);
+                mSecondHalfDayToggle.setTypeface(Utils.SANS_SERIF_LIGHT_BOLD);
                 mFirstHalfDayToggle.setTextColor(mHalfDayToggleUnselectedColor);
                 mFirstHalfDayToggle.setTypeface(Typeface.DEFAULT);
                 break;
