@@ -71,4 +71,6 @@
     <!--My stuff-->
     <dimen name="fab_elevation">6dp</dimen>
     <dimen name="half_day_icon_padding">8dp</dimen>
+    <dimen name="alert_dialog_action_area_height">64dp</dimen>
+    <dimen name="alert_dialog_action_area_right_padding">12dp</dimen>
 </resources>

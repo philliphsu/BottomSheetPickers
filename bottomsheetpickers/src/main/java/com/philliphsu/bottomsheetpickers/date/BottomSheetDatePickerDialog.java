@@ -17,12 +17,8 @@
 package com.philliphsu.bottomsheetpickers.date;
 
 import android.app.Activity;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +27,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -82,13 +79,14 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
 
     private AccessibleDateAnimator mAnimator;
 
-    private TextView             mDayOfWeekView;
-    private LinearLayout         mMonthDayYearView;
-    private TextView             mFirstTextView;
-    private TextView             mSecondTextView;
-    private DayPickerView        mDayPickerView;
-    private YearPickerView       mYearPickerView;
-    private FloatingActionButton mDoneButton;
+    private TextView       mDayOfWeekView;
+    private LinearLayout   mMonthDayYearView;
+    private TextView       mFirstTextView;
+    private TextView       mSecondTextView;
+    private DayPickerView  mDayPickerView;
+    private YearPickerView mYearPickerView;
+    private Button         mDoneButton;
+    private Button         mCancelButton;
 
     private int mCurrentView = UNINITIALIZED;
 
@@ -225,7 +223,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         animation2.setDuration(ANIMATION_DURATION);
         mAnimator.setOutAnimation(animation2);
 
-        mDoneButton = (FloatingActionButton) view.findViewById(R.id.done);
+        mDoneButton = (Button) view.findViewById(R.id.done);
         mDoneButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -238,24 +236,28 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
             }
         });
 
+        mCancelButton = (Button) view.findViewById(R.id.cancel);
+        mCancelButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
         // Theme-specific configurations.
         if (mThemeDark) {
             // This is so the margin gets colored as well.
             view.setBackgroundColor(mDarkGray);
             mAnimator.setBackgroundColor(mDarkGray);
         } else {
-            // Setup FAB icon color.
-            Drawable fabIcon = mDoneButton.getDrawable();
-            Utils.setTint(fabIcon, mAccentColor);
-            mDoneButton.setImageDrawable(fabIcon);
+            // Setup action button text colors.
+            mCancelButton.setTextColor(mAccentColor);
+            mDoneButton.setTextColor(mAccentColor);
         }
 
         // Configurations for both themes.
         View selectedDateLayout = view.findViewById(R.id.day_picker_selected_date_layout);
         selectedDateLayout.setBackgroundColor(mThemeDark ? mLightGray : mAccentColor);
-
-        int white = ContextCompat.getColor(getActivity(), android.R.color.white);
-        mDoneButton.setBackgroundTintList(ColorStateList.valueOf(mThemeDark ? mAccentColor : white));
 
         determineLocale_MD_Y_Indices();
         updateDisplay(false);

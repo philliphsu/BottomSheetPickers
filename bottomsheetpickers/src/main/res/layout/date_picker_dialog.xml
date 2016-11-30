@@ -14,36 +14,44 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/date_picker_view_animator" >
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/date_picker_view_animator">
 
-    <LinearLayout
+    <include
+        android:id="@+id/day_picker_selected_date_layout"
+        layout="@layout/date_picker_selected_date" />
+
+    <include layout="@layout/date_picker_view_animator" />
+
+    <android.support.v7.widget.ButtonBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical" >
+        android:layout_height="@dimen/alert_dialog_action_area_height"
+        android:gravity="end|center_vertical"
+        android:paddingStart="@dimen/alert_dialog_action_area_right_padding"
+        android:paddingLeft="@dimen/alert_dialog_action_area_right_padding"
+        android:paddingEnd="@dimen/alert_dialog_action_area_right_padding"
+        android:paddingRight="@dimen/alert_dialog_action_area_right_padding"
+        style="@style/Widget.AppCompat.ButtonBar.AlertDialog" >
 
-        <include
-            android:id="@+id/day_picker_selected_date_layout"
-            layout="@layout/date_picker_selected_date" />
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@android:string/cancel"
+            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog" />
 
-        <include layout="@layout/date_picker_view_animator" />
+        <Button
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@android:string/ok"
+            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog" />
 
-    </LinearLayout>
+    </android.support.v7.widget.ButtonBarLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/done"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/fab_margin"
-        android:layout_marginEnd="@dimen/fab_margin"
-        app:fabSize="mini"
-        app:layout_anchor="@id/day_picker_selected_date_layout"
-        app:layout_anchorGravity="right|end|bottom"
-        app:srcCompat="@drawable/ic_done_24dp" />
-
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
