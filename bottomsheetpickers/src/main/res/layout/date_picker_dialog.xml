@@ -28,30 +28,6 @@
 
     <include layout="@layout/date_picker_view_animator" />
 
-    <android.support.v7.widget.ButtonBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/alert_dialog_action_area_height"
-        android:gravity="end|center_vertical"
-        android:paddingStart="@dimen/alert_dialog_action_area_right_padding"
-        android:paddingLeft="@dimen/alert_dialog_action_area_right_padding"
-        android:paddingEnd="@dimen/alert_dialog_action_area_right_padding"
-        android:paddingRight="@dimen/alert_dialog_action_area_right_padding"
-        style="@style/Widget.AppCompat.ButtonBar.AlertDialog" >
-
-        <Button
-            android:id="@+id/cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@android:string/cancel"
-            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog" />
-
-        <Button
-            android:id="@+id/done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@android:string/ok"
-            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog" />
-
-    </android.support.v7.widget.ButtonBarLayout>
+    <include layout="@layout/date_picker_footer_buttons" />
 
 </LinearLayout>

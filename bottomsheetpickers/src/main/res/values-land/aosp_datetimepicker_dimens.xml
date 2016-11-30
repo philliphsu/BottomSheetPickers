@@ -23,4 +23,7 @@
 	<dimen name="selected_date_year_size">30dp</dimen>
     <dimen name="selected_date_day_size">100dp</dimen>
     <dimen name="selected_date_month_size">30dp</dimen>
+
+    <!-- (318dp default portrait height) - (72dp footer area) = 246dp -->
+    <dimen name="date_picker_view_animator_height">246dp</dimen>
 </resources>
