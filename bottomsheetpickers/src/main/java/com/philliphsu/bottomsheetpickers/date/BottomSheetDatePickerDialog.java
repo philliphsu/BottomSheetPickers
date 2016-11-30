@@ -19,6 +19,7 @@ package com.philliphsu.bottomsheetpickers.date;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -249,6 +250,9 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
             // This is so the margin gets colored as well.
             view.setBackgroundColor(mDarkGray);
             mAnimator.setBackgroundColor(mDarkGray);
+            int selectableItemBg = ContextCompat.getColor(activity, R.color.selectable_item_background_dark);
+            Utils.setColorControlHighlight(mCancelButton, selectableItemBg);
+            Utils.setColorControlHighlight(mDoneButton, selectableItemBg);
         } else {
             // Setup action button text colors.
             mCancelButton.setTextColor(mAccentColor);
