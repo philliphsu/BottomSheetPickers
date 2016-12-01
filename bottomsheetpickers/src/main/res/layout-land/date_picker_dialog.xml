@@ -29,9 +29,8 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:orientation="vertical"
-        android:background="@color/date_picker_view_animator" >
+        android:layout_weight="1"
+        android:orientation="vertical" >
 
         <include layout="@layout/date_picker_view_animator" />
 
