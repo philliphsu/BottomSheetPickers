@@ -5,4 +5,8 @@
     <string name="desc_half_day_2">noon to evening hours</string>
     <!-- Content description for 'Done' floating action button. [CHAR_LIMIT=NONE] -->
     <string name="desc_done">done</string>
+    <!-- Description of the button to move to the previous month. [CHAR LIMIT=NONE] -->
+    <string name="date_picker_prev_month_button">Previous month</string>
+    <!-- Description of the button to move to the next month. [CHAR LIMIT=NONE] -->
+    <string name="date_picker_next_month_button">Next month</string>
 </resources>
