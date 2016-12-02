@@ -67,7 +67,7 @@ public class Utils {
     static {
         SANS_SERIF_LIGHT = isJellybeanOrLater() ? Typeface.create("sans-serif-light", 0) : null;
 
-        if (isLollipopOrLater()) {
+        if (checkApiLevel(Build.VERSION_CODES.LOLLIPOP)) {
             SANS_SERIF_LIGHT_BOLD = Typeface.create(SANS_SERIF_LIGHT, Typeface.BOLD);
             SANS_SERIF_THIN_BOLD = Typeface.create("sans-serif-thin", Typeface.BOLD);
         } else {
@@ -81,8 +81,8 @@ public class Utils {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
     }
 
-    public static boolean isLollipopOrLater() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    public static boolean checkApiLevel(int versionCode) {
+        return Build.VERSION.SDK_INT >= versionCode;
     }
 
     /**

@@ -16,10 +16,11 @@
 -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-    <android.widget.DayPickerViewPager
+    <com.philliphsu.bottomsheetpickers.date.DayPickerViewPager
         android:id="@+id/day_picker_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -30,12 +31,12 @@
         android:layout_height="wrap_content"
         android:minWidth="48dp"
         android:minHeight="48dp"
-        android:src="@drawable/ic_chevron_start"
+        app:srcCompat="@drawable/ic_chevron_start"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/date_picker_prev_month_button"
         android:visibility="invisible"
         android:nextFocusForward="@+id/next"
-        android:nextFocusDown="@+id/month_view" />
+        android:nextFocusDown="@+id/month_view" /> <!--TODO: what does this id refer to?-->
 
     <ImageButton
         android:id="@+id/next"
@@ -43,7 +44,7 @@
         android:layout_height="wrap_content"
         android:minWidth="48dp"
         android:minHeight="48dp"
-        android:src="@drawable/ic_chevron_end"
+        app:srcCompat="@drawable/ic_chevron_end"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/date_picker_next_month_button"
         android:visibility="invisible"
