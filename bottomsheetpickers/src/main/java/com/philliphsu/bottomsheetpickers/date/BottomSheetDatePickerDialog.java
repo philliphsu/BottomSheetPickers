@@ -40,9 +40,11 @@ import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Formatter;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Dialog allowing users to select a date.
@@ -74,6 +76,11 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
 
     private static SimpleDateFormat YEAR_FORMAT = new SimpleDateFormat("yyyy", Locale.getDefault());
     private static SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("dd", Locale.getDefault());
+
+    /* Used for formatting dates via DateUtils. If we don't use these, the internal
+     * methods of DateUtils would instantiate new instances each time we format a date. */
+    private static final StringBuilder STRING_BUILDER = new StringBuilder(50);
+    private static final Formatter FORMATTER = new Formatter(STRING_BUILDER, Locale.getDefault());
 
     private final Calendar mCalendar = Calendar.getInstance();
     private OnDateSetListener mCallBack;
@@ -110,6 +117,9 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     private String mSelectDay;
     private String mYearPickerDescription;
     private String mSelectYear;
+
+    /** Used for setting a new month-year title when the MonthView display changes. */
+    private Calendar mTempCalendar = Calendar.getInstance();
 
     // Relative positions of (MD) and Y in the locale's date formatting style.
     // TODO: Verify that these don't need to be saved in state when rotating.
@@ -378,13 +388,25 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     }
 
     private static String formatMonthDayYear(Calendar calendar) {
+        // TODO: Use the STRING_BUILDER and FORMATTER.
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH | DateUtils.FORMAT_SHOW_YEAR;
         return formatDateTime(calendar, flags);
     }
 
     private static String formatMonthAndDay(Calendar calendar) {
+        // TODO: Use the STRING_BUILDER and FORMATTER.
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH | DateUtils.FORMAT_NO_YEAR;
         return formatDateTime(calendar, flags);
+    }
+
+    private static String getMonthAndYearString(Calendar calendar) {
+        int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
+                | DateUtils.FORMAT_NO_MONTH_DAY;
+        STRING_BUILDER.setLength(0);
+        long millis = calendar.getTimeInMillis();
+        // No time is shown, so we don't need to pass in a Context.
+        return DateUtils.formatDateRange(null, FORMATTER, millis, millis, flags,
+                TimeZone.getDefault().getID()).toString();
     }
 
     private String extractYearFromFormattedDate(String formattedDate, String monthAndDay) {
@@ -424,6 +446,12 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
             String fullDateText = DateUtils.formatDateTime(getActivity(), millis, flags);
             Utils.tryAccessibilityAnnounce(mAnimator, fullDateText);
         }
+
+        updateMonthYearTitle(mCalendar);
+    }
+
+    private void updateMonthYearTitle(Calendar calendar) {
+        mMonthYearTitleView.setText(getMonthAndYearString(calendar));
     }
 
     private static String formatDateTime(Calendar calendar, int flags) {
@@ -538,6 +566,13 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         mCalendar.set(Calendar.DAY_OF_MONTH, day);
         updatePickers();
         updateDisplay(true);
+    }
+
+    @Override
+    public void onMonthViewChanged(int year, int month) {
+        mTempCalendar.set(Calendar.YEAR, year);
+        mTempCalendar.set(Calendar.MONTH, month);
+        updateMonthYearTitle(mTempCalendar);
     }
 
     private void updatePickers() {

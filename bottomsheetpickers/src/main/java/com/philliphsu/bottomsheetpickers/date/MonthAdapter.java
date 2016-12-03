@@ -64,6 +64,10 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
         }
 
         public CalendarDay(Calendar calendar) {
+            extractValues(calendar);
+        }
+
+        private void extractValues(Calendar calendar) {
             year = calendar.get(Calendar.YEAR);
             month = calendar.get(Calendar.MONTH);
             day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -83,6 +87,11 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
             this.year = year;
             this.month = month;
             this.day = day;
+        }
+
+        public void add(int field, int amount) {
+            calendar.add(field, amount);
+            extractValues(calendar);
         }
 
         public synchronized void setJulianDay(int julianDay) {

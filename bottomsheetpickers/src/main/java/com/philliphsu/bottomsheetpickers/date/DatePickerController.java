@@ -30,6 +30,8 @@ public interface DatePickerController {
 
     void onDayOfMonthSelected(int year, int month, int day);
 
+    void onMonthViewChanged(int year, int month);
+
     void registerOnDateChangedListener(OnDateChangedListener listener);
 
     void unregisterOnDateChangedListener(OnDateChangedListener listener);

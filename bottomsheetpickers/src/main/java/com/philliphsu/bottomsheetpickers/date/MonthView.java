@@ -140,7 +140,9 @@ public abstract class MonthView extends View {
     protected Paint mSelectedCirclePaint;
     protected Paint mMonthDayLabelPaint;
 
+    @Deprecated
     private final Formatter mFormatter;
+    @Deprecated
     private final StringBuilder mStringBuilder;
 
     // The Julian day of the first day displayed by this item
@@ -464,6 +466,10 @@ public abstract class MonthView extends View {
         return MONTH_HEADER_SIZE;
     }
 
+    /**
+     * @deprecated MonthView should not display this title anymore.
+     */
+    @Deprecated
     private String getMonthAndYearString() {
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
                 | DateUtils.FORMAT_NO_MONTH_DAY;
