@@ -18,19 +18,20 @@
         android:nextFocusDown="@+id/month_view"
         app:srcCompat="@drawable/ic_chevron_start" />
 
-    <!--Dummy button that should overlap the MonthView's month and year title-->
-    <View
+    <Button
         android:id="@+id/month_year_title"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:contentDescription="@string/date_picker_month_year_title"
         android:nextFocusForward="@+id/next"
-        android:nextFocusDown="@+id/month_view"/>
+        android:nextFocusDown="@+id/month_view"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:text="April 2017"
+        style="@style/Widget.AppCompat.Button.Borderless"/>
 
     <ImageButton
         android:id="@+id/next"
