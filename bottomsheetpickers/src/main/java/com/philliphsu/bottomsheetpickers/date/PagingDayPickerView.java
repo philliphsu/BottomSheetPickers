@@ -30,7 +30,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.philliphsu.bottomsheetpickers.Utils;
 import com.philliphsu.bottomsheetpickers.date.DatePickerDialog.OnDateChangedListener;
-import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
+import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay; // TODO: Move CalendarDay to PagingMonthAdapter and correct the import
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -211,7 +211,7 @@ class PagingDayPickerView extends ViewPager implements OnDateChangedListener {
 
         mTempDay.set(day);
         final int position = (day.year - mController.getMinYear())
-                * MonthAdapter.MONTHS_IN_YEAR + day.month;
+                * PagingMonthAdapter.MONTHS_IN_YEAR + day.month;
 
         View child;
         int i = 0;
@@ -270,9 +270,7 @@ class PagingDayPickerView extends ViewPager implements OnDateChangedListener {
 
             @Override
             public void run() {
-//                setSelection(position);
-                // TODO: Verify this is an appropriate replacement.
-                setCurrentItem(position);
+                setCurrentItem(position, false);
             }
         });
 //        onScrollStateChanged(this, OnScrollListener.SCROLL_STATE_IDLE);
