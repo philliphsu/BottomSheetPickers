@@ -26,6 +26,10 @@
         android:id="@+id/day_picker_selected_date_layout"
         layout="@layout/date_picker_selected_date" />
 
+    <include
+        android:id="@+id/date_picker_navigation_bar"
+        layout="@layout/date_picker_navigation_bar" />
+
     <include layout="@layout/date_picker_view_animator" />
 
     <include layout="@layout/date_picker_footer_buttons" />

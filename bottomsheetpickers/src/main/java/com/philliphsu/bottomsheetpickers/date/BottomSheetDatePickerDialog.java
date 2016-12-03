@@ -80,14 +80,14 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
 
     private AccessibleDateAnimator mAnimator;
 
-    private TextView       mDayOfWeekView;
-    private LinearLayout   mMonthDayYearView;
-    private TextView       mFirstTextView;
-    private TextView       mSecondTextView;
-    private DayPickerView  mDayPickerView;
+    private TextView mDayOfWeekView;
+    private LinearLayout mMonthDayYearView;
+    private TextView mFirstTextView;
+    private TextView mSecondTextView;
+    private PagingDayPickerView mDayPickerView;
     private YearPickerView mYearPickerView;
-    private Button         mDoneButton;
-    private Button         mCancelButton;
+    private Button mDoneButton;
+    private Button mCancelButton;
 
     private int mCurrentView = UNINITIALIZED;
 
@@ -119,10 +119,10 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     }
 
     /**
-     * @param callBack How the parent is notified that the date is set.
-     * @param year The initial year of the dialog.
+     * @param callBack    How the parent is notified that the date is set.
+     * @param year        The initial year of the dialog.
      * @param monthOfYear The initial month of the dialog.
-     * @param dayOfMonth The initial day of the dialog.
+     * @param dayOfMonth  The initial day of the dialog.
      */
     public static BottomSheetDatePickerDialog newInstance(OnDateSetListener callBack, int year,
                                                           int monthOfYear,
@@ -165,7 +165,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         outState.putInt(KEY_CURRENT_VIEW, mCurrentView);
         int listPosition = -1;
         if (mCurrentView == MONTH_AND_DAY_VIEW) {
-            listPosition = mDayPickerView.getMostVisiblePosition();
+            listPosition = mDayPickerView.getCurrentItem();
         } else if (mCurrentView == YEAR_VIEW) {
             listPosition = mYearPickerView.getFirstVisiblePosition();
             outState.putInt(KEY_LIST_POSITION_OFFSET, mYearPickerView.getFirstPositionOffset());
@@ -175,7 +175,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         final View view = super.onCreateView(inflater, container, savedInstanceState);
 
         mDayOfWeekView = (TextView) view.findViewById(R.id.date_picker_header);
@@ -201,7 +201,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         }
 
         final Activity activity = getActivity();
-        mDayPickerView = new SimpleDayPickerView(activity, this, mThemeDark);
+        mDayPickerView = new PagingDayPickerView(activity, this, mThemeDark);
         mYearPickerView = new YearPickerView(activity, this);
         mYearPickerView.setTheme(activity, mThemeDark);
 
@@ -305,7 +305,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
 
                 int flags = DateUtils.FORMAT_SHOW_DATE;
                 String dayString = DateUtils.formatDateTime(getActivity(), millis, flags);
-                mAnimator.setContentDescription(mDayPickerDescription+": "+dayString);
+                mAnimator.setContentDescription(mDayPickerDescription + ": " + dayString);
                 Utils.tryAccessibilityAnnounce(mAnimator, mSelectDay);
                 break;
             case YEAR_VIEW:
@@ -317,12 +317,12 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
                 }
 
                 CharSequence yearString = YEAR_FORMAT.format(millis);
-                mAnimator.setContentDescription(mYearPickerDescription+": "+yearString);
+                mAnimator.setContentDescription(mYearPickerDescription + ": " + yearString);
                 Utils.tryAccessibilityAnnounce(mAnimator, mSelectYear);
                 break;
         }
     }
-    
+
     private void updateHeaderSelectedView(final int viewIndex) {
         switch (viewIndex) {
             case MONTH_AND_DAY_VIEW:
@@ -444,6 +444,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     /**
      * Sets the minimal date supported by this DatePicker. Dates before (but not including) the
      * specified date will be disallowed from being selected.
+     *
      * @param calendar a Calendar object set to the year, month, day desired as the mindate.
      */
     public void setMinDate(Calendar calendar) {
@@ -465,6 +466,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     /**
      * Sets the minimal date supported by this DatePicker. Dates after (but not including) the
      * specified date will be disallowed from being selected.
+     *
      * @param calendar a Calendar object set to the year, month, day desired as the maxdate.
      */
     public void setMaxDate(Calendar calendar) {

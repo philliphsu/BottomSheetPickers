@@ -9,4 +9,7 @@
     <string name="date_picker_prev_month_button">Previous month</string>
     <!-- Description of the button to move to the next month. [CHAR LIMIT=NONE] -->
     <string name="date_picker_next_month_button">Next month</string>
+    <!-- Description of the button that displays the month and year title and also accesses the month picker. [CHAR LIMIT=NONE] -->
+    <string name="date_picker_month_year_title">Switch to month picker</string>
+
 </resources>

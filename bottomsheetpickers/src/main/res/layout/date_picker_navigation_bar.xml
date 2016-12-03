@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="48dp">
+
+    <ImageButton
+        android:id="@+id/prev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:visibility="invisible"
+        android:contentDescription="@string/date_picker_prev_month_button"
+        android:nextFocusForward="@+id/month_year_title"
+        android:nextFocusDown="@+id/month_view"
+        app:srcCompat="@drawable/ic_chevron_start" />
+
+    <!--Dummy button that should overlap the MonthView's month and year title-->
+    <View
+        android:id="@+id/month_year_title"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:contentDescription="@string/date_picker_month_year_title"
+        android:nextFocusForward="@+id/next"
+        android:nextFocusDown="@+id/month_view"/>
+
+    <ImageButton
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:visibility="invisible"
+        android:contentDescription="@string/date_picker_next_month_button"
+        android:nextFocusForward="@+id/month_view"
+        android:nextFocusDown="@+id/month_view"
+        app:srcCompat="@drawable/ic_chevron_end" />
+
+</LinearLayout>

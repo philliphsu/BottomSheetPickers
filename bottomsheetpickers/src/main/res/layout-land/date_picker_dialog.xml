@@ -32,6 +32,11 @@
         android:layout_weight="1"
         android:orientation="vertical" >
 
+        <include
+            android:id="@+id/date_picker_navigation_bar"
+            layout="@layout/date_picker_navigation_bar" />
+
+        <!--TODO: Decrease the height to (248dp - 48 dp = 200dp) so everything else will fit.-->
         <include layout="@layout/date_picker_view_animator" />
 
         <include layout="@layout/date_picker_footer_buttons" />
