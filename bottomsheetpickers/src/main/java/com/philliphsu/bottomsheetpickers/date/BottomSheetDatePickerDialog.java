@@ -29,7 +29,6 @@ import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -91,9 +90,6 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     private LinearLayout mMonthDayYearView;
     private TextView mFirstTextView;
     private TextView mSecondTextView;
-    private TextView mMonthYearTitleView;
-    private ImageButton mPreviousButton;
-    private ImageButton mNextButton;
     private PagingDayPickerView mDayPickerView;
     private YearPickerView mYearPickerView;
     private Button mDoneButton;
@@ -206,13 +202,6 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
             listPosition = savedInstanceState.getInt(KEY_LIST_POSITION);
             listPositionOffset = savedInstanceState.getInt(KEY_LIST_POSITION_OFFSET);
         }
-
-        mMonthYearTitleView = (TextView) view.findViewById(R.id.month_year_title);
-        mMonthYearTitleView.setOnClickListener(null); // TODO
-        mPreviousButton = (ImageButton) view.findViewById(R.id.prev);
-        mPreviousButton.setOnClickListener(null); // TODO
-        mNextButton = (ImageButton) view.findViewById(R.id.next);
-        mNextButton.setOnClickListener(null); // TODO
 
         final Activity activity = getActivity();
         mDayPickerView = new PagingDayPickerView(activity, this, mThemeDark);
@@ -543,11 +532,6 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         mCalendar.set(Calendar.DAY_OF_MONTH, day);
         updatePickers();
         updateDisplay(true);
-    }
-
-    @Override
-    public void onMonthViewChanged(CharSequence title) {
-        mMonthYearTitleView.setText(title);
     }
 
     private void updatePickers() {

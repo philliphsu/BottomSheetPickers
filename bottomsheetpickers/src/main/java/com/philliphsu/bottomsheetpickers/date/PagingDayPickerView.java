@@ -25,11 +25,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
 import com.philliphsu.bottomsheetpickers.date.DatePickerDialog.OnDateChangedListener;
 import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
@@ -79,10 +83,13 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener 
 
     // highlighted time
     protected CalendarDay mSelectedDay = new CalendarDay();
+    protected PagingMonthAdapter mAdapter;
 
     // TODO: Move the navigation bar from BotSheetDatePickerDialog here.
     private ViewPager mViewPager;
-    protected PagingMonthAdapter mAdapter;
+    private TextView mMonthYearTitleView;
+    private ImageButton mPreviousButton;
+    private ImageButton mNextButton;
 
     protected CalendarDay mTempDay = new CalendarDay();
 
@@ -132,15 +139,30 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener 
         onDateChanged();
     }
 
-    public void init(Context context) {
+    private void init(Context context) {
         mHandler = new Handler();
+        setOrientation(VERTICAL);
         setLayoutParams(new LayoutParams(MATCH_PARENT, MATCH_PARENT));
 //        setDrawSelectorOnTop(false);  // TODO: Delete? Don't think there's a proper replacement.
 
         mContext = context;
+        final View view = LayoutInflater.from(context).inflate(R.layout.day_picker_content, this, true);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
         // TODO: Set the adapter and related initialization.
         mViewPager.addOnPageChangeListener(mOnPageChangeListener);
+        mMonthYearTitleView = (TextView) view.findViewById(R.id.month_year_title);
+        mMonthYearTitleView.setOnClickListener(null); // TODO
+        mPreviousButton = (ImageButton) view.findViewById(R.id.prev);
+        mPreviousButton.setOnClickListener(null); // TODO
+        mNextButton = (ImageButton) view.findViewById(R.id.next);
+        mNextButton.setOnClickListener(null); // TODO
 //        setUpListView(); // TODO: Delete?
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        mViewPager.removeOnPageChangeListener(mOnPageChangeListener);
     }
 
     void setTheme(Context context, boolean themeDark) {
@@ -544,6 +566,10 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener 
         return true;
     }
 
+    int getCurrentItem() {
+        return mViewPager.getCurrentItem();
+    }
+
     private final OnPageChangeListener mOnPageChangeListener = new OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -552,7 +578,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener 
 
         @Override
         public void onPageSelected(int position) {
-            mController.onMonthViewChanged(mAdapter.getPageTitle(position));
+            Log.d(TAG, "onPageSelected()");
+            mMonthYearTitleView.setText(mAdapter.getPageTitle(position));
         }
 
         @Override
