@@ -18,6 +18,7 @@ package com.philliphsu.bottomsheetpickers.date;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -38,6 +39,7 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
     private final Context mContext;
     protected final DatePickerController mController;
     private final boolean mThemeDark;
+    private final SparseArray<MonthView> mMonthViews = new SparseArray<>();
 
     private CalendarDay mSelectedDay;
 
@@ -124,17 +126,20 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
         v.setMonthParams(drawingParams);
         v.invalidate();
         container.addView(v, new LayoutParams(MATCH_PARENT, MATCH_PARENT));
+        mMonthViews.append(position, v);
         return v;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
+        mMonthViews.delete(position);
     }
 
     @Override
-    public void setPrimaryItem(ViewGroup container, int position, Object object) {
-        super.setPrimaryItem(container, position, object);
+    public CharSequence getPageTitle(int position) {
+        MonthView mv = mMonthViews.get(position);
+        return mv != null ? mv.getMonthAndYearString() : null;
     }
 
     public MonthView createMonthView(Context context) {

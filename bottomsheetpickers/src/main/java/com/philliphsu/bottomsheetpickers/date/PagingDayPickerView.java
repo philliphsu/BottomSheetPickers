@@ -539,18 +539,6 @@ class PagingDayPickerView extends ViewPager implements OnDateChangedListener/*, 
         return true;
     }
 
-    // TODO: Reimplement method after we change the super class to a different VG,
-    // and remove the call to super.
-//    @Override
-//    public void onPageScrolled(int position, float offset, int offsetPixels) {
-//        super.onPageScrolled(position, offset, offsetPixels);
-//        if (offset > 0.5f) {
-//            // TODO: Pass callback to update month year title by +1.
-//        } else {
-//            // TODO: Pass callback to update month year title by -1.
-//        }
-//    }
-
     private final OnPageChangeListener mOnPageChangeListener = new OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -559,12 +547,7 @@ class PagingDayPickerView extends ViewPager implements OnDateChangedListener/*, 
 
         @Override
         public void onPageSelected(int position) {
-            if (mPreviousPageSelection >= 0) {
-                int offset = position - mPreviousPageSelection;
-                mTempDay.add(Calendar.MONTH, offset);
-                mController.onMonthViewChanged(mTempDay.year, mTempDay.month);
-            }
-            mPreviousPageSelection = position;
+            mController.onMonthViewChanged(getAdapter().getPageTitle(position));
         }
 
         @Override
@@ -572,19 +555,4 @@ class PagingDayPickerView extends ViewPager implements OnDateChangedListener/*, 
 
         }
     };
-
-//    @Override
-//    public void onPageSelected(int position) {
-//        if (mPreviousPageSelection >= 0) {
-//            int offset = position - mPreviousPageSelection;
-//            mTempDay.add(Calendar.MONTH, offset);
-//            mController.onMonthViewChanged(mTempDay.year, mTempDay.month);
-//        }
-//        mPreviousPageSelection = position;
-//    }
-//
-//    @Override
-//    public void onPageScrollStateChanged(int state) {
-//
-//    }
 }

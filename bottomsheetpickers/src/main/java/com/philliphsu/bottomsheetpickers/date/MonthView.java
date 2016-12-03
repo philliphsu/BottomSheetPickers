@@ -49,6 +49,7 @@ import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import static android.support.v4.content.ContextCompat.getColor;
 
@@ -140,9 +141,7 @@ public abstract class MonthView extends View {
     protected Paint mSelectedCirclePaint;
     protected Paint mMonthDayLabelPaint;
 
-    @Deprecated
     private final Formatter mFormatter;
-    @Deprecated
     private final StringBuilder mStringBuilder;
 
     // The Julian day of the first day displayed by this item
@@ -197,6 +196,8 @@ public abstract class MonthView extends View {
     protected int mMonthTitleBGColor;
     protected int mSelectedDayTextColor;
     protected int mMonthDayLabelTextColor;
+
+    private String mMonthTitle;
 
     private static SimpleDateFormat sMonthDayLabelFormat;
 
@@ -466,17 +467,16 @@ public abstract class MonthView extends View {
         return MONTH_HEADER_SIZE;
     }
 
-    /**
-     * @deprecated MonthView should not display this title anymore.
-     */
-    @Deprecated
-    private String getMonthAndYearString() {
-        int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
-                | DateUtils.FORMAT_NO_MONTH_DAY;
-        mStringBuilder.setLength(0);
-        long millis = mCalendar.getTimeInMillis();
-        return DateUtils.formatDateRange(getContext(), mFormatter, millis, millis, flags,
-                Time.getCurrentTimezone()).toString();
+    String getMonthAndYearString() {
+        if (mMonthTitle == null) {
+            int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
+                    | DateUtils.FORMAT_NO_MONTH_DAY;
+            mStringBuilder.setLength(0);
+            long millis = mCalendar.getTimeInMillis();
+            mMonthTitle = DateUtils.formatDateRange(getContext(), mFormatter, millis, millis, flags,
+                    TimeZone.getDefault().getID()).toString();
+        }
+        return mMonthTitle;
     }
 
     protected void drawMonthTitle(Canvas canvas) {
