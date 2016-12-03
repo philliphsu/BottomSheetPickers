@@ -22,11 +22,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.LinearLayout;
 
 import com.philliphsu.bottomsheetpickers.Utils;
 import com.philliphsu.bottomsheetpickers.date.DatePickerDialog.OnDateChangedListener;
@@ -36,11 +38,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+
 /**
  * This displays a ViewPager of months in a calendar format with selectable days.
  */
 // TODO: This needs to be a LinearLayout, or some other ViewGroup--not only a ViewPager. This is because the navigation bar is only present in the day picker, not the year picker too.
-class PagingDayPickerView extends ViewPager implements OnDateChangedListener/*, OnPageChangeListener*/ {
+class PagingDayPickerView extends LinearLayout implements OnDateChangedListener {
 
     private static final String TAG = "MonthFragment";
 
@@ -75,6 +79,9 @@ class PagingDayPickerView extends ViewPager implements OnDateChangedListener/*, 
 
     // highlighted time
     protected CalendarDay mSelectedDay = new CalendarDay();
+
+    // TODO: Move the navigation bar from BotSheetDatePickerDialog here.
+    private ViewPager mViewPager;
     protected PagingMonthAdapter mAdapter;
 
     protected CalendarDay mTempDay = new CalendarDay();
@@ -90,8 +97,6 @@ class PagingDayPickerView extends ViewPager implements OnDateChangedListener/*, 
     // TODO: Delete, related to LIstView.
 //    // used for tracking during a scroll
 //    protected long mPreviousScrollPosition;
-    protected int mPreviousPageSelection = -1;
-
 //    // used for tracking what state listview is in
 //    protected int mPreviousScrollState = OnScrollListener.SCROLL_STATE_IDLE;
 //    // used for tracking what state listview is in
@@ -129,12 +134,12 @@ class PagingDayPickerView extends ViewPager implements OnDateChangedListener/*, 
 
     public void init(Context context) {
         mHandler = new Handler();
-        setLayoutParams(new LayoutParams()); // sets width and height to MATCH_PARENT
+        setLayoutParams(new LayoutParams(MATCH_PARENT, MATCH_PARENT));
 //        setDrawSelectorOnTop(false);  // TODO: Delete? Don't think there's a proper replacement.
 
         mContext = context;
         // TODO: Set the adapter and related initialization.
-        this/*mViewPager*/.addOnPageChangeListener(mOnPageChangeListener);
+        mViewPager.addOnPageChangeListener(mOnPageChangeListener);
 //        setUpListView(); // TODO: Delete?
     }
 
@@ -157,7 +162,7 @@ class PagingDayPickerView extends ViewPager implements OnDateChangedListener/*, 
             mAdapter.setSelectedDay(mSelectedDay);
         }
         // refresh the view with the new parameters
-        setAdapter(mAdapter);
+        mViewPager.setAdapter(mAdapter);
     }
 
     public PagingMonthAdapter createMonthAdapter(Context context,
@@ -236,7 +241,7 @@ class PagingDayPickerView extends ViewPager implements OnDateChangedListener/*, 
         int selectedPosition;
         if (child != null) {
             // TODO: Verify this is an appropriate replacement.
-            selectedPosition = /*getPositionForView(child);*/ getAdapter().getItemPosition(child);
+            selectedPosition = /*getPositionForView(child);*/ mAdapter.getItemPosition(child);
         } else {
             selectedPosition = 0;
         }
@@ -257,7 +262,7 @@ class PagingDayPickerView extends ViewPager implements OnDateChangedListener/*, 
 //                smoothScrollToPositionFromTop(
 //                        position, LIST_TOP_OFFSET, GOTO_SCROLL_DURATION);
                 // TODO: Verify this is an appropriate replacement.
-                setCurrentItem(position, true);
+                mViewPager.setCurrentItem(position, true);
                 return true;
             } else {
                 postSetSelection(position);
@@ -274,7 +279,7 @@ class PagingDayPickerView extends ViewPager implements OnDateChangedListener/*, 
 
             @Override
             public void run() {
-                setCurrentItem(position, false);
+                mViewPager.setCurrentItem(position, false);
             }
         });
 //        onScrollStateChanged(this, OnScrollListener.SCROLL_STATE_IDLE);
@@ -547,7 +552,7 @@ class PagingDayPickerView extends ViewPager implements OnDateChangedListener/*, 
 
         @Override
         public void onPageSelected(int position) {
-            mController.onMonthViewChanged(getAdapter().getPageTitle(position));
+            mController.onMonthViewChanged(mAdapter.getPageTitle(position));
         }
 
         @Override
