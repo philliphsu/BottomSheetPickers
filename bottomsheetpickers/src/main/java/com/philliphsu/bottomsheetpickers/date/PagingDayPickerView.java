@@ -29,9 +29,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
@@ -48,7 +48,7 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
  * This displays a ViewPager of months in a calendar format with selectable days.
  */
 // TODO: This needs to be a LinearLayout, or some other ViewGroup--not only a ViewPager. This is because the navigation bar is only present in the day picker, not the year picker too.
-class PagingDayPickerView extends LinearLayout implements OnDateChangedListener {
+class PagingDayPickerView extends LinearLayout implements OnDateChangedListener, OnPageChangeListener {
 
     private static final String TAG = "MonthFragment";
 
@@ -78,16 +78,14 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener 
     // These affect the scroll speed and feel
 //    protected float mFriction = 1.0f;
 
-    protected Context mContext;
     protected Handler mHandler;
 
     // highlighted time
     protected CalendarDay mSelectedDay = new CalendarDay();
     protected PagingMonthAdapter mAdapter;
 
-    // TODO: Move the navigation bar from BotSheetDatePickerDialog here.
     private ViewPager mViewPager;
-    private TextView mMonthYearTitleView;
+    private Button mMonthYearTitleView;
     private ImageButton mPreviousButton;
     private ImageButton mNextButton;
 
@@ -145,12 +143,10 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener 
         setLayoutParams(new LayoutParams(MATCH_PARENT, MATCH_PARENT));
 //        setDrawSelectorOnTop(false);  // TODO: Delete? Don't think there's a proper replacement.
 
-        mContext = context;
         final View view = LayoutInflater.from(context).inflate(R.layout.day_picker_content, this, true);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        // TODO: Set the adapter and related initialization.
-        mViewPager.addOnPageChangeListener(mOnPageChangeListener);
-        mMonthYearTitleView = (TextView) view.findViewById(R.id.month_year_title);
+        mViewPager.addOnPageChangeListener(this);
+        mMonthYearTitleView = (Button) view.findViewById(R.id.month_year_title);
         mMonthYearTitleView.setOnClickListener(null); // TODO
         mPreviousButton = (ImageButton) view.findViewById(R.id.prev);
         mPreviousButton.setOnClickListener(null); // TODO
@@ -162,7 +158,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        mViewPager.removeOnPageChangeListener(mOnPageChangeListener);
+        mViewPager.removeOnPageChangeListener(this);
     }
 
     void setTheme(Context context, boolean themeDark) {
@@ -570,21 +566,18 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener 
         return mViewPager.getCurrentItem();
     }
 
-    private final OnPageChangeListener mOnPageChangeListener = new OnPageChangeListener() {
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-        }
+    }
 
-        @Override
-        public void onPageSelected(int position) {
-            Log.d(TAG, "onPageSelected()");
-            mMonthYearTitleView.setText(mAdapter.getPageTitle(position));
-        }
+    @Override
+    public void onPageSelected(int position) {
+        mMonthYearTitleView.setText(mAdapter.getPageTitle(position));
+    }
 
-        @Override
-        public void onPageScrollStateChanged(int state) {
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
-        }
-    };
+    }
 }

@@ -17,6 +17,8 @@
 package com.philliphsu.bottomsheetpickers.date;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.util.SparseArray;
 import android.view.View;
@@ -36,10 +38,13 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
     private static final String TAG = "SimpleMonthAdapter";
 
+    private static final String KEY_POSITIONS = "positions";
+    private static final String KEY_MONTH_YEAR_TITLES = "month_year_titles";
+
     private final Context mContext;
-    protected final DatePickerController mController;
     private final boolean mThemeDark;
-    private final SparseArray<MonthView> mMonthViews = new SparseArray<>();
+    private final SparseArray<String> mMonthYearTitles = new SparseArray<>();
+    protected final DatePickerController mController;
 
     private CalendarDay mSelectedDay;
 
@@ -126,20 +131,54 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
         v.setMonthParams(drawingParams);
         v.invalidate();
         container.addView(v, new LayoutParams(MATCH_PARENT, MATCH_PARENT));
-        mMonthViews.append(position, v);
+        mMonthYearTitles.append(position, v.getMonthAndYearString());
         return v;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
-        mMonthViews.delete(position);
+        mMonthYearTitles.delete(position);
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        MonthView mv = mMonthViews.get(position);
-        return mv != null ? mv.getMonthAndYearString() : null;
+        return mMonthYearTitles.get(position);
+    }
+
+    @Override
+    public Parcelable saveState() {
+        Bundle state = null;
+        final int size = mMonthYearTitles.size();
+        if (size > 0) {
+            state = new Bundle();
+            String[] titles = new String[size];
+            int[] positions = new int[size];
+            for (int i = 0; i < size; i++) {
+                titles[i] = mMonthYearTitles.valueAt(i);
+                positions[i] = mMonthYearTitles.keyAt(i);
+            }
+            state.putStringArray(KEY_MONTH_YEAR_TITLES, titles);
+            state.putIntArray(KEY_POSITIONS, positions);
+        }
+        return state;
+    }
+
+    @Override
+    public void restoreState(Parcelable state, ClassLoader loader) {
+        if (state != null) {
+            Bundle bundle = (Bundle)state;
+            bundle.setClassLoader(loader);
+            String[] titles = bundle.getStringArray(KEY_MONTH_YEAR_TITLES);
+            int[] positions = bundle.getIntArray(KEY_POSITIONS);
+            mMonthYearTitles.clear();
+            if (titles != null && positions != null) {
+                // Both arrays should be the same size, so use either length.
+                for (int i = 0; i < titles.length; i++) {
+                    mMonthYearTitles.append(positions[i], titles[i]);
+                }
+            }
+        }
     }
 
     public MonthView createMonthView(Context context) {

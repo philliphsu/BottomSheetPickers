@@ -28,9 +28,7 @@
         android:nextFocusForward="@+id/next"
         android:nextFocusDown="@+id/month_view"
         android:textSize="16sp"
-        android:textStyle="bold"
         android:textAllCaps="false"
-        android:text="April 2017"
         style="@style/Widget.AppCompat.Button.Borderless"/>
 
     <ImageButton
