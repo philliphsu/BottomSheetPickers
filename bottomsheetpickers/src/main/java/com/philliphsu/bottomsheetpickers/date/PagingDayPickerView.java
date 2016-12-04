@@ -21,6 +21,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
@@ -125,8 +126,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     public PagingDayPickerView(Context context, DatePickerController controller, boolean themeDark) {
         super(context);
+        mThemeDark = themeDark;  // keep this before init()
         init(context);
-        mThemeDark = themeDark;
         setController(controller);
     }
 
@@ -168,7 +169,11 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 }
             }
         });
-//        setUpListView(); // TODO: Delete?
+
+        // Set up colors.
+        int monthYearTitleColor = ContextCompat.getColor(context, mThemeDark?
+                R.color.text_color_primary_dark : R.color.text_color_primary_light);
+        mMonthYearTitleView.setTextColor(monthYearTitleColor);
     }
 
     @Override
