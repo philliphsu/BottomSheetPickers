@@ -176,6 +176,9 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
             Utils.setColorControlHighlight(mPreviousButton, selectableItemBg);
             Utils.setColorControlHighlight(mNextButton, selectableItemBg);
             Utils.setColorControlHighlight(mMonthYearTitleView, selectableItemBg);
+            int cursor = getColor(context, R.color.text_color_secondary_dark);
+            Utils.applyTint(mPreviousButton, cursor);
+            Utils.applyTint(mNextButton, cursor);
         }
 
         // Set up colors.

@@ -290,4 +290,10 @@ public class Utils {
             a.recycle();
         }
     }
+
+    public static void applyTint(ImageView view, @ColorInt int color) {
+        Drawable drawable = view.getDrawable();
+        setTint(drawable, color);
+        view.setImageDrawable(drawable);
+    }
 }

@@ -17,13 +17,10 @@
 package com.philliphsu.bottomsheetpickers.time.grid;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
@@ -91,15 +88,9 @@ public class MinutesGrid extends NumbersGrid {
         super.setTheme(context, themeDark);
         if (!themeDark) {
             final int colorActiveLight = ContextCompat.getColor(context, R.color.icon_color_active_light);
-            applyTint(mMinusButton, colorActiveLight);
-            applyTint(mPlusButton, colorActiveLight);
+            Utils.applyTint(mMinusButton, colorActiveLight);
+            Utils.applyTint(mPlusButton, colorActiveLight);
         }
     }
 
-    // TODO: Consider moving this to Utils.
-    private static void applyTint(ImageView view, @ColorInt int color) {
-        Drawable drawable = view.getDrawable();
-        Utils.setTint(drawable, color);
-        view.setImageDrawable(drawable);
-    }
 }
