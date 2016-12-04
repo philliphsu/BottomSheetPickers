@@ -60,6 +60,9 @@ import static android.support.v4.content.ContextCompat.getColor;
 public abstract class MonthView extends View {
     private static final String TAG = "MonthView";
 
+    /** Whether the month-year title should be drawn by this view. For debugging purposes. */
+    private static final boolean DRAW_TITLE = false;
+
     /**
      * These params can be passed into the view to control how it appears.
      * {@link #VIEW_PARAMS_WEEK} is the only required field, though the default
@@ -348,7 +351,9 @@ public abstract class MonthView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        drawMonthTitle(canvas);
+        if (DRAW_TITLE) {
+            drawMonthTitle(canvas);
+        }
         drawMonthDayLabels(canvas);
         drawMonthNums(canvas);
     }
@@ -464,7 +469,7 @@ public abstract class MonthView extends View {
      * A wrapper to the MonthHeaderSize to allow override it in children
      */
     protected int getMonthHeaderSize() {
-        return MONTH_HEADER_SIZE;
+        return DRAW_TITLE ? MONTH_HEADER_SIZE : (int) (0.5 * MONTH_HEADER_SIZE);
     }
 
     String getMonthAndYearString() {
