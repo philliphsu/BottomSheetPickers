@@ -21,7 +21,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
@@ -43,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static android.support.v4.content.ContextCompat.getColor;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
@@ -170,8 +170,16 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
             }
         });
 
+        // Theme-specific configurations.
+        if (mThemeDark) {
+            int selectableItemBg = getColor(context, R.color.selectable_item_background_dark);
+            Utils.setColorControlHighlight(mPreviousButton, selectableItemBg);
+            Utils.setColorControlHighlight(mNextButton, selectableItemBg);
+            Utils.setColorControlHighlight(mMonthYearTitleView, selectableItemBg);
+        }
+
         // Set up colors.
-        int monthYearTitleColor = ContextCompat.getColor(context, mThemeDark?
+        int monthYearTitleColor = getColor(context, mThemeDark?
                 R.color.text_color_primary_dark : R.color.text_color_primary_light);
         mMonthYearTitleView.setTextColor(monthYearTitleColor);
     }
