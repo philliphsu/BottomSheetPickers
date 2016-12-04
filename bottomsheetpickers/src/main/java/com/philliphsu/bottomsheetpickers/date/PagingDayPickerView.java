@@ -149,9 +149,25 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         mMonthYearTitleView = (Button) view.findViewById(R.id.month_year_title);
         mMonthYearTitleView.setOnClickListener(null); // TODO
         mPreviousButton = (ImageButton) view.findViewById(R.id.prev);
-        mPreviousButton.setOnClickListener(null); // TODO
+        mPreviousButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int previousItem = mViewPager.getCurrentItem() - 1;
+                if (previousItem >= 0) {
+                    mViewPager.setCurrentItem(previousItem, true);
+                }
+            }
+        });
         mNextButton = (ImageButton) view.findViewById(R.id.next);
-        mNextButton.setOnClickListener(null); // TODO
+        mNextButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int nextItem = mViewPager.getCurrentItem() + 1;
+                if (nextItem < mAdapter.getCount()) {
+                    mViewPager.setCurrentItem(nextItem, true);
+                }
+            }
+        });
 //        setUpListView(); // TODO: Delete?
     }
 
@@ -574,6 +590,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     @Override
     public void onPageSelected(int position) {
         mMonthYearTitleView.setText(mAdapter.getPageTitle(position));
+        mPreviousButton.setVisibility(position > 0 ? VISIBLE : INVISIBLE);
+        mNextButton.setVisibility(position + 1 < mAdapter.getCount() ? VISIBLE : INVISIBLE);
     }
 
     @Override
