@@ -47,6 +47,7 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
     protected final DatePickerController mController;
 
     private CalendarDay mSelectedDay;
+    private MonthView mCurrentPrimaryItem;
 
     protected static int WEEK_7_OVERHANG_HEIGHT = 7;
     protected static final int MONTHS_IN_YEAR = 12;
@@ -73,7 +74,11 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
      */
     public void setSelectedDay(CalendarDay day) {
         mSelectedDay = day;
-        notifyDataSetChanged();
+        notifyDataSetChanged(); // this doesn't seem to refresh the views
+        if (mCurrentPrimaryItem != null) {
+            mCurrentPrimaryItem.setSelectedDay(day.day);
+            mCurrentPrimaryItem.invalidate();
+        }
     }
 
     public CalendarDay getSelectedDay() {
@@ -118,11 +123,9 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
             selectedDay = mSelectedDay.day;
         }
 
-        // This method is instantiateItem(), so there is no recycling going on.
-        // TODO: Verify that we can delete this.
 //        // Invokes requestLayout() to ensure that the recycled view is set with the appropriate
 //        // height/number of weeks before being displayed.
-//        v.reuse();
+        v.reuse();
 
         drawingParams.put(MonthView.VIEW_PARAMS_SELECTED_DAY, selectedDay);
         drawingParams.put(MonthView.VIEW_PARAMS_YEAR, year);
@@ -139,6 +142,11 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
         mMonthYearTitles.delete(position);
+    }
+
+    @Override
+    public void setPrimaryItem(ViewGroup container, int position, Object object) {
+        mCurrentPrimaryItem = (MonthView) object;
     }
 
     @Override
