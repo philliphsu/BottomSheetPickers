@@ -28,6 +28,7 @@ import android.view.ViewGroup.LayoutParams;
 import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
 import com.philliphsu.bottomsheetpickers.date.MonthView.OnDayClickListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -44,6 +45,7 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
     private final Context mContext;
     private final boolean mThemeDark;
     private final SparseArray<String> mMonthYearTitles = new SparseArray<>();
+    private final ArrayList<MonthView> mMonthViews = new ArrayList<>();
     protected final DatePickerController mController;
 
     private CalendarDay mSelectedDay;
@@ -74,10 +76,16 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
      */
     public void setSelectedDay(CalendarDay day) {
         mSelectedDay = day;
-        notifyDataSetChanged(); // this doesn't seem to refresh the views
-        if (mCurrentPrimaryItem != null) {
-            mCurrentPrimaryItem.setSelectedDay(day.day);
-            mCurrentPrimaryItem.invalidate();
+        notifyDataSetChanged(); // This won't refresh our views!
+        // In the ListView-based day picker, notifyDataSetChanged() would have refreshed this
+        // adapter's contents, so instantiateItem() is called again on the entire data set.
+        // This would have called each MonthView's setMonthParams() with the correct value for the
+        // selectedDay (either -1 or the actual selected day if the selection is in that month)
+        // and invalidate(). However, PagerAdapter's implementation of notifyDataSetChanged()
+        // won't do all this for us, so we have to manually do it.
+        for (MonthView mv : mMonthViews) {
+            mv.setSelectedDay(mv == mCurrentPrimaryItem ? day.day : -1);
+            mv.invalidate();
         }
     }
 
@@ -135,6 +143,7 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
         v.invalidate();
         container.addView(v, new LayoutParams(MATCH_PARENT, MATCH_PARENT));
         mMonthYearTitles.append(position, v.getMonthAndYearString());
+        mMonthViews.add(v);
         return v;
     }
 
@@ -142,6 +151,7 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
         mMonthYearTitles.delete(position);
+        mMonthViews.remove(object);
     }
 
     @Override
