@@ -114,8 +114,8 @@ public abstract class MonthView extends View {
     protected static final int DEFAULT_NUM_DAYS = 7;
     protected static final int DEFAULT_SHOW_WK_NUM = 0;
     protected static final int DEFAULT_FOCUS_MONTH = -1;
-    protected static final int DEFAULT_NUM_ROWS = 6;
-    protected static final int MAX_NUM_ROWS = 6;
+    protected static final int DEFAULT_NUM_ROWS = 6+1;
+    protected static final int MAX_NUM_ROWS = 6+1;
 
     // TODO: If we're keeping 255, then delete this.
     private static final int SELECTED_CIRCLE_ALPHA = 255;
@@ -233,11 +233,12 @@ public abstract class MonthView extends View {
         MINI_DAY_NUMBER_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.day_number_size);
         MONTH_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.month_label_size);
         MONTH_DAY_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.month_day_label_text_size);
-        MONTH_HEADER_SIZE = res.getDimensionPixelOffset(R.dimen.month_list_item_header_height);
+        MONTH_HEADER_SIZE = res.getDimensionPixelOffset(DRAW_TITLE ?
+                R.dimen.month_list_item_header_height : R.dimen.month_list_item_header_height_no_title);
         DAY_SELECTED_CIRCLE_SIZE = res.getDimensionPixelSize(R.dimen.day_number_select_circle_radius);
 
         mRowHeight = (res.getDimensionPixelOffset(R.dimen.date_picker_view_animator_height)
-                - getMonthHeaderSize()) / (MAX_NUM_ROWS + 1);
+                - getMonthHeaderSize()) / MAX_NUM_ROWS;
         mEdgePadding = res.getDimensionPixelSize(R.dimen.month_view_edge_padding);
 
         // Set up accessibility components.
@@ -434,7 +435,7 @@ public abstract class MonthView extends View {
         int offset = findDayOffset();
         int dividend = (offset + mNumCells) / mNumDays;
         int remainder = (offset + mNumCells) % mNumDays;
-        return (dividend + (remainder > 0 ? 1 : 0));
+        return (dividend + (remainder > 0 ? 1 : 0) + 1);
     }
 
     private boolean sameDay(int day, Time today) {
@@ -469,7 +470,7 @@ public abstract class MonthView extends View {
      * A wrapper to the MonthHeaderSize to allow override it in children
      */
     protected int getMonthHeaderSize() {
-        return DRAW_TITLE ? MONTH_HEADER_SIZE : MONTH_HEADER_SIZE / 2;
+        return MONTH_HEADER_SIZE;
     }
 
     String getMonthAndYearString() {

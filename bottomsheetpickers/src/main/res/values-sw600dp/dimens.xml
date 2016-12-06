@@ -25,6 +25,7 @@
     <dimen name="selected_calendar_layout_height">150dp</dimen>
     <dimen name="date_picker_header_height">45dp</dimen>
     <dimen name="month_list_item_header_height">75dp</dimen>
+    <dimen name="month_list_item_header_height_no_title">45dp</dimen>
     <dimen name="month_list_item_padding">24dp</dimen>
     <dimen name="day_number_select_circle_radius">24dp</dimen>
     <dimen name="month_select_circle_radius">36dp</dimen>
