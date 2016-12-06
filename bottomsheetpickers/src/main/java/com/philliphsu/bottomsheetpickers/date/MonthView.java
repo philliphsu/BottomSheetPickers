@@ -237,7 +237,7 @@ public abstract class MonthView extends View {
         DAY_SELECTED_CIRCLE_SIZE = res.getDimensionPixelSize(R.dimen.day_number_select_circle_radius);
 
         mRowHeight = (res.getDimensionPixelOffset(R.dimen.date_picker_view_animator_height)
-                - getMonthHeaderSize()) / MAX_NUM_ROWS;
+                - getMonthHeaderSize()) / (MAX_NUM_ROWS + 1);
         mEdgePadding = res.getDimensionPixelSize(R.dimen.month_view_edge_padding);
 
         // Set up accessibility components.
