@@ -114,8 +114,8 @@ public abstract class MonthView extends View {
     protected static final int DEFAULT_NUM_DAYS = 7;
     protected static final int DEFAULT_SHOW_WK_NUM = 0;
     protected static final int DEFAULT_FOCUS_MONTH = -1;
-    protected static final int DEFAULT_NUM_ROWS = 6+1;
-    protected static final int MAX_NUM_ROWS = 6+1;
+    protected static final int DEFAULT_NUM_ROWS = 6;
+    protected static final int MAX_NUM_ROWS = 6;
 
     // TODO: If we're keeping 255, then delete this.
     private static final int SELECTED_CIRCLE_ALPHA = 255;
@@ -126,6 +126,7 @@ public abstract class MonthView extends View {
     protected static int MONTH_DAY_LABEL_TEXT_SIZE;
     protected static int MONTH_HEADER_SIZE;
     protected static int DAY_SELECTED_CIRCLE_SIZE;
+    protected static int MONTH_NAVIGATION_BAR_SIZE;
 
     // used for scaling to the device density
     protected static float mScale = 0;
@@ -236,9 +237,11 @@ public abstract class MonthView extends View {
         MONTH_HEADER_SIZE = res.getDimensionPixelOffset(DRAW_TITLE ?
                 R.dimen.month_list_item_header_height : R.dimen.month_list_item_header_height_no_title);
         DAY_SELECTED_CIRCLE_SIZE = res.getDimensionPixelSize(R.dimen.day_number_select_circle_radius);
+        MONTH_NAVIGATION_BAR_SIZE = res.getDimensionPixelOffset(R.dimen.month_navigation_bar_height)
+                + res.getDimensionPixelOffset(R.dimen.month_view_top_padding);
 
         mRowHeight = (res.getDimensionPixelOffset(R.dimen.date_picker_view_animator_height)
-                - getMonthHeaderSize()) / MAX_NUM_ROWS;
+                - getMonthHeaderSize() - getMonthNavigationBarSize()) / MAX_NUM_ROWS;
         mEdgePadding = res.getDimensionPixelSize(R.dimen.month_view_edge_padding);
 
         // Set up accessibility components.
@@ -435,7 +438,7 @@ public abstract class MonthView extends View {
         int offset = findDayOffset();
         int dividend = (offset + mNumCells) / mNumDays;
         int remainder = (offset + mNumCells) % mNumDays;
-        return (dividend + (remainder > 0 ? 1 : 0) + 1);
+        return (dividend + (remainder > 0 ? 1 : 0));
     }
 
     private boolean sameDay(int day, Time today) {
@@ -447,7 +450,7 @@ public abstract class MonthView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), mRowHeight * mNumRows
-                + getMonthHeaderSize());
+                + getMonthHeaderSize() + getMonthNavigationBarSize());
     }
 
     @Override
@@ -471,6 +474,10 @@ public abstract class MonthView extends View {
      */
     protected int getMonthHeaderSize() {
         return MONTH_HEADER_SIZE;
+    }
+
+    private int getMonthNavigationBarSize() {
+        return MONTH_NAVIGATION_BAR_SIZE;
     }
 
     String getMonthAndYearString() {
