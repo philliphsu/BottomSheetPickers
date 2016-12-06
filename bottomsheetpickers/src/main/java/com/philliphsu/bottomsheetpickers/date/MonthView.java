@@ -469,7 +469,7 @@ public abstract class MonthView extends View {
      * A wrapper to the MonthHeaderSize to allow override it in children
      */
     protected int getMonthHeaderSize() {
-        return DRAW_TITLE ? MONTH_HEADER_SIZE : (int) (0.5 * MONTH_HEADER_SIZE);
+        return DRAW_TITLE ? MONTH_HEADER_SIZE : MONTH_HEADER_SIZE / 2;
     }
 
     String getMonthAndYearString() {
