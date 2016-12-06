@@ -492,11 +492,11 @@ public abstract class MonthView extends View {
 
     protected void drawMonthDayLabels(Canvas canvas) {
         int y = getMonthHeaderSize() - (MONTH_DAY_LABEL_TEXT_SIZE / 2);
-        int dayWidthHalf = (mWidth - mEdgePadding * 2) / (mNumDays * 2);
+        float dayWidthHalf = (mWidth - mEdgePadding * 2) / (mNumDays * 2.0f);
 
         for (int i = 0; i < mNumDays; i++) {
             int calendarDay = (i + mWeekStart) % mNumDays;
-            int x = (2 * i + 1) * dayWidthHalf + mEdgePadding;
+            int x = (int) ((2 * i + 1) * dayWidthHalf + mEdgePadding);
             mDayLabelCalendar.set(Calendar.DAY_OF_WEEK, calendarDay);
             canvas.drawText(getDayOfWeekString(mDayLabelCalendar), x, y, mMonthDayLabelPaint);
         }
