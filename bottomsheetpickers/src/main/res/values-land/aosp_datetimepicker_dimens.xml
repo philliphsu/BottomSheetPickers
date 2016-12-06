@@ -26,4 +26,6 @@
 
     <!-- (318dp default portrait height) - (72dp footer area) = 246dp -->
     <dimen name="date_picker_view_animator_height">246dp</dimen>
+    <dimen name="month_view_edge_padding">18dp</dimen>
+    <dimen name="month_view_top_padding">0dp</dimen>
 </resources>
