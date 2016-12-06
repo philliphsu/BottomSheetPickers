@@ -30,4 +30,8 @@
     <dimen name="footer_height">48dip</dimen>
     <dimen name="left_side_width">315dip</dimen>
 
+    <!-- NOT FINAL, DEFAULT PORTRAIT HEIGHT COULD CHANGE!
+        (393dp default portrait height) - (64 dp footer area height) = 329dp -->
+    <dimen name="date_picker_view_animator_height">329dp</dimen>
+
 </resources>

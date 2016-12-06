@@ -21,6 +21,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <dimen name="date_picker_component_width">400dp</dimen>
+    <!-- Rough measurements, NOT verified! You may even want to increase some individual dimens.
+        393dp: (6 rows) * ((2 * 24dp day_number_select_circle_radius) row height)
+             + (45dp month_list_item_header_height_no_title)
+             + (12dp month_view_top_padding) + (48dp month_navigation_bar_height). -->
     <dimen name="date_picker_view_animator_height">400dp</dimen>
     <dimen name="selected_calendar_layout_height">150dp</dimen>
     <dimen name="date_picker_header_height">45dp</dimen>
@@ -54,5 +58,7 @@
 
     <dimen name="fab_margin">64dp</dimen>
     <dimen name="peek_height_upper_limit">1000dp</dimen>
+
+    <dimen name="month_view_top_padding">12dp</dimen>
 
 </resources>
