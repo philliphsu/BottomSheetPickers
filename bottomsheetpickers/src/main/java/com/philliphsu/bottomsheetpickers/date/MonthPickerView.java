@@ -89,7 +89,6 @@ final class MonthPickerView extends View {
         
         // Sets up any standard paints that will be used
         initView();
-        initialize(1, 7, 2016);
     }
 
     /**
@@ -264,11 +263,9 @@ final class MonthPickerView extends View {
             // Out of edge boundaries
             return -1;
         }
-        // Selection is (x - start) / (pixels/month) == (x -s) * month / pixels
         int row = (int) (y / mRowHeight);
-//        int column = (int) ((x - monthStart) * NUM_COLUMNS / (mWidth - mEdgePadding * 2));
-        // TODO: Verify the commented lines work.
-        int column = (int) (x * NUM_COLUMNS / (mWidth - mEdgePadding * 2));
+        // Selection is (x - start) / (pixels/month) == (x -s) * month / pixels
+        int column = (int) ((x - monthStart) * NUM_COLUMNS / (mWidth - mEdgePadding * 2));
 
         int month = column;
         month += row * NUM_COLUMNS;
