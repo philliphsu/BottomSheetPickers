@@ -18,6 +18,7 @@ package com.philliphsu.bottomsheetpickers.date;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -123,6 +124,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     private boolean mThemeDark;
 
+    static int MONTH_NAVIGATION_BAR_SIZE;
+
     public PagingDayPickerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
@@ -151,6 +154,10 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         setOrientation(VERTICAL);
         setLayoutParams(new LayoutParams(MATCH_PARENT, MATCH_PARENT));
 //        setDrawSelectorOnTop(false);  // TODO: Delete? Don't think there's a proper replacement.
+
+        Resources res = getResources();
+//        MONTH_NAVIGATION_BAR_SIZE = res.getDimensionPixelOffset(R.dimen.month_navigation_bar_height)
+//                + res.getDimensionPixelOffset(R.dimen.month_view_top_padding);
 
         final View view = LayoutInflater.from(context).inflate(R.layout.day_picker_content, this, true);
         mMonthAnimator = (ViewAnimator) findViewById(R.id.month_animator);
