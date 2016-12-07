@@ -30,8 +30,10 @@ import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ViewAnimator;
 
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
@@ -85,7 +87,9 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     protected CalendarDay mSelectedDay = new CalendarDay();
     protected PagingMonthAdapter mAdapter;
 
+    private ViewAnimator mMonthAnimator;
     private ViewPager mViewPager;
+    private FrameLayout mMonthPickerView; // TODO: Change to correct type
     private Button mMonthYearTitleView;
     private ImageButton mPreviousButton;
     private ImageButton mNextButton;
@@ -145,10 +149,17 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 //        setDrawSelectorOnTop(false);  // TODO: Delete? Don't think there's a proper replacement.
 
         final View view = LayoutInflater.from(context).inflate(R.layout.day_picker_content, this, true);
+        mMonthAnimator = (ViewAnimator) findViewById(R.id.month_animator);
+        mMonthPickerView = (FrameLayout) findViewById(R.id.month_picker);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mViewPager.addOnPageChangeListener(this);
         mMonthYearTitleView = (Button) view.findViewById(R.id.month_year_title);
-        mMonthYearTitleView.setOnClickListener(null); // TODO
+        mMonthYearTitleView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMonthAnimator.setDisplayedChild(~mMonthAnimator.getDisplayedChild());
+            }
+        });
         mPreviousButton = (ImageButton) view.findViewById(R.id.prev);
         mPreviousButton.setOnClickListener(new OnClickListener() {
             @Override
