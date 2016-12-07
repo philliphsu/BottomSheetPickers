@@ -32,7 +32,7 @@
     <dimen name="month_list_item_header_height_no_title">45dp</dimen>
     <dimen name="month_list_item_padding">24dp</dimen>
     <dimen name="day_number_select_circle_radius">24dp</dimen>
-    <dimen name="month_select_circle_radius">36dp</dimen>
+    <dimen name="month_select_circle_radius">40dp</dimen>
     <dimen name="selected_date_year_size">45dp</dimen>
     <dimen name="selected_date_day_size">150dp</dimen>
     <dimen name="selected_date_month_size">45dp</dimen>
@@ -44,6 +44,7 @@
     <dimen name="month_label_size">24sp</dimen>
     <dimen name="day_number_size">24sp</dimen>
     <dimen name="month_day_label_text_size">15sp</dimen>
+    <dimen name="month_picker_month_label_size">30sp</dimen>
 
     <dimen name="time_label_size">75sp</dimen>
     <dimen name="extra_time_label_margin">-50dp</dimen>

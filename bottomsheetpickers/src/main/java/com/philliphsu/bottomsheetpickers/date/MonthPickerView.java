@@ -75,7 +75,7 @@ final class MonthPickerView extends View {
         mCurrentMonthTextColor = Utils.getThemeAccentColor(context);
         mDisabledMonthTextColor = getColor(context, R.color.text_color_disabled_light);
 
-        MONTH_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.month_label_size);
+        MONTH_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.month_picker_month_label_size);
         MONTH_SELECTED_CIRCLE_SIZE = res.getDimensionPixelSize(R.dimen.month_select_circle_radius);
 
         mRowHeight = (res.getDimensionPixelOffset(R.dimen.date_picker_view_animator_height)
