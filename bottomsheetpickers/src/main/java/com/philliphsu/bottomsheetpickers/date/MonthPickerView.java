@@ -126,6 +126,10 @@ final class MonthPickerView extends View {
         mDateRangeHelper = new DateRangeHelper(controller);
     }
 
+    public void setOnMonthClickListener(@Nullable OnMonthClickListener onMonthClickListener) {
+        mOnMonthClickListener = onMonthClickListener;
+    }
+
     void setTheme(Context context, boolean themeDark) {
         if (themeDark) {
             mNormalTextColor = getColor(context, R.color.text_color_primary_dark);
@@ -287,16 +291,12 @@ final class MonthPickerView extends View {
         }
 
         if (mOnMonthClickListener != null) {
+            // TODO: I don't think we need to pass back every single field.
             mOnMonthClickListener.onMonthClick(this, new MonthAdapter.CalendarDay(mYear, month, mDayOfMonth));
         }
 
         // This is a no-op if accessibility is turned off.
 //        mTouchHelper.sendEventForVirtualView(month, AccessibilityEvent.TYPE_VIEW_CLICKED);
-
-        // We can do this here instead of in an implementation of OnMonthClickListener,
-        // unlike in MonthView, because this view is static and not managed by an adapter.
-        setSelectedMonth(month);
-        invalidate();
     }
     
     interface OnMonthClickListener {

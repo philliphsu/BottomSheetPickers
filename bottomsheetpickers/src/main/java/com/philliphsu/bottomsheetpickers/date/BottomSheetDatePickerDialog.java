@@ -534,6 +534,17 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         updateDisplay(true);
     }
 
+    @Override
+    public void onMonthSelected(int month) {
+        adjustDayInMonthIfNeeded(month, mCalendar.get(Calendar.YEAR));
+        mCalendar.set(Calendar.MONTH, month);
+        updatePickers();
+        // Even though the MonthPickerView is already contained in this index,
+        // keep this call here for accessibility announcement of the new selection.
+        setCurrentView(MONTH_AND_DAY_VIEW);
+        updateDisplay(true);
+    }
+
     private void updatePickers() {
         Iterator<OnDateChangedListener> iterator = mListeners.iterator();
         while (iterator.hasNext()) {

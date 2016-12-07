@@ -39,6 +39,7 @@ import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
 import com.philliphsu.bottomsheetpickers.date.DatePickerDialog.OnDateChangedListener;
 import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
+import com.philliphsu.bottomsheetpickers.date.MonthPickerView.OnMonthClickListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -51,7 +52,7 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
  * This displays a ViewPager of months in a calendar format with selectable days.
  */
 // TODO: This needs to be a LinearLayout, or some other ViewGroup--not only a ViewPager. This is because the navigation bar is only present in the day picker, not the year picker too.
-class PagingDayPickerView extends LinearLayout implements OnDateChangedListener, OnPageChangeListener {
+class PagingDayPickerView extends LinearLayout implements OnDateChangedListener, OnPageChangeListener, OnMonthClickListener {
 
     private static final String TAG = "MonthFragment";
 
@@ -146,6 +147,9 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         mController.registerOnDateChangedListener(this);
         refreshAdapter();
         onDateChanged();
+        // keep this after onDateChanged() so that mSelectedDay is fully initialized
+        mMonthPickerView.setDatePickerController(mController);
+        mMonthPickerView.initialize(mSelectedDay.month, mSelectedDay.day, mSelectedDay.year);
     }
 
     private void init(Context context) {
@@ -161,6 +165,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         final View view = LayoutInflater.from(context).inflate(R.layout.day_picker_content, this, true);
         mMonthAnimator = (ViewAnimator) findViewById(R.id.month_animator);
         mMonthPickerView = (MonthPickerView) findViewById(R.id.month_picker);
+        mMonthPickerView.setOnMonthClickListener(this);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mViewPager.addOnPageChangeListener(this);
         mMonthYearTitleView = (Button) view.findViewById(R.id.month_year_title);
@@ -223,6 +228,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     public void onChange() {
         refreshAdapter();
+        refreshMonthPicker();
     }
 
     /**
@@ -237,6 +243,12 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         }
         // refresh the view with the new parameters
         mViewPager.setAdapter(mAdapter);
+    }
+
+    private void refreshMonthPicker() {
+        // TODO: Should we pass in the entire CalendarDay so that all values are updated?
+        mMonthPickerView.setSelectedMonth(mSelectedDay.month);
+        mMonthPickerView.invalidate();
     }
 
     public PagingMonthAdapter createMonthAdapter(Context context,
@@ -322,6 +334,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
         if (setSelected) {
             mAdapter.setSelectedDay(mSelectedDay);
+            refreshMonthPicker();
         }
 
         if (Log.isLoggable(TAG, Log.DEBUG)) {
@@ -675,5 +688,19 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 //                Utils.tryAccessibilityAnnounce(mAnimator, mSelectYear);
                 break;
         }
+    }
+
+    @Override
+    public void onMonthClick(MonthPickerView view, CalendarDay newDate) {
+        if (newDate != null) {
+            mController.tryVibrate();
+            mController.onMonthSelected(newDate.month);
+            // TODO: If the below comment is the case, then we don't need this too.
+            mMonthPickerView.setSelectedMonth(newDate.month);
+            // We don't need to call this because the next time we switch
+            // to the month picker, it will be setup with the current date.
+//            invalidate();
+        }
+        setCurrentView(DAY_PICKER_INDEX);
     }
 }
