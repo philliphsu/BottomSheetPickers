@@ -694,11 +694,6 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     public void onMonthClick(MonthPickerView view, int month) {
         mController.tryVibrate();
         mController.onMonthSelected(month);
-        // TODO: If the below comment is the case, then we don't need this too.
-        mMonthPickerView.setSelectedMonth(month);
-        // We don't need to call this because the next time we switch
-        // to the month picker, it will be setup with the current date.
-//        invalidate();
         setCurrentView(DAY_PICKER_INDEX);
     }
 }
