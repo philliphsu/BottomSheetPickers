@@ -691,16 +691,14 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     }
 
     @Override
-    public void onMonthClick(MonthPickerView view, CalendarDay newDate) {
-        if (newDate != null) {
-            mController.tryVibrate();
-            mController.onMonthSelected(newDate.month);
-            // TODO: If the below comment is the case, then we don't need this too.
-            mMonthPickerView.setSelectedMonth(newDate.month);
-            // We don't need to call this because the next time we switch
-            // to the month picker, it will be setup with the current date.
-//            invalidate();
-        }
+    public void onMonthClick(MonthPickerView view, int month) {
+        mController.tryVibrate();
+        mController.onMonthSelected(month);
+        // TODO: If the below comment is the case, then we don't need this too.
+        mMonthPickerView.setSelectedMonth(month);
+        // We don't need to call this because the next time we switch
+        // to the month picker, it will be setup with the current date.
+//        invalidate();
         setCurrentView(DAY_PICKER_INDEX);
     }
 }
