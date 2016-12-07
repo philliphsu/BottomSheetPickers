@@ -31,7 +31,6 @@ import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ViewAnimator;
@@ -73,6 +72,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     // The number of days to display in each week
     public static final int DAYS_PER_WEEK = 7;
 
+    static int MONTH_NAVIGATION_BAR_SIZE;
+
     // TODO: Delete, not used in original code?
     // You can override these numbers to get a different appearance
     protected int mNumWeeks = 6;
@@ -93,7 +94,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     private ViewAnimator mMonthAnimator;
     private ViewPager mViewPager;
-    private FrameLayout mMonthPickerView; // TODO: Change to correct type
+    private MonthPickerView mMonthPickerView;
     private Button mMonthYearTitleView;
     private ImageButton mPreviousButton;
     private ImageButton mNextButton;
@@ -123,8 +124,6 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 //    private boolean mPerformingScroll;
 
     private boolean mThemeDark;
-
-    static int MONTH_NAVIGATION_BAR_SIZE;
 
     public PagingDayPickerView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -156,12 +155,12 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 //        setDrawSelectorOnTop(false);  // TODO: Delete? Don't think there's a proper replacement.
 
         Resources res = getResources();
-//        MONTH_NAVIGATION_BAR_SIZE = res.getDimensionPixelOffset(R.dimen.month_navigation_bar_height)
-//                + res.getDimensionPixelOffset(R.dimen.month_view_top_padding);
+        MONTH_NAVIGATION_BAR_SIZE = res.getDimensionPixelOffset(R.dimen.month_navigation_bar_height)
+                + res.getDimensionPixelOffset(R.dimen.month_view_top_padding);
 
         final View view = LayoutInflater.from(context).inflate(R.layout.day_picker_content, this, true);
         mMonthAnimator = (ViewAnimator) findViewById(R.id.month_animator);
-        mMonthPickerView = (FrameLayout) findViewById(R.id.month_picker);
+        mMonthPickerView = (MonthPickerView) findViewById(R.id.month_picker);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mViewPager.addOnPageChangeListener(this);
         mMonthYearTitleView = (Button) view.findViewById(R.id.month_year_title);

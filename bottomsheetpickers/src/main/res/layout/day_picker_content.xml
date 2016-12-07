@@ -16,12 +16,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <!--TODO: MonthPickerView-->
-        <FrameLayout
+        <com.philliphsu.bottomsheetpickers.date.MonthPickerView
             android:id="@+id/month_picker"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/blue"/>
+            android:layout_height="match_parent"/>
 
     </ViewAnimator>
 
