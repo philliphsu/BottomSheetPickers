@@ -8,6 +8,7 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.philliphsu.bottomsheetpickers.R;
@@ -20,7 +21,7 @@ import static android.support.v4.content.ContextCompat.getColor;
 import static com.philliphsu.bottomsheetpickers.date.PagingDayPickerView.MONTH_NAVIGATION_BAR_SIZE;
 
 /**
- * Created by Phillip Hsu on 12/6/2016.
+ * Grid view of selectable months.
  */
 final class MonthPickerView extends View {
     private static final String TAG = "MonthPickerView";
@@ -53,6 +54,8 @@ final class MonthPickerView extends View {
 
     @Nullable  // Created only when a DatePickerController is set.
     private DateRangeHelper mDateRangeHelper;
+    @Nullable
+    private OnMonthClickListener mOnMonthClickListener;
 
     private int mNormalTextColor;
     private int mCurrentMonthTextColor;
@@ -86,7 +89,7 @@ final class MonthPickerView extends View {
         
         // Sets up any standard paints that will be used
         initView();
-        initialize(11, 7, 2016);
+        initialize(1, 7, 2016);
     }
 
     /**
@@ -131,6 +134,19 @@ final class MonthPickerView extends View {
             mDisabledMonthTextColor = getColor(context, R.color.text_color_disabled_dark);
             initView();
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_UP:
+                final int month = getMonthFromLocation(event.getX(), event.getY());
+                if (month >= 0) {
+                    onMonthClick(month);
+                }
+                break;
+        }
+        return true;
     }
 
     /**
@@ -214,9 +230,79 @@ final class MonthPickerView extends View {
             mMonthLabelPaint.setFakeBoldText(true);
             mMonthLabelPaint.setColor(mSelectedMonth == month ? mSelectedMonthTextColor : mCurrentMonthTextColor);
         } else {
-            mMonthLabelPaint.setFakeBoldText(mSelectedMonth == day);
+            mMonthLabelPaint.setFakeBoldText(mSelectedMonth == month);
             mMonthLabelPaint.setColor(mSelectedMonth == month ? mSelectedMonthTextColor : mNormalTextColor);
         }
         canvas.drawText(mShortMonthLabels[month], x, y, mMonthLabelPaint);
+    }
+
+    /**
+     * Calculates the month that the given x position is in. 
+     * Returns the month or -1 if the position wasn't in a month.
+     *
+     * @param x The x position of the touch event
+     * @return The month number, or -1 if the position wasn't in a month
+     */
+    public int getMonthFromLocation(float x, float y) {
+        final int month = getInternalMonthFromLocation(x, y);
+        if (month < Calendar.JANUARY || month > Calendar.DECEMBER) {
+            return -1;
+        }
+        return month;
+    }
+
+    /**
+     * Calculates the month that the given x position is in, accounting for week
+     * number.
+     *
+     * @param x The x position of the touch event
+     * @return The month number
+     */
+    protected int getInternalMonthFromLocation(float x, float y) {
+        int monthStart = mEdgePadding;
+        if (x < monthStart || x > mWidth - mEdgePadding) {
+            // Out of edge boundaries
+            return -1;
+        }
+        // Selection is (x - start) / (pixels/month) == (x -s) * month / pixels
+        int row = (int) (y / mRowHeight);
+//        int column = (int) ((x - monthStart) * NUM_COLUMNS / (mWidth - mEdgePadding * 2));
+        // TODO: Verify the commented lines work.
+        int column = (int) (x * NUM_COLUMNS / (mWidth - mEdgePadding * 2));
+
+        int month = column;
+        month += row * NUM_COLUMNS;
+        return month;
+    }
+    
+    /**
+     * Called when the user clicks on a month. Handles callbacks to the
+     * {@link MonthPickerView.OnMonthClickListener} if one is set.
+     * <p/>
+     * If the month is out of the range set by minDate and/or maxDate, this is a no-op.
+     *
+     * @param month The month that was clicked
+     */
+    private void onMonthClick(int month) {
+        // If the min / max date are set, only process the click if it's a valid selection.
+        if (mDateRangeHelper != null && mDateRangeHelper.isOutOfRange(mYear, month, mDayOfMonth)) {
+            return;
+        }
+
+        if (mOnMonthClickListener != null) {
+            mOnMonthClickListener.onMonthClick(this, new MonthAdapter.CalendarDay(mYear, month, mDayOfMonth));
+        }
+
+        // This is a no-op if accessibility is turned off.
+//        mTouchHelper.sendEventForVirtualView(month, AccessibilityEvent.TYPE_VIEW_CLICKED);
+
+        // We can do this here instead of in an implementation of OnMonthClickListener,
+        // unlike in MonthView, because this view is static and not managed by an adapter.
+        setSelectedMonth(month);
+        invalidate();
+    }
+    
+    interface OnMonthClickListener {
+        void onMonthClick(MonthPickerView view, MonthAdapter.CalendarDay newDate);
     }
 }
