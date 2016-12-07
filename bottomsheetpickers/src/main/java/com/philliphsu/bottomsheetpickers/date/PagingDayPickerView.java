@@ -55,6 +55,9 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     private static final String TAG = "MonthFragment";
 
+    private static final int DAY_PICKER_INDEX = 0;
+    private static final int MONTH_PICKER_INDEX = 1;
+
     // TODO: Delete, related to LIstView.
 //    // Affects when the month selection will change while scrolling up
 //    protected static final int SCROLL_HYST_WEEKS = 2;
@@ -103,6 +106,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 //    protected CharSequence mPrevMonthName;
     // which month should be displayed/highlighted [0-11]
     protected int mCurrentMonthDisplayed;
+    private int mCurrentView = DAY_PICKER_INDEX;
 
     // TODO: Delete, related to LIstView.
 //    // used for tracking during a scroll
@@ -157,7 +161,10 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         mMonthYearTitleView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMonthAnimator.setDisplayedChild(~mMonthAnimator.getDisplayedChild());
+                int newIndex = mCurrentView == DAY_PICKER_INDEX ? MONTH_PICKER_INDEX : DAY_PICKER_INDEX;
+                boolean arrowsVisible = newIndex == DAY_PICKER_INDEX;
+                setCurrentView(newIndex);
+                toggleArrowsVisibility(arrowsVisible, arrowsVisible);
             }
         });
         mPreviousButton = (ImageButton) view.findViewById(R.id.prev);
@@ -617,12 +624,50 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     @Override
     public void onPageSelected(int position) {
         mMonthYearTitleView.setText(mAdapter.getPageTitle(position));
-        mPreviousButton.setVisibility(position > 0 ? VISIBLE : INVISIBLE);
-        mNextButton.setVisibility(position + 1 < mAdapter.getCount() ? VISIBLE : INVISIBLE);
+        toggleArrowsVisibility(position > 0, position + 1 < mAdapter.getCount());
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    private void toggleArrowsVisibility(boolean leftVisible, boolean rightVisible) {
+        mPreviousButton.setVisibility(leftVisible ? VISIBLE : INVISIBLE);
+        mNextButton.setVisibility(rightVisible ? VISIBLE : INVISIBLE);
+    }
+
+    private void setCurrentView(final int viewIndex) {
+//        long millis = mCalendar.getTimeInMillis();
+
+        switch (viewIndex) {
+            case DAY_PICKER_INDEX:
+//                mDayPickerView.onDateChanged();
+                if (mCurrentView != viewIndex) {
+//                    updateHeaderSelectedView(MONTH_AND_DAY_VIEW);
+                    // TODO: Animate the spinner arrow to rotate pointing up.
+                    mMonthAnimator.setDisplayedChild(DAY_PICKER_INDEX);
+                    mCurrentView = viewIndex;
+                }
+
+//                int flags = DateUtils.FORMAT_SHOW_DATE;
+//                String dayString = DateUtils.formatDateTime(getActivity(), millis, flags);
+//                mAnimator.setContentDescription(mDayPickerDescription + ": " + dayString);
+//                Utils.tryAccessibilityAnnounce(mAnimator, mSelectDay);
+                break;
+            case MONTH_PICKER_INDEX:
+//                mYearPickerView.onDateChanged();
+                if (mCurrentView != viewIndex) {
+//                    updateHeaderSelectedView(YEAR_VIEW);
+                    // TODO: Animate the spinner arrow to rotate pointing down.
+                    mMonthAnimator.setDisplayedChild(MONTH_PICKER_INDEX);
+                    mCurrentView = viewIndex;
+                }
+
+//                CharSequence yearString = YEAR_FORMAT.format(millis);
+//                mAnimator.setContentDescription(mYearPickerDescription + ": " + yearString);
+//                Utils.tryAccessibilityAnnounce(mAnimator, mSelectYear);
+                break;
+        }
     }
 }
