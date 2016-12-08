@@ -106,15 +106,24 @@ final class MonthPickerView extends View {
      * start.
      */
     void setDisplayParams(CalendarDay day) {
+        adjustDayInMonthIfNeeded(day);
         mSelectedMonth = day.month;
-
         mYear = day.year;
-        int daysInMonth = Utils.getDaysInMonth(mSelectedMonth, mYear);
-        boolean isValidDayOfMonth = day.day >= 1 && day.day <= daysInMonth;
-        mDayOfMonth = isValidDayOfMonth ? day.day : 1;
+        mDayOfMonth = day.day;
 
         // Invalidate cached accessibility information.
 //        mTouchHelper.invalidateRoot();
+    }
+
+    // If the newly selected month / year does not contain the currently selected day number,
+    // change the selected day number to the last day of the selected month or year.
+    //      e.g. Switching from Mar to Apr when Mar 31 is selected -> Apr 30
+    //      e.g. Switching from 2012 to 2013 when Feb 29, 2012 is selected -> Feb 28, 2013
+    private void adjustDayInMonthIfNeeded(CalendarDay cd) {
+        int daysInMonth = Utils.getDaysInMonth(cd.month, cd.year);
+        if (cd.day > daysInMonth) {
+            cd.day = daysInMonth;
+        }
     }
 
     public void setDatePickerController(DatePickerController controller) {
