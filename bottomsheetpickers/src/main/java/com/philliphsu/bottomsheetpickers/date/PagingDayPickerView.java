@@ -213,6 +213,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         int monthYearTitleColor = getColor(context, mThemeDark?
                 R.color.text_color_primary_dark : R.color.text_color_primary_light);
         mMonthYearTitleView.setTextColor(monthYearTitleColor);
+
+        mMonthPickerView.setTheme(context, mThemeDark);
     }
 
     @Override
