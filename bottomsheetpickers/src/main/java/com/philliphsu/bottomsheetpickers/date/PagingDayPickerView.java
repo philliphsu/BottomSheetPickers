@@ -151,7 +151,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         onDateChanged();
         mMonthPickerView.setDatePickerController(mController);
         // keep this after onDateChanged() so that mSelectedDay is fully initialized
-        mMonthPickerView.setDisplayParams(mSelectedDay);
+//        mMonthPickerView.setDisplayParams(mSelectedDay);  // not needed?
     }
 
     private void init(Context context) {
@@ -249,6 +249,10 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         mViewPager.setAdapter(mAdapter);
     }
 
+    /**
+     * Updates the month picker's display parameters with the selected
+     * date from the date picker.
+     */
     private void refreshMonthPicker() {
         mMonthPickerView.setDisplayParams(mSelectedDay);
         mMonthPickerView.invalidate();
@@ -337,7 +341,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
         if (setSelected) {
             mAdapter.setSelectedDay(mSelectedDay);
-            mMonthPickerView.setDisplayParams(mSelectedDay);
+//            mMonthPickerView.setDisplayParams(mSelectedDay);
         }
 
         if (Log.isLoggable(TAG, Log.DEBUG)) {
@@ -648,9 +652,13 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         setTitle(mAdapter.getPageTitle(position));
         toggleArrowsVisibility(position > 0, position + 1 < mAdapter.getCount());
 
+        final int month = position % MONTHS_IN_YEAR;
         final int year = position / MONTHS_IN_YEAR + mController.getMinYear();
         if (mCurrentYearDisplayed != year) {
             mCurrentYearDisplayed = year;
+        }
+        if (mCurrentMonthDisplayed != month) {
+            mCurrentMonthDisplayed = month;
         }
     }
 
@@ -689,6 +697,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 break;
             case MONTH_PICKER_INDEX:
 //                mYearPickerView.onDateChanged();
+                prepareMonthPickerForDisplay(mCurrentMonthDisplayed, mCurrentYearDisplayed);
                 if (mCurrentView != viewIndex) {
 //                    updateHeaderSelectedView(YEAR_VIEW);
                     // TODO: Animate the spinner arrow to rotate pointing down.
@@ -699,15 +708,29 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 //                CharSequence yearString = YEAR_FORMAT.format(millis);
 //                mAnimator.setContentDescription(mYearPickerDescription + ": " + yearString);
 //                Utils.tryAccessibilityAnnounce(mAnimator, mSelectYear);
-                setTitle(YEAR_FORMAT.format(mSelectedDay.getDate()));
+                // TODO: This formatter is not localized. Fortunately, very few locales have
+                // a different pattern string than the one used by this formatter.
+                // If localization isn't a concern here, consider just printing
+                // the string value of the currently displayed year.
+                setTitle(YEAR_FORMAT.format(mTempDay.getDate()));
                 break;
         }
     }
 
+    private void prepareMonthPickerForDisplay(int currentMonth, int currentYear) {
+        // We can safely mutate these fields without breaking other functions.
+        // There is no need to modify the day field.
+        // The picker will use the currently selected day of month, or adjust
+        // the value if necessary.
+        mTempDay.month = currentMonth;
+        mTempDay.year = currentYear;
+        mMonthPickerView.setDisplayParams(mTempDay);
+    }
+
     @Override
-    public void onMonthClick(MonthPickerView view, int month) {
+    public void onMonthClick(MonthPickerView view, int month, int year) {
         mController.tryVibrate();
-        mController.onMonthSelected(month);
+        mController.onMonthYearSelected(month, year);
         setCurrentView(DAY_PICKER_INDEX);
     }
 }

@@ -535,9 +535,10 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     }
 
     @Override
-    public void onMonthSelected(int month) {
-        adjustDayInMonthIfNeeded(month, mCalendar.get(Calendar.YEAR));
+    public void onMonthYearSelected(int month, int year) {
+        adjustDayInMonthIfNeeded(month, year);
         mCalendar.set(Calendar.MONTH, month);
+        mCalendar.set(Calendar.YEAR, year);
         updatePickers();
         // Even though the MonthPickerView is already contained in this index,
         // keep this call here for accessibility announcement of the new selection.

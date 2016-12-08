@@ -295,8 +295,7 @@ final class MonthPickerView extends View {
         }
 
         if (mOnMonthClickListener != null) {
-            // TODO: I don't think we need to pass back every single field.
-            mOnMonthClickListener.onMonthClick(this, month);
+            mOnMonthClickListener.onMonthClick(this, month, mYear);
         }
 
         // This is a no-op if accessibility is turned off.
@@ -304,6 +303,6 @@ final class MonthPickerView extends View {
     }
     
     interface OnMonthClickListener {
-        void onMonthClick(MonthPickerView view, int month);
+        void onMonthClick(MonthPickerView view, int month, int year);
     }
 }
