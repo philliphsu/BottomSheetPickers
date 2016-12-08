@@ -47,6 +47,7 @@ import java.util.Locale;
 
 import static android.support.v4.content.ContextCompat.getColor;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static com.philliphsu.bottomsheetpickers.date.PagingMonthAdapter.MONTHS_IN_YEAR;
 
 /**
  * This displays a ViewPager of months in a calendar format with selectable days.
@@ -109,6 +110,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     // which month should be displayed/highlighted [0-11]
     protected int mCurrentMonthDisplayed;
     private int mCurrentView = DAY_PICKER_INDEX;
+    // The year associated with the current MonthView displayed
+    private int mCurrentYearNavigated;
 
     // TODO: Delete, related to LIstView.
 //    // used for tracking during a scroll
@@ -247,7 +250,6 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     }
 
     private void refreshMonthPicker() {
-        // TODO: Should we pass in the entire CalendarDay so that all values are updated?
         mMonthPickerView.setDisplayParams(mSelectedDay);
         mMonthPickerView.invalidate();
     }
@@ -307,7 +309,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
         mTempDay.set(day);
         final int position = (day.year - mController.getMinYear())
-                * PagingMonthAdapter.MONTHS_IN_YEAR + day.month;
+                * MONTHS_IN_YEAR + day.month;
 
         View child;
         int i = 0;
@@ -335,7 +337,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
         if (setSelected) {
             mAdapter.setSelectedDay(mSelectedDay);
-            refreshMonthPicker();
+            mMonthPickerView.setDisplayParams(mSelectedDay);
         }
 
         if (Log.isLoggable(TAG, Log.DEBUG)) {
@@ -645,6 +647,11 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     public void onPageSelected(int position) {
         setTitle(mAdapter.getPageTitle(position));
         toggleArrowsVisibility(position > 0, position + 1 < mAdapter.getCount());
+
+        final int year = position / MONTHS_IN_YEAR + mController.getMinYear();
+        if (mCurrentYearNavigated != year) {
+            mCurrentYearNavigated = year;
+        }
     }
 
     @Override

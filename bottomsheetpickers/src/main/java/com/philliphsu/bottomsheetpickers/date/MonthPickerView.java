@@ -115,7 +115,6 @@ final class MonthPickerView extends View {
 
         // Invalidate cached accessibility information.
 //        mTouchHelper.invalidateRoot();
-        invalidate();
     }
 
     public void setDatePickerController(DatePickerController controller) {
