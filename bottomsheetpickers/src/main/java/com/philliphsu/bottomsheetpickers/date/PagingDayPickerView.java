@@ -146,9 +146,9 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         mController.registerOnDateChangedListener(this);
         refreshAdapter();
         onDateChanged();
-        // keep this after onDateChanged() so that mSelectedDay is fully initialized
         mMonthPickerView.setDatePickerController(mController);
-        mMonthPickerView.initialize(mSelectedDay.month, mSelectedDay.day, mSelectedDay.year);
+        // keep this after onDateChanged() so that mSelectedDay is fully initialized
+        mMonthPickerView.setDisplayParams(mSelectedDay);
     }
 
     private void init(Context context) {
@@ -246,7 +246,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     private void refreshMonthPicker() {
         // TODO: Should we pass in the entire CalendarDay so that all values are updated?
-        mMonthPickerView.setSelectedMonth(mSelectedDay.month);
+        mMonthPickerView.setDisplayParams(mSelectedDay);
         mMonthPickerView.invalidate();
     }
 

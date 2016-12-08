@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
+import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -48,7 +49,9 @@ final class MonthPickerView extends View {
     // The presently selected day in the date picker
     private int mDayOfMonth;
     // The month of the current date
-    private int mCurrentMonth = -1;
+    private final int mCurrentMonth;
+    // The year of the current date
+    private final int mCurrentYear;
 
     private final String[] mShortMonthLabels;
 
@@ -78,6 +81,10 @@ final class MonthPickerView extends View {
         mCurrentMonthTextColor = Utils.getThemeAccentColor(context);
         mDisabledMonthTextColor = getColor(context, R.color.text_color_disabled_light);
 
+        Calendar now = Calendar.getInstance();
+        mCurrentMonth = now.get(Calendar.MONTH);
+        mCurrentYear = now.get(Calendar.YEAR);
+
         MONTH_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.month_picker_month_label_size);
         MONTH_SELECTED_CIRCLE_SIZE = res.getDimensionPixelSize(R.dimen.month_select_circle_radius);
 
@@ -86,7 +93,6 @@ final class MonthPickerView extends View {
         mEdgePadding = res.getDimensionPixelSize(R.dimen.month_view_edge_padding);
 
         // TODO: Set up accessibility components.
-        
         // Sets up any standard paints that will be used
         initView();
     }
@@ -98,28 +104,18 @@ final class MonthPickerView extends View {
      * included, except for focus month, which will always default to no focus
      * month if no value is passed in. The only required parameter is the week
      * start.
-     * @param selectedMonth the selected month, or -1 for no selection
-     * @param day the day of month
-     * @param year the year
      */
-    void initialize(int selectedMonth, int day, int year) {
-        mSelectedMonth = selectedMonth;
+    void setDisplayParams(CalendarDay day) {
+        mSelectedMonth = day.month;
 
-        mYear = year;
-        mCurrentMonth = Calendar.getInstance().get(Calendar.MONTH);
-        int daysInMonth = Utils.getDaysInMonth(mCurrentMonth, mYear);
-        boolean isValidDayOfMonth = day >= 1 && day <= daysInMonth;
-        if (isValidDayOfMonth) {
-            mDayOfMonth = day;
-        }
+        mYear = day.year;
+        int daysInMonth = Utils.getDaysInMonth(mSelectedMonth, mYear);
+        boolean isValidDayOfMonth = day.day >= 1 && day.day <= daysInMonth;
+        mDayOfMonth = isValidDayOfMonth ? day.day : 1;
 
         // Invalidate cached accessibility information.
 //        mTouchHelper.invalidateRoot();
         invalidate();
-    }
-
-    public void setSelectedMonth(int month) {
-        mSelectedMonth = month;
     }
 
     public void setDatePickerController(DatePickerController controller) {
@@ -229,7 +225,7 @@ final class MonthPickerView extends View {
         // If the date range helper has not been created, just let the runtime throw an NPE.
         if (mDateRangeHelper != null && mDateRangeHelper.isOutOfRange(year, month, day)) {
             mMonthLabelPaint.setColor(mDisabledMonthTextColor);
-        } else if (mCurrentMonth == month) {
+        } else if (mCurrentYear == year && mCurrentMonth == month) {
             mMonthLabelPaint.setFakeBoldText(true);
             mMonthLabelPaint.setColor(mSelectedMonth == month ? mSelectedMonthTextColor : mCurrentMonthTextColor);
         } else {
