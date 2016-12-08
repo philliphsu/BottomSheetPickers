@@ -111,7 +111,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     protected int mCurrentMonthDisplayed;
     private int mCurrentView = DAY_PICKER_INDEX;
     // The year associated with the current MonthView displayed
-    private int mCurrentYearNavigated;
+    private int mCurrentYearDisplayed;
 
     // TODO: Delete, related to LIstView.
 //    // used for tracking during a scroll
@@ -399,7 +399,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     protected void setMonthDisplayed(CalendarDay date) {
         mCurrentMonthDisplayed = date.month;
 //        invalidateViews();
-        invalidate();
+//        invalidate();  // not necessary?
     }
 
 //    @Override
@@ -649,8 +649,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         toggleArrowsVisibility(position > 0, position + 1 < mAdapter.getCount());
 
         final int year = position / MONTHS_IN_YEAR + mController.getMinYear();
-        if (mCurrentYearNavigated != year) {
-            mCurrentYearNavigated = year;
+        if (mCurrentYearDisplayed != year) {
+            mCurrentYearDisplayed = year;
         }
     }
 
