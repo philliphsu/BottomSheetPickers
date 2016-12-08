@@ -51,7 +51,6 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 /**
  * This displays a ViewPager of months in a calendar format with selectable days.
  */
-// TODO: This needs to be a LinearLayout, or some other ViewGroup--not only a ViewPager. This is because the navigation bar is only present in the day picker, not the year picker too.
 class PagingDayPickerView extends LinearLayout implements OnDateChangedListener, OnPageChangeListener, OnMonthClickListener {
 
     private static final String TAG = "MonthFragment";
@@ -81,7 +80,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     protected boolean mShowWeekNumber = false;
     protected int mDaysPerWeek = 7;
 
-    private static SimpleDateFormat YEAR_FORMAT = new SimpleDateFormat("yyyy", Locale.getDefault());
+    private static final SimpleDateFormat YEAR_FORMAT = new SimpleDateFormat("yyyy", Locale.getDefault());
 
     // TODO: Delete, related to LIstView.
     // These affect the scroll speed and feel
@@ -642,13 +641,17 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     @Override
     public void onPageSelected(int position) {
-        mMonthYearTitleView.setText(mAdapter.getPageTitle(position));
+        setTitle(mAdapter.getPageTitle(position));
         toggleArrowsVisibility(position > 0, position + 1 < mAdapter.getCount());
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    private void setTitle(CharSequence title) {
+        mMonthYearTitleView.setText(title);
     }
 
     private void toggleArrowsVisibility(boolean leftVisible, boolean rightVisible) {
@@ -673,6 +676,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 //                String dayString = DateUtils.formatDateTime(getActivity(), millis, flags);
 //                mAnimator.setContentDescription(mDayPickerDescription + ": " + dayString);
 //                Utils.tryAccessibilityAnnounce(mAnimator, mSelectDay);
+                setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
                 break;
             case MONTH_PICKER_INDEX:
 //                mYearPickerView.onDateChanged();
@@ -686,6 +690,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 //                CharSequence yearString = YEAR_FORMAT.format(millis);
 //                mAnimator.setContentDescription(mYearPickerDescription + ": " + yearString);
 //                Utils.tryAccessibilityAnnounce(mAnimator, mSelectYear);
+                setTitle(YEAR_FORMAT.format(mSelectedDay.getDate()));
                 break;
         }
     }

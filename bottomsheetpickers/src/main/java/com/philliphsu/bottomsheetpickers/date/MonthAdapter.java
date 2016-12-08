@@ -27,6 +27,7 @@ import android.widget.BaseAdapter;
 import com.philliphsu.bottomsheetpickers.date.MonthView.OnDayClickListener;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -113,6 +114,16 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
 
         public int getDay() {
             return day;
+        }
+
+        Date getDate() {
+            if (calendar == null) {
+                calendar = Calendar.getInstance();
+            }
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, month);
+            calendar.set(Calendar.DAY_OF_MONTH, day);
+            return calendar.getTime();
         }
     }
 
