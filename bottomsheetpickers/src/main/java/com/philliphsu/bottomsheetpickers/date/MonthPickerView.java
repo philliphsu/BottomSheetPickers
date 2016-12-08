@@ -43,11 +43,9 @@ final class MonthPickerView extends View {
     // Quick reference to the width of this view, matches parent
     private int mWidth;
     private int mRowHeight;
-    private int mSelectedMonth = -1;
-    // The presently selected year in the date picker
+    private CalendarDay mSelectedDay;
+    // The year represented in this view. May or may not be the same as the selected year.
     private int mYear;
-    // The presently selected day in the date picker
-    private int mDayOfMonth;
     // The month of the current date
     private final int mCurrentMonth;
     // The year of the current date
@@ -99,31 +97,33 @@ final class MonthPickerView extends View {
 
     /**
      * Sets all the parameters for displaying the months.
-     * <p>
-     * Parameters have a default value and will only update if a new value is
-     * included, except for focus month, which will always default to no focus
-     * month if no value is passed in. The only required parameter is the week
-     * start.
+     * @param selectedDay the selected date
+     *@param year the year to be represented in this view
      */
-    void setDisplayParams(CalendarDay day) {
-        adjustDayInMonthIfNeeded(day);
-        mSelectedMonth = day.month;
-        mYear = day.year;
-        mDayOfMonth = day.day;
+    void setDisplayParams(CalendarDay selectedDay, int year) {
+        mSelectedDay = selectedDay;
+        mYear = year;
 
         // Invalidate cached accessibility information.
 //        mTouchHelper.invalidateRoot();
     }
 
-    // If the newly selected month / year does not contain the currently selected day number,
-    // change the selected day number to the last day of the selected month or year.
-    //      e.g. Switching from Mar to Apr when Mar 31 is selected -> Apr 30
-    //      e.g. Switching from 2012 to 2013 when Feb 29, 2012 is selected -> Feb 28, 2013
-    private void adjustDayInMonthIfNeeded(CalendarDay cd) {
-        int daysInMonth = Utils.getDaysInMonth(cd.month, cd.year);
-        if (cd.day > daysInMonth) {
-            cd.day = daysInMonth;
+    /**
+     * If the newly selected month in {@link #mYear} does not contain the currently selected day number,
+     * change the selected day number to the last day of the selected month or year.
+     * e.g. Switching from Mar to Apr when Mar 31 is selected -> Apr 30
+     * e.g. Switching from 2012 to 2013 when Feb 29, 2012 is selected -> Feb 28, 2013
+    */
+    private void adjustDayInMonthIfNeeded(int month) {
+        int daysInMonth = Utils.getDaysInMonth(month, mYear);
+        if (mSelectedDay.day > daysInMonth) {
+            mSelectedDay.day = daysInMonth;
         }
+    }
+
+    private int constrainDayInMonth(int month, int defaultDay) {
+        int daysInMonth = Utils.getDaysInMonth(month, mYear);
+        return Math.min(defaultDay, daysInMonth);
     }
 
     public void setDatePickerController(DatePickerController controller) {
@@ -197,21 +197,18 @@ final class MonthPickerView extends View {
         drawMonthLabels(canvas);
     }
 
-    public int getYear() {
-        return mYear;
-    }
-
-    public int getDayOfMonth() {
-        return mDayOfMonth;
-    }
-
     private void drawMonthLabels(Canvas canvas) {
         int y = (((mRowHeight + MONTH_LABEL_TEXT_SIZE) / 2) - MONTH_SEPARATOR_WIDTH);
         final float monthWidthHalf = (mWidth - mEdgePadding * 2) / (NUM_COLUMNS * 2.0f);
         int col = 0;
         for (int month = Calendar.JANUARY; month <= Calendar.DECEMBER; month++) {
             final int x = (int)((2 * col + 1) * monthWidthHalf + mEdgePadding);
-            drawMonthLabel(canvas, mYear, month, mDayOfMonth, x, y);
+            // This is what the current value of the selected day would resolve to in
+            // this month-year combination.
+            // Each of the months will be drawn enabled/disabled based on whether
+            // the full date constrained with this day is within range.
+            int constrainedDay = constrainDayInMonth(month, mSelectedDay.day);
+            drawMonthLabel(canvas, mYear, month, constrainedDay, x, y);
             col++;
             if (col == NUM_COLUMNS) {
                 col = 0;
@@ -221,7 +218,11 @@ final class MonthPickerView extends View {
     }
 
     private void drawMonthLabel(Canvas canvas, int year, int month, int day, int x, int y) {
-        if (mSelectedMonth == month) {
+        final int selectedYear = mSelectedDay.year;
+        final int selectedMonth = mSelectedDay.month;
+
+        boolean drawCircle = selectedYear == year && selectedMonth == month;
+        if (drawCircle) {
             canvas.drawCircle(x , y - (MONTH_LABEL_TEXT_SIZE / 3), MONTH_SELECTED_CIRCLE_SIZE,
                     mSelectedCirclePaint);
         }
@@ -233,12 +234,11 @@ final class MonthPickerView extends View {
         // If the date range helper has not been created, just let the runtime throw an NPE.
         if (mDateRangeHelper != null && mDateRangeHelper.isOutOfRange(year, month, day)) {
             mMonthLabelPaint.setColor(mDisabledMonthTextColor);
-        } else if (mCurrentYear == year && mCurrentMonth == month) {
-            mMonthLabelPaint.setFakeBoldText(true);
-            mMonthLabelPaint.setColor(mSelectedMonth == month ? mSelectedMonthTextColor : mCurrentMonthTextColor);
         } else {
-            mMonthLabelPaint.setFakeBoldText(mSelectedMonth == month);
-            mMonthLabelPaint.setColor(mSelectedMonth == month ? mSelectedMonthTextColor : mNormalTextColor);
+            boolean currentMonthYear = mCurrentYear == year && mCurrentMonth == month;
+            mMonthLabelPaint.setFakeBoldText(currentMonthYear || drawCircle);
+            mMonthLabelPaint.setColor(drawCircle ? mSelectedMonthTextColor :
+                    (currentMonthYear ? mCurrentMonthTextColor : mNormalTextColor));
         }
         canvas.drawText(mShortMonthLabels[month], x, y, mMonthLabelPaint);
     }
@@ -289,8 +289,9 @@ final class MonthPickerView extends View {
      * @param month The month that was clicked
      */
     private void onMonthClick(int month) {
+        adjustDayInMonthIfNeeded(month);  // The day may not exist in the new month
         // If the min / max date are set, only process the click if it's a valid selection.
-        if (mDateRangeHelper != null && mDateRangeHelper.isOutOfRange(mYear, month, mDayOfMonth)) {
+        if (mDateRangeHelper != null && mDateRangeHelper.isOutOfRange(mYear, month, mSelectedDay.day)) {
             return;
         }
 

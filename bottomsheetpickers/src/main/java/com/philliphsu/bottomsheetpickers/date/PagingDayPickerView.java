@@ -254,7 +254,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
      * date from the date picker.
      */
     private void refreshMonthPicker() {
-        mMonthPickerView.setDisplayParams(mSelectedDay);
+        prepareMonthPickerForDisplay(mSelectedDay.year);
         mMonthPickerView.invalidate();
     }
 
@@ -652,13 +652,9 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         setTitle(mAdapter.getPageTitle(position));
         toggleArrowsVisibility(position > 0, position + 1 < mAdapter.getCount());
 
-        final int month = position % MONTHS_IN_YEAR;
         final int year = position / MONTHS_IN_YEAR + mController.getMinYear();
         if (mCurrentYearDisplayed != year) {
             mCurrentYearDisplayed = year;
-        }
-        if (mCurrentMonthDisplayed != month) {
-            mCurrentMonthDisplayed = month;
         }
     }
 
@@ -697,7 +693,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 break;
             case MONTH_PICKER_INDEX:
 //                mYearPickerView.onDateChanged();
-                prepareMonthPickerForDisplay(mCurrentMonthDisplayed, mCurrentYearDisplayed);
+                prepareMonthPickerForDisplay(mCurrentYearDisplayed);
                 if (mCurrentView != viewIndex) {
 //                    updateHeaderSelectedView(YEAR_VIEW);
                     // TODO: Animate the spinner arrow to rotate pointing down.
@@ -708,23 +704,17 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 //                CharSequence yearString = YEAR_FORMAT.format(millis);
 //                mAnimator.setContentDescription(mYearPickerDescription + ": " + yearString);
 //                Utils.tryAccessibilityAnnounce(mAnimator, mSelectYear);
-                // TODO: This formatter is not localized. Fortunately, very few locales have
-                // a different pattern string than the one used by this formatter.
-                // If localization isn't a concern here, consider just printing
-                // the string value of the currently displayed year.
-                setTitle(YEAR_FORMAT.format(mTempDay.getDate()));
+
+                // Fortunately, very few locales have a year pattern string different
+                // from "yyyy". Localization isn't too important here.
+                // TODO: Decide if you really want the year to be localized.
+                setTitle(String.valueOf(mCurrentYearDisplayed));
                 break;
         }
     }
 
-    private void prepareMonthPickerForDisplay(int currentMonth, int currentYear) {
-        // We can safely mutate these fields without breaking other functions.
-        // There is no need to modify the day field.
-        // The picker will use the currently selected day of month, or adjust
-        // the value if necessary.
-        mTempDay.month = currentMonth;
-        mTempDay.year = currentYear;
-        mMonthPickerView.setDisplayParams(mTempDay);
+    private void prepareMonthPickerForDisplay(int currentYear) {
+        mMonthPickerView.setDisplayParams(mSelectedDay, currentYear);
     }
 
     @Override
