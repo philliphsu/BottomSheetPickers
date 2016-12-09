@@ -3,13 +3,12 @@
 
     <include layout="@layout/date_picker_navigation_bar" />
 
-    <!--TODO: Slide up/down animations -->
-    <ViewAnimator
+    <com.philliphsu.bottomsheetpickers.date.DayPickerViewAnimator
         android:id="@+id/month_animator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:inAnimation="@android:anim/slide_in_left"
-        android:outAnimation="@android:anim/slide_out_right">
+        android:inAnimation="@anim/slide_up"
+        android:outAnimation="@anim/slide_down">
 
         <com.philliphsu.bottomsheetpickers.date.DayPickerViewPager
             android:id="@+id/viewpager"
@@ -19,8 +18,8 @@
         <com.philliphsu.bottomsheetpickers.date.MonthPickerView
             android:id="@+id/month_picker"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
-    </ViewAnimator>
+    </com.philliphsu.bottomsheetpickers.date.DayPickerViewAnimator>
 
 </merge>

@@ -56,8 +56,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     private static final String TAG = "MonthFragment";
 
-    private static final int DAY_PICKER_INDEX = 0;
-    private static final int MONTH_PICKER_INDEX = 1;
+    static final int DAY_PICKER_INDEX = 0;
+    static final int MONTH_PICKER_INDEX = 1;
 
     // TODO: Delete, related to LIstView.
 //    // Affects when the month selection will change while scrolling up
