@@ -178,6 +178,9 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 boolean arrowsVisible = newIndex == DAY_PICKER_INDEX;
                 setCurrentView(newIndex);
                 toggleArrowsVisibility(arrowsVisible, arrowsVisible);
+                if (arrowsVisible) {
+                    setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
+                }
             }
         });
         mPreviousButton = (ImageButton) view.findViewById(R.id.prev);
@@ -689,7 +692,6 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 //                String dayString = DateUtils.formatDateTime(getActivity(), millis, flags);
 //                mAnimator.setContentDescription(mDayPickerDescription + ": " + dayString);
 //                Utils.tryAccessibilityAnnounce(mAnimator, mSelectDay);
-                setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
                 break;
             case MONTH_PICKER_INDEX:
 //                mYearPickerView.onDateChanged();
