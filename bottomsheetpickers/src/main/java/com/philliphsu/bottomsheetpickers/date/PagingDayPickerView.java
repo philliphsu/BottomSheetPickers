@@ -663,9 +663,13 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         setTitle(mAdapter.getPageTitle(position));
         toggleArrowsVisibility(position > 0, position + 1 < mAdapter.getCount());
 
+        final int month = position % MONTHS_IN_YEAR;
         final int year = position / MONTHS_IN_YEAR + mController.getMinYear();
         if (mCurrentYearDisplayed != year) {
             mCurrentYearDisplayed = year;
+        }
+        if (mCurrentMonthDisplayed != month) {
+            mCurrentMonthDisplayed = month;
         }
     }
 
@@ -724,9 +728,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     @Override
     public void onMonthClick(MonthPickerView view, int month, int year) {
-        // If the same month was selected, onPageSelected() won't call through
-        // because we're staying on the same page. Hence, it won't update the
-        // title for us. Manually revert to the last title.
+        // If the same month was selected, onPageSelected() won't automatically
+        // call through because we're staying on the same page.
         // This must be called before everything else, ESPECIALLY for the
         // scenario where a different month was selected! Otherwise, setTitle()
         // ends up being called twice and you'll notice "stuttering".
@@ -736,7 +739,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         // Since the pages will change, onPageSelected() will call through and one
         // call to setTitle() is made. After that, one more call would be made from here.
         if (month == mCurrentMonthDisplayed) {
-            setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
+            // manual invocation
+            onPageSelected(mViewPager.getCurrentItem());
         }
         mController.tryVibrate();
         mController.onMonthYearSelected(month, year);
