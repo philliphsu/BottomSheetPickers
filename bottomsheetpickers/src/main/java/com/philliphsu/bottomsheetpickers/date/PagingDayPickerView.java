@@ -180,6 +180,11 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 toggleArrowsVisibility(arrowsVisible, arrowsVisible);
                 if (arrowsVisible) {
                     setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
+                } else {
+                    // Fortunately, very few locales have a year pattern string different
+                    // from "yyyy". Localization isn't too important here.
+                    // TODO: Decide if you really want the year to be localized.
+                    setTitle(String.valueOf(mCurrentYearDisplayed));
                 }
             }
         });
@@ -318,6 +323,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         final int position = (day.year - mController.getMinYear())
                 * MONTHS_IN_YEAR + day.month;
 
+        // =================================================================
+        // TODO: This whole section doesn't seem necessary at all.
         View child;
         int i = 0;
         int top = 0;
@@ -341,6 +348,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         } else {
             selectedPosition = 0;
         }
+        // =================================================================
 
         if (setSelected) {
             mAdapter.setSelectedDay(mSelectedDay);
@@ -706,11 +714,6 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 //                CharSequence yearString = YEAR_FORMAT.format(millis);
 //                mAnimator.setContentDescription(mYearPickerDescription + ": " + yearString);
 //                Utils.tryAccessibilityAnnounce(mAnimator, mSelectYear);
-
-                // Fortunately, very few locales have a year pattern string different
-                // from "yyyy". Localization isn't too important here.
-                // TODO: Decide if you really want the year to be localized.
-                setTitle(String.valueOf(mCurrentYearDisplayed));
                 break;
         }
     }
@@ -721,6 +724,20 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     @Override
     public void onMonthClick(MonthPickerView view, int month, int year) {
+        // If the same month was selected, onPageSelected() won't call through
+        // because we're staying on the same page. Hence, it won't update the
+        // title for us. Manually revert to the last title.
+        // This must be called before everything else, ESPECIALLY for the
+        // scenario where a different month was selected! Otherwise, setTitle()
+        // ends up being called twice and you'll notice "stuttering".
+        //
+        // This happens because mController reacts by calling our onDateChanged(),
+        // which calls our goTo(), where it updates the value of mCurrentMonthDisplayed.
+        // Since the pages will change, onPageSelected() will call through and one
+        // call to setTitle() is made. After that, one more call would be made from here.
+        if (month == mCurrentMonthDisplayed) {
+            setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
+        }
         mController.tryVibrate();
         mController.onMonthYearSelected(month, year);
         setCurrentView(DAY_PICKER_INDEX);
