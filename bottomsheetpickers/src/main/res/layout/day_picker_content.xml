@@ -6,9 +6,7 @@
     <com.philliphsu.bottomsheetpickers.date.DayPickerViewAnimator
         android:id="@+id/month_animator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:inAnimation="@anim/slide_up"
-        android:outAnimation="@anim/slide_down">
+        android:layout_height="match_parent">
 
         <com.philliphsu.bottomsheetpickers.date.DayPickerViewPager
             android:id="@+id/viewpager"
