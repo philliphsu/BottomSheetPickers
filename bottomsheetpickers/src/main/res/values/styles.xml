@@ -52,6 +52,10 @@
         <item name="elevation">0dp</item>
     </style>
 
+    <style name="SelectableButton">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/ModalStyle</item>
     </style>

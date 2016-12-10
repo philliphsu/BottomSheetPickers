@@ -30,4 +30,8 @@
         <!-- Hardcoded is fine since this file is the only usage -->
         <item name="android:layout_marginTop">4dp</item>
     </style>
+
+    <style name="SelectableButton">
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+    </style>
 </resources>
