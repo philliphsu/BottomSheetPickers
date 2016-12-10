@@ -16,36 +16,29 @@ import static com.philliphsu.bottomsheetpickers.date.PagingDayPickerView.MONTH_P
  */
 final class DayPickerViewAnimator extends ViewAnimator {
 
-    /** Used when the PagingDayPickerView slides into view. */
-    private final Animation mSlideUpInAnimation;
-
-    /** Used when the PagingDayPickerView slides out of view. */
-    private final Animation mSlideDownOutAnimation;
-
-    /** Used when the MonthPickerView fades into view. */
-    private final Animation mFadeInAnimation;
-
-    /** Used when the MonthDayPickerView fades out of view. */
-    private final Animation mFadeOutAnimation;
+    private final Animation mDayPickerInAnimation;
+    private final Animation mDayPickerOutAnimation;
+    private final Animation mMonthPickerInAnimation;
+    private final Animation mMonthPickerOutAnimation;
 
     public DayPickerViewAnimator(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mSlideDownOutAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_down);
-        mSlideUpInAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_up);
-        mFadeInAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_in);
-        mFadeOutAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_out);
+        mDayPickerInAnimation = AnimationUtils.loadAnimation(context, R.anim.day_picker_slide_up);
+        mDayPickerOutAnimation = AnimationUtils.loadAnimation(context, R.anim.day_picker_slide_down);
+        mMonthPickerInAnimation = AnimationUtils.loadAnimation(context, R.anim.month_picker_slide_down);
+        mMonthPickerOutAnimation = AnimationUtils.loadAnimation(context, R.anim.month_picker_slide_up);
     }
 
     @Override
     public void setDisplayedChild(int whichChild) {
         switch (whichChild) {
             case DAY_PICKER_INDEX:
-                setInAnimation(mSlideUpInAnimation);
-                setOutAnimation(mFadeOutAnimation);
+                setInAnimation(mDayPickerInAnimation);
+                setOutAnimation(mMonthPickerOutAnimation);
                 break;
             case MONTH_PICKER_INDEX:
-                setInAnimation(mFadeInAnimation);
-                setOutAnimation(mSlideDownOutAnimation);
+                setInAnimation(mMonthPickerInAnimation);
+                setOutAnimation(mDayPickerOutAnimation);
                 break;
         }
         super.setDisplayedChild(whichChild);
