@@ -34,6 +34,8 @@
         android:nextFocusDown="@+id/month_view"
         android:textSize="16sp"
         android:textAllCaps="false"
+        android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+        android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
         style="@style/Widget.AppCompat.Button.Borderless"/>
 
     <ImageButton
