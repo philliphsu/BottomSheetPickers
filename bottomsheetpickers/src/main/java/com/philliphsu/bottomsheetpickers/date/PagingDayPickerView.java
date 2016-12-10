@@ -19,6 +19,7 @@ package com.philliphsu.bottomsheetpickers.date;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,9 +31,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.ViewAnimator;
 
 import com.philliphsu.bottomsheetpickers.R;
@@ -46,6 +47,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import static android.support.v4.content.ContextCompat.getColor;
+import static android.support.v4.content.ContextCompat.getDrawable;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static com.philliphsu.bottomsheetpickers.date.PagingMonthAdapter.MONTHS_IN_YEAR;
 
@@ -96,9 +98,10 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     private ViewAnimator mMonthAnimator;
     private ViewPager mViewPager;
     private MonthPickerView mMonthPickerView;
-    private Button mMonthYearTitleView;
+    private TextView mMonthYearTitleView;
     private ImageButton mPreviousButton;
     private ImageButton mNextButton;
+    private View mTitleContainer;
 
     protected CalendarDay mTempDay = new CalendarDay();
 
@@ -170,8 +173,9 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         mMonthPickerView.setOnMonthClickListener(this);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mViewPager.addOnPageChangeListener(this);
-        mMonthYearTitleView = (Button) view.findViewById(R.id.month_year_title);
-        mMonthYearTitleView.setOnClickListener(new OnClickListener() {
+        mMonthYearTitleView = (TextView) view.findViewById(R.id.month_year_title);
+        mTitleContainer = view.findViewById(R.id.month_year_title_container);
+        mTitleContainer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 int newIndex = mCurrentView == DAY_PICKER_INDEX ? MONTH_PICKER_INDEX : DAY_PICKER_INDEX;
@@ -214,7 +218,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
             int selectableItemBg = getColor(context, R.color.selectable_item_background_dark);
             Utils.setColorControlHighlight(mPreviousButton, selectableItemBg);
             Utils.setColorControlHighlight(mNextButton, selectableItemBg);
-            Utils.setColorControlHighlight(mMonthYearTitleView, selectableItemBg);
+            Utils.setColorControlHighlight(mTitleContainer, selectableItemBg);
             int cursor = getColor(context, R.color.text_color_secondary_dark);
             Utils.applyTint(mPreviousButton, cursor);
             Utils.applyTint(mNextButton, cursor);
@@ -223,7 +227,17 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         // Set up colors.
         int monthYearTitleColor = getColor(context, mThemeDark?
                 R.color.text_color_primary_dark : R.color.text_color_primary_light);
+        int dropdownArrowColor = getColor(context, mThemeDark?
+                R.color.icon_color_active_dark : R.color.icon_color_active_light);
+
         mMonthYearTitleView.setTextColor(monthYearTitleColor);
+        Drawable dropdownArrow = getDrawable(context, R.drawable.ic_arrow_drop_down_black_24dp);
+        Utils.setTint(dropdownArrow, dropdownArrowColor);
+        if (Utils.checkApiLevel(17)) {
+            mMonthYearTitleView.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, dropdownArrow, null);
+        } else {
+            mMonthYearTitleView.setCompoundDrawablesWithIntrinsicBounds(null, null, dropdownArrow, null);
+        }
 
         mMonthPickerView.setTheme(context, mThemeDark);
     }

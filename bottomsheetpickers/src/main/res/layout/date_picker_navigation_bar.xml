@@ -23,20 +23,27 @@
         app:srcCompat="@drawable/ic_chevron_start"
         style="@style/SelectableButton"/>
 
-    <Button
-        android:id="@+id/month_year_title"
+    <FrameLayout
+        android:id="@+id/month_year_title_container"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_weight="1"
-        android:background="?android:attr/selectableItemBackground"
-        android:contentDescription="@string/date_picker_month_year_title"
-        android:nextFocusForward="@+id/next"
-        android:nextFocusDown="@+id/month_view"
-        android:textSize="16sp"
-        android:textAllCaps="false"
-        android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
-        android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
-        style="@style/Widget.AppCompat.Button.Borderless"/>
+        android:background="?android:attr/selectableItemBackground">
+
+        <TextView
+            android:id="@+id/month_year_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:contentDescription="@string/date_picker_month_year_title"
+            android:nextFocusForward="@+id/next"
+            android:nextFocusDown="@+id/month_view"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:drawablePadding="4dp"/>
+
+    </FrameLayout>
 
     <ImageButton
         android:id="@+id/next"
