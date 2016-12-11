@@ -739,7 +739,6 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 //                mDayPickerView.onDateChanged();
                 if (mCurrentView != viewIndex) {
 //                    updateHeaderSelectedView(MONTH_AND_DAY_VIEW);
-                    // TODO: Animate the spinner arrow to rotate pointing up.
                     mMonthAnimator.setDisplayedChild(DAY_PICKER_INDEX);
                     mCurrentView = viewIndex;
                 }
@@ -754,7 +753,6 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 prepareMonthPickerForDisplay(mCurrentYearDisplayed);
                 if (mCurrentView != viewIndex) {
 //                    updateHeaderSelectedView(YEAR_VIEW);
-                    // TODO: Animate the spinner arrow to rotate pointing down.
                     mMonthAnimator.setDisplayedChild(MONTH_PICKER_INDEX);
                     mCurrentView = viewIndex;
                 }
