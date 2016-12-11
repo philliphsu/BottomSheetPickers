@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="24.0"
+        android:viewportHeight="24.0">
+    <!--
+      - The group tag is needed for its "rotation" property that we want to animate.
+      - The "pivotX/Y" properties set the center of rotation of the group.
+      - They have been given values half those of the vector's
+      - "viewportWidth/Height"; using relative values, e.g. 50%p, will
+      - not compile.
+     -->
+    <group
+        android:name="rotationGroup"
+        android:pivotX="12.0"
+        android:pivotY="12.0"
+        android:rotation="180">
+        <path
+            android:fillColor="#FF000000"
+            android:pathData="M7,10l5,5 5,-5z"/>
+    </group>
+</vector>

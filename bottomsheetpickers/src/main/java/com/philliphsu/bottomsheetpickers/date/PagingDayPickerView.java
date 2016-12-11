@@ -19,9 +19,11 @@ package com.philliphsu.bottomsheetpickers.date;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -102,7 +104,10 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     private ImageButton mNextButton;
     private View mTitleContainer;
 
-    private AnimatedVectorDrawableCompat mArrowDrawable;
+    // The arrow that initially points down and rotates to point up
+    private AnimatedVectorDrawableCompat mArrowDownDrawable;
+    // The arrow that initially points up and rotates to point down
+    private AnimatedVectorDrawableCompat mArrowUpDrawable;
 
     protected CalendarDay mTempDay = new CalendarDay();
 
@@ -184,14 +189,14 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 setCurrentView(newIndex);
                 toggleArrowsVisibility(arrowsVisible, arrowsVisible);
                 animateDropdown(newIndex);
-                if (arrowsVisible) {
-                    setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
-                } else {
-                    // Fortunately, very few locales have a year pattern string different
-                    // from "yyyy". Localization isn't too important here.
-                    // TODO: Decide if you really want the year to be localized.
-                    setTitle(String.valueOf(mCurrentYearDisplayed));
-                }
+//                if (arrowsVisible) {
+//                    setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
+//                } else {
+//                    // Fortunately, very few locales have a year pattern string different
+//                    // from "yyyy". Localization isn't too important here.
+//                    // TODO: Decide if you really want the year to be localized.
+//                    setTitle(String.valueOf(mCurrentYearDisplayed));
+//                }
             }
         });
         mPreviousButton = (ImageButton) view.findViewById(R.id.prev);
@@ -215,6 +220,10 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
             }
         });
 
+        mArrowDownDrawable = AnimatedVectorDrawableCompat.create(context, R.drawable.animated_arrow_drop_down);
+        mArrowUpDrawable   = AnimatedVectorDrawableCompat.create(context, R.drawable.animated_arrow_drop_up);
+        setArrowDrawableOnTitle(mArrowDownDrawable);
+
         // Theme-specific configurations.
         if (mThemeDark) {
             int selectableItemBg = getColor(context, R.color.selectable_item_background_dark);
@@ -233,13 +242,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 R.color.icon_color_active_dark : R.color.icon_color_active_light);
 
         mMonthYearTitleView.setTextColor(monthYearTitleColor);
-        mArrowDrawable = AnimatedVectorDrawableCompat.create(context, R.drawable.animated_arrow_drop_down);
-        mArrowDrawable.setTint(dropdownArrowColor);
-        if (Utils.checkApiLevel(17)) {
-            mMonthYearTitleView.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, mArrowDrawable, null);
-        } else {
-            mMonthYearTitleView.setCompoundDrawablesWithIntrinsicBounds(null, null, mArrowDrawable, null);
-        }
+        mArrowDownDrawable.setTint(dropdownArrowColor);
+        mArrowUpDrawable.setTint(dropdownArrowColor);
 
         mMonthPickerView.setTheme(context, mThemeDark);
     }
@@ -703,16 +707,26 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         mNextButton.setVisibility(rightVisible ? VISIBLE : INVISIBLE);
     }
 
+    private void setArrowDrawableOnTitle(@NonNull Drawable arrow) {
+        if (Utils.checkApiLevel(17)) {
+            mMonthYearTitleView.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, arrow, null);
+        } else {
+            mMonthYearTitleView.setCompoundDrawablesWithIntrinsicBounds(null, null, arrow, null);
+        }
+    }
+
     /**
      * @param viewIndex The index being switched to
      */
     private void animateDropdown(final int viewIndex) {
         switch (viewIndex) {
             case DAY_PICKER_INDEX:
-                mArrowDrawable.stop();
+                setArrowDrawableOnTitle(mArrowUpDrawable);
+                mArrowUpDrawable.start();
                 break;
             case MONTH_PICKER_INDEX:
-                mArrowDrawable.start();
+                setArrowDrawableOnTitle(mArrowDownDrawable);
+                mArrowDownDrawable.start();
                 break;
         }
     }
