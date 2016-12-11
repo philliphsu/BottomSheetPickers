@@ -188,7 +188,6 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 boolean arrowsVisible = newIndex == DAY_PICKER_INDEX;
                 setCurrentView(newIndex);
                 toggleArrowsVisibility(arrowsVisible, arrowsVisible);
-                animateDropdown(newIndex);
                 if (arrowsVisible) {
                     setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
                 } else {
@@ -715,20 +714,9 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         }
     }
 
-    /**
-     * @param viewIndex The index being switched to
-     */
-    private void animateDropdown(final int viewIndex) {
-        switch (viewIndex) {
-            case DAY_PICKER_INDEX:
-                setArrowDrawableOnTitle(mArrowUpDrawable);
-                mArrowUpDrawable.start();
-                break;
-            case MONTH_PICKER_INDEX:
-                setArrowDrawableOnTitle(mArrowDownDrawable);
-                mArrowDownDrawable.start();
-                break;
-        }
+    private void animateArrow(AnimatedVectorDrawableCompat arrow) {
+        setArrowDrawableOnTitle(arrow);
+        arrow.start();
     }
 
     private void setCurrentView(final int viewIndex) {
@@ -740,6 +728,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 if (mCurrentView != viewIndex) {
 //                    updateHeaderSelectedView(MONTH_AND_DAY_VIEW);
                     mMonthAnimator.setDisplayedChild(DAY_PICKER_INDEX);
+                    animateArrow(mArrowUpDrawable);
                     mCurrentView = viewIndex;
                 }
 
@@ -754,6 +743,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 if (mCurrentView != viewIndex) {
 //                    updateHeaderSelectedView(YEAR_VIEW);
                     mMonthAnimator.setDisplayedChild(MONTH_PICKER_INDEX);
+                    animateArrow(mArrowDownDrawable);
                     mCurrentView = viewIndex;
                 }
 
