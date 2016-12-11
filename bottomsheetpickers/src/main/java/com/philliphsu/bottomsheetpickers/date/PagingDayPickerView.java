@@ -19,10 +19,10 @@ package com.philliphsu.bottomsheetpickers.date;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
@@ -47,7 +47,6 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import static android.support.v4.content.ContextCompat.getColor;
-import static android.support.v4.content.ContextCompat.getDrawable;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static com.philliphsu.bottomsheetpickers.date.PagingMonthAdapter.MONTHS_IN_YEAR;
 
@@ -102,6 +101,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     private ImageButton mPreviousButton;
     private ImageButton mNextButton;
     private View mTitleContainer;
+
+    private AnimatedVectorDrawableCompat mArrowDrawable;
 
     protected CalendarDay mTempDay = new CalendarDay();
 
@@ -182,6 +183,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 boolean arrowsVisible = newIndex == DAY_PICKER_INDEX;
                 setCurrentView(newIndex);
                 toggleArrowsVisibility(arrowsVisible, arrowsVisible);
+                animateDropdown(newIndex);
                 if (arrowsVisible) {
                     setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
                 } else {
@@ -231,12 +233,12 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 R.color.icon_color_active_dark : R.color.icon_color_active_light);
 
         mMonthYearTitleView.setTextColor(monthYearTitleColor);
-        Drawable dropdownArrow = getDrawable(context, R.drawable.ic_arrow_drop_down_black_24dp);
-        Utils.setTint(dropdownArrow, dropdownArrowColor);
+        mArrowDrawable = AnimatedVectorDrawableCompat.create(context, R.drawable.animated_arrow_drop_down);
+        mArrowDrawable.setTint(dropdownArrowColor);
         if (Utils.checkApiLevel(17)) {
-            mMonthYearTitleView.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, dropdownArrow, null);
+            mMonthYearTitleView.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, mArrowDrawable, null);
         } else {
-            mMonthYearTitleView.setCompoundDrawablesWithIntrinsicBounds(null, null, dropdownArrow, null);
+            mMonthYearTitleView.setCompoundDrawablesWithIntrinsicBounds(null, null, mArrowDrawable, null);
         }
 
         mMonthPickerView.setTheme(context, mThemeDark);
@@ -699,6 +701,20 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     private void toggleArrowsVisibility(boolean leftVisible, boolean rightVisible) {
         mPreviousButton.setVisibility(leftVisible ? VISIBLE : INVISIBLE);
         mNextButton.setVisibility(rightVisible ? VISIBLE : INVISIBLE);
+    }
+
+    /**
+     * @param viewIndex The index being switched to
+     */
+    private void animateDropdown(final int viewIndex) {
+        switch (viewIndex) {
+            case DAY_PICKER_INDEX:
+                mArrowDrawable.stop();
+                break;
+            case MONTH_PICKER_INDEX:
+                mArrowDrawable.start();
+                break;
+        }
     }
 
     private void setCurrentView(final int viewIndex) {
