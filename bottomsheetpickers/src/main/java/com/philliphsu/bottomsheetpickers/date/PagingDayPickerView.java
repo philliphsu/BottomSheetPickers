@@ -189,14 +189,14 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 setCurrentView(newIndex);
                 toggleArrowsVisibility(arrowsVisible, arrowsVisible);
                 animateDropdown(newIndex);
-//                if (arrowsVisible) {
-//                    setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
-//                } else {
-//                    // Fortunately, very few locales have a year pattern string different
-//                    // from "yyyy". Localization isn't too important here.
-//                    // TODO: Decide if you really want the year to be localized.
-//                    setTitle(String.valueOf(mCurrentYearDisplayed));
-//                }
+                if (arrowsVisible) {
+                    setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
+                } else {
+                    // Fortunately, very few locales have a year pattern string different
+                    // from "yyyy". Localization isn't too important here.
+                    // TODO: Decide if you really want the year to be localized.
+                    setTitle(String.valueOf(mCurrentYearDisplayed));
+                }
             }
         });
         mPreviousButton = (ImageButton) view.findViewById(R.id.prev);
