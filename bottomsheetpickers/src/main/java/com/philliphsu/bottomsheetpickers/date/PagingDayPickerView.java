@@ -36,7 +36,6 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ViewAnimator;
 
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
@@ -96,7 +95,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     protected CalendarDay mSelectedDay = new CalendarDay();
     protected PagingMonthAdapter mAdapter;
 
-    private ViewAnimator mMonthAnimator;
+    private DayPickerViewAnimator mMonthAnimator;
     private ViewPager mViewPager;
     private MonthPickerView mMonthPickerView;
     private TextView mMonthYearTitleView;
@@ -174,7 +173,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 + res.getDimensionPixelOffset(R.dimen.month_view_top_padding);
 
         final View view = LayoutInflater.from(context).inflate(R.layout.day_picker_content, this, true);
-        mMonthAnimator = (ViewAnimator) findViewById(R.id.month_animator);
+        mMonthAnimator = (DayPickerViewAnimator) findViewById(R.id.month_animator);
         mMonthPickerView = (MonthPickerView) findViewById(R.id.month_picker);
         mMonthPickerView.setOnMonthClickListener(this);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -186,7 +185,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
             public void onClick(View v) {
                 int newIndex = mCurrentView == DAY_PICKER_INDEX ? MONTH_PICKER_INDEX : DAY_PICKER_INDEX;
                 boolean arrowsVisible = newIndex == DAY_PICKER_INDEX;
-                setCurrentView(newIndex);
+                setCurrentView(newIndex, true);
                 toggleArrowsVisibility(arrowsVisible, arrowsVisible);
                 if (arrowsVisible) {
                     setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
@@ -535,6 +534,11 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     @Override
     public void onDateChanged() {
+        if (mCurrentView != DAY_PICKER_INDEX) {
+            setCurrentView(DAY_PICKER_INDEX, false);
+            // Restore the title and cursors
+            onPageSelected(mViewPager.getCurrentItem());
+        }
         goTo(mController.getSelectedDay(), false, true, true);
     }
 
@@ -724,7 +728,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         arrow.start();
     }
 
-    private void setCurrentView(final int viewIndex) {
+    private void setCurrentView(final int viewIndex, boolean animate) {
 //        long millis = mCalendar.getTimeInMillis();
 
         switch (viewIndex) {
@@ -732,7 +736,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 //                mDayPickerView.onDateChanged();
                 if (mCurrentView != viewIndex) {
 //                    updateHeaderSelectedView(MONTH_AND_DAY_VIEW);
-                    mMonthAnimator.setDisplayedChild(DAY_PICKER_INDEX);
+                    mMonthAnimator.setDisplayedChild(DAY_PICKER_INDEX, animate);
                     animateArrow(mArrowUpDrawable);
                     mCurrentView = viewIndex;
                 }
@@ -747,7 +751,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 prepareMonthPickerForDisplay(mCurrentYearDisplayed);
                 if (mCurrentView != viewIndex) {
 //                    updateHeaderSelectedView(YEAR_VIEW);
-                    mMonthAnimator.setDisplayedChild(MONTH_PICKER_INDEX);
+                    mMonthAnimator.setDisplayedChild(MONTH_PICKER_INDEX, animate);
                     animateArrow(mArrowDownDrawable);
                     mCurrentView = viewIndex;
                 }
@@ -765,6 +769,12 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     @Override
     public void onMonthClick(MonthPickerView view, int month, int year) {
+        // This needs to be called before we call back to onMonthYearSelected().
+        // Otherwise, our listener will call our onDateChanged(), in which
+        // setCurrentView() is called with the 'animate' parameter set to false.
+        // This next call would subsequently not call through, since the current
+        // index will have already been set to DAY_PICKER_INDEX.
+        setCurrentView(DAY_PICKER_INDEX, true);
         // If the same month was selected, onPageSelected() won't automatically
         // call through because we're staying on the same page.
         // This must be called before everything else, ESPECIALLY for the
@@ -781,6 +791,5 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         }
         mController.tryVibrate();
         mController.onMonthYearSelected(month, year);
-        setCurrentView(DAY_PICKER_INDEX);
     }
 }

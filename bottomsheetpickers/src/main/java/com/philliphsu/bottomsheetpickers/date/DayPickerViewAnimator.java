@@ -43,4 +43,14 @@ final class DayPickerViewAnimator extends ViewAnimator {
         }
         super.setDisplayedChild(whichChild);
     }
+
+    final void setDisplayedChild(int whichChild, boolean animate) {
+        if (animate) {
+            setDisplayedChild(whichChild);
+        } else {
+            setInAnimation(null);
+            setOutAnimation(null);
+            super.setDisplayedChild(whichChild);
+        }
+    }
 }
