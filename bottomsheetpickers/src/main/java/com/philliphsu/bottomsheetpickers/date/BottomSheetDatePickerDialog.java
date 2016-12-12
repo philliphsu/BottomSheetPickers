@@ -44,6 +44,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
 
+import static com.philliphsu.bottomsheetpickers.date.PagingDayPickerView.DAY_PICKER_INDEX;
+
 /**
  * Dialog allowing users to select a date.
  */
@@ -65,6 +67,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     private static final String KEY_YEAR_END = "year_end";
     private static final String KEY_CURRENT_VIEW = "current_view";
     private static final String KEY_LIST_POSITION_OFFSET = "list_position_offset";
+    private static final String KEY_DAY_PICKER_CURRENT_INDEX = "day_picker_current_index";
 
     private static final int DEFAULT_START_YEAR = 1900;
     private static final int DEFAULT_END_YEAR = 2100;
@@ -168,7 +171,8 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         outState.putInt(KEY_CURRENT_VIEW, mCurrentView);
         int listPosition = -1;
         if (mCurrentView == MONTH_AND_DAY_VIEW) {
-            listPosition = mDayPickerView.getCurrentItem();
+            listPosition = mDayPickerView.getPagerPosition();
+            outState.putInt(KEY_DAY_PICKER_CURRENT_INDEX, mDayPickerView.getCurrentView());
         } else if (mCurrentView == YEAR_VIEW) {
             listPosition = mYearPickerView.getFirstVisiblePosition();
             outState.putInt(KEY_LIST_POSITION_OFFSET, mYearPickerView.getFirstPositionOffset());
@@ -194,6 +198,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         int listPosition = -1;
         int listPositionOffset = 0;
         int currentView = MONTH_AND_DAY_VIEW;
+        int dayPickerCurrentView = DAY_PICKER_INDEX;
         if (savedInstanceState != null) {
             mWeekStart = savedInstanceState.getInt(KEY_WEEK_START);
             mMinYear = savedInstanceState.getInt(KEY_YEAR_START);
@@ -201,6 +206,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
             currentView = savedInstanceState.getInt(KEY_CURRENT_VIEW);
             listPosition = savedInstanceState.getInt(KEY_LIST_POSITION);
             listPositionOffset = savedInstanceState.getInt(KEY_LIST_POSITION_OFFSET);
+            dayPickerCurrentView = savedInstanceState.getInt(KEY_DAY_PICKER_CURRENT_INDEX);
         }
 
         final Activity activity = getActivity();
@@ -277,6 +283,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
                 mYearPickerView.postSetSelectionFromTop(listPosition, listPositionOffset);
             }
         }
+        mDayPickerView.setCurrentView(dayPickerCurrentView, false);
 
         mHapticFeedbackController = new HapticFeedbackController(activity);
         return view;

@@ -677,8 +677,12 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         return true;
     }
 
-    int getCurrentItem() {
+    int getPagerPosition() {
         return mViewPager.getCurrentItem();
+    }
+
+    int getCurrentView() {
+        return mCurrentView;
     }
 
     @Override
@@ -728,7 +732,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         arrow.start();
     }
 
-    private void setCurrentView(final int viewIndex, boolean animate) {
+    void setCurrentView(final int viewIndex, boolean animate) {
 //        long millis = mCalendar.getTimeInMillis();
 
         switch (viewIndex) {
