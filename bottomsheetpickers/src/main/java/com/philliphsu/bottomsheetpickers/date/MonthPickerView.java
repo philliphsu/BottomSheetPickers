@@ -227,12 +227,10 @@ final class MonthPickerView extends View {
                     mSelectedCirclePaint);
         }
 
-        // TODO: From MonthPicker, navigate to and select a year in year picker. You will see that
-        // the navigation arrows are made visible again! Make sure they stay invisible.
-
         // If we have a mindate or maxdate, gray out the month if it's outside the range.
         // If the date range helper has not been created, just let the runtime throw an NPE.
         if (mDateRangeHelper != null && mDateRangeHelper.isOutOfRange(year, month, day)) {
+            mMonthLabelPaint.setFakeBoldText(false);
             mMonthLabelPaint.setColor(mDisabledMonthTextColor);
         } else {
             boolean currentMonthYear = mCurrentYear == year && mCurrentMonth == month;
