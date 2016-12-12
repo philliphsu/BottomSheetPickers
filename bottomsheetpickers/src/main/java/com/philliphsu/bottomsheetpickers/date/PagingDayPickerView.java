@@ -280,6 +280,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
      * @return Whether or not the view animated to the new location
      */
     public boolean goTo(CalendarDay day, boolean animate, boolean setSelected, boolean forceScroll) {
+        final int selectedPosition = getPosition(mSelectedDay);
 
         // Set the selected day
         if (setSelected) {
@@ -287,35 +288,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         }
 
         mTempDay.set(day);
-        final int position = (day.year - mController.getMinYear())
-                * MONTHS_IN_YEAR + day.month;
-
-        // =================================================================
-        // TODO: This whole section doesn't seem necessary at all.
-        View child;
-        int i = 0;
-        int top = 0;
-        // Find a child that's completely in the view
-        do {
-            child = getChildAt(i++);
-            if (child == null) {
-                break;
-            }
-            top = child.getTop();
-            if (Log.isLoggable(TAG, Log.DEBUG)) {
-                Log.d(TAG, "child at " + (i - 1) + " has top " + top);
-            }
-        } while (top < 0);
-
-        // Compute the first and last position visible
-        int selectedPosition;
-        if (child != null) {
-            // TODO: Verify this is an appropriate replacement.
-            selectedPosition = /*getPositionForView(child);*/ mAdapter.getItemPosition(child);
-        } else {
-            selectedPosition = 0;
-        }
-        // =================================================================
+        final int position = getPosition(day);
 
         if (Log.isLoggable(TAG, Log.DEBUG)) {
             Log.d(TAG, "GoTo position " + position);
@@ -338,6 +311,13 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
             setSelectedDay(mSelectedDay);
         }
         return false;
+    }
+
+    /**
+     * @return The page position at which the given day is located.
+     */
+    private int getPosition(CalendarDay day) {
+        return (day.year - mController.getMinYear()) * MONTHS_IN_YEAR + day.month;
     }
 
     public void postSetSelection(final int position, final boolean setSelected) {
