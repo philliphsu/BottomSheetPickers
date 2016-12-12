@@ -461,10 +461,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
      */
     public void setMinDate(Calendar calendar) {
         mMinDate = calendar;
-
-        if (mDayPickerView != null) {
-            mDayPickerView.onChange();
-        }
+        setYearRange(calendar.get(Calendar.YEAR), mMaxYear);
     }
 
     /**
@@ -483,10 +480,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
      */
     public void setMaxDate(Calendar calendar) {
         mMaxDate = calendar;
-
-        if (mDayPickerView != null) {
-            mDayPickerView.onChange();
-        }
+        setYearRange(mMinYear, calendar.get(Calendar.YEAR));
     }
 
     /**

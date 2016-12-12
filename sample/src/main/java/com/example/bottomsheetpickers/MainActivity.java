@@ -60,7 +60,10 @@ public class MainActivity extends AppCompatActivity implements
                             now.get(Calendar.MONTH),
                             now.get(Calendar.DAY_OF_MONTH));
                     dialog.setThemeDark(checkedId == R.id.choice_date_picker_dark);
-                    dialog.setMinDate(Calendar.getInstance());
+                    dialog.setMinDate(now);
+                    Calendar max = Calendar.getInstance();
+                    max.add(Calendar.YEAR, 10);
+                    dialog.setMaxDate(max);
                     dialog.show(getSupportFragmentManager(), TAG);
                 }
             }
