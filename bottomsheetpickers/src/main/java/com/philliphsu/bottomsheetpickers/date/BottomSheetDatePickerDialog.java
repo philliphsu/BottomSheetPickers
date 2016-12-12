@@ -272,7 +272,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
 
         if (listPosition != -1) {
             if (currentView == MONTH_AND_DAY_VIEW) {
-                mDayPickerView.postSetSelection(listPosition);
+                mDayPickerView.postSetSelection(listPosition, false);
             } else if (currentView == YEAR_VIEW) {
                 mYearPickerView.postSetSelectionFromTop(listPosition, listPositionOffset);
             }

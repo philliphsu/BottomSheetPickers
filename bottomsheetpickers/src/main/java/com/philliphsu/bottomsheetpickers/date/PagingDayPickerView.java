@@ -369,11 +369,6 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         }
         // =================================================================
 
-        if (setSelected) {
-            mAdapter.setSelectedDay(mSelectedDay);
-//            mMonthPickerView.setDisplayParams(mSelectedDay);
-        }
-
         if (Log.isLoggable(TAG, Log.DEBUG)) {
             Log.d(TAG, "GoTo position " + position);
         }
@@ -387,23 +382,29 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 //                        position, LIST_TOP_OFFSET, GOTO_SCROLL_DURATION);
                 // TODO: Verify this is an appropriate replacement.
                 mViewPager.setCurrentItem(position, true);
+                if (setSelected) {
+                    setSelectedDay(mSelectedDay);
+                }
                 return true;
             } else {
-                postSetSelection(position);
+                postSetSelection(position, setSelected);
             }
         } else if (setSelected) {
             setMonthDisplayed(mSelectedDay);
+            setSelectedDay(mSelectedDay);
         }
         return false;
     }
 
-    public void postSetSelection(final int position) {
+    public void postSetSelection(final int position, final boolean setSelected) {
         clearFocus();
         post(new Runnable() {
-
             @Override
             public void run() {
                 mViewPager.setCurrentItem(position, false);
+                if (setSelected) {
+                    setSelectedDay(mSelectedDay);
+                }
             }
         });
 //        onScrollStateChanged(this, OnScrollListener.SCROLL_STATE_IDLE);
@@ -434,6 +435,10 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         mCurrentMonthDisplayed = date.month;
 //        invalidateViews();
 //        invalidate();  // not necessary?
+    }
+
+    private void setSelectedDay(CalendarDay day) {
+        mAdapter.setSelectedDay(day);
     }
 
 //    @Override
