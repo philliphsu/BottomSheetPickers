@@ -283,7 +283,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
                 mYearPickerView.postSetSelectionFromTop(listPosition, listPositionOffset);
             }
         }
-        mDayPickerView.setupCurrentView(dayPickerCurrentView, false);
+        mDayPickerView.postSetupCurrentView(dayPickerCurrentView, false);
 
         mHapticFeedbackController = new HapticFeedbackController(activity);
         return view;

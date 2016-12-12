@@ -256,10 +256,10 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
      */
     void setupCurrentView(int currentView, boolean animate) {
         if (currentView == DAY_PICKER_INDEX || currentView == MONTH_PICKER_INDEX) {
-            boolean arrowsVisible = currentView == DAY_PICKER_INDEX;
+            boolean isDayPicker = currentView == DAY_PICKER_INDEX;
             setCurrentView(currentView, animate);
-            toggleArrowsVisibility(arrowsVisible, arrowsVisible);
-            if (arrowsVisible) {
+            toggleArrowsVisibility(isDayPicker, isDayPicker);
+            if (isDayPicker) {
                 setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
             } else {
                 // Fortunately, very few locales have a year pattern string different
@@ -418,6 +418,15 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
             }
         });
 //        onScrollStateChanged(this, OnScrollListener.SCROLL_STATE_IDLE);
+    }
+
+    void postSetupCurrentView(final int currentView, final boolean animate) {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                setupCurrentView(currentView, animate);
+            }
+        });
     }
 
 //    /**
@@ -706,15 +715,14 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         if (mCurrentView == DAY_PICKER_INDEX) {
             setTitle(mAdapter.getPageTitle(position));
             toggleArrowsVisibility(position > 0, position + 1 < mAdapter.getCount());
-
-            final int month = position % MONTHS_IN_YEAR;
-            final int year = position / MONTHS_IN_YEAR + mController.getMinYear();
-            if (mCurrentYearDisplayed != year) {
-                mCurrentYearDisplayed = year;
-            }
-            if (mCurrentMonthDisplayed != month) {
-                mCurrentMonthDisplayed = month;
-            }
+        }
+        final int month = position % MONTHS_IN_YEAR;
+        final int year = position / MONTHS_IN_YEAR + mController.getMinYear();
+        if (mCurrentYearDisplayed != year) {
+            mCurrentYearDisplayed = year;
+        }
+        if (mCurrentMonthDisplayed != month) {
+            mCurrentMonthDisplayed = month;
         }
     }
 
