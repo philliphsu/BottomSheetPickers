@@ -184,17 +184,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
             @Override
             public void onClick(View v) {
                 int newIndex = mCurrentView == DAY_PICKER_INDEX ? MONTH_PICKER_INDEX : DAY_PICKER_INDEX;
-                boolean arrowsVisible = newIndex == DAY_PICKER_INDEX;
-                setCurrentView(newIndex, true);
-                toggleArrowsVisibility(arrowsVisible, arrowsVisible);
-                if (arrowsVisible) {
-                    setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
-                } else {
-                    // Fortunately, very few locales have a year pattern string different
-                    // from "yyyy". Localization isn't too important here.
-                    // TODO: Decide if you really want the year to be localized.
-                    setTitle(String.valueOf(mCurrentYearDisplayed));
-                }
+                setupCurrentView(newIndex, true);
             }
         });
         mPreviousButton = (ImageButton) view.findViewById(R.id.prev);
@@ -259,6 +249,27 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     public void onChange() {
         refreshAdapter();
         refreshMonthPicker();
+    }
+
+    /**
+     * Handles everything related to setting up the current view.
+     */
+    void setupCurrentView(int currentView, boolean animate) {
+        if (currentView == DAY_PICKER_INDEX || currentView == MONTH_PICKER_INDEX) {
+            boolean arrowsVisible = currentView == DAY_PICKER_INDEX;
+            setCurrentView(currentView, animate);
+            toggleArrowsVisibility(arrowsVisible, arrowsVisible);
+            if (arrowsVisible) {
+                setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
+            } else {
+                // Fortunately, very few locales have a year pattern string different
+                // from "yyyy". Localization isn't too important here.
+                // TODO: Decide if you really want the year to be localized.
+                setTitle(String.valueOf(mCurrentYearDisplayed));
+            }
+        } else {
+            Log.e(TAG, "Error restoring current view");
+        }
     }
 
     /**
@@ -692,16 +703,18 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     @Override
     public void onPageSelected(int position) {
-        setTitle(mAdapter.getPageTitle(position));
-        toggleArrowsVisibility(position > 0, position + 1 < mAdapter.getCount());
+        if (mCurrentView == DAY_PICKER_INDEX) {
+            setTitle(mAdapter.getPageTitle(position));
+            toggleArrowsVisibility(position > 0, position + 1 < mAdapter.getCount());
 
-        final int month = position % MONTHS_IN_YEAR;
-        final int year = position / MONTHS_IN_YEAR + mController.getMinYear();
-        if (mCurrentYearDisplayed != year) {
-            mCurrentYearDisplayed = year;
-        }
-        if (mCurrentMonthDisplayed != month) {
-            mCurrentMonthDisplayed = month;
+            final int month = position % MONTHS_IN_YEAR;
+            final int year = position / MONTHS_IN_YEAR + mController.getMinYear();
+            if (mCurrentYearDisplayed != year) {
+                mCurrentYearDisplayed = year;
+            }
+            if (mCurrentMonthDisplayed != month) {
+                mCurrentMonthDisplayed = month;
+            }
         }
     }
 
@@ -732,7 +745,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         arrow.start();
     }
 
-    void setCurrentView(final int viewIndex, boolean animate) {
+    private void setCurrentView(final int viewIndex, boolean animate) {
 //        long millis = mCalendar.getTimeInMillis();
 
         switch (viewIndex) {
