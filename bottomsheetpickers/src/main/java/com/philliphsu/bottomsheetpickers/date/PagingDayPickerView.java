@@ -61,33 +61,9 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     static final int DAY_PICKER_INDEX = 0;
     static final int MONTH_PICKER_INDEX = 1;
 
-    // TODO: Delete, related to LIstView.
-//    // Affects when the month selection will change while scrolling up
-//    protected static final int SCROLL_HYST_WEEKS = 2;
-//    // How long the GoTo fling animation should last
-//    protected static final int GOTO_SCROLL_DURATION = 250;
-//    // How long to wait after receiving an onScrollStateChanged notification
-//    // before acting on it
-//    protected static final int SCROLL_CHANGE_DELAY = 40;
-//    public static int LIST_TOP_OFFSET = -1; // so that the top line will be under the separator
-
-    // TODO: Delete, not used in original code?
-    // The number of days to display in each week
-    public static final int DAYS_PER_WEEK = 7;
-
     static int MONTH_NAVIGATION_BAR_SIZE;
 
-    // TODO: Delete, not used in original code?
-    // You can override these numbers to get a different appearance
-    protected int mNumWeeks = 6;
-    protected boolean mShowWeekNumber = false;
-    protected int mDaysPerWeek = 7;
-
     private static final SimpleDateFormat YEAR_FORMAT = new SimpleDateFormat("yyyy", Locale.getDefault());
-
-    // TODO: Delete, related to LIstView.
-    // These affect the scroll speed and feel
-//    protected float mFriction = 1.0f;
 
     protected Handler mHandler;
 
@@ -110,29 +86,14 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     protected CalendarDay mTempDay = new CalendarDay();
 
-    // TODO: Delete, not used in original code?
-//    // When the week starts; numbered like Time.<WEEKDAY> (e.g. SUNDAY=0).
-//    protected int mFirstDayOfWeek;
-//    // The last name announced by accessibility
-//    protected CharSequence mPrevMonthName;
     // which month should be displayed/highlighted [0-11]
     protected int mCurrentMonthDisplayed;
+    // The currently displayed view
     private int mCurrentView = DAY_PICKER_INDEX;
     // The year associated with the current MonthView displayed
     private int mCurrentYearDisplayed;
 
-    // TODO: Delete, related to LIstView.
-//    // used for tracking during a scroll
-//    protected long mPreviousScrollPosition;
-//    // used for tracking what state listview is in
-//    protected int mPreviousScrollState = OnScrollListener.SCROLL_STATE_IDLE;
-//    // used for tracking what state listview is in
-//    protected int mCurrentScrollState = OnScrollListener.SCROLL_STATE_IDLE;
-
     private DatePickerController mController;
-
-    // TODO: Delete, related to LIstView.
-//    private boolean mPerformingScroll;
 
     private boolean mThemeDark;
 
@@ -158,15 +119,12 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         refreshAdapter();
         onDateChanged();
         mMonthPickerView.setDatePickerController(mController);
-        // keep this after onDateChanged() so that mSelectedDay is fully initialized
-//        mMonthPickerView.setDisplayParams(mSelectedDay);  // not needed?
     }
 
     private void init(Context context) {
         mHandler = new Handler();
         setOrientation(VERTICAL);
         setLayoutParams(new LayoutParams(MATCH_PARENT, MATCH_PARENT));
-//        setDrawSelectorOnTop(false);  // TODO: Delete? Don't think there's a proper replacement.
 
         Resources res = getResources();
         MONTH_NAVIGATION_BAR_SIZE = res.getDimensionPixelOffset(R.dimen.month_navigation_bar_height)
@@ -306,26 +264,6 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         return new PagingMonthAdapter(context, controller, themeDark);
     }
 
-//    /*
-//     * Sets all the required fields for the list view. Override this method to
-//     * set a different list view behavior.
-//     */
-//    protected void setUpListView() {
-//        // Transparent background on scroll
-//        setCacheColorHint(0);
-//        // No dividers
-//        setDivider(null);
-//        // Items are clickable
-//        setItemsCanFocus(true);
-//        // The thumb gets in the way, so disable it
-//        setFastScrollEnabled(false);
-//        setVerticalScrollBarEnabled(false);
-//        setOnScrollListener(this);
-//        setFadingEdgeLength(0);
-//        // Make the scrolling behavior nicer
-//        setFriction(ViewConfiguration.getScrollFriction() * mFriction);
-//    }
-
     /**
      * This moves to the specified time in the view. If the time is not already
      * in range it will move the list so that the first of the month containing
@@ -386,11 +324,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         // and if so scroll to the month that contains it
         if (position != selectedPosition || forceScroll) {
             setMonthDisplayed(mTempDay);
-//            mPreviousScrollState = OnScrollListener.SCROLL_STATE_FLING;
             if (animate) {
-//                smoothScrollToPositionFromTop(
-//                        position, LIST_TOP_OFFSET, GOTO_SCROLL_DURATION);
-                // TODO: Verify this is an appropriate replacement.
                 mViewPager.setCurrentItem(position, true);
                 if (setSelected) {
                     setSelectedDay(mSelectedDay);
@@ -417,7 +351,6 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 }
             }
         });
-//        onScrollStateChanged(this, OnScrollListener.SCROLL_STATE_IDLE);
     }
 
     void postSetupCurrentView(final int currentView, final boolean animate) {
@@ -429,128 +362,17 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         });
     }
 
-//    /**
-//     * Updates the title and selected month if the view has moved to a new
-//     * month.
-//     */
-//    @Override
-//    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//        MonthView child = (MonthView) view.getChildAt(0);
-//        if (child == null) {
-//            return;
-//        }
-//
-//        // Figure out where we are
-//        long currScroll = view.getFirstVisiblePosition() * child.getHeight() - child.getBottom();
-//        mPreviousScrollPosition = currScroll;
-//        mPreviousScrollState = mCurrentScrollState;
-//    }
-
     /**
      * Sets the month displayed at the top of this view based on time. Override
      * to add custom events when the title is changed.
      */
     protected void setMonthDisplayed(CalendarDay date) {
         mCurrentMonthDisplayed = date.month;
-//        invalidateViews();
-//        invalidate();  // not necessary?
     }
 
     private void setSelectedDay(CalendarDay day) {
         mAdapter.setSelectedDay(day);
     }
-
-//    @Override
-//    public void onScrollStateChanged(AbsListView view, int scrollState) {
-//        // use a post to prevent re-entering onScrollStateChanged before it
-//        // exits
-//        mScrollStateChangedRunnable.doScrollStateChange(view, scrollState);
-//    }
-
-//    protected ScrollStateRunnable mScrollStateChangedRunnable = new ScrollStateRunnable();
-
-//    protected class ScrollStateRunnable implements Runnable {
-//        private int mNewState;
-//
-//        /**
-//         * Sets up the runnable with a short delay in case the scroll state
-//         * immediately changes again.
-//         *
-//         * @param view The list view that changed state
-//         * @param scrollState The new state it changed to
-//         */
-//        public void doScrollStateChange(AbsListView view, int scrollState) {
-//            mHandler.removeCallbacks(this);
-//            mNewState = scrollState;
-//            mHandler.postDelayed(this, SCROLL_CHANGE_DELAY);
-//        }
-//
-//        @Override
-//        public void run() {
-//            mCurrentScrollState = mNewState;
-//            if (Log.isLoggable(TAG, Log.DEBUG)) {
-//                Log.d(TAG,
-//                        "new scroll state: " + mNewState + " old state: " + mPreviousScrollState);
-//            }
-//            // Fix the position after a scroll or a fling ends
-//            if (mNewState == OnScrollListener.SCROLL_STATE_IDLE
-//                    && mPreviousScrollState != OnScrollListener.SCROLL_STATE_IDLE
-//                    && mPreviousScrollState != OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-//                mPreviousScrollState = mNewState;
-//                int i = 0;
-//                View child = getChildAt(i);
-//                while (child != null && child.getBottom() <= 0) {
-//                    child = getChildAt(++i);
-//                }
-//                if (child == null) {
-//                    // The view is no longer visible, just return
-//                    return;
-//                }
-//                int firstPosition = getFirstVisiblePosition();
-//                int lastPosition = getLastVisiblePosition();
-//                boolean scroll = firstPosition != 0 && lastPosition != getCount() - 1;
-//                final int top = child.getTop();
-//                final int bottom = child.getBottom();
-//                final int midpoint = getHeight() / 2;
-//                if (scroll && top < LIST_TOP_OFFSET) {
-//                    if (bottom > midpoint) {
-//                        smoothScrollBy(top, GOTO_SCROLL_DURATION);
-//                    } else {
-//                        smoothScrollBy(bottom, GOTO_SCROLL_DURATION);
-//                    }
-//                }
-//            } else {
-//                mPreviousScrollState = mNewState;
-//            }
-//        }
-//    }
-//
-//    /**
-//     * Gets the position of the view that is most prominently displayed within the list view.
-//     */
-//    public int getMostVisiblePosition() {
-//        final int firstPosition = getFirstVisiblePosition();
-//        final int height = getHeight();
-//
-//        int maxDisplayedHeight = 0;
-//        int mostVisibleIndex = 0;
-//        int i=0;
-//        int bottom = 0;
-//        while (bottom < height) {
-//            View child = getChildAt(i);
-//            if (child == null) {
-//                break;
-//            }
-//            bottom = child.getBottom();
-//            int displayedHeight = Math.min(bottom, height) - Math.max(0, child.getTop());
-//            if (displayedHeight > maxDisplayedHeight) {
-//                mostVisibleIndex = i;
-//                maxDisplayedHeight = displayedHeight;
-//            }
-//            i++;
-//        }
-//        return firstPosition + mostVisibleIndex;
-//    }
 
     @Override
     public void onDateChanged() {
@@ -612,17 +434,6 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         return false;
     }
 
-    // TODO: What do we replace this with?
-//    protected void layoutChildren() {
-//        final CalendarDay focusedDay = findAccessibilityFocus();
-//        super.layoutChildren();
-//        if (mPerformingScroll) {
-//            mPerformingScroll = false;
-//        } else {
-//            restoreAccessibilityFocus(focusedDay);
-//        }
-//    }
-
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
         super.onInitializeAccessibilityEvent(event);
@@ -663,7 +474,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         }
 
         // Figure out what month is showing.
-        int firstVisiblePosition = /*getFirstVisiblePosition()*/-123; // TODO: What do we replace this with?
+        int firstVisiblePosition = getPagerPosition();
         int month = firstVisiblePosition % 12;
         int year = firstVisiblePosition / 12 + mController.getMinYear();
         CalendarDay day = new CalendarDay(year, month, 1);
@@ -693,7 +504,6 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         // Go to that month.
         Utils.tryAccessibilityAnnounce(this, getMonthAndYearString(day));
         goTo(day, true, false, true);
-//        mPerformingScroll = true;
         return true;
     }
 
@@ -754,36 +564,21 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     }
 
     private void setCurrentView(final int viewIndex, boolean animate) {
-//        long millis = mCalendar.getTimeInMillis();
-
         switch (viewIndex) {
             case DAY_PICKER_INDEX:
-//                mDayPickerView.onDateChanged();
                 if (mCurrentView != viewIndex) {
-//                    updateHeaderSelectedView(MONTH_AND_DAY_VIEW);
                     mMonthAnimator.setDisplayedChild(DAY_PICKER_INDEX, animate);
                     animateArrow(mArrowUpDrawable);
                     mCurrentView = viewIndex;
                 }
-
-//                int flags = DateUtils.FORMAT_SHOW_DATE;
-//                String dayString = DateUtils.formatDateTime(getActivity(), millis, flags);
-//                mAnimator.setContentDescription(mDayPickerDescription + ": " + dayString);
-//                Utils.tryAccessibilityAnnounce(mAnimator, mSelectDay);
                 break;
             case MONTH_PICKER_INDEX:
-//                mYearPickerView.onDateChanged();
-                prepareMonthPickerForDisplay(mCurrentYearDisplayed);
                 if (mCurrentView != viewIndex) {
-//                    updateHeaderSelectedView(YEAR_VIEW);
+                    prepareMonthPickerForDisplay(mCurrentYearDisplayed);
                     mMonthAnimator.setDisplayedChild(MONTH_PICKER_INDEX, animate);
                     animateArrow(mArrowDownDrawable);
                     mCurrentView = viewIndex;
                 }
-
-//                CharSequence yearString = YEAR_FORMAT.format(millis);
-//                mAnimator.setContentDescription(mYearPickerDescription + ": " + yearString);
-//                Utils.tryAccessibilityAnnounce(mAnimator, mSelectYear);
                 break;
         }
     }
