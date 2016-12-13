@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.date.DatePickerDialog.OnDateChangedListener;
+import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
     private int mViewSize;
     private int mChildSize;
     private TextViewWithIndicator mSelectedView;
+    private final DateRangeHelper mDateRangeHelper;
 
     private boolean mThemeDark;
 
@@ -55,6 +57,7 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
         super(context);
         mController = controller;
         mController.registerOnDateChangedListener(this);
+        mDateRangeHelper = new DateRangeHelper(controller);
         ViewGroup.LayoutParams frame = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT);
         setLayoutParams(frame);
@@ -85,20 +88,19 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mController.tryVibrate();
         TextViewWithIndicator clickedView = (TextViewWithIndicator) view;
-        if (clickedView != null) {
-            if (clickedView != mSelectedView) {
-//                if (mSelectedView != null) {
-//                    mSelectedView.drawIndicator(false);
-//                    mSelectedView.requestLayout();
-//                }
-//                clickedView.drawIndicator(true);
-//                clickedView.requestLayout();
-                mSelectedView = clickedView;
+        if (clickedView != null && clickedView.isEnabled()) {
+            // TODO: Move range check to adapter's getView()
+            final int year = getYearFromTextView(clickedView);
+            CalendarDay selectedDay = mController.getSelectedDay();
+            if (mDateRangeHelper != null && !mDateRangeHelper.isOutOfRange(
+                    year, selectedDay.month, selectedDay.year)) {
+                if (clickedView != mSelectedView) {
+                    mSelectedView = clickedView;
+                }
+                mController.tryVibrate();
+                mController.onYearSelected(year);
             }
-            mController.onYearSelected(getYearFromTextView(clickedView));
-//            mAdapter.notifyDataSetChanged();
         }
     }
 
