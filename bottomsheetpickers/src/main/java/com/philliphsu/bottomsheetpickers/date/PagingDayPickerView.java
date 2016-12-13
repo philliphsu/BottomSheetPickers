@@ -505,8 +505,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         if (mCurrentView == DAY_PICKER_INDEX) {
             setTitle(mAdapter.getPageTitle(position));
             toggleArrowsVisibility(position > 0, position + 1 < mAdapter.getCount());
-            final int month = position % MONTHS_IN_YEAR;
-            final int year = position / MONTHS_IN_YEAR + mController.getMinYear();
+            final int month = mAdapter.getMonth(position);
+            final int year = mAdapter.getYear(position);
             if (mCurrentYearDisplayed != year) {
                 mCurrentYearDisplayed = year;
             }

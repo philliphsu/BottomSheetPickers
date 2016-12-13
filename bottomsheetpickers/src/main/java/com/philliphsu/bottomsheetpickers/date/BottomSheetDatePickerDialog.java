@@ -19,6 +19,7 @@ package com.philliphsu.bottomsheetpickers.date;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -467,6 +468,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     /**
      * @return The minimal date supported by this DatePicker. Null if it has not been set.
      */
+    @Nullable
     @Override
     public Calendar getMinDate() {
         return mMinDate;
@@ -486,6 +488,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     /**
      * @return The maximal date supported by this DatePicker. Null if it has not been set.
      */
+    @Nullable
     @Override
     public Calendar getMaxDate() {
         return mMaxDate;

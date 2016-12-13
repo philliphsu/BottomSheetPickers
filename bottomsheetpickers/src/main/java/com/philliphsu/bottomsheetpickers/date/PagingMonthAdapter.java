@@ -29,6 +29,7 @@ import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
 import com.philliphsu.bottomsheetpickers.date.MonthView.OnDayClickListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -102,7 +103,24 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
 
     @Override
     public int getCount() {
-        return ((mController.getMaxYear() - mController.getMinYear()) + 1) * MONTHS_IN_YEAR;
+        final Calendar minDate = mController.getMinDate();
+        final Calendar maxDate = mController.getMaxDate();
+        final int minMonth = minDate == null ? 0 : minDate.get(Calendar.MONTH);
+
+        // The number of months remaining in minDate's year, from minMonth forward.
+        int monthsInMinYear = MONTHS_IN_YEAR - minMonth;
+        // The number of months in maxDate's year, up to maxDate's month.
+        // From Calendar.JANUARY (0) forward.
+        int monthsInMaxYear = maxDate == null ? MONTHS_IN_YEAR : maxDate.get(Calendar.MONTH) + 1;
+
+        int count = monthsInMinYear + monthsInMaxYear;
+        // Add the number of months in between the min and max dates.
+        // Subtract 2 from the year range because we already counted the min and max years.
+        // Add 1 to get the total number of years in the year range.
+        // e.g. There are 11 years in the range [2016, 2026].
+        // => net difference = -1
+        count += (mController.getMaxYear() - mController.getMinYear() - 1) * MONTHS_IN_YEAR;
+        return count;
     }
 
     @Override
@@ -123,16 +141,16 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
         }
         drawingParams.clear();
 
-        final int month = position % MONTHS_IN_YEAR;
-        final int year = position / MONTHS_IN_YEAR + mController.getMinYear();
+        final int month = getMonth(position);
+        final int year = getYear(position);
 
         int selectedDay = -1;
         if (isSelectedDayInMonth(year, month)) {
             selectedDay = mSelectedDay.day;
         }
 
-//        // Invokes requestLayout() to ensure that the recycled view is set with the appropriate
-//        // height/number of weeks before being displayed.
+        // Invokes requestLayout() to ensure that the recycled view is set with the appropriate
+        // height/number of weeks before being displayed.
         v.reuse();
 
         drawingParams.put(MonthView.VIEW_PARAMS_SELECTED_DAY, selectedDay);
@@ -230,5 +248,24 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
         mController.tryVibrate();
         mController.onDayOfMonthSelected(day.year, day.month, day.day);
         setSelectedDay(day);
+    }
+
+    /**
+     * Returns the month (0 - 11) displayed at this position.
+     */
+    final int getMonth(int position) {
+        return (position + getMonthOffset()) % MONTHS_IN_YEAR;
+    }
+
+    /**
+     * Returns the year displayed at this position.
+     */
+    final int getYear(int position) {
+        return (position + getMonthOffset()) / MONTHS_IN_YEAR + mController.getMinYear();
+    }
+
+    private int getMonthOffset() {
+        Calendar minDate = mController.getMinDate();
+        return minDate == null ? 0 : minDate.get(Calendar.MONTH);
     }
 }
