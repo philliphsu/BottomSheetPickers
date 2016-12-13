@@ -264,6 +264,14 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
         return (position + getMonthOffset()) / MONTHS_IN_YEAR + mController.getMinYear();
     }
 
+    /**
+     * @return The page position at which the given day is located.
+     */
+    final int getPosition(CalendarDay day) {
+        int positionOfYear = MONTHS_IN_YEAR * (day.year - mController.getMinYear()) - getMonthOffset();
+        return positionOfYear + day.month;
+    }
+
     private int getMonthOffset() {
         Calendar minDate = mController.getMinDate();
         return minDate == null ? 0 : minDate.get(Calendar.MONTH);

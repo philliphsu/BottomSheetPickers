@@ -49,7 +49,6 @@ import java.util.Locale;
 
 import static android.support.v4.content.ContextCompat.getColor;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static com.philliphsu.bottomsheetpickers.date.PagingMonthAdapter.MONTHS_IN_YEAR;
 
 /**
  * This displays a ViewPager of months in a calendar format with selectable days.
@@ -317,7 +316,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
      * @return The page position at which the given day is located.
      */
     private int getPosition(CalendarDay day) {
-        return (day.year - mController.getMinYear()) * MONTHS_IN_YEAR + day.month;
+        return mAdapter.getPosition(day);
     }
 
     public void postSetSelection(final int position, final boolean setSelected) {
