@@ -112,6 +112,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     private Calendar mMaxDate;
 
     private HapticFeedbackController mHapticFeedbackController;
+    private CalendarDay mSelectedDay;
 
     private boolean mDelayAnimation = true;
 
@@ -579,7 +580,14 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
 
     @Override
     public CalendarDay getSelectedDay() {
-        return new CalendarDay(mCalendar);
+        if (mSelectedDay == null) {
+            mSelectedDay = new CalendarDay(mCalendar);
+        } else {
+            mSelectedDay.setDay(mCalendar.get(Calendar.YEAR),
+                    mCalendar.get(Calendar.MONTH),
+                    mCalendar.get(Calendar.DAY_OF_MONTH));
+        }
+        return mSelectedDay;
     }
 
     @Override
