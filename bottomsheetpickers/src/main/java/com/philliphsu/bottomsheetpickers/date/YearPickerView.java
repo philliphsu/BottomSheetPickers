@@ -94,7 +94,7 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
             final int year = getYearFromTextView(clickedView);
             CalendarDay selectedDay = mController.getSelectedDay();
             if (mDateRangeHelper != null && !mDateRangeHelper.isOutOfRange(
-                    year, selectedDay.month, selectedDay.year)) {
+                    year, selectedDay.month, selectedDay.day)) {
                 if (clickedView != mSelectedView) {
                     mSelectedView = clickedView;
                 }
