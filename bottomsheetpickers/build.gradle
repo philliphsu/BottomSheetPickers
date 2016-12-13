@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/philliphsu/BottomSheetPickers'
     gitUrl = 'https://github.com/philliphsu/BottomSheetPickers.git'
 
-    libraryVersion = '2.0.3'
+    libraryVersion = '2.1.0'
 
     developerId = 'philliphsu'
     developerName = 'Phillip Hsu'
