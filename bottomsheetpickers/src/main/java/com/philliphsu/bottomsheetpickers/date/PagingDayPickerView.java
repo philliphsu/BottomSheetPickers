@@ -215,14 +215,15 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         if (currentView == DAY_PICKER_INDEX || currentView == MONTH_PICKER_INDEX) {
             boolean isDayPicker = currentView == DAY_PICKER_INDEX;
             setCurrentView(currentView, animate);
-            toggleArrowsVisibility(isDayPicker, isDayPicker);
             if (isDayPicker) {
                 setTitle(mAdapter.getPageTitle(mViewPager.getCurrentItem()));
+                toggleArrowsVisibility(getPagerPosition());
             } else {
                 // Fortunately, very few locales have a year pattern string different
                 // from "yyyy". Localization isn't too important here.
                 // TODO: Decide if you really want the year to be localized.
                 setTitle(String.valueOf(mCurrentYearDisplayed));
+                toggleArrowsVisibility(false, false);
             }
         } else {
             Log.e(TAG, "Error restoring current view");
@@ -504,7 +505,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     public void onPageSelected(int position) {
         if (mCurrentView == DAY_PICKER_INDEX) {
             setTitle(mAdapter.getPageTitle(position));
-            toggleArrowsVisibility(position > 0, position + 1 < mAdapter.getCount());
+            toggleArrowsVisibility(position);
             final int month = mAdapter.getMonth(position);
             final int year = mAdapter.getYear(position);
             if (mCurrentYearDisplayed != year) {
@@ -523,6 +524,16 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     private void setTitle(CharSequence title) {
         mMonthYearTitleView.setText(title);
+    }
+
+    /**
+     * A variant of {@link #toggleArrowsVisibility(boolean, boolean)} suitable
+     * for when a new page has been selected.
+     *
+     * @param position The page position
+     */
+    private void toggleArrowsVisibility(int position) {
+        toggleArrowsVisibility(position > 0, position + 1 < mAdapter.getCount());
     }
 
     private void toggleArrowsVisibility(boolean leftVisible, boolean rightVisible) {
