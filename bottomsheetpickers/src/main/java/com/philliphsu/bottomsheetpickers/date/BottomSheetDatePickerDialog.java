@@ -69,6 +69,8 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     private static final String KEY_CURRENT_VIEW = "current_view";
     private static final String KEY_LIST_POSITION_OFFSET = "list_position_offset";
     private static final String KEY_DAY_PICKER_CURRENT_INDEX = "day_picker_current_index";
+    private static final String KEY_MIN_DATE_MILLIS = "min_date_millis";
+    private static final String KEY_MAX_DATE_MILLIS = "max_date_millis";
 
     private static final int DEFAULT_START_YEAR = 1900;
     private static final int DEFAULT_END_YEAR = 2100;
@@ -104,7 +106,9 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     private int mWeekStart = mCalendar.getFirstDayOfWeek();
     private int mMinYear = DEFAULT_START_YEAR;
     private int mMaxYear = DEFAULT_END_YEAR;
+    @Nullable
     private Calendar mMinDate;
+    @Nullable
     private Calendar mMaxDate;
 
     private HapticFeedbackController mHapticFeedbackController;
@@ -179,6 +183,12 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
             outState.putInt(KEY_LIST_POSITION_OFFSET, mYearPickerView.getFirstPositionOffset());
         }
         outState.putInt(KEY_LIST_POSITION, listPosition);
+        if (mMinDate != null) {
+            outState.putLong(KEY_MIN_DATE_MILLIS, mMinDate.getTimeInMillis());
+        }
+        if (mMaxDate != null) {
+            outState.putLong(KEY_MAX_DATE_MILLIS, mMaxDate.getTimeInMillis());
+        }
     }
 
     @Override
@@ -208,6 +218,16 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
             listPosition = savedInstanceState.getInt(KEY_LIST_POSITION);
             listPositionOffset = savedInstanceState.getInt(KEY_LIST_POSITION_OFFSET);
             dayPickerCurrentView = savedInstanceState.getInt(KEY_DAY_PICKER_CURRENT_INDEX);
+
+            // Don't restore both in one block because it may well be that only one was set.
+            if (savedInstanceState.containsKey(KEY_MIN_DATE_MILLIS)) {
+                mMinDate = Calendar.getInstance();
+                mMinDate.setTimeInMillis(savedInstanceState.getLong(KEY_MIN_DATE_MILLIS));
+            }
+            if (savedInstanceState.containsKey(KEY_MAX_DATE_MILLIS)) {
+                mMaxDate = Calendar.getInstance();
+                mMaxDate.setTimeInMillis(savedInstanceState.getLong(KEY_MAX_DATE_MILLIS));
+            }
         }
 
         final Activity activity = getActivity();
