@@ -295,7 +295,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         // Check if the selected day is now outside of our visible range
         // and if so scroll to the month that contains it
         if (position != selectedPosition || forceScroll) {
-            setMonthDisplayed(mTempDay);
+            setMonthAndYearDisplayed(mTempDay);
             if (animate) {
                 mViewPager.setCurrentItem(position, true);
                 if (setSelected) {
@@ -306,7 +306,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 postSetSelection(position, setSelected);
             }
         } else if (setSelected) {
-            setMonthDisplayed(mSelectedDay);
+            setMonthAndYearDisplayed(mSelectedDay);
             setSelectedDay(mSelectedDay);
         }
         return false;
@@ -342,11 +342,12 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     }
 
     /**
-     * Sets the month displayed at the top of this view based on time. Override
-     * to add custom events when the title is changed.
+     * Sets the month and year displayed at the top of this view based on time.
+     * Override to add custom events when the title is changed.
      */
-    protected void setMonthDisplayed(CalendarDay date) {
+    protected void setMonthAndYearDisplayed(CalendarDay date) {
         mCurrentMonthDisplayed = date.month;
+        mCurrentYearDisplayed = date.year;
     }
 
     private void setSelectedDay(CalendarDay day) {
