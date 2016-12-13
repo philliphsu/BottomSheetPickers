@@ -18,7 +18,6 @@ package com.philliphsu.bottomsheetpickers.date;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.text.format.Time;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
@@ -26,8 +25,6 @@ import android.widget.BaseAdapter;
 
 import com.philliphsu.bottomsheetpickers.date.MonthView.OnDayClickListener;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -45,87 +42,6 @@ public abstract class MonthAdapter extends BaseAdapter implements OnDayClickList
 
     protected static int WEEK_7_OVERHANG_HEIGHT = 7;
     protected static final int MONTHS_IN_YEAR = 12;
-
-    /**
-     * A convenience class to represent a specific date.
-     */
-    public static class CalendarDay {
-        private Calendar calendar;
-        private Time time;
-        int year;
-        int month;
-        int day;
-
-        public CalendarDay() {
-            setTime(System.currentTimeMillis());
-        }
-
-        public CalendarDay(long timeInMillis) {
-            setTime(timeInMillis);
-        }
-
-        public CalendarDay(Calendar calendar) {
-            year = calendar.get(Calendar.YEAR);
-            month = calendar.get(Calendar.MONTH);
-            day = calendar.get(Calendar.DAY_OF_MONTH);
-        }
-
-        public CalendarDay(int year, int month, int day) {
-            setDay(year, month, day);
-        }
-
-        public void set(CalendarDay date) {
-            year = date.year;
-            month = date.month;
-            day = date.day;
-        }
-
-        public void setDay(int year, int month, int day) {
-            this.year = year;
-            this.month = month;
-            this.day = day;
-        }
-
-        public synchronized void setJulianDay(int julianDay) {
-            if (time == null) {
-                time = new Time();
-            }
-            time.setJulianDay(julianDay);
-            setTime(time.toMillis(false));
-        }
-
-        private void setTime(long timeInMillis) {
-            if (calendar == null) {
-                calendar = Calendar.getInstance();
-            }
-            calendar.setTimeInMillis(timeInMillis);
-            month = calendar.get(Calendar.MONTH);
-            year = calendar.get(Calendar.YEAR);
-            day = calendar.get(Calendar.DAY_OF_MONTH);
-        }
-
-        public int getYear() {
-            return year;
-        }
-
-        public int getMonth() {
-            return month;
-        }
-
-        public int getDay() {
-            return day;
-        }
-
-        Date getDate() {
-            if (calendar == null) {
-                calendar = Calendar.getInstance();
-            }
-            calendar.set(Calendar.YEAR, year);
-            calendar.set(Calendar.MONTH, month);
-            calendar.set(Calendar.DAY_OF_MONTH, day);
-            return calendar.getTime();
-        }
-    }
 
     public MonthAdapter(Context context,
             DatePickerController controller) {

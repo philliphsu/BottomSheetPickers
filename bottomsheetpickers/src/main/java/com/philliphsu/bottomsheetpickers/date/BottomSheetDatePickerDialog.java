@@ -36,7 +36,6 @@ import android.widget.TextView;
 import com.philliphsu.bottomsheetpickers.HapticFeedbackController;
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
-import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

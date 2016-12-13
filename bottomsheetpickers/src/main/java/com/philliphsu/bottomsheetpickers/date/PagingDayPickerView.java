@@ -40,7 +40,6 @@ import android.widget.TextView;
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
 import com.philliphsu.bottomsheetpickers.date.DatePickerDialog.OnDateChangedListener;
-import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
 import com.philliphsu.bottomsheetpickers.date.MonthPickerView.OnMonthClickListener;
 
 import java.text.SimpleDateFormat;

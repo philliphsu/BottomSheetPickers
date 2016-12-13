@@ -25,7 +25,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 
-import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
 import com.philliphsu.bottomsheetpickers.date.MonthView.OnDayClickListener;
 
 import java.util.ArrayList;

@@ -13,7 +13,6 @@ import android.view.View;
 
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
-import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;

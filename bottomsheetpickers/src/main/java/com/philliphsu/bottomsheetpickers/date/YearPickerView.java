@@ -30,7 +30,6 @@ import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.date.DatePickerDialog.OnDateChangedListener;
-import com.philliphsu.bottomsheetpickers.date.MonthAdapter.CalendarDay;
 
 import java.util.ArrayList;
 import java.util.List;
