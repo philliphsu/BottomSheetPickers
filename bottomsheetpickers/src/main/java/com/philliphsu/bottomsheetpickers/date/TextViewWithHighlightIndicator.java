@@ -10,6 +10,8 @@ import android.util.TypedValue;
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
 
+import static android.support.v4.content.ContextCompat.getColor;
+
 /**
  * A derivative of {@link TextViewWithCircularIndicator} for use in {@link
  * YearPickerView}, that matches the style in the Material Design spec.
@@ -22,6 +24,7 @@ public class TextViewWithHighlightIndicator extends TextViewWithIndicator {
     private final float  mSelectedTextSize;
 
     private boolean mDrawHighlight;
+    private int     mDisabledTextColor;
 
     public TextViewWithHighlightIndicator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -30,6 +33,7 @@ public class TextViewWithHighlightIndicator extends TextViewWithIndicator {
         mItemIsSelectedText = context.getResources().getString(R.string.item_is_selected);
         mDefaultTextSize = getTextSize();
         mSelectedTextSize = res.getDimension(R.dimen.year_label_selected_text_size);
+        mDisabledTextColor = getColor(context, R.color.text_color_disabled_light);
     }
 
     public void drawIndicator(boolean drawHighlight) {
@@ -39,9 +43,11 @@ public class TextViewWithHighlightIndicator extends TextViewWithIndicator {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        setTextColor(mDrawHighlight ? mHighlightColor : mDefaultTextColor);
-        setTextSize(TypedValue.COMPLEX_UNIT_PX, mDrawHighlight ? mSelectedTextSize : mDefaultTextSize);
-        setTypeface(mDrawHighlight ? Utils.SANS_SERIF_LIGHT_BOLD : Typeface.DEFAULT);
+        setTextColor(isEnabled() ? (mDrawHighlight ? mHighlightColor : mDefaultTextColor) :
+                mDisabledTextColor);
+        boolean drawHighlight = isEnabled() && mDrawHighlight;
+        setTextSize(TypedValue.COMPLEX_UNIT_PX, drawHighlight ? mSelectedTextSize : mDefaultTextSize);
+        setTypeface(drawHighlight ? Utils.SANS_SERIF_LIGHT_BOLD : Typeface.DEFAULT);
     }
 
     @Override
@@ -54,4 +60,10 @@ public class TextViewWithHighlightIndicator extends TextViewWithIndicator {
         }
     }
 
+    @Override
+    void setTheme(Context context, boolean themeDark) {
+        super.setTheme(context, themeDark);
+        mDisabledTextColor = getColor(context, themeDark?
+                R.color.text_color_disabled_dark : R.color.text_color_disabled_light);
+    }
 }
