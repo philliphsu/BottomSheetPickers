@@ -90,17 +90,11 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TextViewWithIndicator clickedView = (TextViewWithIndicator) view;
         if (clickedView != null && clickedView.isEnabled()) {
-            // TODO: Move range check to adapter's getView()
-            final int year = getYearFromTextView(clickedView);
-            CalendarDay selectedDay = mController.getSelectedDay();
-            if (mDateRangeHelper != null && !mDateRangeHelper.isOutOfRange(
-                    year, selectedDay.month, selectedDay.day)) {
-                if (clickedView != mSelectedView) {
-                    mSelectedView = clickedView;
-                }
-                mController.tryVibrate();
-                mController.onYearSelected(year);
+            if (clickedView != mSelectedView) {
+                mSelectedView = clickedView;
             }
+            mController.tryVibrate();
+            mController.onYearSelected(getYearFromTextView(clickedView));
         }
     }
 
@@ -121,10 +115,17 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
             v.setTheme(parent.getContext(), mThemeDark);
             v.requestLayout();
             int year = getYearFromTextView(v);
-            boolean selected = mController.getSelectedDay().year == year;
-            v.drawIndicator(selected);
-            if (selected) {
-                mSelectedView = v;
+            CalendarDay selectedDay = mController.getSelectedDay();
+            if (mDateRangeHelper != null && mDateRangeHelper.isOutOfRange(
+                    year, selectedDay.month, selectedDay.day)) {
+                v.setEnabled(false);
+            } else {
+                v.setEnabled(true);
+                boolean selected = selectedDay.year == year;
+                v.drawIndicator(selected);
+                if (selected) {
+                    mSelectedView = v;
+                }
             }
             return v;
         }
