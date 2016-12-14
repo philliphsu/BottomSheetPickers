@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements
                     Calendar max = Calendar.getInstance();
                     max.add(Calendar.YEAR, 10);
                     dialog.setMaxDate(max);
+                    dialog.setYearRange(1970, 2032);
                     dialog.show(getSupportFragmentManager(), TAG);
                 }
             }

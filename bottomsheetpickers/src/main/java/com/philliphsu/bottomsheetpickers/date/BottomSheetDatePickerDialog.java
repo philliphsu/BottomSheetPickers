@@ -463,6 +463,16 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         }
     }
 
+    /**
+     * Sets the range of years to be displayed by this date picker. If a {@link #setMinDate(Calendar)
+     * minimal date} and/or {@link #setMaxDate(Calendar) maximal date} were set, dates in the
+     * specified range of years that lie outside of the minimal and maximal dates will be disallowed
+     * from being selected.
+     * <em>This does NOT change the minimal date's year or the maximal date's year.</em>
+     *
+     * @param startYear the start of the year range
+     * @param endYear the end of the year range
+     */
     public void setYearRange(int startYear, int endYear) {
         if (endYear <= startYear) {
             throw new IllegalArgumentException("Year end must be larger than year start");
@@ -475,8 +485,8 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     }
 
     /**
-     * Sets the minimal date supported by this DatePicker. Dates before (but not including) the
-     * specified date will be disallowed from being selected.
+     * Sets the minimal date that can be selected in this date picker. Dates before (but not including)
+     * the specified date will be disallowed from being selected.
      *
      * @param calendar a Calendar object set to the year, month, day desired as the mindate.
      */
@@ -486,7 +496,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     }
 
     /**
-     * @return The minimal date supported by this DatePicker. Null if it has not been set.
+     * @return The minimal date supported by this date picker. Null if it has not been set.
      */
     @Nullable
     @Override
@@ -495,8 +505,8 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     }
 
     /**
-     * Sets the minimal date supported by this DatePicker. Dates after (but not including) the
-     * specified date will be disallowed from being selected.
+     * Sets the maximal date that can be selected in this date picker. Dates after (but not including)
+     * the specified date will be disallowed from being selected.
      *
      * @param calendar a Calendar object set to the year, month, day desired as the maxdate.
      */
@@ -506,7 +516,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     }
 
     /**
-     * @return The maximal date supported by this DatePicker. Null if it has not been set.
+     * @return The maximal date supported by this date picker. Null if it has not been set.
      */
     @Nullable
     @Override
