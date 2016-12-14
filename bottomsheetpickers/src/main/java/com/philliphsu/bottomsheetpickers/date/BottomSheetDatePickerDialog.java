@@ -452,6 +452,11 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         return DateUtils.formatDateTime(null, calendar.getTimeInMillis(), flags);
     }
 
+    /**
+     * Use this to set the day that a week should start on.
+     * @param startOfWeek A value from {@link Calendar#SUNDAY SUNDAY}
+     *                    through {@link Calendar#SATURDAY SATURDAY}
+     */
     public void setFirstDayOfWeek(int startOfWeek) {
         if (startOfWeek < Calendar.SUNDAY || startOfWeek > Calendar.SATURDAY) {
             throw new IllegalArgumentException("Value must be between Calendar.SUNDAY and " +

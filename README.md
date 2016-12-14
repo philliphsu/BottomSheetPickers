@@ -7,9 +7,12 @@ supporting API level 14 and up.
 
 ## Date Picker
 
-<img src="screenshots/date-picker-light.png" width="180" height="320">
+<img src="screenshots/paging-date-picker-light.png" width="180" height="320">
+<img src="screenshots/month-picker-light.png" width="180" height="320">
 <img src="screenshots/year-picker-light.png" width="180" height="320">
-<img src="screenshots/date-picker-dark.png" width="180" height="320">
+
+<img src="screenshots/paging-date-picker-dark.png" width="180" height="320">
+<img src="screenshots/month-picker-dark.png" width="180" height="320">
 <img src="screenshots/year-picker-dark.png" width="180" height="320">
 
 ## Time Pickers
@@ -35,7 +38,7 @@ supporting API level 14 and up.
 Add the following dependency to your module's `build.gradle`:
 ```groovy
 dependencies {
-  compile 'com.philliphsu:bottomsheetpickers:2.0.3'
+  compile 'com.philliphsu:bottomsheetpickers:2.1.0'
 }
 ```
 
@@ -118,10 +121,35 @@ You can specify whether to use a light (default) or dark theme:
 > **NOTE:** `setThemeDark(boolean dark)` overwrites the value specified in XML.
 
 ### Additional Options
-`NumberPadTimePickerDialog` exposes the following additional APIs:
-* `setHint(String hint)` or `setHint(@StringRes int resid)`: Sets the hint of the input time TextView.
-* `setInputTextSize(int textSize)`: Sets the text size in px of the input time TextView.
-* `getInputTextView()`: Returns the `TextView` that stores the inputted time.
+Certain pickers expose additional APIs that can be used to customize their appearance.
+
+#### `NumberPadTimePickerDialog`
+* `setHint(String hint)` or `setHint(@StringRes int resid)`
+Sets the hint of the input time TextView.
+
+* `setInputTextSize(int textSize)`
+Sets the text size in px of the input time TextView.
+
+* `getInputTextView()`
+Returns the `TextView` that stores the inputted time.
+
+#### `BottomSheetDatePickerDialog`
+* `setFirstDayOfWeek(int startOfWeek)`
+Use this to set the day (`Calendar.SUNDAY` through `Calendar.SATURDAY`) that a week should start on.
+
+* `setYearRange(int startYear, int endYear)`
+Sets the range of years to be displayed by this date picker. If a minimal date and/or maximal date
+were set using `setMinDate(Calendar)` or `setMaxDate(Calendar)`, dates in the specified range of
+years that lie outside of the minimal and maximal dates will be disallowed from being selected.
+_This does NOT change the minimal date's year or the maximal date's year._
+
+* `setMinDate(Calendar calendar)`
+Sets the minimal date that can be selected in this date picker. Dates before (but not including)
+the specified date will be disallowed from being selected.
+
+* `setMaxDate(Calendar calendar)`
+Sets the maximal date that can be selected in this date picker. Dates after (but not including)
+the specified date will be disallowed from being selected.
 
 ## Attribution
 
