@@ -38,7 +38,19 @@ supporting API level 14 and up.
 Add the following dependency to your module's `build.gradle`:
 ```groovy
 dependencies {
-  compile 'com.philliphsu:bottomsheetpickers:2.1.0'
+  compile 'com.philliphsu:bottomsheetpickers:2.1.1'
+}
+```
+
+If you are using any of the `appcompat-v7`, `design`, or `gridlayout-v7` support libraries,
+you should exclude them from the library and keep those dependencies in your own `build.gradle`
+file.
+
+```groovy
+compile('com.philliphsu:bottomsheetpickers:2.1.1') {
+    exclude group: 'com.android.support', module: 'appcompat-v7'
+    exclude group: 'com.android.support', module: 'design'
+    exclude group: 'com.android.support', module: 'gridlayout-v7'
 }
 ```
 
