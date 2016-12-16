@@ -44,11 +44,9 @@ import com.philliphsu.bottomsheetpickers.Utils;
 import java.security.InvalidParameterException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import static android.support.v4.content.ContextCompat.getColor;
 import static com.philliphsu.bottomsheetpickers.date.PagingDayPickerView.MONTH_NAVIGATION_BAR_SIZE;
@@ -142,9 +140,6 @@ public abstract class MonthView extends View {
     protected Paint mSelectedCirclePaint;
     protected Paint mMonthDayLabelPaint;
 
-    private final Formatter mFormatter;
-    private final StringBuilder mStringBuilder;
-
     // The Julian day of the first day displayed by this item
     protected int mFirstJulianDay = -1;
     // The month of the first day in this week
@@ -226,9 +221,6 @@ public abstract class MonthView extends View {
         mMonthTitleColor = res.getColor(android.R.color.white);
         mMonthTitleBGColor = res.getColor(R.color.circle_background);
         mMonthDayLabelTextColor = getColor(context, R.color.text_color_disabled_light);
-
-        mStringBuilder = new StringBuilder(50);
-        mFormatter = new Formatter(mStringBuilder, Locale.getDefault());
 
         MINI_DAY_NUMBER_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.day_number_size);
         MONTH_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.month_label_size);
@@ -481,10 +473,7 @@ public abstract class MonthView extends View {
         if (mMonthTitle == null) {
             int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
                     | DateUtils.FORMAT_NO_MONTH_DAY;
-            mStringBuilder.setLength(0);
-            long millis = mCalendar.getTimeInMillis();
-            mMonthTitle = DateUtils.formatDateRange(getContext(), mFormatter, millis, millis, flags,
-                    TimeZone.getDefault().getID()).toString();
+            mMonthTitle = DateFormatHelper.formatDate(mCalendar, flags);
         }
         return mMonthTitle;
     }

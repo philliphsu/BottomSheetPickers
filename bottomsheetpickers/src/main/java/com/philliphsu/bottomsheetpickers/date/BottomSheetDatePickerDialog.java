@@ -40,11 +40,11 @@ import com.philliphsu.bottomsheetpickers.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Formatter;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
 
+import static com.philliphsu.bottomsheetpickers.date.DateFormatHelper.formatDate;
 import static com.philliphsu.bottomsheetpickers.date.PagingDayPickerView.DAY_PICKER_INDEX;
 
 /**
@@ -80,11 +80,6 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
 
     private static SimpleDateFormat YEAR_FORMAT = new SimpleDateFormat("yyyy", Locale.getDefault());
     private static SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("dd", Locale.getDefault());
-
-    /* Used for formatting dates via DateUtils. If we don't use these, the internal
-     * methods of DateUtils would instantiate new instances each time we format a date. */
-    private static final StringBuilder STRING_BUILDER = new StringBuilder(50);
-    private static final Formatter FORMATTER = new Formatter(STRING_BUILDER, Locale.getDefault());
 
     private final Calendar mCalendar = Calendar.getInstance();
     private OnDateSetListener mCallBack;
@@ -335,8 +330,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
                     mCurrentView = viewIndex;
                 }
 
-                int flags = DateUtils.FORMAT_SHOW_DATE;
-                String dayString = DateUtils.formatDateTime(getActivity(), millis, flags);
+                String dayString = formatDate(mCalendar, DateUtils.FORMAT_SHOW_DATE);
                 mAnimator.setContentDescription(mDayPickerDescription + ": " + dayString);
                 Utils.tryAccessibilityAnnounce(mAnimator, mSelectDay);
                 break;
@@ -399,15 +393,13 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     }
 
     private static String formatMonthDayYear(Calendar calendar) {
-        // TODO: Use the STRING_BUILDER and FORMATTER.
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH | DateUtils.FORMAT_SHOW_YEAR;
-        return formatDateTime(calendar, flags);
+        return formatDate(calendar, flags);
     }
 
     private static String formatMonthAndDay(Calendar calendar) {
-        // TODO: Use the STRING_BUILDER and FORMATTER.
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_MONTH | DateUtils.FORMAT_NO_YEAR;
-        return formatDateTime(calendar, flags);
+        return formatDate(calendar, flags);
     }
 
     private String extractYearFromFormattedDate(String formattedDate, String monthAndDay) {
@@ -432,7 +424,6 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         }
         String fullDate = formatMonthDayYear(mCalendar);
         String monthAndDay = formatMonthAndDay(mCalendar);
-        // TODO: Use the STRING_BUILDER and FORMATTER.
         String year = YEAR_FORMAT.format(mCalendar.getTime());
 
         int yearStart = fullDate.indexOf(year);
@@ -503,18 +494,14 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         long millis = mCalendar.getTimeInMillis();
         mAnimator.setDateMillis(millis);
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_YEAR;
-        String monthAndDayText = DateUtils.formatDateTime(getActivity(), millis, flags);
+        String monthAndDayText = formatDate(millis, flags);
         mMonthDayYearView.setContentDescription(monthAndDayText);
 
         if (announce) {
             flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR;
-            String fullDateText = DateUtils.formatDateTime(getActivity(), millis, flags);
+            String fullDateText = formatDate(millis, flags);
             Utils.tryAccessibilityAnnounce(mAnimator, fullDateText);
         }
-    }
-
-    private static String formatDateTime(Calendar calendar, int flags) {
-        return DateUtils.formatDateTime(null, calendar.getTimeInMillis(), flags);
     }
 
     /**
