@@ -33,6 +33,7 @@
     <!-- Bottom sheet specs -->
     <dimen name="bottom_sheet_edge_margin">24dp</dimen>
     <dimen name="bottom_sheet_vertical_space">16dp</dimen>
+    <dimen name="bottom_sheet_width">0dp</dimen>
     <!-- If the total height of the contents of a bottom sheet does not exceed this limit,
     then the sheet will show fully expanded; the contents are not stretched to match this height.
     This is large enough to accommodate most, if not all, of our layouts. -->

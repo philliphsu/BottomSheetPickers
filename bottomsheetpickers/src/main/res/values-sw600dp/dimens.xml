@@ -58,8 +58,15 @@
     <dimen name="picker_dimen">400dip</dimen>
 
     <dimen name="fab_margin">64dp</dimen>
-    <dimen name="peek_height_upper_limit">1000dp</dimen>
 
     <dimen name="month_view_top_padding">12dp</dimen>
+
+    <!--TODO: Do we need to change this?-->
+    <dimen name="bottom_sheet_edge_margin">24dp</dimen>
+    <!--TODO: Do we need to change this?-->
+    <dimen name="bottom_sheet_vertical_space">16dp</dimen>
+    <!--TODO: Verify if this looks alright.-->
+    <dimen name="bottom_sheet_width">480dp</dimen>
+    <dimen name="peek_height_upper_limit">1000dp</dimen>
 
 </resources>

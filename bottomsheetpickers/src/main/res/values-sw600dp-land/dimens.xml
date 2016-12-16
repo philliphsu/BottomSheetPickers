@@ -34,4 +34,10 @@
         (393dp default portrait height) - (64 dp footer area height) = 329dp -->
     <dimen name="date_picker_view_animator_height">329dp</dimen>
 
+    <!--TODO: Do we need to change this?-->
+    <dimen name="bottom_sheet_edge_margin">24dp</dimen>
+    <!--TODO: Do we need to change this?-->
+    <dimen name="bottom_sheet_vertical_space">16dp</dimen>
+    <!--TODO: Verify if this looks alright.-->
+    <dimen name="bottom_sheet_width">600dp</dimen>
 </resources>
