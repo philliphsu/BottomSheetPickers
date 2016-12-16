@@ -429,8 +429,22 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
             mDayOfWeekView.setText(mCalendar.getDisplayName(Calendar.DAY_OF_WEEK,
                     Calendar.LONG, Locale.getDefault()));
         }
+        String fullDate = formatMonthDayYear(mCalendar);
         String monthAndDay = formatMonthAndDay(mCalendar);
-        String year = extractYearFromFormattedDate(formatMonthDayYear(mCalendar), monthAndDay);
+        // TODO: Use the STRING_BUILDER and FORMATTER.
+        String year = YEAR_FORMAT.format(mCalendar.getTime());
+
+        int yearStart = fullDate.indexOf(year);
+        int monthDayStart = fullDate.indexOf(monthAndDay);
+
+        if (mLocaleMonthDayIndex < mLocaleYearIndex) {
+            monthAndDay = fullDate.substring(monthDayStart, yearStart);
+            year = fullDate.substring(yearStart, fullDate.length());
+        } else {
+            year = fullDate.substring(yearStart, monthDayStart);
+            monthAndDay = fullDate.substring(monthDayStart, fullDate.length());
+        }
+
         mFirstTextView.setText(mLocaleMonthDayIndex == 0 ? monthAndDay : year);
         mSecondTextView.setText(mLocaleMonthDayIndex == 0 ? year : monthAndDay);
 
