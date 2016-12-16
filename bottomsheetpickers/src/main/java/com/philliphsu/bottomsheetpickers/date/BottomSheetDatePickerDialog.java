@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -435,15 +436,65 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         String year = YEAR_FORMAT.format(mCalendar.getTime());
 
         int yearStart = fullDate.indexOf(year);
+        int yearEnd = yearStart + year.length();
         int monthDayStart = fullDate.indexOf(monthAndDay);
+        int monthDayEnd = monthDayStart + monthAndDay.length();
+        Log.d(TAG, String.format("yearStart = %d, yearEnd = %d, monthDayStart = %d, monthDayEnd = %d",
+                yearStart, yearEnd, monthDayStart, monthDayEnd));
 
-        if (mLocaleMonthDayIndex < mLocaleYearIndex) {
-            monthAndDay = fullDate.substring(monthDayStart, yearStart);
-            year = fullDate.substring(yearStart, fullDate.length());
+        boolean processed = false;
+        if (monthDayStart != -1 && yearStart != -1) {
+            if (mLocaleMonthDayIndex < mLocaleYearIndex) {
+                if (yearStart - monthDayEnd <= 2) {
+                    Log.d(TAG, "Processed in new algorithm");
+                    monthAndDay = fullDate.substring(monthDayStart, yearStart);
+                    year = fullDate.substring(yearStart, fullDate.length());
+                    processed = true;
+                }
+            } else {
+                if (monthDayStart - yearEnd <= 2) {
+                    Log.d(TAG, "Processed in new algorithm");
+                    year = fullDate.substring(yearStart, monthDayStart);
+                    monthAndDay = fullDate.substring(monthDayStart, fullDate.length());
+                    processed = true;
+                }
+            }
         } else {
-            year = fullDate.substring(yearStart, monthDayStart);
-            monthAndDay = fullDate.substring(monthDayStart, fullDate.length());
+            // Some locales format the standalone month-day or standalone year differently
+            // than it appears in the full date. For instance, Turkey is one such locale.
+            // TODO: You may want to consider making localized string resources of the
+            // pattern strings used to format the (MD) and (Y) parts separately.
+            //
+            // We can't compare the relative indices of (MD) and (Y) determined earlier,
+            // because the results are dubious if we're here.
+            // It is appropriate to assume yearStart != -1. The case where the raw year
+            // is NOT present in the full date string is hard to imagine. As such,
+            // even though monthDayStart == -1, we can still determine the relative indices
+            // of (MD) and (Y) as follows.
+            //
+            // If yearStart is non-zero positive, then we can probably guess monthDayStart
+            // comes before the former.
+            if (yearStart > 0) {
+                monthAndDay = fullDate.substring(0, yearStart);
+                year = fullDate.substring(yearStart, fullDate.length());
+                mLocaleMonthDayIndex = 0;
+                mLocaleYearIndex = 1;
+            } else {
+                year = fullDate.substring(0, yearEnd);
+                monthAndDay = fullDate.substring(yearEnd, fullDate.length());
+                mLocaleYearIndex = 0;
+                mLocaleMonthDayIndex = 1;
+            }
+            processed = true;
         }
+
+        // Year delimiters longer than 2 characters, fall back on pre-2.1.1 implementation.
+        if (!processed) {
+            Log.d(TAG, "Fall back to old algorithm");
+            // The month-day is already formatted appropriately
+            year = extractYearFromFormattedDate(fullDate, monthAndDay);
+        }
+
 
         mFirstTextView.setText(mLocaleMonthDayIndex == 0 ? monthAndDay : year);
         mSecondTextView.setText(mLocaleMonthDayIndex == 0 ? year : monthAndDay);
