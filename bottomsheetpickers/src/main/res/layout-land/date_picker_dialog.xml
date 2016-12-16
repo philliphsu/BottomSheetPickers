@@ -23,13 +23,13 @@
         android:id="@+id/day_picker_selected_date_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="5"
         layout="@layout/date_picker_selected_date" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="7"
         android:orientation="vertical" >
 
         <include layout="@layout/date_picker_view_animator" />

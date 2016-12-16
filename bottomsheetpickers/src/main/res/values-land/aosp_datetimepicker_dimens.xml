@@ -22,7 +22,9 @@
 	
 	<dimen name="selected_date_year_size">30dp</dimen>
     <dimen name="selected_date_day_size">100dp</dimen>
-    <dimen name="selected_date_month_size">30dp</dimen>
+    <dimen name="selected_date_month_size">40dp</dimen>
+    <dimen name="selected_calendar_layout_keyline">16dp</dimen>
+    <dimen name="selected_calendar_layout_top_keyline">20dp</dimen>
 
     <dimen name="day_number_select_circle_radius">18dp</dimen>
 
