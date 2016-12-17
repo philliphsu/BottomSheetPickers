@@ -38,7 +38,6 @@ import com.philliphsu.bottomsheetpickers.Utils;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.text.DateFormatSymbols;
-import java.util.Calendar;
 
 class NumberPadTimePicker extends GridLayoutNumberPad {
     private static final int MAX_DIGITS = 4;
@@ -119,9 +118,9 @@ class NumberPadTimePicker extends GridLayoutNumberPad {
             mAltButtons[0].setText(R.string.left_alt_24hr);
             mAltButtons[1].setText(R.string.right_alt_24hr);
         } else {
-            String[] amPmTexts = new DateFormatSymbols().getAmPmStrings();
-            mAltButtons[0].setText(amPmTexts[Calendar.AM]);
-            mAltButtons[1].setText(amPmTexts[Calendar.PM]);
+            String[] amPm = new DateFormatSymbols().getAmPmStrings();
+            mAltButtons[0].setText(amPm[0].length() > 2 ? "AM" : amPm[0]);
+            mAltButtons[1].setText(amPm[1].length() > 2 ? "PM" : amPm[1]);
         }
         updateNumpadStates();
     }
