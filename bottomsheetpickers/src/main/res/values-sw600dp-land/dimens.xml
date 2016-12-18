@@ -20,24 +20,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <dimen name="date_picker_header_height">45dp</dimen>
-    <dimen name="time_label_right_padding">16sp</dimen>
-    <dimen name="time_label_size">64sp</dimen>
-    <dimen name="ampm_label_size">21sp</dimen>
-    <dimen name="ampm_left_padding">7dip</dimen>
-    <dimen name="separator_padding">5dip</dimen>
-    <dimen name="header_height">96dip</dimen>
-    <dimen name="footer_height">48dip</dimen>
-    <dimen name="left_side_width">315dip</dimen>
-
-    <!-- NOT FINAL, DEFAULT PORTRAIT HEIGHT COULD CHANGE!
-        (393dp default portrait height) - (64 dp footer area height) = 329dp -->
-    <dimen name="date_picker_view_animator_height">329dp</dimen>
-
-    <!--TODO: Do we need to change this?-->
     <dimen name="bottom_sheet_edge_margin">24dp</dimen>
-    <!--TODO: Do we need to change this?-->
     <dimen name="bottom_sheet_vertical_space">16dp</dimen>
-    <!--TODO: Verify if this looks alright.-->
-    <dimen name="bottom_sheet_width">600dp</dimen>
+    <dimen name="bottom_sheet_width">800dp</dimen>
 </resources>
