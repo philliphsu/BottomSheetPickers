@@ -14,8 +14,8 @@
         android:id="@+id/prev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
+        android:minWidth="@dimen/month_navigation_bar_height"
+        android:minHeight="@dimen/month_navigation_bar_height"
         android:visibility="invisible"
         android:contentDescription="@string/date_picker_prev_month_button"
         android:nextFocusForward="@+id/month_year_title"
@@ -26,7 +26,7 @@
     <FrameLayout
         android:id="@+id/month_year_title_container"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/month_navigation_bar_height"
         android:layout_weight="1"
         android:background="?android:attr/selectableItemBackground">
 
@@ -39,7 +39,7 @@
             android:contentDescription="@string/date_picker_month_year_title"
             android:nextFocusForward="@+id/next"
             android:nextFocusDown="@+id/month_view"
-            android:textSize="16sp"
+            android:textSize="@dimen/month_label_size"
             android:textAllCaps="false"
             android:drawablePadding="4dp"/>
 
@@ -49,8 +49,8 @@
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
+        android:minWidth="@dimen/month_navigation_bar_height"
+        android:minHeight="@dimen/month_navigation_bar_height"
         android:visibility="invisible"
         android:contentDescription="@string/date_picker_next_month_button"
         android:nextFocusForward="@+id/month_view"

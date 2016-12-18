@@ -1,9 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!--TODO: Do we need to change this?-->
+<!--
+     Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
+           xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item name="circle_radius_multiplier" format="float" type="string">0.82</item>
+    <item name="circle_radius_multiplier_24HourMode" format="float" type="string">0.85</item>
+    <item name="selection_radius_multiplier" format="float" type="string">0.16</item>
+    <item name="ampm_circle_radius_multiplier" format="float" type="string">0.19</item>
+    <item name="numbers_radius_multiplier_normal" format="float" type="string">0.81</item>
+    <item name="numbers_radius_multiplier_inner" format="float" type="string">0.60</item>
+    <item name="numbers_radius_multiplier_outer" format="float" type="string">0.83</item>
+    <item name="text_size_multiplier_normal" format="float" type="string">0.17</item>
+    <item name="text_size_multiplier_inner" format="float" type="string">0.14</item>
+    <item name="text_size_multiplier_outer" format="float" type="string">0.11</item>
+
+
+    <dimen name="time_label_size">60sp</dimen>
+    <dimen name="extra_time_label_margin">-30dp</dimen>
+    <dimen name="ampm_label_size">16sp</dimen>
+    <dimen name="done_label_size">14sp</dimen>
+    <dimen name="ampm_left_padding">6dip</dimen>
+    <dimen name="separator_padding">4dip</dimen>
+    <dimen name="header_height">96dip</dimen>
+    <dimen name="footer_height">48dip</dimen>
+    <dimen name="minimum_margin_sides">48dip</dimen>
+    <dimen name="minimum_margin_top_bottom">24dip</dimen>
+    <!-- If we remove the page indicator, then the calculated height should be
+     296dp for the 24 hour grid, and 304dp for the 12 hour grid. We'd just use 304dp. -->
+    <dimen name="picker_dimen">316dip</dimen> <!-- initially 270dp -->
+
+    <dimen name="date_picker_component_width">270dp</dimen>
+    <dimen name="date_picker_header_height">30dp</dimen>
+    <dimen name="selected_calendar_layout_height">200dp</dimen>
+    <!-- 468dp: (6 rows) * ((2 * 28dp day_number_select_circle_radius) row height)
+             + (50dp month_list_item_header_height_no_title)
+             + (18dp month_view_top_padding) + (64dp month_navigation_bar_height). -->
+    <dimen name="date_picker_view_animator_height">468dp</dimen>
+    <dimen name="done_button_height">42dp</dimen>
+    <dimen name="selected_calendar_layout_keyline">28dp</dimen>
+    <dimen name="month_list_item_header_height">80dp</dimen>
+    <dimen name="month_list_item_header_height_no_title">50dp</dimen>
+    <dimen name="month_day_label_text_size">24sp</dimen>
+    <dimen name="day_number_select_circle_radius">28dp</dimen>
+    <dimen name="month_select_circle_radius">40dp</dimen>
+    <dimen name="selected_date_month_size">60dp</dimen>
+    <dimen name="date_picker_header_text_size">24dp</dimen>
+    <dimen name="month_label_size">28sp</dimen>
+    <dimen name="day_number_size">24sp</dimen>
+    <dimen name="year_label_height">80dp</dimen>
+    <dimen name="year_label_text_size">34dp</dimen>
+    <dimen name="year_label_selected_text_size">45dp</dimen>
+    <dimen name="month_view_edge_padding">20dp</dimen>
+    <dimen name="month_view_top_padding">18dp</dimen>
+    <dimen name="month_picker_month_label_size">30sp</dimen>
+
+    <!--My stuff-->
+    <dimen name="fab_elevation">6dp</dimen>
+    <dimen name="half_day_icon_padding">8dp</dimen>
+    <dimen name="alert_dialog_action_area_height">80dp</dimen>
+    <dimen name="alert_dialog_action_area_right_padding">20dp</dimen>
+    <dimen name="month_navigation_bar_height">64dp</dimen>
+    <dimen name="grid_element_text_size">34sp</dimen>
+
+    <!-- NumberPadTimePickerDialog -->
+    <dimen name="numeric_keypad_cell_height">64dp</dimen>
+    <dimen name="numeric_keypad_output_box_height">80dp</dimen>
+    <dimen name="numeric_keypad_height">344dp</dimen> <!-- 4 * (numeric_keypad_cell_height) + 88dp pre-21 FAB height -->
+    <dimen name="numeric_keypad_backspace_height">88dp</dimen> <!-- Same as pre-21 FAB height -->
+    <dimen name="fab_margin">0dp</dimen> <!-- 88dp height already big enough -->
+    <dimen name="text_size_display_3">56sp</dimen>
+
+    <!-- GridTimePickerDialog -->
+    <dimen name="number_grid_24_hour_item_primary_text_size">30sp</dimen>
+    <dimen name="number_grid_minute_text_size">28sp</dimen>
+    <dimen name="time_picker_pad_height">336dp</dimen>
+
+    <!-- Bottom sheet specs -->
     <dimen name="bottom_sheet_edge_margin">24dp</dimen>
-    <!--TODO: Do we need to change this?-->
     <dimen name="bottom_sheet_vertical_space">16dp</dimen>
-    <!--TODO: Verify if this looks alright.-->
     <dimen name="bottom_sheet_width">600dp</dimen>
+    <!-- If the total height of the contents of a bottom sheet does not exceed this limit,
+    then the sheet will show fully expanded; the contents are not stretched to match this height.
+    This is large enough to accommodate most, if not all, of our layouts. -->
+    <dimen name="peek_height_upper_limit">1000dp</dimen>
 </resources>
