@@ -23,6 +23,7 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.util.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -281,10 +282,17 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             mSecondHalfDayToggle.setText(R.string.hours_12_23);
             // We need different drawable resources for each case, not a single one that we
             // just tint differently, because the orientation of each one is different.
-            final int icon1 = mThemeDark? R.drawable.ic_half_day_1_dark_24dp : R.drawable.ic_half_day_1_24dp;
-            final int icon2 = mThemeDark? R.drawable.ic_half_day_2_dark_24dp : R.drawable.ic_half_day_2_24dp;
-            mFirstHalfDayToggle.setCompoundDrawablesWithIntrinsicBounds(0, icon1, 0, 0);
-            mSecondHalfDayToggle.setCompoundDrawablesWithIntrinsicBounds(0, icon2, 0, 0);
+            final int iconRes1 = mThemeDark? R.drawable.ic_half_day_1_dark_24dp : R.drawable.ic_half_day_1_24dp;
+            final int iconRes2 = mThemeDark? R.drawable.ic_half_day_2_dark_24dp : R.drawable.ic_half_day_2_24dp;
+            VectorDrawableCompat icon1 = VectorDrawableCompat.create(res, iconRes1, ctx.getTheme());
+            VectorDrawableCompat icon2 = VectorDrawableCompat.create(res, iconRes2, ctx.getTheme());
+            if (Utils.checkApiLevel(17)) {
+                mFirstHalfDayToggle.setCompoundDrawablesRelativeWithIntrinsicBounds(null, icon1, null, null);
+                mSecondHalfDayToggle.setCompoundDrawablesRelativeWithIntrinsicBounds(null, icon2, null, null);
+            } else {
+                mFirstHalfDayToggle.setCompoundDrawablesWithIntrinsicBounds(null, icon1, null, null);
+                mSecondHalfDayToggle.setCompoundDrawablesWithIntrinsicBounds(null, icon2, null, null);
+            }
         } else {
             mAmPmTextView.setVisibility(View.VISIBLE);
             mAmPmHitspace.setOnClickListener(new OnClickListener() {

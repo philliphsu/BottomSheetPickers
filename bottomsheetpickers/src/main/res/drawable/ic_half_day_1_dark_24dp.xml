@@ -15,11 +15,17 @@
   ~ limitations under the License.
   -->
 
-<!-- http://stackoverflow.com/a/8716798/5055032 -->
-<rotate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fromDegrees="180"
-    android:toDegrees="180"
-    android:pivotX="50%"
-    android:pivotY="50%"
-    android:drawable="@drawable/ic_half_day_2_dark_24dp">
-</rotate>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="24.0"
+        android:viewportHeight="24.0">
+    <group
+        android:pivotX="12.0"
+        android:pivotY="12.0"
+        android:rotation="180">
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M20,15.31L23.31,12 20,8.69V4h-4.69L12,0.69 8.69,4H4v4.69L0.69,12 4,15.31V20h4.69L12,23.31 15.31,20H20v-4.69zM12,18V6c3.31,0 6,2.69 6,6s-2.69,6 -6,6z"/>
+    </group>
+</vector>
