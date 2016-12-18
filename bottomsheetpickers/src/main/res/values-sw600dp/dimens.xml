@@ -29,13 +29,13 @@
     <item name="text_size_multiplier_outer" format="float" type="string">0.11</item>
 
 
-    <dimen name="time_label_size">60sp</dimen>
+    <dimen name="time_label_size">75sp</dimen>
     <dimen name="extra_time_label_margin">-30dp</dimen>
-    <dimen name="ampm_label_size">16sp</dimen>
+    <dimen name="ampm_label_size">20sp</dimen>
     <dimen name="done_label_size">14sp</dimen>
-    <dimen name="ampm_left_padding">6dip</dimen>
+    <dimen name="ampm_left_padding">8dip</dimen>
     <dimen name="separator_padding">4dip</dimen>
-    <dimen name="header_height">96dip</dimen>
+    <dimen name="header_height">128dip</dimen>
     <dimen name="footer_height">48dip</dimen>
     <dimen name="minimum_margin_sides">48dip</dimen>
     <dimen name="minimum_margin_top_bottom">24dip</dimen>
@@ -87,7 +87,7 @@
     <!-- GridTimePickerDialog -->
     <dimen name="number_grid_24_hour_item_primary_text_size">30sp</dimen>
     <dimen name="number_grid_minute_text_size">28sp</dimen>
-    <dimen name="time_picker_pad_height">336dp</dimen>
+    <dimen name="time_picker_pad_height">440dp</dimen>
 
     <!-- Bottom sheet specs -->
     <dimen name="bottom_sheet_edge_margin">32dp</dimen>

@@ -18,5 +18,6 @@
 -->
 
 <resources>
-    <dimen name="bottom_sheet_width">600dp</dimen>
+    <dimen name="left_side_width">300dp</dimen>
+    <dimen name="bottom_sheet_width">720dp</dimen>
 </resources>

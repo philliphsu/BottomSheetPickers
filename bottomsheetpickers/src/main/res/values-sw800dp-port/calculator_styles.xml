@@ -36,6 +36,7 @@
         <item name="android:textSize">56sp</item>
     </style>
 
+    <!--TODO: Delete-->
     <style name="PadButtonStyle.Advanced">
         <item name="android:layout_marginTop">8dip</item>
         <item name="android:layout_marginBottom">8dip</item>
@@ -55,11 +56,17 @@
         <item name="android:visibility">gone</item>
     </style>
 
+    <style name="PadButtonStyle.Numeric.Minute">
+        <item name="android:textSize">36sp</item>
+    </style>
+
     <style name="PadButtonStyle.Operator">
         <item name="android:layout_marginTop">8dip</item>
         <item name="android:layout_marginBottom">8dip</item>
         <item name="android:layout_marginStart">16dip</item>
         <item name="android:layout_marginEnd">16dip</item>
+        <item name="android:layout_marginLeft">16dip</item>
+        <item name="android:layout_marginRight">16dip</item>
         <item name="android:textSize">48sp</item>
     </style>
 
@@ -68,6 +75,7 @@
         <item name="android:textSize">32sp</item>
     </style>
 
+    <!--TODO: Delete-->
     <style name="PadLayoutStyle.Advanced">
         <item name="android:layout_height">0dip</item>
         <item name="android:layout_weight">256</item>
@@ -81,20 +89,24 @@
 
     <style name="PadLayoutStyle.Numeric">
         <item name="android:layout_width">0dip</item>
-        <item name="android:layout_weight">532</item>
+        <item name="android:layout_weight">592</item>
         <item name="android:paddingTop">8dip</item>
         <item name="android:paddingBottom">8dip</item>
         <item name="android:paddingStart">16dip</item>
         <item name="android:paddingEnd">16dip</item>
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
     </style>
 
     <style name="PadLayoutStyle.Operator">
         <item name="android:layout_width">0dip</item>
-        <item name="android:layout_weight">240</item>
+        <item name="android:layout_weight">180</item>
         <item name="android:paddingTop">8dip</item>
         <item name="android:paddingBottom">8dip</item>
         <item name="android:paddingStart">0dip</item>
         <item name="android:paddingEnd">8dip</item>
+        <item name="android:paddingLeft">0dip</item>
+        <item name="android:paddingRight">8dip</item>
     </style>
 
     <style name="PadLinearLayoutStyle">

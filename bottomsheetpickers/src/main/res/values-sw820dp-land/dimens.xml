@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="bottom_sheet_width">800dp</dimen>
+    <dimen name="left_side_width">320dp</dimen>
+    <dimen name="bottom_sheet_width">900dp</dimen>
 </resources>
