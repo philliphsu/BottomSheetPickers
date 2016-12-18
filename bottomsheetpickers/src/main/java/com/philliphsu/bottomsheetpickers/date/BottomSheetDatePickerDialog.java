@@ -22,7 +22,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -431,21 +430,17 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         int yearEnd = yearStart + year.length();
         int monthDayStart = fullDate.indexOf(monthAndDay);
         int monthDayEnd = monthDayStart + monthAndDay.length();
-        Log.d(TAG, String.format("yearStart = %d, yearEnd = %d, monthDayStart = %d, monthDayEnd = %d",
-                yearStart, yearEnd, monthDayStart, monthDayEnd));
 
         boolean processed = false;
         if (monthDayStart != -1 && yearStart != -1) {
             if (mLocaleMonthDayIndex < mLocaleYearIndex) {
                 if (yearStart - monthDayEnd <= 2) {
-                    Log.d(TAG, "Processed in new algorithm");
                     monthAndDay = fullDate.substring(monthDayStart, yearStart);
                     year = fullDate.substring(yearStart, fullDate.length());
                     processed = true;
                 }
             } else {
                 if (monthDayStart - yearEnd <= 2) {
-                    Log.d(TAG, "Processed in new algorithm");
                     year = fullDate.substring(yearStart, monthDayStart);
                     monthAndDay = fullDate.substring(monthDayStart, fullDate.length());
                     processed = true;
@@ -482,7 +477,6 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
 
         // Year delimiters longer than 2 characters, fall back on pre-2.1.1 implementation.
         if (!processed) {
-            Log.d(TAG, "Fall back to old algorithm");
             // The month-day is already formatted appropriately
             year = extractYearFromFormattedDate(fullDate, monthAndDay);
         }
