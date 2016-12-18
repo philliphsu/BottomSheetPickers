@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="bottom_sheet_edge_margin">24dp</dimen>
-    <dimen name="bottom_sheet_vertical_space">16dp</dimen>
     <dimen name="bottom_sheet_width">800dp</dimen>
 </resources>
