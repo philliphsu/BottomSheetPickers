@@ -18,7 +18,5 @@
 -->
 
 <resources>
-    <dimen name="bottom_sheet_edge_margin">24dp</dimen>
-    <dimen name="bottom_sheet_vertical_space">16dp</dimen>
     <dimen name="bottom_sheet_width">600dp</dimen>
 </resources>
