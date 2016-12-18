@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--TODO: Do we need to change this?-->
     <dimen name="bottom_sheet_edge_margin">24dp</dimen>
-    <!--TODO: Do we need to change this?-->
     <dimen name="bottom_sheet_vertical_space">16dp</dimen>
-    <!--TODO: Verify if this looks alright.-->
-    <dimen name="bottom_sheet_width">720dp</dimen>
+    <dimen name="bottom_sheet_width">800dp</dimen>
 </resources>
