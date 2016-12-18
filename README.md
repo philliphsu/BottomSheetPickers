@@ -115,10 +115,6 @@ dialog.show(getSupportFragmentManager(), TAG);
 dialog.show(getFragmentManager(), TAG);
 ```
 
-> **NOTE:** Currently, `BottomSheetDatePickerDialog` cannot be dismissed by swiping the sheet down.
-This is to allow vertical swiping to scroll the date picker. Touching outside of the sheet also
-does not dismiss it. It is dismissed normally when you confirm your date selection.
-
 ### Theming
 The pickers automatically use your current theme's `colorAccent` defined in your `styles.xml`.
 
