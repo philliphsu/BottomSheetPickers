@@ -293,6 +293,11 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
                 mFirstHalfDayToggle.setCompoundDrawablesWithIntrinsicBounds(null, icon1, null, null);
                 mSecondHalfDayToggle.setCompoundDrawablesWithIntrinsicBounds(null, icon2, null, null);
             }
+            if (res.getConfiguration().smallestScreenWidthDp >= 600/*dp units*/) {
+                // Shrink text size so that labels fit on one line
+                mFirstHalfDayToggle.setTextSize(0.5f * mFirstHalfDayToggle.getTextSize());
+                mSecondHalfDayToggle.setTextSize(0.5f * mSecondHalfDayToggle.getTextSize());
+            }
         } else {
             mAmPmTextView.setVisibility(View.VISIBLE);
             mAmPmHitspace.setOnClickListener(new OnClickListener() {
