@@ -269,6 +269,10 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
             }
         });
 
+        // Setup action button text colors.
+        mCancelButton.setTextColor(mAccentColor);
+        mDoneButton.setTextColor(mAccentColor);
+
         // Theme-specific configurations.
         if (mThemeDark) {
             // This is so the margin gets colored as well.
@@ -277,10 +281,6 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
             int selectableItemBg = ContextCompat.getColor(activity, R.color.selectable_item_background_dark);
             Utils.setColorControlHighlight(mCancelButton, selectableItemBg);
             Utils.setColorControlHighlight(mDoneButton, selectableItemBg);
-        } else {
-            // Setup action button text colors.
-            mCancelButton.setTextColor(mAccentColor);
-            mDoneButton.setTextColor(mAccentColor);
         }
 
         // Configurations for both themes.
