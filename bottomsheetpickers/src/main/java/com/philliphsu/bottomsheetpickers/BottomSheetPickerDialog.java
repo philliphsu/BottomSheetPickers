@@ -74,7 +74,7 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
             mAccentColor = Utils.getThemeAccentColor(getActivity());
         }
         if (!mBackgroundColorSetAtRuntime) {
-            mBackgroundColor = mThemeDark? mWhite : mDarkGray;
+            mBackgroundColor = mThemeDark? mDarkGray : mWhite;
         }
 
         View view = inflater.inflate(contentLayout(), container, false);
@@ -99,6 +99,10 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
         super.onSaveInstanceState(outState);
         outState.putBoolean(KEY_DARK_THEME, mThemeDark);
         outState.putBoolean(KEY_THEME_SET_AT_RUNTIME, mThemeSetAtRuntime);
+        outState.putInt(KEY_ACCENT_COLOR, mAccentColor);
+        outState.putBoolean(KEY_ACCENT_COLOR_SET_AT_RUNTIME, mAccentColorSetAtRuntime);
+        outState.putInt(KEY_BACKGROUND_COLOR, mBackgroundColor);
+        outState.putBoolean(KEY_BACKGROUND_COLOR_SET_AT_RUNTIME, mBackgroundColorSetAtRuntime);
     }
 
     // TODO: Delete time picker subclasses' implementation.

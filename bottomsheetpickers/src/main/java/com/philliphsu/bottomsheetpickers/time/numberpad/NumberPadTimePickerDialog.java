@@ -19,7 +19,6 @@ package com.philliphsu.bottomsheetpickers.time.numberpad;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +27,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
-import com.philliphsu.bottomsheetpickers.Utils;
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.TimeTextUtils;
 
@@ -42,8 +40,6 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
     private static final String KEY_IS_24_HOUR_VIEW = "is_24_hour_view";
     private static final String KEY_DIGITS_INPUTTED = "digits_inputted";
     private static final String KEY_AMPM_STATE = "ampm_state";
-    private static final String KEY_THEME_DARK = "theme_dark";
-    private static final String KEY_THEME_SET_AT_RUNTIME = "theme_set_at_runtime";
 
     private boolean mIs24HourMode;
     /*
@@ -56,8 +52,6 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
      */
     private int[] mInputtedDigits;
     private int mAmPmState = NumberPadTimePicker.UNSPECIFIED;
-    private boolean mThemeDark;
-    private boolean mThemeSetAtRuntime;
     private String mHint;
     private int mTextSize;
     private int mHintResId;
@@ -82,18 +76,6 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         return null;
     }
 
-    /**
-     * Set a dark or light theme. NOTE: this will only take effect for the next onCreateView.
-     */
-    public void setThemeDark(boolean dark) {
-        mThemeDark = dark;
-        mThemeSetAtRuntime = true;
-    }
-
-    public boolean isThemeDark() {
-        return mThemeDark;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,8 +83,6 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
             mInputtedDigits = savedInstanceState.getIntArray(KEY_DIGITS_INPUTTED);
             mIs24HourMode = savedInstanceState.getBoolean(KEY_IS_24_HOUR_VIEW);
             mAmPmState = savedInstanceState.getInt(KEY_AMPM_STATE);
-            mThemeDark = savedInstanceState.getBoolean(KEY_THEME_DARK);
-            mThemeSetAtRuntime = savedInstanceState.getBoolean(KEY_THEME_SET_AT_RUNTIME);
         }
     }
 
@@ -124,24 +104,12 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
             }
         });
 
-        if (!mThemeSetAtRuntime) {
-            mThemeDark = Utils.isDarkTheme(getActivity(), mThemeDark);
-        }
         mNumpad.setOnInputChangeListener(this);
         mNumpad.insertDigits(mInputtedDigits); // TOneverDO: before mNumpad.setOnInputChangeListener(this);
         mNumpad.setAmPmState(mAmPmState);
 
-        // Prepare colors
-        int accentColor = Utils.getThemeAccentColor(getContext());
-        int lightGray = ContextCompat.getColor(getContext(), R.color.light_gray);
-        int darkGray = ContextCompat.getColor(getContext(), R.color.dark_gray);
-        int white = ContextCompat.getColor(getContext(), android.R.color.white);
-
-        // Set background color of entire view
-        view.setBackgroundColor(mThemeDark? darkGray : white);
-
         FrameLayout inputTimeContainer = (FrameLayout) view.findViewById(R.id.input_time_container);
-        inputTimeContainer.setBackgroundColor(mThemeDark? lightGray : accentColor);
+        inputTimeContainer.setBackgroundColor(mThemeDark? mLightGray : mAccentColor);
 
         if (mHint != null || mHintResId != 0) {
             if (mHint != null) {
@@ -154,7 +122,9 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         if (mTextSize != 0) {
             mInputField.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
         }
-
+        if (mAccentColorSetAtRuntime) {
+            mNumpad.setAccentColor(mAccentColor);
+        }
         mNumpad.setTheme(getContext()/*DO NOT GIVE THE APPLICATION CONTEXT, OR ELSE THE NUMPAD
         CAN'T GET THE CORRECT ACCENT COLOR*/, mThemeDark);
 
@@ -168,12 +138,11 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         if (mNumpad != null) {
             outState.putIntArray(KEY_DIGITS_INPUTTED, mNumpad.getDigits());
             outState.putBoolean(KEY_IS_24_HOUR_VIEW, mIs24HourMode);
             outState.putInt(KEY_AMPM_STATE, mNumpad.getAmPmState());
-            outState.putBoolean(KEY_THEME_DARK, mThemeDark);
-            outState.putBoolean(KEY_THEME_SET_AT_RUNTIME, mThemeSetAtRuntime);
         }
     }
 

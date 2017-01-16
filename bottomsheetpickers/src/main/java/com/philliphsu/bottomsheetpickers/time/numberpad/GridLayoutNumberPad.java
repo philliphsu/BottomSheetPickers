@@ -19,6 +19,7 @@ package com.philliphsu.bottomsheetpickers.time.numberpad;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.support.annotation.CallSuper;
+import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayout;
@@ -47,6 +48,7 @@ abstract class GridLayoutNumberPad extends GridLayout implements View.OnClickLis
 
     private ColorStateList mTextColors;
     int mAccentColor;
+    private boolean mAccentColorSetAtRuntime;
 
     private final TextView[] mButtons = new TextView[10];
 
@@ -90,20 +92,27 @@ abstract class GridLayoutNumberPad extends GridLayout implements View.OnClickLis
         mTextColors = ContextCompat.getColorStateList(context, themeDark?
                 R.color.numeric_keypad_button_text_dark : R.color.numeric_keypad_button_text);
 
-        // AFAIK, the only way to get the user's accent color is programmatically,
-        // because it is uniquely defined in their app's theme. It is not possible
-        // for us to reference that via XML (i.e. with ?colorAccent or similar),
-        // which happens at compile time.
-        // TOneverDO: Use any other Context to retrieve the accent color. We must use
-        // the Context param passed to us, because we know this context to be
-        // NumberPadTimePickerDialog.getContext(), which is equivalent to
-        // NumberPadTimePickerDialog.getActivity(). It is from that Activity where we
-        // get its theme's colorAccent.
-        mAccentColor = Utils.getThemeAccentColor(context);
+        if (!mAccentColorSetAtRuntime) {
+            // AFAIK, the only way to get the user's accent color is programmatically,
+            // because it is uniquely defined in their app's theme. It is not possible
+            // for us to reference that via XML (i.e. with ?colorAccent or similar),
+            // which happens at compile time.
+            // TOneverDO: Use any other Context to retrieve the accent color. We must use
+            // the Context param passed to us, because we know this context to be
+            // NumberPadTimePickerDialog.getContext(), which is equivalent to
+            // NumberPadTimePickerDialog.getActivity(). It is from that Activity where we
+            // get its theme's colorAccent.
+            mAccentColor = Utils.getThemeAccentColor(context);
+        }
         for (TextView b : mButtons) {
             setTextColor(b);
             Utils.setColorControlHighlight(b, mAccentColor);
         }
+    }
+
+    void setAccentColor(@ColorInt int color) {
+        mAccentColor = color;
+        mAccentColorSetAtRuntime = true;
     }
 
     void setTextColor(TextView view) {
