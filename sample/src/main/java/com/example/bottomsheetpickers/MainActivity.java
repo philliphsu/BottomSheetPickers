@@ -35,37 +35,52 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 final int checkedId = group.getCheckedRadioButtonId();
-                if (checkedId == R.id.choice_number_pad
-                        || checkedId == R.id.choice_number_pad_dark) {
-                    NumberPadTimePickerDialog dialog = NumberPadTimePickerDialog.newInstance(
-                            MainActivity.this);
-                    dialog.setThemeDark(checkedId == R.id.choice_number_pad_dark);
-                    dialog.show(getSupportFragmentManager(), TAG);
-                } else if (checkedId == R.id.choice_grid_picker
-                        || checkedId == R.id.choice_grid_picker_dark) {
-                    Calendar now = Calendar.getInstance();
-                    GridTimePickerDialog dialog = GridTimePickerDialog.newInstance(
-                            MainActivity.this,
-                            now.get(Calendar.HOUR_OF_DAY),
-                            now.get(Calendar.MINUTE),
-                            DateFormat.is24HourFormat(MainActivity.this));
-                    dialog.setThemeDark(checkedId == R.id.choice_grid_picker_dark);
-                    dialog.show(getSupportFragmentManager(), TAG);
-                } else if (checkedId == R.id.choice_date_picker
-                        || checkedId == R.id.choice_date_picker_dark) {
-                    Calendar now = Calendar.getInstance();
-                    BottomSheetDatePickerDialog dialog = BottomSheetDatePickerDialog.newInstance(
-                            MainActivity.this,
-                            now.get(Calendar.YEAR),
-                            now.get(Calendar.MONTH),
-                            now.get(Calendar.DAY_OF_MONTH));
-                    dialog.setThemeDark(checkedId == R.id.choice_date_picker_dark);
-                    dialog.setMinDate(now);
-                    Calendar max = Calendar.getInstance();
-                    max.add(Calendar.YEAR, 10);
-                    dialog.setMaxDate(max);
-                    dialog.setYearRange(1970, 2032);
-                    dialog.show(getSupportFragmentManager(), TAG);
+                switch (checkedId) {
+                    case R.id.choice_number_pad:
+                    case R.id.choice_number_pad_dark:
+                    case R.id.choice_number_pad_custom:
+                    case R.id.choice_number_pad_custom_dark: {
+                        NumberPadTimePickerDialog dialog = NumberPadTimePickerDialog.newInstance(
+                                MainActivity.this);
+                        final boolean custom = checkedId == R.id.choice_number_pad_custom;
+                        final boolean customDark = checkedId == R.id.choice_number_pad_custom_dark;
+                        dialog.setThemeDark(checkedId == R.id.choice_number_pad_dark || customDark);
+                        if (custom || customDark) {
+                            dialog.setAccentColor(0xFFE91E63);
+                            dialog.setBackgroundColor(custom? 0xFFA5D6A7 : 0xFF43A047);
+                        }
+                        dialog.show(getSupportFragmentManager(), TAG);
+                        break;
+                    }
+                    case R.id.choice_grid_picker:
+                    case R.id.choice_grid_picker_dark: {
+                        Calendar now = Calendar.getInstance();
+                        GridTimePickerDialog dialog = GridTimePickerDialog.newInstance(
+                                MainActivity.this,
+                                now.get(Calendar.HOUR_OF_DAY),
+                                now.get(Calendar.MINUTE),
+                                DateFormat.is24HourFormat(MainActivity.this));
+                        dialog.setThemeDark(checkedId == R.id.choice_grid_picker_dark);
+                        dialog.show(getSupportFragmentManager(), TAG);
+                        break;
+                    }
+                    case R.id.choice_date_picker:
+                    case R.id.choice_date_picker_dark: {
+                        Calendar now = Calendar.getInstance();
+                        BottomSheetDatePickerDialog dialog = BottomSheetDatePickerDialog.newInstance(
+                                MainActivity.this,
+                                now.get(Calendar.YEAR),
+                                now.get(Calendar.MONTH),
+                                now.get(Calendar.DAY_OF_MONTH));
+                        dialog.setThemeDark(checkedId == R.id.choice_date_picker_dark);
+                        dialog.setMinDate(now);
+                        Calendar max = Calendar.getInstance();
+                        max.add(Calendar.YEAR, 10);
+                        dialog.setMaxDate(max);
+                        dialog.setYearRange(1970, 2032);
+                        dialog.show(getSupportFragmentManager(), TAG);
+                        break;
+                    }
                 }
             }
         });

@@ -10,59 +10,78 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.bottomsheetpickers.MainActivity">
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
+    <ScrollView
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:checkedButton="@+id/choice_number_pad">
+        android:layout_height="wrap_content">
 
-        <RadioButton
-            android:id="@id/choice_number_pad"
+        <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Number Pad, Light"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:checkedButton="@+id/choice_number_pad">
 
-        <RadioButton
-            android:id="@+id/choice_grid_picker"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Grid Picker, Light"/>
+            <RadioButton
+                android:id="@id/choice_number_pad"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Number Pad, Light"/>
 
-        <RadioButton
-            android:id="@+id/choice_number_pad_dark"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Number Pad, Dark"/>
+            <RadioButton
+                android:id="@+id/choice_grid_picker"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Grid Picker, Light"/>
 
-        <RadioButton
-            android:id="@+id/choice_grid_picker_dark"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Grid Picker, Dark"/>
+            <RadioButton
+                android:id="@+id/choice_number_pad_dark"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Number Pad, Dark"/>
 
-        <RadioButton
-            android:id="@+id/choice_date_picker"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Date Picker, Light"/>
+            <RadioButton
+                android:id="@+id/choice_grid_picker_dark"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Grid Picker, Dark"/>
 
-        <RadioButton
-            android:id="@+id/choice_date_picker_dark"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Date Picker, Dark"/>
+            <RadioButton
+                android:id="@+id/choice_date_picker"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Date Picker, Light"/>
 
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/choice_date_picker_dark"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Date Picker, Dark"/>
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_below="@id/radioGroup"
-        android:layout_centerHorizontal="true"
-        android:text="Time set: "/>
+            <RadioButton
+                android:id="@+id/choice_number_pad_custom"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Number Pad, Custom"/>
+
+            <RadioButton
+                android:id="@+id/choice_number_pad_custom_dark"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Number Pad, Custom Dark"/>
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
+                android:text="Time set: "
+                android:layout_marginBottom="48dp"/>
+
+        </RadioGroup>
+
+    </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
