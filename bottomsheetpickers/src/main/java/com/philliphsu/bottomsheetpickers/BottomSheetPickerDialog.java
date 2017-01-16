@@ -48,6 +48,9 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     protected int mDarkGray;
     protected int mLightGray;
     protected int mWhite;
+    protected int mWhiteTextDisabled;
+    protected int mBlackText;
+    protected int mBlackTextDisabled;
 
     protected int mAccentColor;
     protected int mBackgroundColor;
@@ -71,6 +74,14 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
             mHeaderTextDark = savedInstanceState.getBoolean(KEY_HEADER_TEXT_DARK);
             mHeaderTextColorSetAtRuntime = savedInstanceState.getBoolean(KEY_HEADER_TEXT_COLOR_SET_AT_RUNTIME);
         }
+        // Prepare common colors.
+        final Context ctx = getActivity();
+        mDarkGray = getColor(ctx, R.color.dark_gray);
+        mLightGray = getColor(ctx, R.color.light_gray);
+        mWhite = getColor(ctx, android.R.color.white);
+        mWhiteTextDisabled = getColor(ctx, R.color.text_color_disabled_dark);
+        mBlackText = getColor(ctx, R.color.text_color_primary_light);
+        mBlackTextDisabled = getColor(ctx, R.color.text_color_disabled_light);
     }
 
     @Nullable
@@ -79,11 +90,6 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
         if (!mThemeSetAtRuntime) {
             mThemeDark = Utils.isDarkTheme(getActivity(), mThemeDark);
         }
-
-        final Context ctx = getActivity();
-        mDarkGray = getColor(ctx, R.color.dark_gray);
-        mLightGray = getColor(ctx, R.color.light_gray);
-        mWhite = getColor(ctx, android.R.color.white);
         if (!mAccentColorSetAtRuntime) {
             mAccentColor = Utils.getThemeAccentColor(getActivity());
         }

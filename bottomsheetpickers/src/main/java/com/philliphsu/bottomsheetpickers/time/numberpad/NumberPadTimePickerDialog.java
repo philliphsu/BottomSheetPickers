@@ -126,6 +126,9 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         if (mTextSize != 0) {
             mInputField.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
         }
+        if (mHeaderTextColorSetAtRuntime) {
+            mInputField.setTextColor(mHeaderTextDark? mBlackText : mWhite);
+        }
         if (mAccentColorSetAtRuntime) {
             mNumpad.setAccentColor(mAccentColor);
         }
