@@ -30,11 +30,16 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     private static final String KEY_BACKGROUND_COLOR_SET_AT_RUNTIME = "background_color_set_at_runtime";
     private static final String KEY_HEADER_COLOR = "header_color";
     private static final String KEY_HEADER_COLOR_SET_AT_RUNTIME = "header_color_set_at_runtime";
+    private static final String KEY_HEADER_TEXT_DARK = "header_text_dark";
+    private static final String KEY_HEADER_TEXT_COLOR_SET_AT_RUNTIME = "header_text_color_set_at_runtime";
 
     // TODO: Other classes in this package may need this? If not, make private.
     // TODO: Remove duplicates in time picker classes.
     protected boolean mThemeDark;
     protected boolean mThemeSetAtRuntime;
+
+    protected boolean mHeaderTextDark;
+    protected boolean mHeaderTextColorSetAtRuntime;
     protected boolean mAccentColorSetAtRuntime;
     protected boolean mBackgroundColorSetAtRuntime;
     protected boolean mHeaderColorSetAtRuntime;
@@ -43,6 +48,7 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     protected int mDarkGray;
     protected int mLightGray;
     protected int mWhite;
+
     protected int mAccentColor;
     protected int mBackgroundColor;
     protected int mHeaderColor;
@@ -62,6 +68,8 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
             mBackgroundColorSetAtRuntime = savedInstanceState.getBoolean(KEY_BACKGROUND_COLOR_SET_AT_RUNTIME);
             mHeaderColor = savedInstanceState.getInt(KEY_HEADER_COLOR);
             mHeaderColorSetAtRuntime = savedInstanceState.getBoolean(KEY_HEADER_COLOR_SET_AT_RUNTIME);
+            mHeaderTextDark = savedInstanceState.getBoolean(KEY_HEADER_TEXT_DARK);
+            mHeaderTextColorSetAtRuntime = savedInstanceState.getBoolean(KEY_HEADER_TEXT_COLOR_SET_AT_RUNTIME);
         }
     }
 
@@ -111,6 +119,8 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
         outState.putBoolean(KEY_BACKGROUND_COLOR_SET_AT_RUNTIME, mBackgroundColorSetAtRuntime);
         outState.putInt(KEY_HEADER_COLOR, mHeaderColor);
         outState.putBoolean(KEY_HEADER_COLOR_SET_AT_RUNTIME, mHeaderColorSetAtRuntime);
+        outState.putBoolean(KEY_HEADER_TEXT_DARK, mHeaderTextDark);
+        outState.putBoolean(KEY_HEADER_TEXT_COLOR_SET_AT_RUNTIME, mHeaderTextColorSetAtRuntime);
     }
 
     // TODO: Delete time picker subclasses' implementation.
@@ -138,8 +148,8 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     }
 
     /**
-     * Set the background color. If this color is dark, consider calling
-     * {@link #setThemeDark(boolean)} to ensure text in the picker is visible.
+     * Set the background color. If this color is dark, consider
+     * setting the theme dark to ensure text in the picker has enough contrast.
      */
     public final void setBackgroundColor(@ColorInt int color) {
         mBackgroundColor = color;
@@ -147,12 +157,23 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     }
 
     /**
-     * Set the header color. This will normally be your Activity's {@code colorAccent}
-     * or the accent color set with {@link #setAccentColor(int)}, if this picker is using 
-     * the light theme.
+     * Set the header color. If this color is light, consider
+     * setting the header text dark to ensure it has enough contrast.
+     * <p></p>
+     * If this picker is using the light theme, this will normally be your Activity's
+     * {@code colorAccent} or the accent color set with {@link #setAccentColor(int)}.
      */
     public final void setHeaderColor(@ColorInt int color) {
         mHeaderColor = color;
         mHeaderColorSetAtRuntime = true;
+    }
+
+    /**
+     * Set the header text to use a light or dark color.
+     * The default is false, so a light color is applied.
+     */
+    public final void setHeaderTextDark(boolean dark) {
+        mHeaderTextDark = dark;
+        mHeaderTextColorSetAtRuntime = true;
     }
 }
