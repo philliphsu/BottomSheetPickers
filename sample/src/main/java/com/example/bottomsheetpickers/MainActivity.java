@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements
                         if (custom || customDark) {
                             dialog.setAccentColor(0xFFE91E63);
                             dialog.setBackgroundColor(custom? 0xFFA5D6A7 : 0xFF43A047);
+                            dialog.setHeaderColor(custom? 0xFFA5D6A7 : 0xFF43A047);
                         }
                         dialog.show(getSupportFragmentManager(), TAG);
                         break;

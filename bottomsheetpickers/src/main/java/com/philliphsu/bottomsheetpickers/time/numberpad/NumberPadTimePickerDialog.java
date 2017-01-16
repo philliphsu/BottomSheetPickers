@@ -109,7 +109,11 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         mNumpad.setAmPmState(mAmPmState);
 
         FrameLayout inputTimeContainer = (FrameLayout) view.findViewById(R.id.input_time_container);
-        inputTimeContainer.setBackgroundColor(mThemeDark? mLightGray : mAccentColor);
+        if (mHeaderColorSetAtRuntime) {
+            inputTimeContainer.setBackgroundColor(mHeaderColor);
+        } else {
+            inputTimeContainer.setBackgroundColor(mThemeDark? mLightGray : mAccentColor);
+        }
 
         if (mHint != null || mHintResId != 0) {
             if (mHint != null) {
