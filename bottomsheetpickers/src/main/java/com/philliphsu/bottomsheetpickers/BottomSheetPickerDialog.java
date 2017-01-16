@@ -28,6 +28,8 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     private static final String KEY_ACCENT_COLOR_SET_AT_RUNTIME = "accent_color_set_at_runtime";
     private static final String KEY_BACKGROUND_COLOR = "background_color";
     private static final String KEY_BACKGROUND_COLOR_SET_AT_RUNTIME = "background_color_set_at_runtime";
+    private static final String KEY_HEADER_COLOR = "header_color";
+    private static final String KEY_HEADER_COLOR_SET_AT_RUNTIME = "header_color_set_at_runtime";
 
     // TODO: Other classes in this package may need this? If not, make private.
     // TODO: Remove duplicates in time picker classes.
@@ -35,6 +37,7 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     protected boolean mThemeSetAtRuntime;
     protected boolean mAccentColorSetAtRuntime;
     protected boolean mBackgroundColorSetAtRuntime;
+    protected boolean mHeaderColorSetAtRuntime;
 
     // TODO: Remove retrievals of these values in time picker classes.
     protected int mDarkGray;
@@ -42,6 +45,7 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     protected int mWhite;
     protected int mAccentColor;
     protected int mBackgroundColor;
+    protected int mHeaderColor;
 
     @LayoutRes
     protected abstract int contentLayout();
@@ -56,6 +60,8 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
             mAccentColorSetAtRuntime = savedInstanceState.getBoolean(KEY_ACCENT_COLOR_SET_AT_RUNTIME);
             mBackgroundColor = savedInstanceState.getInt(KEY_BACKGROUND_COLOR);
             mBackgroundColorSetAtRuntime = savedInstanceState.getBoolean(KEY_BACKGROUND_COLOR_SET_AT_RUNTIME);
+            mHeaderColor = savedInstanceState.getInt(KEY_HEADER_COLOR);
+            mHeaderColorSetAtRuntime = savedInstanceState.getBoolean(KEY_HEADER_COLOR_SET_AT_RUNTIME);
         }
     }
 
@@ -103,6 +109,8 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
         outState.putBoolean(KEY_ACCENT_COLOR_SET_AT_RUNTIME, mAccentColorSetAtRuntime);
         outState.putInt(KEY_BACKGROUND_COLOR, mBackgroundColor);
         outState.putBoolean(KEY_BACKGROUND_COLOR_SET_AT_RUNTIME, mBackgroundColorSetAtRuntime);
+        outState.putInt(KEY_HEADER_COLOR, mHeaderColor);
+        outState.putBoolean(KEY_HEADER_COLOR_SET_AT_RUNTIME, mHeaderColorSetAtRuntime);
     }
 
     // TODO: Delete time picker subclasses' implementation.
@@ -119,7 +127,11 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
         return mThemeDark;
     }
 
-
+    /**
+     * Set the accent color. This color is primarily used to tint views in the picker.
+     * If this picker is using the light theme and you did not call {@link #setHeaderColor(int)},
+     * this color will also be applied to the dialog's header.
+     */
     public final void setAccentColor(@ColorInt int color) {
         mAccentColor = color;
         mAccentColorSetAtRuntime = true;
@@ -132,5 +144,15 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     public final void setBackgroundColor(@ColorInt int color) {
         mBackgroundColor = color;
         mBackgroundColorSetAtRuntime = true;
+    }
+
+    /**
+     * Set the header color. This will normally be your Activity's {@code colorAccent}
+     * or the accent color set with {@link #setAccentColor(int)}, if this picker is using 
+     * the light theme.
+     */
+    public final void setHeaderColor(@ColorInt int color) {
+        mHeaderColor = color;
+        mHeaderColorSetAtRuntime = true;
     }
 }
