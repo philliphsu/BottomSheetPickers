@@ -322,7 +322,6 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         switch (viewIndex) {
             case MONTH_AND_DAY_VIEW:
                 mDayPickerView.onDateChanged();
-                setCancelable(true);
                 if (mCurrentView != viewIndex) {
                     updateHeaderSelectedView(MONTH_AND_DAY_VIEW);
                     mAnimator.setDisplayedChild(MONTH_AND_DAY_VIEW);
@@ -335,7 +334,6 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
                 break;
             case YEAR_VIEW:
                 mYearPickerView.onDateChanged();
-                setCancelable(false);
                 if (mCurrentView != viewIndex) {
                     updateHeaderSelectedView(YEAR_VIEW);
                     mAnimator.setDisplayedChild(YEAR_VIEW);
