@@ -23,8 +23,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
@@ -50,7 +52,7 @@ import static com.philliphsu.bottomsheetpickers.date.PagingDayPickerView.DAY_PIC
  * Dialog allowing users to select a date.
  */
 public class BottomSheetDatePickerDialog extends DatePickerDialog implements
-        OnClickListener, DatePickerController {
+        OnClickListener, DatePickerController, OnTouchListener {
 
     private static final String TAG = "DatePickerDialog";
 
@@ -228,6 +230,17 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         mDayPickerView = new PagingDayPickerView(activity, this, mThemeDark);
         mYearPickerView = new YearPickerView(activity, this);
         mYearPickerView.setTheme(activity, mThemeDark);
+
+        // Listen for touches so that we can enable/disable the bottom sheet's cancelable
+        // state based on the location of the touch event.
+        //
+        // Both views MUST have the listener set. Why? Consider each call individually.
+        // If we only set the listener on the first call, touch events on the ListView would
+        // not be detected since it handles and consumes scroll events on its own.
+        // If we only set the listener on the second call, touch events would only be detected
+        // within the ListView and not in other views in our hierarchy.
+        view.setOnTouchListener(this);
+        mYearPickerView.setOnTouchListener(this);
 
         Resources res = getResources();
         mDayPickerDescription = res.getString(R.string.day_picker_description);
@@ -598,6 +611,18 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         } else if (v.getId() == R.id.date_picker_first_textview) {
             setCurrentView(mLocaleMonthDayIndex == 0 ? MONTH_AND_DAY_VIEW : YEAR_VIEW);
         }
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (mCurrentView == YEAR_VIEW && v == mYearPickerView
+                && event.getY() >= mYearPickerView.getTop()
+                && event.getY() <= mYearPickerView.getBottom()) {
+            setCancelable(false);
+            return mYearPickerView.onTouchEvent(event);
+        }
+        setCancelable(true);
+        return false;
     }
 
     @Override
