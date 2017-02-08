@@ -63,4 +63,20 @@
     <style name="ModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="behavior_peekHeight">@dimen/peek_height_upper_limit</item>
     </style>
+
+    <style name="BasePadButtonStyle" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">0dip</item>
+        <item name="android:minHeight">0dip</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/pad_button_text_color</item>
+    </style>
+
+    <style name="PadButtonStyle" parent="BasePadButtonStyle">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
 </resources>

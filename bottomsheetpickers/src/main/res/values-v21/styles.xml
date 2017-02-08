@@ -34,4 +34,8 @@
     <style name="SelectableButton">
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
     </style>
+
+    <style name="PadButtonStyle" parent="BasePadButtonStyle">
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+    </style>
 </resources>
