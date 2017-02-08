@@ -46,7 +46,6 @@
     </style>
 
     <style name="PadButtonStyle.Numeric">
-        <item name="android:layout_margin">4dip</item>
         <item name="android:textSize">23sp</item>
     </style>
 
@@ -75,10 +74,6 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">sans-serif</item>
-    </style>
-
-    <style name="PadButtonStyle.MinuteTuner">
-        <item name="android:layout_margin">4dip</item>
     </style>
 
     <!--TODO: Delete-->

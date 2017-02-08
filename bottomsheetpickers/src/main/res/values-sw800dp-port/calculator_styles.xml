@@ -48,7 +48,6 @@
     </style>
 
     <style name="PadButtonStyle.Numeric">
-        <item name="android:layout_margin">8dip</item>
         <item name="android:textSize">48sp</item>
     </style>
 
