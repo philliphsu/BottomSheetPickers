@@ -36,22 +36,30 @@
             android:layout_gravity="center" />
     </FrameLayout>
 
-    <com.philliphsu.bottomsheetpickers.time.grid.GridPickerLayout
-        android:id="@+id/time_picker"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dialog_height"
-        android:layout_marginTop="@dimen/bottom_sheet_vertical_space"
-        android:layout_marginLeft="@dimen/bottom_sheet_edge_margin"
-        android:layout_marginStart="@dimen/bottom_sheet_edge_margin"
-        android:layout_marginRight="@dimen/bottom_sheet_edge_margin"
-        android:layout_marginEnd="@dimen/bottom_sheet_edge_margin" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:contentDescription="@string/desc_done"
-        app:srcCompat="@drawable/ic_done_24dp" />
+        android:orientation="vertical">
+
+        <com.philliphsu.bottomsheetpickers.time.grid.GridPickerLayout
+            android:id="@+id/time_picker"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/time_picker_pad_height"
+            android:layout_marginTop="@dimen/bottom_sheet_vertical_space"
+            android:layout_marginLeft="@dimen/bottom_sheet_edge_margin"
+            android:layout_marginStart="@dimen/bottom_sheet_edge_margin"
+            android:layout_marginRight="@dimen/bottom_sheet_edge_margin"
+            android:layout_marginEnd="@dimen/bottom_sheet_edge_margin" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/desc_done"
+            android:layout_marginBottom="@dimen/fab_margin"
+            app:srcCompat="@drawable/ic_done_24dp" />
+
+    </LinearLayout>
 
 </LinearLayout>

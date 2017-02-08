@@ -42,4 +42,6 @@
     <dimen name="number_grid_24_hour_item_primary_text_size">26sp</dimen>
     <dimen name="number_grid_24_hour_item_secondary_text_size">14sp</dimen>
     <dimen name="number_grid_minute_text_size">20sp</dimen>
+
+    <dimen name="time_picker_pad_height">200dp</dimen>
 </resources>
