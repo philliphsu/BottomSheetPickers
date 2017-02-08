@@ -116,4 +116,24 @@
             android:layout_alignBaseline="@+id/separator"
             style="@style/ampm_label"
             android:importantForAccessibility="no" />
+
+        <!-- TODO: Move and style these as needed. -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/half_day_toggle_1"
+                style="@style/PadButtonStyle.Operator.Text"
+                android:contentDescription="@string/desc_half_day_1"
+                android:text="AM" />
+
+            <Button
+                android:id="@+id/half_day_toggle_2"
+                style="@style/PadButtonStyle.Operator.Text"
+                android:contentDescription="@string/desc_half_day_2"
+                android:text="PM" />
+
+        </FrameLayout>
   </RelativeLayout>

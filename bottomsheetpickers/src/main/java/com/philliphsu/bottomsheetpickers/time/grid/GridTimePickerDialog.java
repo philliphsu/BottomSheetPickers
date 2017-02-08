@@ -347,8 +347,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         final int darkGray = getColor(ctx, R.color.dark_gray);
         final int lightGray = getColor(ctx, R.color.light_gray);
         final int accentColor = Utils.getThemeAccentColor(getActivity());
-        final int sidebarDark = getColor(ctx, R.color.sidebar_color_dark);
-        final int sidebarLight = getColor(ctx, R.color.sidebar_color_light);
 
         // Set the whole view's background color first
         view.setBackgroundColor(mThemeDark? darkGray : white);
@@ -357,7 +355,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         view.findViewById(R.id.time_display).setBackgroundColor(mThemeDark? lightGray : accentColor);
         ((TextView) view.findViewById(R.id.separator)).setTextColor(mUnselectedColor);
         ((TextView) view.findViewById(R.id.ampm_label)).setTextColor(mUnselectedColor);
-        view.findViewById(R.id.sidebar).setBackgroundColor(mThemeDark ? sidebarDark : sidebarLight);
 
         // Color in normal state
         mDoneButton.setBackgroundTintList(ColorStateList.valueOf(accentColor));

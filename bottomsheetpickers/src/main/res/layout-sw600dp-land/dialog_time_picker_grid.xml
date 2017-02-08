@@ -17,11 +17,12 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/time_picker_dialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:focusable="true" >
+    android:focusable="true">
 
     <FrameLayout
         android:id="@+id/time_display_background"
@@ -35,17 +36,18 @@
             android:layout_gravity="center" />
     </FrameLayout>
 
-    <LinearLayout
+    <com.philliphsu.bottomsheetpickers.time.grid.GridPickerLayout
+        android:id="@+id/time_picker"
         android:layout_width="match_parent"
         android:layout_height="@dimen/time_picker_pad_height"
-        android:orientation="horizontal">
+        style="@style/PadLayoutStyle.Numeric" />
 
-        <com.philliphsu.bottomsheetpickers.time.grid.GridPickerLayout
-            android:id="@+id/time_picker"
-            style="@style/PadLayoutStyle.Numeric"/>
-
-        <include layout="@layout/pad_time_picker_sidebar" />
-
-    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:contentDescription="@string/desc_done"
+        app:srcCompat="@drawable/ic_done_24dp" />
 
 </LinearLayout>
