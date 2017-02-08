@@ -40,7 +40,11 @@
         android:id="@+id/time_picker"
         android:layout_width="match_parent"
         android:layout_height="@dimen/time_picker_pad_height"
-        style="@style/PadLayoutStyle.Numeric" />
+        android:layout_marginTop="@dimen/bottom_sheet_vertical_space"
+        android:layout_marginLeft="@dimen/bottom_sheet_edge_margin"
+        android:layout_marginStart="@dimen/bottom_sheet_edge_margin"
+        android:layout_marginRight="@dimen/bottom_sheet_edge_margin"
+        android:layout_marginEnd="@dimen/bottom_sheet_edge_margin" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
