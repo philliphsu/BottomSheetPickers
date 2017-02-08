@@ -31,6 +31,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,7 +54,7 @@ import static com.philliphsu.bottomsheetpickers.date.PagingDayPickerView.DAY_PIC
  * Dialog allowing users to select a date.
  */
 public class BottomSheetDatePickerDialog extends DatePickerDialog implements
-        OnClickListener, DatePickerController, OnTouchListener {
+        OnClickListener, DatePickerController, OnTouchListener, OnScrollListener {
 
     private static final String TAG = "DatePickerDialog";
 
@@ -241,6 +243,8 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         // within the ListView and not in other views in our hierarchy.
         view.setOnTouchListener(this);
         mYearPickerView.setOnTouchListener(this);
+        // Listen for scroll end events, so that we can restore the cancelable state immediately.
+        mYearPickerView.setOnScrollListener(this);
 
         Resources res = getResources();
         mDayPickerDescription = res.getString(R.string.day_picker_description);
@@ -335,6 +339,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         switch (viewIndex) {
             case MONTH_AND_DAY_VIEW:
                 mDayPickerView.onDateChanged();
+                setCancelable(true);
                 if (mCurrentView != viewIndex) {
                     updateHeaderSelectedView(MONTH_AND_DAY_VIEW);
                     mAnimator.setDisplayedChild(MONTH_AND_DAY_VIEW);
@@ -623,6 +628,16 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         }
         setCancelable(true);
         return false;
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        setCancelable(scrollState == SCROLL_STATE_IDLE);
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        // Do nothing.
     }
 
     @Override
