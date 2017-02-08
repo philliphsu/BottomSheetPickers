@@ -20,5 +20,6 @@
     <dimen name="numeric_keypad_height">332dp</dimen>
     <dimen name="numeric_keypad_backspace_height">56dp</dimen> <!-- Same as FAB height -->
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_margin_top">4dp</dimen>
 
 </resources>

@@ -18,4 +18,5 @@
 <resources>
     <dimen name="numeric_keypad_cell_height">50dp</dimen>
     <dimen name="fab_margin">8dp</dimen>
+    <dimen name="fab_margin_top">2dp</dimen>
 </resources>
