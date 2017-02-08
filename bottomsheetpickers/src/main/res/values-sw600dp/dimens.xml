@@ -88,7 +88,7 @@
     <dimen name="number_grid_24_hour_item_primary_text_size">34sp</dimen>
     <dimen name="number_grid_24_hour_item_secondary_text_size">17sp</dimen>
     <dimen name="number_grid_minute_text_size">28sp</dimen>
-    <dimen name="time_picker_pad_height">440dp</dimen>
+    <dimen name="time_picker_pad_height">340dp</dimen>
 
     <!-- Bottom sheet specs -->
     <dimen name="bottom_sheet_edge_margin">32dp</dimen>
