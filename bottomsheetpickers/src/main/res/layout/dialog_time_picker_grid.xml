@@ -52,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:contentDescription="@string/desc_done"
+        android:layout_marginTop="@dimen/fab_margin_top"
         android:layout_marginBottom="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_done_24dp" />
 
