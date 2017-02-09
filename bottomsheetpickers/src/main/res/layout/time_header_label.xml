@@ -14,12 +14,13 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License
   -->
-  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-      android:id="@+id/time_display"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_gravity="center"
-      android:background="@android:color/white" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/time_display"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@android:color/white">
         <View
             android:id="@+id/center_view"
             android:layout_width="1dp"
@@ -103,10 +104,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@+id/half_day_toggles"
-            android:layout_alignRight="@+id/half_day_toggles" />
+            android:layout_alignLeft="@+id/ampm_toggles"
+            android:layout_alignRight="@+id/ampm_toggles" />
         <LinearLayout
-            android:id="@+id/half_day_toggles"
+            android:id="@+id/ampm_toggles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -118,7 +119,7 @@
             android:layout_marginStart="16dp">
 
             <TextView
-                android:id="@+id/ampm_label"
+                android:id="@+id/am_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/time_placeholder"
@@ -142,24 +143,48 @@
                 android:importantForAccessibility="no" />
 
         </LinearLayout>
-
-        <!-- TODO: Move and style these as needed. -->
-        <FrameLayout
+        <com.philliphsu.bottomsheetpickers.AccessibleTextView
+            android:id="@+id/half_days_hitspace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/half_day_toggles"
+            android:layout_alignRight="@+id/half_day_toggles"
+            android:visibility="gone" />
+        <LinearLayout
+            android:id="@+id/half_day_toggles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/minutes_space"
+            android:layout_toEndOf="@+id/minutes_space"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:visibility="gone">
 
-            <Button
+            <ImageView
                 android:id="@+id/half_day_toggle_1"
-                style="@style/PadButtonStyle.Operator.Text"
-                android:contentDescription="@string/desc_half_day_1"
-                android:text="AM" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/ampm_left_padding"
+                android:paddingRight="@dimen/ampm_left_padding"
+                app:srcCompat="@drawable/ic_half_day_1_dark_24dp"
+                android:importantForAccessibility="no" />
 
-            <Button
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="6dp"/>
+
+            <ImageView
                 android:id="@+id/half_day_toggle_2"
-                style="@style/PadButtonStyle.Operator.Text"
-                android:contentDescription="@string/desc_half_day_2"
-                android:text="PM" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/ampm_left_padding"
+                android:paddingRight="@dimen/ampm_left_padding"
+                app:srcCompat="@drawable/ic_half_day_2_dark_24dp"
+                android:importantForAccessibility="no" />
 
-        </FrameLayout>
+        </LinearLayout>
   </RelativeLayout>
