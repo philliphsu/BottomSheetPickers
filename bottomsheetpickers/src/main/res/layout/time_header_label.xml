@@ -103,19 +103,45 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@+id/ampm_label"
-            android:layout_alignRight="@+id/ampm_label" />
-        <TextView
-            android:id="@+id/ampm_label"
+            android:layout_alignLeft="@+id/half_day_toggles"
+            android:layout_alignRight="@+id/half_day_toggles" />
+        <LinearLayout
+            android:id="@+id/half_day_toggles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/time_placeholder"
-            android:paddingLeft="@dimen/ampm_left_padding"
-            android:paddingRight="@dimen/ampm_left_padding"
+            android:orientation="vertical"
             android:layout_toRightOf="@+id/minutes_space"
-            android:layout_alignBaseline="@+id/separator"
-            style="@style/ampm_label"
-            android:importantForAccessibility="no" />
+            android:layout_toEndOf="@+id/minutes_space"
+            android:layout_alignBaseline="@id/separator"
+            android:baselineAlignedChildIndex="2"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp">
+
+            <TextView
+                android:id="@+id/ampm_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time_placeholder"
+                android:paddingLeft="@dimen/ampm_left_padding"
+                android:paddingRight="@dimen/ampm_left_padding"
+                style="@style/ampm_label"
+                android:importantForAccessibility="no" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="6dp"/>
+
+            <TextView
+                android:id="@+id/pm_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time_placeholder"
+                android:paddingLeft="@dimen/ampm_left_padding"
+                android:paddingRight="@dimen/ampm_left_padding"
+                style="@style/ampm_label"
+                android:importantForAccessibility="no" />
+
+        </LinearLayout>
 
         <!-- TODO: Move and style these as needed. -->
         <FrameLayout
