@@ -75,6 +75,7 @@
     <dimen name="alert_dialog_action_area_right_padding">16dp</dimen>
     <dimen name="month_navigation_bar_height">56dp</dimen>
     <dimen name="grid_element_text_size">40sp</dimen>
+    <dimen name="half_day_icon_size">32dp</dimen>
 
     <!-- NumberPadTimePickerDialog -->
     <dimen name="numeric_keypad_cell_height">84dp</dimen>
