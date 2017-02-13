@@ -7,8 +7,4 @@
     <style name="PadButtonStyle.Numeric.Minute">
         <item name="android:textSize">36sp</item>
     </style>
-
-    <style name="PadButtonStyle.HalfDay">
-        <item name="android:textSize">32sp</item>
-    </style>
 </resources>
