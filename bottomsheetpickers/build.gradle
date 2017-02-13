@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/philliphsu/BottomSheetPickers'
     gitUrl = 'https://github.com/philliphsu/BottomSheetPickers.git'
 
-    libraryVersion = '2.1.1'
+    libraryVersion = '2.2.0'
 
     developerId = 'philliphsu'
     developerName = 'Phillip Hsu'
@@ -31,8 +31,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 3
-        versionName "2.1.1"
+        versionCode 4
+        versionName "2.2.0"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
