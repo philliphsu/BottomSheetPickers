@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.philliphsu.bottomsheetpickers.BottomSheetPickerDialog;
 import com.philliphsu.bottomsheetpickers.date.BottomSheetDatePickerDialog;
 import com.philliphsu.bottomsheetpickers.date.DatePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
@@ -34,56 +35,65 @@ public class MainActivity extends AppCompatActivity implements
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                BottomSheetPickerDialog dialog = null;
+                boolean custom = false;
+                boolean customDark = false;
+                boolean themeDark = false;
+
                 final int checkedId = group.getCheckedRadioButtonId();
                 switch (checkedId) {
                     case R.id.choice_number_pad:
                     case R.id.choice_number_pad_dark:
                     case R.id.choice_number_pad_custom:
                     case R.id.choice_number_pad_custom_dark: {
-                        NumberPadTimePickerDialog dialog = NumberPadTimePickerDialog.newInstance(
-                                MainActivity.this);
-                        final boolean custom = checkedId == R.id.choice_number_pad_custom;
-                        final boolean customDark = checkedId == R.id.choice_number_pad_custom_dark;
-                        dialog.setThemeDark(checkedId == R.id.choice_number_pad_dark || customDark);
-                        if (custom || customDark) {
-                            dialog.setAccentColor(0xFFE91E63);
-                            dialog.setBackgroundColor(custom? 0xFFA5D6A7 : 0xFF43A047);
-                            dialog.setHeaderColor(custom? 0xFFA5D6A7 : 0xFF43A047);
-                            dialog.setHeaderTextDark(custom);
-                        }
-                        dialog.show(getSupportFragmentManager(), TAG);
+                        dialog = NumberPadTimePickerDialog.newInstance(MainActivity.this);
+                        custom = checkedId == R.id.choice_number_pad_custom;
+                        customDark = checkedId == R.id.choice_number_pad_custom_dark;
+                        themeDark = checkedId == R.id.choice_number_pad_dark || customDark;
                         break;
                     }
                     case R.id.choice_grid_picker:
-                    case R.id.choice_grid_picker_dark: {
+                    case R.id.choice_grid_picker_dark:
+                    case R.id.choice_grid_picker_custom:
+                    case R.id.choice_grid_picker_custom_dark: {
                         Calendar now = Calendar.getInstance();
-                        GridTimePickerDialog dialog = GridTimePickerDialog.newInstance(
+                        dialog = GridTimePickerDialog.newInstance(
                                 MainActivity.this,
                                 now.get(Calendar.HOUR_OF_DAY),
                                 now.get(Calendar.MINUTE),
                                 DateFormat.is24HourFormat(MainActivity.this));
-                        dialog.setThemeDark(checkedId == R.id.choice_grid_picker_dark);
-                        dialog.show(getSupportFragmentManager(), TAG);
+                        custom = checkedId == R.id.choice_grid_picker_custom;
+                        customDark = checkedId == R.id.choice_grid_picker_custom_dark;
+                        themeDark = checkedId == R.id.choice_grid_picker_dark || customDark;
                         break;
                     }
                     case R.id.choice_date_picker:
                     case R.id.choice_date_picker_dark: {
                         Calendar now = Calendar.getInstance();
-                        BottomSheetDatePickerDialog dialog = BottomSheetDatePickerDialog.newInstance(
+                        dialog = BottomSheetDatePickerDialog.newInstance(
                                 MainActivity.this,
                                 now.get(Calendar.YEAR),
                                 now.get(Calendar.MONTH),
                                 now.get(Calendar.DAY_OF_MONTH));
-                        dialog.setThemeDark(checkedId == R.id.choice_date_picker_dark);
-                        dialog.setMinDate(now);
+                        themeDark = checkedId == R.id.choice_date_picker_dark;
+                        BottomSheetDatePickerDialog dateDialog = (BottomSheetDatePickerDialog) dialog;
+                        dateDialog.setMinDate(now);
                         Calendar max = Calendar.getInstance();
                         max.add(Calendar.YEAR, 10);
-                        dialog.setMaxDate(max);
-                        dialog.setYearRange(1970, 2032);
-                        dialog.show(getSupportFragmentManager(), TAG);
+                        dateDialog.setMaxDate(max);
+                        dateDialog.setYearRange(1970, 2032);
                         break;
                     }
                 }
+
+                dialog.setThemeDark(themeDark);
+                if (custom || customDark) {
+                    dialog.setAccentColor(0xFFE91E63);
+                    dialog.setBackgroundColor(custom? 0xFFA5D6A7 : 0xFF43A047);
+                    dialog.setHeaderColor(custom? 0xFFA5D6A7 : 0xFF43A047);
+                    dialog.setHeaderTextDark(custom);
+                }
+                dialog.show(getSupportFragmentManager(), TAG);
             }
         });
     }
