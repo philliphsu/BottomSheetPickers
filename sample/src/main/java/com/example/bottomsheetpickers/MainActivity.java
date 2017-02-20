@@ -88,9 +88,9 @@ public class MainActivity extends AppCompatActivity implements
 
                 dialog.setThemeDark(themeDark);
                 if (custom || customDark) {
-                    dialog.setAccentColor(0xFFE91E63);
-                    dialog.setBackgroundColor(custom? 0xFFA5D6A7 : 0xFF43A047);
-                    dialog.setHeaderColor(custom? 0xFFA5D6A7 : 0xFF43A047);
+                    dialog.setAccentColor(0xFFFF4081);
+                    dialog.setBackgroundColor(custom? 0xFF90CAF9 : 0xFF2196F3);
+                    dialog.setHeaderColor(custom? 0xFF90CAF9 : 0xFF2196F3);
                     dialog.setHeaderTextDark(custom);
                 }
                 dialog.show(getSupportFragmentManager(), TAG);
