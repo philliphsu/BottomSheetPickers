@@ -188,8 +188,15 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         mSelectHours = res.getString(R.string.select_hours);
         mMinutePickerDescription = res.getString(R.string.minute_picker_description);
         mSelectMinutes = res.getString(R.string.select_minutes);
-        mSelectedColor = getColor(ctx, android.R.color.white);
-        mUnselectedColor = getColor(ctx, R.color.unselected_color);
+
+        // Default header text colors.
+        mSelectedColor = mWhite;
+        mUnselectedColor = mWhiteTextDisabled;
+
+        if (mHeaderTextColorSetAtRuntime) {
+            mSelectedColor = mHeaderTextDark ? mBlackText : mWhite;
+            mUnselectedColor = mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled;
+        }
 
         mHourView = (TextView) view.findViewById(R.id.hours);
         mHourView.setOnKeyListener(keyboardListener);
