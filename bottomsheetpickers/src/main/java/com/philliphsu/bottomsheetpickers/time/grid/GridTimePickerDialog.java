@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.design.widget.FloatingActionButton;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.util.Log;
@@ -325,7 +326,8 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         final int white = getColor(ctx, android.R.color.white);
         final int darkGray = getColor(ctx, R.color.dark_gray);
         final int lightGray = getColor(ctx, R.color.light_gray);
-        final int accentColor = Utils.getThemeAccentColor(getActivity());
+        final @ColorInt int accentColor = mAccentColorSetAtRuntime
+                ? mAccentColor : Utils.getThemeAccentColor(getActivity());
 
         // Set the whole view's background color first
         view.setBackgroundColor(mBackgroundColorSetAtRuntime
