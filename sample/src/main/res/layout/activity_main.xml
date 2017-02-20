@@ -29,34 +29,10 @@
                 android:text="Number Pad, Light"/>
 
             <RadioButton
-                android:id="@+id/choice_grid_picker"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="Grid Picker, Light"/>
-
-            <RadioButton
                 android:id="@+id/choice_number_pad_dark"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:text="Number Pad, Dark"/>
-
-            <RadioButton
-                android:id="@+id/choice_grid_picker_dark"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="Grid Picker, Dark"/>
-
-            <RadioButton
-                android:id="@+id/choice_date_picker"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="Date Picker, Light"/>
-
-            <RadioButton
-                android:id="@+id/choice_date_picker_dark"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="Date Picker, Dark"/>
 
             <RadioButton
                 android:id="@+id/choice_number_pad_custom"
@@ -71,6 +47,18 @@
                 android:text="Number Pad, Custom Dark"/>
 
             <RadioButton
+                android:id="@+id/choice_grid_picker"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Grid Picker, Light"/>
+
+            <RadioButton
+                android:id="@+id/choice_grid_picker_dark"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Grid Picker, Dark"/>
+
+            <RadioButton
                 android:id="@+id/choice_grid_picker_custom"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -81,6 +69,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:text="Grid Picker, Custom Dark"/>
+
+            <RadioButton
+                android:id="@+id/choice_date_picker"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Date Picker, Light"/>
+
+            <RadioButton
+                android:id="@+id/choice_date_picker_dark"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Date Picker, Dark"/>
 
             <TextView
                 android:id="@+id/text"
