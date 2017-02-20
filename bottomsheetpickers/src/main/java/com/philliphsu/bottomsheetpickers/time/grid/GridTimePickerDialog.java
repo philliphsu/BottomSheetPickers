@@ -316,18 +316,17 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             mTypedTimes = new ArrayList<Integer>();
         }
 
-        // Set the theme at the end so that the initialize()s above don't counteract the theme.
-        //
-        // If you decide to move the FAB and the half day toggles to the GridPickerLayout
-        // class, you should remove getApplicationContext(). Otherwise, you would not
-        // retrieve the correct accent color.
-        mTimePicker.setTheme(getActivity().getApplicationContext(), mThemeDark);
         // Prepare some colors to use.
         final int white = getColor(ctx, android.R.color.white);
         final int darkGray = getColor(ctx, R.color.dark_gray);
         final int lightGray = getColor(ctx, R.color.light_gray);
         final @ColorInt int accentColor = mAccentColorSetAtRuntime
                 ? mAccentColor : Utils.getThemeAccentColor(getActivity());
+
+        if (mAccentColorSetAtRuntime) {
+            mTimePicker.setAccentColor(mAccentColor);
+        }
+        mTimePicker.setTheme(getActivity().getApplicationContext(), mThemeDark);
 
         // Set the whole view's background color first
         view.setBackgroundColor(mBackgroundColorSetAtRuntime

@@ -17,6 +17,7 @@
 package com.philliphsu.bottomsheetpickers.time.grid;
 
 import android.content.Context;
+import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.animation.AlphaAnimation;
@@ -114,6 +115,27 @@ public class GridPickerLayout extends ViewAnimator implements NumbersGrid.OnNumb
             mHoursGrid.setTheme(context, themeDark);
         }
         mMinutesGrid.setTheme(context, themeDark);
+    }
+
+    void setAccentColor(@ColorInt int color) {
+        if (m24HoursGrid != null) {
+            m24HoursGrid.setAccentColor(color);
+        } else if (mHoursGrid != null) {
+            mHoursGrid.setAccentColor(color);
+        }
+        mMinutesGrid.setAccentColor(color);
+
+        // Set the current selections again so that the new color is displayed.
+        // You will almost always call initialize() before this, or else all of the grid views will
+        // be null, so perhaps checking if we have already been initialized is redundant.
+        if (mTimeInitialized) {
+            if (m24HoursGrid != null) {
+                m24HoursGrid.setSelection(m24HoursGrid.getSelection());
+            } else if (mHoursGrid != null) {
+                mHoursGrid.setSelection(mHoursGrid.getSelection());
+            }
+            mMinutesGrid.setSelection(mMinutesGrid.getSelection());
+        }
     }
 
     public void setTime(int hours, int minutes) {

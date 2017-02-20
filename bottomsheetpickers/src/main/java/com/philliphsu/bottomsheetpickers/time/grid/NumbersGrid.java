@@ -18,6 +18,7 @@ package com.philliphsu.bottomsheetpickers.time.grid;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -35,7 +36,7 @@ public abstract class NumbersGrid extends TimePickerPadLayout implements View.On
     OnNumberSelectedListener mSelectionListener;
     View mLastSelectedView;
 
-    final int mSelectedTextColor;
+    int mSelectedTextColor;
     // TODO: The half-day buttons in the dialog's layout also need to use this color.
     // Consider moving this to either the Dialog class, or move the buttons and the FAB
     // to the GridSelectorLayout class and then move these to GridSelectorLayout.
@@ -183,6 +184,10 @@ public abstract class NumbersGrid extends TimePickerPadLayout implements View.On
                 }
             }
         }
+    }
+
+    void setAccentColor(@ColorInt int color) {
+        mSelectedTextColor = color;
     }
 
     /**
