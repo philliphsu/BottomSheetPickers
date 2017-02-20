@@ -68,14 +68,18 @@ public class MainActivity extends AppCompatActivity implements
                         break;
                     }
                     case R.id.choice_date_picker:
-                    case R.id.choice_date_picker_dark: {
+                    case R.id.choice_date_picker_dark:
+                    case R.id.choice_date_picker_custom:
+                    case R.id.choice_date_picker_custom_dark: {
                         Calendar now = Calendar.getInstance();
                         dialog = BottomSheetDatePickerDialog.newInstance(
                                 MainActivity.this,
                                 now.get(Calendar.YEAR),
                                 now.get(Calendar.MONTH),
                                 now.get(Calendar.DAY_OF_MONTH));
-                        themeDark = checkedId == R.id.choice_date_picker_dark;
+                        custom = checkedId == R.id.choice_date_picker_custom;
+                        customDark = checkedId == R.id.choice_date_picker_custom_dark;
+                        themeDark = checkedId == R.id.choice_date_picker_dark || customDark;
                         BottomSheetDatePickerDialog dateDialog = (BottomSheetDatePickerDialog) dialog;
                         dateDialog.setMinDate(now);
                         Calendar max = Calendar.getInstance();
