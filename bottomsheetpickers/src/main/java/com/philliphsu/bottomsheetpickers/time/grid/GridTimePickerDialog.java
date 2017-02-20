@@ -390,6 +390,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         if (mTimePicker != null) {
             outState.putInt(KEY_HOUR_OF_DAY, mTimePicker.getHours());
             outState.putInt(KEY_MINUTE, mTimePicker.getMinutes());
