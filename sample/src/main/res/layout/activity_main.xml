@@ -82,6 +82,18 @@
                 android:layout_height="48dp"
                 android:text="Date Picker, Dark"/>
 
+            <RadioButton
+                android:id="@+id/choice_date_picker_custom"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Date Picker, Custom"/>
+
+            <RadioButton
+                android:id="@+id/choice_date_picker_custom_dark"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Date Picker, Custom Dark"/>
+
             <TextView
                 android:id="@+id/text"
                 android:layout_width="wrap_content"
