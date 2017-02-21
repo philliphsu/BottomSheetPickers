@@ -76,6 +76,9 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     private static final String KEY_DAY_PICKER_CURRENT_INDEX = "day_picker_current_index";
     private static final String KEY_MIN_DATE_MILLIS = "min_date_millis";
     private static final String KEY_MAX_DATE_MILLIS = "max_date_millis";
+    private static final String KEY_HEADER_TEXT_COLOR_SELECTED = "header_text_color_selected";
+    private static final String KEY_HEADER_TEXT_COLOR_UNSELECTED = "header_text_color_unselected";
+    private static final String KEY_DAY_OF_WEEK_HEADER_TEXT_COLOR = "day_of_week_header_text_color";
 
     private static final int DEFAULT_START_YEAR = 1900;
     private static final int DEFAULT_END_YEAR = 2100;
@@ -191,6 +194,9 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         if (mMaxDate != null) {
             outState.putLong(KEY_MAX_DATE_MILLIS, mMaxDate.getTimeInMillis());
         }
+        outState.putInt(KEY_HEADER_TEXT_COLOR_SELECTED, mHeaderTextColorSelected);
+        outState.putInt(KEY_HEADER_TEXT_COLOR_UNSELECTED, mHeaderTextColorUnselected);
+        outState.putInt(KEY_DAY_OF_WEEK_HEADER_TEXT_COLOR, mDayOfWeekHeaderTextColor);
     }
 
     @Override
@@ -220,6 +226,9 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
             listPosition = savedInstanceState.getInt(KEY_LIST_POSITION);
             listPositionOffset = savedInstanceState.getInt(KEY_LIST_POSITION_OFFSET);
             dayPickerCurrentView = savedInstanceState.getInt(KEY_DAY_PICKER_CURRENT_INDEX);
+            mHeaderTextColorSelected = savedInstanceState.getInt(KEY_HEADER_TEXT_COLOR_SELECTED);
+            mHeaderTextColorUnselected = savedInstanceState.getInt(KEY_HEADER_TEXT_COLOR_UNSELECTED);
+            mDayOfWeekHeaderTextColor = savedInstanceState.getInt(KEY_DAY_OF_WEEK_HEADER_TEXT_COLOR);
 
             // Don't restore both in one block because it may well be that only one was set.
             if (savedInstanceState.containsKey(KEY_MIN_DATE_MILLIS)) {
