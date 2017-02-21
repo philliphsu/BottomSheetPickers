@@ -17,6 +17,7 @@
 package com.philliphsu.bottomsheetpickers.date;
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -290,19 +291,29 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         mCancelButton.setTextColor(mAccentColor);
         mDoneButton.setTextColor(mAccentColor);
 
-        // Theme-specific configurations.
+        final int backgroundColor = mBackgroundColorSetAtRuntime
+                ? mBackgroundColor : (mThemeDark ? mDarkGray : mWhite);
+        final int headerColor = mHeaderColorSetAtRuntime
+                ? mHeaderColor : (mThemeDark ? mLightGray : mAccentColor);
+        // This is so the margin gets colored as well.
+        view.setBackgroundColor(backgroundColor);
+        mAnimator.setBackgroundColor(backgroundColor);
+        view.findViewById(R.id.day_picker_selected_date_layout).setBackgroundColor(headerColor);
+
         if (mThemeDark) {
-            // This is so the margin gets colored as well.
-            view.setBackgroundColor(mDarkGray);
-            mAnimator.setBackgroundColor(mDarkGray);
-            int selectableItemBg = ContextCompat.getColor(activity, R.color.selectable_item_background_dark);
+            final int selectableItemBg = ContextCompat.getColor(activity,
+                    R.color.selectable_item_background_dark);
             Utils.setColorControlHighlight(mCancelButton, selectableItemBg);
             Utils.setColorControlHighlight(mDoneButton, selectableItemBg);
         }
 
-        // Configurations for both themes.
-        View selectedDateLayout = view.findViewById(R.id.day_picker_selected_date_layout);
-        selectedDateLayout.setBackgroundColor(mThemeDark ? mLightGray : mAccentColor);
+        if (mHeaderTextColorSetAtRuntime && mHeaderTextDark) {
+            final ColorStateList colors = ContextCompat.getColorStateList(activity,
+                    R.color.date_picker_selector_light);
+            mDayOfWeekView.setTextColor(colors.getDefaultColor() /* text_color_secondary_light */);
+            mFirstTextView.setTextColor(colors);
+            mSecondTextView.setTextColor(colors);
+        }
 
         determineLocale_MD_Y_Indices();
         updateDisplay(false);
