@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -37,7 +38,7 @@ final class MonthPickerView extends View {
     private int mEdgePadding = 0;
     
     private Paint mMonthLabelPaint;
-    private Paint mSelectedCirclePaint;
+    private Paint mSelectedCirclePaint; // TODO: change
 
     // Quick reference to the width of this view, matches parent
     private int mWidth;
@@ -58,9 +59,9 @@ final class MonthPickerView extends View {
     private OnMonthClickListener mOnMonthClickListener;
 
     private int mNormalTextColor;
-    private int mCurrentMonthTextColor;
+    private int mCurrentMonthTextColor; // TODO: change
     private int mDisabledMonthTextColor;
-    private int mSelectedMonthTextColor;
+    private int mSelectedMonthTextColor; // TODO: change
 
     public MonthPickerView(Context context) {
         this(context, null);
@@ -140,6 +141,38 @@ final class MonthPickerView extends View {
             mDisabledMonthTextColor = getColor(context, R.color.text_color_disabled_dark);
             initView();
         }
+    }
+
+    /**
+     * Set the text color when a month has the selection circle drawn on it.
+     * <p>
+     * Make sure to call {@link #initView()} after calling this so that our Paints can be updated.
+     * </p>
+     */
+    void setSelectedMonthTextColor(@ColorInt int color) {
+        // TODO: Since you will almost always set this to the background color of the dialog,
+        // why not just always use transparent text color?
+        mSelectedMonthTextColor = color;
+    }
+
+    /**
+     * Set the text color that will highlight the current (i.e. today's) month.
+     * <p>
+     * Make sure to call {@link #initView()} after calling this so that our Paints can be updated.
+     * </p>
+     */
+    void setCurrentMonthTextColor(@ColorInt int color) {
+        mCurrentMonthTextColor = color;
+    }
+
+    /**
+     * Set the color of the selection circle. This is equivalent to {@link #setCurrentMonthTextColor(int)}.
+     * <p>
+     * Make sure to call {@link #initView()} after calling this so that our Paints can be updated.
+     * </p>
+     */
+    void setSelectedCirclePaintColor(@ColorInt int color) {
+        mSelectedCirclePaint.setColor(color);
     }
 
     @Override

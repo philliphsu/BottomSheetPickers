@@ -298,6 +298,10 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         // This is so the margin gets colored as well.
         view.setBackgroundColor(backgroundColor);
         mAnimator.setBackgroundColor(backgroundColor);
+        // This is to color text in selection circles the same as the background color.
+        // TODO: Why not just use a transparent text color in those views that draw the circles?
+        mDayPickerView.setBackgroundColor(backgroundColor);
+        mDayPickerView.setAccentColor(mAccentColor);
         view.findViewById(R.id.day_picker_selected_date_layout).setBackgroundColor(headerColor);
 
         if (mThemeDark) {

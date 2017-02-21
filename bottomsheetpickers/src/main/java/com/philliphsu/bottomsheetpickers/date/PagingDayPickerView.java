@@ -23,6 +23,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v4.view.ViewPager;
@@ -200,6 +201,17 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
     void setTheme(Context context, boolean themeDark) {
         mThemeDark = themeDark;
+    }
+
+    @Override
+    public void setBackgroundColor(@ColorInt int color) {
+        super.setBackgroundColor(color);
+        mMonthPickerView.setSelectedMonthTextColor(color);
+    }
+
+    void setAccentColor(@ColorInt int color) {
+        mMonthPickerView.setCurrentMonthTextColor(color);
+        mMonthPickerView.setSelectedCirclePaintColor(color);
     }
 
     public void onChange() {
