@@ -86,6 +86,11 @@ public class MainActivity extends AppCompatActivity implements
                         max.add(Calendar.YEAR, 10);
                         dateDialog.setMaxDate(max);
                         dateDialog.setYearRange(1970, 2032);
+                        if (custom || customDark) {
+                            dateDialog.setHeaderTextColorSelected(0xFFFF4081);
+                            dateDialog.setHeaderTextColorUnselected(0x4AFF4081);
+                            dateDialog.setDayOfWeekHeaderTextColor(0xFFFF4081);
+                        }
                         break;
                     }
                 }
