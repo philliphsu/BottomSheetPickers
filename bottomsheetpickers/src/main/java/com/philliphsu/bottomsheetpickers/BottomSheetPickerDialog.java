@@ -113,7 +113,6 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
         return new CustomWidthBottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
     }
 
-    // TODO: Time picker subclasses need to call up to super!
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -165,9 +164,10 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     /**
      * Set the header color. If this color is light, consider
      * setting the header text dark to ensure it has enough contrast.
-     * <p></p>
+     * <p>
      * If this picker is using the light theme, this will normally be your Activity's
      * {@code colorAccent} or the accent color set with {@link #setAccentColor(int)}.
+     * </p>
      */
     public final void setHeaderColor(@ColorInt int color) {
         mHeaderColor = color;
