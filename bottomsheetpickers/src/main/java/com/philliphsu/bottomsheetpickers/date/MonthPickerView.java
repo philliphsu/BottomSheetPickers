@@ -38,7 +38,7 @@ final class MonthPickerView extends View {
     private int mEdgePadding = 0;
     
     private Paint mMonthLabelPaint;
-    private Paint mSelectedCirclePaint; // TODO: change
+    private Paint mSelectedCirclePaint;
 
     // Quick reference to the width of this view, matches parent
     private int mWidth;
@@ -59,9 +59,9 @@ final class MonthPickerView extends View {
     private OnMonthClickListener mOnMonthClickListener;
 
     private int mNormalTextColor;
-    private int mCurrentMonthTextColor; // TODO: change
+    private int mCurrentMonthTextColor;
     private int mDisabledMonthTextColor;
-    private int mSelectedMonthTextColor; // TODO: change
+    private int mSelectedMonthTextColor;
 
     public MonthPickerView(Context context) {
         this(context, null);
