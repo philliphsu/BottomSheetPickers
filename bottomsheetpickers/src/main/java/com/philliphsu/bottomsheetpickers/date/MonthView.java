@@ -26,6 +26,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.support.v4.widget.ExploreByTouchHelper;
@@ -255,6 +256,14 @@ public abstract class MonthView extends View {
             mDisabledDayTextColor = getColor(context, R.color.text_color_disabled_dark);
             initView();
         }
+    }
+
+    void setTodayNumberColor(@ColorInt int color) {
+        mTodayNumberColor = color;
+    }
+
+    void setSelectedCirclePaintColor(@ColorInt int color) {
+        mSelectedCirclePaint.setColor(color);
     }
 
     protected MonthViewTouchHelper getMonthViewTouchHelper() {

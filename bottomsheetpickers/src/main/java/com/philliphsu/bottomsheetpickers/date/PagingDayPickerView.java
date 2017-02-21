@@ -95,6 +95,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     private DatePickerController mController;
 
     private boolean mThemeDark;
+    private int mAccentColor;
 
     public PagingDayPickerView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -106,8 +107,15 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     }
 
     public PagingDayPickerView(Context context, DatePickerController controller, boolean themeDark) {
+        this(context, controller, themeDark, Utils.getThemeAccentColor(context));
+    }
+
+    public PagingDayPickerView(Context context, DatePickerController controller, boolean themeDark,
+                               int accentColor) {
         super(context);
-        mThemeDark = themeDark;  // keep this before init()
+        // keep these before init()
+        mThemeDark = themeDark;
+        mAccentColor = accentColor;
         init(context);
         setController(controller);
     }
@@ -204,6 +212,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     }
 
     void setAccentColor(@ColorInt int color) {
+        mAccentColor = color;
         mMonthPickerView.setCurrentMonthTextColor(color);
         mMonthPickerView.setSelectedCirclePaintColor(color);
     }
@@ -241,7 +250,11 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
      */
     protected void refreshAdapter() {
         if (mAdapter == null) {
-            mAdapter = createMonthAdapter(getContext(), mController, mThemeDark);
+            if (mAccentColor != 0) {
+                mAdapter = createMonthAdapter(getContext(), mController, mThemeDark, mAccentColor);
+            } else {
+                mAdapter = createMonthAdapter(getContext(), mController, mThemeDark);
+            }
         } else {
             mAdapter.setSelectedDay(mSelectedDay);
         }
@@ -266,7 +279,14 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
     public PagingMonthAdapter createMonthAdapter(Context context,
                                                  DatePickerController controller,
                                                  boolean themeDark) {
-        return new PagingMonthAdapter(context, controller, themeDark);
+        return createMonthAdapter(context, controller, themeDark, Utils.getThemeAccentColor(context));
+    }
+
+    public PagingMonthAdapter createMonthAdapter(Context context,
+                                                 DatePickerController controller,
+                                                 boolean themeDark,
+                                                 int accentColor) {
+        return new PagingMonthAdapter(context, controller, themeDark, accentColor);
     }
 
     /**

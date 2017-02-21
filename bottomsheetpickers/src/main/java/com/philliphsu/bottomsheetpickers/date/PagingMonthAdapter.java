@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 
+import com.philliphsu.bottomsheetpickers.Utils;
 import com.philliphsu.bottomsheetpickers.date.MonthView.OnDayClickListener;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
 
     private final Context mContext;
     private final boolean mThemeDark;
+    private final int mAccentColor;
     private final SparseArray<String> mMonthYearTitles = new SparseArray<>();
     private final ArrayList<MonthView> mMonthViews = new ArrayList<>();
     protected final DatePickerController mController;
@@ -62,9 +64,15 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
     public PagingMonthAdapter(Context context,
                         DatePickerController controller,
                         boolean themeDark) {
+        this(context, controller, themeDark, Utils.getThemeAccentColor(context));
+    }
+
+    public PagingMonthAdapter(Context context, DatePickerController controller,
+                              boolean themeDark, int accentColor) {
         mContext = context;
         mController = controller;
         mThemeDark = themeDark;
+        mAccentColor = accentColor;
         init();
         setSelectedDay(mController.getSelectedDay());
     }
@@ -131,7 +139,7 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
     public Object instantiateItem(ViewGroup container, int position) {
         MonthView v;
         HashMap<String, Integer> drawingParams = null;
-        v = createMonthView(mContext, mThemeDark);
+        v = createMonthView(mContext, mThemeDark, mAccentColor);
         // Set up the new view
         v.setClickable(true);
         v.setOnDayClickListener(this);
@@ -221,9 +229,15 @@ class PagingMonthAdapter extends PagerAdapter implements OnDayClickListener {
     }
 
     public MonthView createMonthView(Context context, boolean themeDark) {
+        return createMonthView(context, themeDark, mAccentColor);
+    }
+
+    public MonthView createMonthView(Context context, boolean themeDark, int accentColor) {
         final MonthView monthView = new SimpleMonthView(context);
         monthView.setDatePickerController(mController);
         monthView.setTheme(context, themeDark);
+        monthView.setTodayNumberColor(accentColor);
+        monthView.setSelectedCirclePaintColor(accentColor);
         return monthView;
     }
 

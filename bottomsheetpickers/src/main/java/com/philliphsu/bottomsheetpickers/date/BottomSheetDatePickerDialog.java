@@ -230,7 +230,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         }
 
         final Activity activity = getActivity();
-        mDayPickerView = new PagingDayPickerView(activity, this, mThemeDark);
+        mDayPickerView = new PagingDayPickerView(activity, this, mThemeDark, mAccentColor);
         mYearPickerView = new YearPickerView(activity, this);
         mYearPickerView.setTheme(activity, mThemeDark);
 
