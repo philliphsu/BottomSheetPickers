@@ -203,12 +203,6 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         mThemeDark = themeDark;
     }
 
-    @Override
-    public void setBackgroundColor(@ColorInt int color) {
-        super.setBackgroundColor(color);
-        mMonthPickerView.setSelectedMonthTextColor(color);
-    }
-
     void setAccentColor(@ColorInt int color) {
         mMonthPickerView.setCurrentMonthTextColor(color);
         mMonthPickerView.setSelectedCirclePaintColor(color);

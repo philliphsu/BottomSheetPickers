@@ -144,18 +144,6 @@ final class MonthPickerView extends View {
     }
 
     /**
-     * Set the text color when a month has the selection circle drawn on it.
-     * <p>
-     * Make sure to call {@link #initView()} after calling this so that our Paints can be updated.
-     * </p>
-     */
-    void setSelectedMonthTextColor(@ColorInt int color) {
-        // TODO: Since you will almost always set this to the background color of the dialog,
-        // why not just always use transparent text color?
-        mSelectedMonthTextColor = color;
-    }
-
-    /**
      * Set the text color that will highlight the current (i.e. today's) month.
      * <p>
      * Make sure to call {@link #initView()} after calling this so that our Paints can be updated.
