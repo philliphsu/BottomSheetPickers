@@ -59,6 +59,11 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
     private static final String KEY_TYPED_TIMES = "typed_times";
     private static final String KEY_DARK_THEME = "dark_theme";
     private static final String KEY_THEME_SET_AT_RUNTIME = "theme_set_at_runtime";
+    private static final String KEY_HEADER_TEXT_COLOR_SELECTED = "header_text_color_selected";
+    private static final String KEY_HEADER_TEXT_COLOR_UNSELECTED = "header_text_color_unselected";
+    private static final String KEY_TIME_SEPARATOR_COLOR = "time_separator_color";
+    private static final String KEY_HALF_DAY_BUTTON_COLOR_SELECTED = "half_day_button_color_selected";
+    private static final String KEY_HALF_DAY_BUTTON_COLOR_UNSELECTED = "half_day_button_color_unselected";
 
     public static final int HOUR_INDEX = 0;
     public static final int MINUTE_INDEX = 1;
@@ -468,6 +473,11 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             }
             outState.putBoolean(KEY_DARK_THEME, mThemeDark);
             outState.putBoolean(KEY_THEME_SET_AT_RUNTIME, mThemeSetAtRuntime);
+            outState.putInt(KEY_HEADER_TEXT_COLOR_SELECTED, mHeaderTextColorSelected);
+            outState.putInt(KEY_HEADER_TEXT_COLOR_UNSELECTED, mHeaderTextColorUnselected);
+            outState.putInt(KEY_TIME_SEPARATOR_COLOR, mTimeSeparatorColor);
+            outState.putInt(KEY_HALF_DAY_BUTTON_COLOR_SELECTED, mHalfDayButtonColorSelected);
+            outState.putInt(KEY_HALF_DAY_BUTTON_COLOR_UNSELECTED, mHalfDayButtonColorUnselected);
         }
     }
 
