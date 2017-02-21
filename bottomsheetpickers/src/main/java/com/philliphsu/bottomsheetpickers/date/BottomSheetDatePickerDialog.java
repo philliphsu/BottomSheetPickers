@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
@@ -105,10 +106,8 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     private int mWeekStart = mCalendar.getFirstDayOfWeek();
     private int mMinYear = DEFAULT_START_YEAR;
     private int mMaxYear = DEFAULT_END_YEAR;
-    @Nullable
-    private Calendar mMinDate;
-    @Nullable
-    private Calendar mMaxDate;
+    private @Nullable Calendar mMinDate;
+    private @Nullable Calendar mMaxDate;
 
     private HapticFeedbackController mHapticFeedbackController;
     private CalendarDay mSelectedDay;
@@ -124,6 +123,10 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     // Relative positions of (MD) and Y in the locale's date formatting style.
     private int mLocaleMonthDayIndex;
     private int mLocaleYearIndex;
+
+    private int mHeaderTextColorSelected;
+    private int mHeaderTextColorUnselected;
+    private int mDayOfWeekHeaderTextColor;
 
     public BottomSheetDatePickerDialog() {
         // Empty constructor required for dialog fragment.
@@ -309,12 +312,36 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
             Utils.setColorControlHighlight(mDoneButton, selectableItemBg);
         }
 
+        // Before setting any custom header text colors, check if the dark header text theme was
+        // requested and apply it.
         if (mHeaderTextColorSetAtRuntime && mHeaderTextDark) {
             final ColorStateList colors = ContextCompat.getColorStateList(activity,
                     R.color.date_picker_selector_light);
             mDayOfWeekView.setTextColor(colors.getDefaultColor() /* text_color_secondary_light */);
             mFirstTextView.setTextColor(colors);
             mSecondTextView.setTextColor(colors);
+        }
+
+        // Apply the custom colors for the header texts, if applicable.
+        if (mHeaderTextColorSelected != 0 || mHeaderTextColorUnselected != 0) {
+            final int[][] states = {
+                    {android.R.attr.state_selected},
+                    {-android.R.attr.state_selected},
+                    { /* default state */}
+            };
+            final int selectedColor = mHeaderTextColorSelected != 0 ? mHeaderTextColorSelected
+                    : (mHeaderTextDark ? mBlackText : mWhite);
+            final int unselectedColor = mHeaderTextColorUnselected != 0 ? mHeaderTextColorUnselected
+                    : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
+            final int[] colors = { selectedColor, unselectedColor, unselectedColor };
+            final ColorStateList stateColors = new ColorStateList(states, colors);
+            mFirstTextView.setTextColor(stateColors);
+            mSecondTextView.setTextColor(stateColors);
+        }
+
+        // Apply the custom color for the day-of-week header text, if applicable.
+        if (mDayOfWeekHeaderTextColor != 0) {
+            mDayOfWeekView.setTextColor(mDayOfWeekHeaderTextColor);
         }
 
         determineLocale_MD_Y_Indices();
@@ -607,6 +634,27 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
 
     public void setOnDateSetListener(OnDateSetListener listener) {
         mCallBack = listener;
+    }
+
+    /**
+     * Set the color of the header text when it is selected.
+     */
+    public final void setHeaderTextColorSelected(@ColorInt int color) {
+        mHeaderTextColorSelected = color;
+    }
+
+    /**
+     * Set the color of the header text when it is not selected.
+     */
+    public final void setHeaderTextColorUnselected(@ColorInt int color) {
+        mHeaderTextColorUnselected = color;
+    }
+
+    /**
+     * Set the color of the day-of-week header text.
+     */
+    public final void setDayOfWeekHeaderTextColor(@ColorInt int color) {
+        mDayOfWeekHeaderTextColor = color;
     }
 
     // If the newly selected month / year does not contain the currently selected day number,
