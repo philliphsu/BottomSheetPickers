@@ -233,6 +233,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         mDayPickerView = new PagingDayPickerView(activity, this, mThemeDark, mAccentColor);
         mYearPickerView = new YearPickerView(activity, this);
         mYearPickerView.setTheme(activity, mThemeDark);
+        mYearPickerView.setAccentColor(mAccentColor);
 
         // Listen for touches so that we can enable/disable the bottom sheet's cancelable
         // state based on the location of the touch event.

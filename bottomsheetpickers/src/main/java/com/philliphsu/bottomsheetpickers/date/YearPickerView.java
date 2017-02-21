@@ -48,6 +48,7 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
     private final DateRangeHelper mDateRangeHelper;
 
     private boolean mThemeDark;
+    private int mAccentColor;
 
     /**
      * @param context
@@ -85,6 +86,10 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
         mThemeDark = themeDark;
     }
 
+    void setAccentColor(int color) {
+        mAccentColor = color;
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TextViewWithIndicator clickedView = (TextViewWithIndicator) view;
@@ -112,6 +117,9 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
             TextViewWithIndicator v = (TextViewWithIndicator)
                     super.getView(position, convertView, parent);
             v.setTheme(parent.getContext(), mThemeDark);
+            if (v instanceof TextViewWithHighlightIndicator && mAccentColor != 0) {
+                ((TextViewWithHighlightIndicator) v).setHighlightIndicatorColor(mAccentColor);
+            }
             v.requestLayout();
             int year = getYearFromTextView(v);
             CalendarDay selectedDay = mController.getSelectedDay();

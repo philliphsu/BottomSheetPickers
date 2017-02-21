@@ -18,13 +18,13 @@ import static android.support.v4.content.ContextCompat.getColor;
  */
 public class TextViewWithHighlightIndicator extends TextViewWithIndicator {
 
-    private final int    mHighlightColor;
     private final String mItemIsSelectedText;
     private final float  mDefaultTextSize;
     private final float  mSelectedTextSize;
 
-    private boolean mDrawHighlight;
+    private int     mHighlightColor;
     private int     mDisabledTextColor;
+    private boolean mDrawHighlight;
 
     public TextViewWithHighlightIndicator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -65,5 +65,9 @@ public class TextViewWithHighlightIndicator extends TextViewWithIndicator {
         super.setTheme(context, themeDark);
         mDisabledTextColor = getColor(context, themeDark?
                 R.color.text_color_disabled_dark : R.color.text_color_disabled_light);
+    }
+
+    void setHighlightIndicatorColor(int highlightColor) {
+        mHighlightColor = highlightColor;
     }
 }
