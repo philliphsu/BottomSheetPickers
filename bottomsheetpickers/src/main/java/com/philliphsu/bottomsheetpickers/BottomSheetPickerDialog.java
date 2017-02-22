@@ -37,6 +37,9 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
 
     protected boolean mHeaderTextDark;
     protected boolean mHeaderTextColorSetAtRuntime;
+
+    // TODO: Why do we need these? A simple 'if (color != 0)' check seems sufficient.
+    // In fact, our subclasses don't even need such flags for their own custom colors.
     protected boolean mAccentColorSetAtRuntime;
     protected boolean mBackgroundColorSetAtRuntime;
     protected boolean mHeaderColorSetAtRuntime;
