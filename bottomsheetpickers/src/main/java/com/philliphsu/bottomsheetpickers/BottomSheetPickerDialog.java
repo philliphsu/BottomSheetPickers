@@ -167,27 +167,27 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
         private boolean mHeaderTextDark;
         private boolean mThemeDark;
 
-        public final Builder setAccentColor(int accentColor) {
+        public Builder setAccentColor(int accentColor) {
             mAccentColor = accentColor;
             return this;
         }
 
-        public final Builder setBackgroundColor(int backgroundColor) {
+        public Builder setBackgroundColor(int backgroundColor) {
             mBackgroundColor = backgroundColor;
             return this;
         }
 
-        public final Builder setHeaderColor(int headerColor) {
+        public Builder setHeaderColor(int headerColor) {
             mHeaderColor = headerColor;
             return this;
         }
 
-        public final Builder setHeaderTextDark(boolean headerTextDark) {
+        public Builder setHeaderTextDark(boolean headerTextDark) {
             mHeaderTextDark = headerTextDark;
             return this;
         }
 
-        public final Builder setThemeDark(boolean themeDark) {
+        public Builder setThemeDark(boolean themeDark) {
             mThemeDark = themeDark;
             return this;
         }

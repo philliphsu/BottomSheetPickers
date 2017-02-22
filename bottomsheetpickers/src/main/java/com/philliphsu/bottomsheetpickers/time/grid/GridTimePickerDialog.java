@@ -1074,6 +1074,31 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         }
 
         @Override
+        public Builder setAccentColor(int accentColor) {
+            return (Builder) super.setAccentColor(accentColor);
+        }
+
+        @Override
+        public Builder setBackgroundColor(int backgroundColor) {
+            return (Builder) super.setBackgroundColor(backgroundColor);
+        }
+
+        @Override
+        public Builder setHeaderColor(int headerColor) {
+            return (Builder) super.setHeaderColor(headerColor);
+        }
+
+        @Override
+        public Builder setHeaderTextDark(boolean headerTextDark) {
+            return (Builder) super.setHeaderTextDark(headerTextDark);
+        }
+
+        @Override
+        public Builder setThemeDark(boolean themeDark) {
+            return (Builder) super.setThemeDark(themeDark);
+        }
+
+        @Override
         public GridTimePickerDialog build() {
             GridTimePickerDialog dialog = newInstance(mListener, mHour, mMinute, mIs24HourMode);
             super_build(dialog);
