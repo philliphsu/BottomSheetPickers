@@ -20,10 +20,8 @@ import static android.support.v4.content.ContextCompat.getColor;
 // TODO: Consider renaming this to BasePickerDialog(Fragment?) and extend from AppCompatDialogFragment.
 public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment {
 
-    // TODO: Other classes in this package may need these? If not, make private.
-    protected static final String KEY_DARK_THEME = "dark_theme";
-    protected static final String KEY_THEME_SET_AT_RUNTIME = "theme_set_at_runtime";
-
+    private static final String KEY_DARK_THEME = "dark_theme";
+    private static final String KEY_THEME_SET_AT_RUNTIME = "theme_set_at_runtime";
     private static final String KEY_ACCENT_COLOR = "accent_color";
     private static final String KEY_ACCENT_COLOR_SET_AT_RUNTIME = "accent_color_set_at_runtime";
     private static final String KEY_BACKGROUND_COLOR = "background_color";
