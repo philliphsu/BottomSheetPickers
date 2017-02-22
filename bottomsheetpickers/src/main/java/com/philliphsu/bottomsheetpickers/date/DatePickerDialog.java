@@ -63,7 +63,8 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
     private static final String KEY_MAX_DATE_MILLIS = "max_date_millis";
     private static final String KEY_HEADER_TEXT_COLOR_SELECTED = "header_text_color_selected";
     private static final String KEY_HEADER_TEXT_COLOR_UNSELECTED = "header_text_color_unselected";
-    private static final String KEY_DAY_OF_WEEK_HEADER_TEXT_COLOR = "day_of_week_header_text_color";
+    private static final String KEY_DAY_OF_WEEK_HEADER_TEXT_COLOR_SELECTED = "day_of_week_header_text_color_selected";
+    private static final String KEY_DAY_OF_WEEK_HEADER_TEXT_COLOR_UNSELECTED = "day_of_week_header_text_color_unselected";
 
     private static final int DEFAULT_START_YEAR = 1900;
     private static final int DEFAULT_END_YEAR = 2100;
@@ -114,7 +115,8 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
 
     private int mHeaderTextColorSelected;
     private int mHeaderTextColorUnselected;
-    private int mDayOfWeekHeaderTextColor;
+    private int mDayOfWeekHeaderTextColorSelected;
+    private int mDayOfWeekHeaderTextColorUnselected;
 
     /**
      * The callback used to indicate the user is done filling in the date.
@@ -203,7 +205,8 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         }
         outState.putInt(KEY_HEADER_TEXT_COLOR_SELECTED, mHeaderTextColorSelected);
         outState.putInt(KEY_HEADER_TEXT_COLOR_UNSELECTED, mHeaderTextColorUnselected);
-        outState.putInt(KEY_DAY_OF_WEEK_HEADER_TEXT_COLOR, mDayOfWeekHeaderTextColor);
+        outState.putInt(KEY_DAY_OF_WEEK_HEADER_TEXT_COLOR_SELECTED, mDayOfWeekHeaderTextColorSelected);
+        outState.putInt(KEY_DAY_OF_WEEK_HEADER_TEXT_COLOR_UNSELECTED, mDayOfWeekHeaderTextColorUnselected);
     }
 
     @Override
@@ -235,7 +238,10 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
             dayPickerCurrentView = savedInstanceState.getInt(KEY_DAY_PICKER_CURRENT_INDEX);
             mHeaderTextColorSelected = savedInstanceState.getInt(KEY_HEADER_TEXT_COLOR_SELECTED);
             mHeaderTextColorUnselected = savedInstanceState.getInt(KEY_HEADER_TEXT_COLOR_UNSELECTED);
-            mDayOfWeekHeaderTextColor = savedInstanceState.getInt(KEY_DAY_OF_WEEK_HEADER_TEXT_COLOR);
+            mDayOfWeekHeaderTextColorSelected = savedInstanceState.getInt(
+                    KEY_DAY_OF_WEEK_HEADER_TEXT_COLOR_SELECTED);
+            mDayOfWeekHeaderTextColorUnselected = savedInstanceState.getInt(
+                    KEY_DAY_OF_WEEK_HEADER_TEXT_COLOR_UNSELECTED);
 
             // Don't restore both in one block because it may well be that only one was set.
             if (savedInstanceState.containsKey(KEY_MIN_DATE_MILLIS)) {
@@ -332,26 +338,28 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
             mSecondTextView.setTextColor(colors);
         }
 
+        // Prepare default header text colors.
+        final int defaultSelectedColor = mHeaderTextDark ? mBlackText : mWhite;
+        final int defaultUnselectedColor = mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled;
+
         // Apply the custom colors for the header texts, if applicable.
         if (mHeaderTextColorSelected != 0 || mHeaderTextColorUnselected != 0) {
-            final int[][] states = {
-                    {android.R.attr.state_selected},
-                    {-android.R.attr.state_selected},
-                    { /* default state */}
-            };
-            final int selectedColor = mHeaderTextColorSelected != 0 ? mHeaderTextColorSelected
-                    : (mHeaderTextDark ? mBlackText : mWhite);
-            final int unselectedColor = mHeaderTextColorUnselected != 0 ? mHeaderTextColorUnselected
-                    : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
-            final int[] colors = { selectedColor, unselectedColor, unselectedColor };
-            final ColorStateList stateColors = new ColorStateList(states, colors);
+            final int selectedColor = mHeaderTextColorSelected != 0
+                    ? mHeaderTextColorSelected : defaultSelectedColor;
+            final int unselectedColor = mHeaderTextColorUnselected != 0
+                    ? mHeaderTextColorUnselected : defaultUnselectedColor;
+            final ColorStateList stateColors = createColorStateList(selectedColor, unselectedColor);
             mFirstTextView.setTextColor(stateColors);
             mSecondTextView.setTextColor(stateColors);
         }
 
-        // Apply the custom color for the day-of-week header text, if applicable.
-        if (mDayOfWeekHeaderTextColor != 0) {
-            mDayOfWeekView.setTextColor(mDayOfWeekHeaderTextColor);
+        // Apply the custom colors for the day-of-week header text, if applicable.
+        if (mDayOfWeekHeaderTextColorSelected != 0 || mDayOfWeekHeaderTextColorUnselected != 0) {
+            final int selectedColor = mDayOfWeekHeaderTextColorSelected != 0
+                    ? mDayOfWeekHeaderTextColorSelected : defaultSelectedColor;
+            final int unselectedColor = mDayOfWeekHeaderTextColorUnselected != 0
+                    ? mDayOfWeekHeaderTextColorUnselected : defaultUnselectedColor;
+            mDayOfWeekView.setTextColor(createColorStateList(selectedColor, unselectedColor));
         }
 
         determineLocale_MD_Y_Indices();
@@ -663,10 +671,17 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
     }
 
     /**
-     * Set the color of the day-of-week header text.
+     * Set the color of the day-of-week header text when it is selected.
      */
-    public final void setDayOfWeekHeaderTextColor(@ColorInt int color) {
-        mDayOfWeekHeaderTextColor = color;
+    public final void setDayOfWeekHeaderTextColorSelected(@ColorInt int color) {
+        mDayOfWeekHeaderTextColorSelected = color;
+    }
+
+    /**
+     * Set the color of the day-of-week header text when it is not selected.
+     */
+    public final void setDayOfWeekHeaderTextColorUnselected(@ColorInt int color) {
+        mDayOfWeekHeaderTextColorUnselected = color;
     }
 
     // If the newly selected month / year does not contain the currently selected day number,
@@ -797,6 +812,16 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         return R.layout.date_picker_dialog;
     }
 
+    private static ColorStateList createColorStateList(int selectedColor, int unselectedColor) {
+        final int[][] states = {
+                { android.R.attr.state_selected },
+                { -android.R.attr.state_selected },
+                { /* default state */}
+        };
+        final int[] colors = { selectedColor, unselectedColor, unselectedColor };
+        return new ColorStateList(states, colors);
+    }
+
     public static class Builder extends BottomSheetPickerDialog.Builder {
         final OnDateSetListener mListener;
         final int mYear, mMonthOfYear, mDayOfMonth;
@@ -809,7 +834,8 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         
         private int mHeaderTextColorSelected;
         private int mHeaderTextColorUnselected;
-        private int mDayOfWeekHeaderTextColor;
+        private int mDayOfWeekHeaderTextColorSelected;
+        private int mDayOfWeekHeaderTextColorUnselected;
 
         public Builder(OnDateSetListener listener, int year, int monthOfYear, int dayOfMonth) {
             mListener = listener;
@@ -885,10 +911,18 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         }
 
         /**
-         * Set the color of the day-of-week header text.
+         * Set the color of the day-of-week header text when it is selected.
          */
-        public Builder setDayOfWeekHeaderTextColor(@ColorInt int color) {
-            mDayOfWeekHeaderTextColor = color;
+        public Builder setDayOfWeekHeaderTextColorSelected(@ColorInt int color) {
+            mDayOfWeekHeaderTextColorSelected = color;
+            return this;
+        }
+
+        /**
+         * Set the color of the day-of-week header text when it is not selected.
+         */
+        public Builder setDayOfWeekHeaderTextColorUnselected(@ColorInt int color) {
+            mDayOfWeekHeaderTextColorUnselected = color;
             return this;
         }
 
@@ -937,7 +971,8 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
             DatePickerDialog datePickerDialog = (DatePickerDialog) dialog;
             datePickerDialog.setHeaderTextColorSelected(mHeaderTextColorSelected);
             datePickerDialog.setHeaderTextColorUnselected(mHeaderTextColorUnselected);
-            datePickerDialog.setDayOfWeekHeaderTextColor(mDayOfWeekHeaderTextColor);
+            datePickerDialog.setDayOfWeekHeaderTextColorSelected(mDayOfWeekHeaderTextColorSelected);
+            datePickerDialog.setDayOfWeekHeaderTextColorUnselected(mDayOfWeekHeaderTextColorUnselected);
             datePickerDialog.setFirstDayOfWeek(mWeekStart);
             if (mMinDate != null) {
                 datePickerDialog.setMinDate(mMinDate);

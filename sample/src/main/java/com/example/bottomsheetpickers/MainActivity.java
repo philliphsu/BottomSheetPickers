@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements
                         if (custom || customDark) {
                             dateDialog.setHeaderTextColorSelected(0xFFFF4081);
                             dateDialog.setHeaderTextColorUnselected(0x4AFF4081);
-                            dateDialog.setDayOfWeekHeaderTextColor(0xFFFF4081);
+                            dateDialog.setDayOfWeekHeaderTextColorSelected(0xFFFF4081);
                         }
                         break;
                     }

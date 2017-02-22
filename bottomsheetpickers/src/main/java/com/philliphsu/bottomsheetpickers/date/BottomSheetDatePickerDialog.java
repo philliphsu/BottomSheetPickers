@@ -74,8 +74,13 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog {
         }
 
         @Override
-        public Builder setDayOfWeekHeaderTextColor(@ColorInt int color) {
-            return (Builder) super.setDayOfWeekHeaderTextColor(color);
+        public Builder setDayOfWeekHeaderTextColorSelected(@ColorInt int color) {
+            return (Builder) super.setDayOfWeekHeaderTextColorSelected(color);
+        }
+
+        @Override
+        public Builder setDayOfWeekHeaderTextColorUnselected(@ColorInt int color) {
+            return (Builder) super.setDayOfWeekHeaderTextColorUnselected(color);
         }
 
         @Override
