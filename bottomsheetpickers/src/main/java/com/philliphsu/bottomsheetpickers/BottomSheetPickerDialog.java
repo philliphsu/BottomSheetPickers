@@ -23,26 +23,13 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     private static final String KEY_DARK_THEME = "dark_theme";
     private static final String KEY_THEME_SET_AT_RUNTIME = "theme_set_at_runtime";
     private static final String KEY_ACCENT_COLOR = "accent_color";
-    private static final String KEY_ACCENT_COLOR_SET_AT_RUNTIME = "accent_color_set_at_runtime";
     private static final String KEY_BACKGROUND_COLOR = "background_color";
-    private static final String KEY_BACKGROUND_COLOR_SET_AT_RUNTIME = "background_color_set_at_runtime";
     private static final String KEY_HEADER_COLOR = "header_color";
-    private static final String KEY_HEADER_COLOR_SET_AT_RUNTIME = "header_color_set_at_runtime";
     private static final String KEY_HEADER_TEXT_DARK = "header_text_dark";
-    private static final String KEY_HEADER_TEXT_COLOR_SET_AT_RUNTIME = "header_text_color_set_at_runtime";
 
     // TODO: Remove duplicates in time picker classes.
     protected boolean mThemeDark;
     protected boolean mThemeSetAtRuntime;
-
-    protected boolean mHeaderTextDark;
-    protected boolean mHeaderTextColorSetAtRuntime;
-
-    // TODO: Why do we need these? A simple 'if (color != 0)' check seems sufficient.
-    // In fact, our subclasses don't even need such flags for their own custom colors.
-    protected boolean mAccentColorSetAtRuntime;
-    protected boolean mBackgroundColorSetAtRuntime;
-    protected boolean mHeaderColorSetAtRuntime;
 
     // TODO: Remove retrievals of these values in time picker classes.
     protected int mDarkGray;
@@ -55,6 +42,7 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     protected int mAccentColor;
     protected int mBackgroundColor;
     protected int mHeaderColor;
+    protected boolean mHeaderTextDark;
 
     @LayoutRes
     protected abstract int contentLayout();
@@ -66,13 +54,9 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
             mThemeDark = savedInstanceState.getBoolean(KEY_DARK_THEME);
             mThemeSetAtRuntime = savedInstanceState.getBoolean(KEY_THEME_SET_AT_RUNTIME);
             mAccentColor = savedInstanceState.getInt(KEY_ACCENT_COLOR);
-            mAccentColorSetAtRuntime = savedInstanceState.getBoolean(KEY_ACCENT_COLOR_SET_AT_RUNTIME);
             mBackgroundColor = savedInstanceState.getInt(KEY_BACKGROUND_COLOR);
-            mBackgroundColorSetAtRuntime = savedInstanceState.getBoolean(KEY_BACKGROUND_COLOR_SET_AT_RUNTIME);
             mHeaderColor = savedInstanceState.getInt(KEY_HEADER_COLOR);
-            mHeaderColorSetAtRuntime = savedInstanceState.getBoolean(KEY_HEADER_COLOR_SET_AT_RUNTIME);
             mHeaderTextDark = savedInstanceState.getBoolean(KEY_HEADER_TEXT_DARK);
-            mHeaderTextColorSetAtRuntime = savedInstanceState.getBoolean(KEY_HEADER_TEXT_COLOR_SET_AT_RUNTIME);
         }
         // Prepare common colors.
         final Context ctx = getActivity();
@@ -90,11 +74,14 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
         if (!mThemeSetAtRuntime) {
             mThemeDark = Utils.isDarkTheme(getActivity(), mThemeDark);
         }
-        if (!mAccentColorSetAtRuntime) {
+        if (mAccentColor == 0) {
             mAccentColor = Utils.getThemeAccentColor(getActivity());
         }
-        if (!mBackgroundColorSetAtRuntime) {
-            mBackgroundColor = mThemeDark? mDarkGray : mWhite;
+        if (mBackgroundColor == 0) {
+            mBackgroundColor = mThemeDark ? mDarkGray : mWhite;
+        }
+        if (mHeaderColor == 0) {
+            mHeaderColor = mThemeDark ? mLightGray : mAccentColor;
         }
 
         View view = inflater.inflate(contentLayout(), container, false);
@@ -119,13 +106,9 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
         outState.putBoolean(KEY_DARK_THEME, mThemeDark);
         outState.putBoolean(KEY_THEME_SET_AT_RUNTIME, mThemeSetAtRuntime);
         outState.putInt(KEY_ACCENT_COLOR, mAccentColor);
-        outState.putBoolean(KEY_ACCENT_COLOR_SET_AT_RUNTIME, mAccentColorSetAtRuntime);
         outState.putInt(KEY_BACKGROUND_COLOR, mBackgroundColor);
-        outState.putBoolean(KEY_BACKGROUND_COLOR_SET_AT_RUNTIME, mBackgroundColorSetAtRuntime);
         outState.putInt(KEY_HEADER_COLOR, mHeaderColor);
-        outState.putBoolean(KEY_HEADER_COLOR_SET_AT_RUNTIME, mHeaderColorSetAtRuntime);
         outState.putBoolean(KEY_HEADER_TEXT_DARK, mHeaderTextDark);
-        outState.putBoolean(KEY_HEADER_TEXT_COLOR_SET_AT_RUNTIME, mHeaderTextColorSetAtRuntime);
     }
 
     /**
@@ -175,7 +158,6 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
      */
     public final void setHeaderTextDark(boolean dark) {
         mHeaderTextDark = dark;
-        mHeaderTextColorSetAtRuntime = true;
     }
     
     public static abstract class Builder {

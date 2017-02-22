@@ -304,15 +304,9 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
         mCancelButton.setTextColor(mAccentColor);
         mDoneButton.setTextColor(mAccentColor);
 
-        final int backgroundColor = mBackgroundColorSetAtRuntime
-                ? mBackgroundColor : (mThemeDark ? mDarkGray : mWhite);
-        final int headerColor = mHeaderColorSetAtRuntime
-                ? mHeaderColor : (mThemeDark ? mLightGray : mAccentColor);
-        // This is so the margin gets colored as well.
-        view.setBackgroundColor(backgroundColor);
-        mAnimator.setBackgroundColor(backgroundColor);
+        mAnimator.setBackgroundColor(mBackgroundColor);
         mDayPickerView.setAccentColor(mAccentColor);
-        view.findViewById(R.id.day_picker_selected_date_layout).setBackgroundColor(headerColor);
+        view.findViewById(R.id.day_picker_selected_date_layout).setBackgroundColor(mHeaderColor);
 
         if (mThemeDark) {
             final int selectableItemBg = ContextCompat.getColor(activity,
@@ -323,7 +317,7 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
 
         // Before setting any custom header text colors, check if the dark header text theme was
         // requested and apply it.
-        if (mHeaderTextColorSetAtRuntime && mHeaderTextDark) {
+        if (mHeaderTextDark) {
             final ColorStateList colors = ContextCompat.getColorStateList(activity,
                     R.color.date_picker_selector_light);
             mDayOfWeekView.setTextColor(colors.getDefaultColor() /* text_color_secondary_light */);

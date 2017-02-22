@@ -23,7 +23,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
@@ -108,12 +107,7 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         mNumpad.insertDigits(mInputtedDigits); // TOneverDO: before mNumpad.setOnInputChangeListener(this);
         mNumpad.setAmPmState(mAmPmState);
 
-        FrameLayout inputTimeContainer = (FrameLayout) view.findViewById(R.id.input_time_container);
-        if (mHeaderColorSetAtRuntime) {
-            inputTimeContainer.setBackgroundColor(mHeaderColor);
-        } else {
-            inputTimeContainer.setBackgroundColor(mThemeDark? mLightGray : mAccentColor);
-        }
+        view.findViewById(R.id.input_time_container).setBackgroundColor(mHeaderColor);
 
         if (mHint != null || mHintResId != 0) {
             if (mHint != null) {
@@ -126,12 +120,9 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         if (mTextSize != 0) {
             mInputField.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
         }
-        if (mHeaderTextColorSetAtRuntime) {
-            mInputField.setTextColor(mHeaderTextDark? mBlackText : mWhite);
-        }
-        if (mAccentColorSetAtRuntime) {
-            mNumpad.setAccentColor(mAccentColor);
-        }
+
+        mInputField.setTextColor(mHeaderTextDark? mBlackText : mWhite);
+        mNumpad.setAccentColor(mAccentColor);
         mNumpad.setTheme(getContext()/*DO NOT GIVE THE APPLICATION CONTEXT, OR ELSE THE NUMPAD
         CAN'T GET THE CORRECT ACCENT COLOR*/, mThemeDark);
 

@@ -370,7 +370,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
 
         // Before setting any custom header text colors, check if the dark header text theme was
         // requested and apply it.
-        if (mHeaderTextColorSetAtRuntime && mHeaderTextDark) {
+        if (mHeaderTextDark) {
             mSelectedColor = mHalfDaySelectedColor = mBlackText;
             mUnselectedColor = mHalfDayUnselectedColor = mBlackTextDisabled;
         }
@@ -391,26 +391,17 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
                     : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
         }
 
-        final @ColorInt int accentColor = mAccentColorSetAtRuntime
-                ? mAccentColor : Utils.getThemeAccentColor(getActivity());
-        if (mAccentColorSetAtRuntime) {
-            mTimePicker.setAccentColor(accentColor);
-        }
+        mTimePicker.setAccentColor(mAccentColor);
         mTimePicker.setTheme(getActivity().getApplicationContext(), mThemeDark);
 
-        // Set the whole view's background color first
-        view.setBackgroundColor(mBackgroundColorSetAtRuntime
-                ? mBackgroundColor : (mThemeDark ? mDarkGray : mWhite));
         // Set the colors for each view based on the theme.
-        view.findViewById(R.id.time_display_background).setBackgroundColor(mHeaderColorSetAtRuntime
-                ? mHeaderColor : (mThemeDark ? mLightGray : accentColor));
-        view.findViewById(R.id.time_display).setBackgroundColor(mHeaderColorSetAtRuntime
-                ? mHeaderColor : (mThemeDark ? mLightGray : accentColor));
+        view.findViewById(R.id.time_display_background).setBackgroundColor(mHeaderColor);
+        view.findViewById(R.id.time_display).setBackgroundColor(mHeaderColor);
         ((TextView) view.findViewById(R.id.separator)).setTextColor(mTimeSeparatorColor != 0
                 ? mTimeSeparatorColor : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled));
 
         // Color in normal state
-        mDoneButton.setBackgroundTintList(ColorStateList.valueOf(accentColor));
+        mDoneButton.setBackgroundTintList(ColorStateList.valueOf(mAccentColor));
 
         // Set current item at the end when the header text colors have been initialized.
         setCurrentItemShowing(currentItemShowing, false, true, true);
