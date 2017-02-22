@@ -799,11 +799,11 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         final OnDateSetListener mListener;
         final int mYear, mMonthOfYear, mDayOfMonth;
 
-        private int mWeekStart;
-        private int mMinYear;
-        private int mMaxYear;
-        private Calendar mMinDate;
-        private Calendar mMaxDate;
+        private int mWeekStart = Calendar.getInstance().getFirstDayOfWeek();
+        private int mMinYear = DEFAULT_START_YEAR;
+        private int mMaxYear = DEFAULT_END_YEAR;
+        private @Nullable Calendar mMinDate;
+        private @Nullable Calendar mMaxDate;
         
         private int mHeaderTextColorSelected;
         private int mHeaderTextColorUnselected;
@@ -937,9 +937,13 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
             datePickerDialog.setHeaderTextColorUnselected(mHeaderTextColorUnselected);
             datePickerDialog.setDayOfWeekHeaderTextColor(mDayOfWeekHeaderTextColor);
             datePickerDialog.setFirstDayOfWeek(mWeekStart);
+            if (mMinDate != null) {
+                datePickerDialog.setMinDate(mMinDate);
+            }
+            if (mMaxDate != null) {
+                datePickerDialog.setMaxDate(mMaxDate);
+            }
             datePickerDialog.setYearRange(mMinYear, mMaxYear);
-            datePickerDialog.setMinDate(mMinDate);
-            datePickerDialog.setMaxDate(mMaxDate);
         }
     }
 }
