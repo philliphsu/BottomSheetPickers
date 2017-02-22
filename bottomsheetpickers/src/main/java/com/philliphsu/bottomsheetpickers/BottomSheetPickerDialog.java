@@ -146,10 +146,7 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
      * this color will also be applied to the dialog's header.
      */
     public final void setAccentColor(@ColorInt int color) {
-        if (color != 0) {
-            mAccentColor = color;
-            mAccentColorSetAtRuntime = true;
-        }
+        mAccentColor = color;
     }
 
     /**
@@ -157,10 +154,7 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
      * setting the theme dark to ensure text in the picker has enough contrast.
      */
     public final void setBackgroundColor(@ColorInt int color) {
-        if (color != 0) {
-            mBackgroundColor = color;
-            mBackgroundColorSetAtRuntime = true;
-        }
+        mBackgroundColor = color;
     }
 
     /**
@@ -172,10 +166,7 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
      * </p>
      */
     public final void setHeaderColor(@ColorInt int color) {
-        if (color != 0) {
-            mHeaderColor = color;
-            mHeaderColorSetAtRuntime = true;
-        }
+        mHeaderColor = color;
     }
 
     /**
