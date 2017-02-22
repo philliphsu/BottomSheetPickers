@@ -128,7 +128,6 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
         outState.putBoolean(KEY_HEADER_TEXT_COLOR_SET_AT_RUNTIME, mHeaderTextColorSetAtRuntime);
     }
 
-    // TODO: Delete time picker subclasses' implementation.
     /**
      * Set a dark or light theme. NOTE: this will only take effect for the next onCreateView.
      */
@@ -137,7 +136,6 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
         mThemeSetAtRuntime = true;
     }
 
-    // TODO: Delete time picker subclasses' implementation.
     public boolean isThemeDark() {
         return mThemeDark;
     }

@@ -149,18 +149,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         mThemeSetAtRuntime = false;
     }
 
-    /**
-     * Set a dark or light theme. NOTE: this will only take effect for the next onCreateView.
-     */
-    public void setThemeDark(boolean dark) {
-        mThemeDark = dark;
-        mThemeSetAtRuntime = true;
-    }
-
-    public boolean isThemeDark() {
-        return mThemeDark;
-    }
-
     public void setStartTime(int hourOfDay, int minute) {
         mInitialHourOfDay = hourOfDay;
         mInitialMinute = minute;
