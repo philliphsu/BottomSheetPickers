@@ -327,7 +327,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         if (mHeaderTextDark) {
             final ColorStateList colors = ContextCompat.getColorStateList(activity,
                     R.color.date_picker_selector_light);
-            mDayOfWeekView.setTextColor(colors.getDefaultColor() /* text_color_secondary_light */);
+            mDayOfWeekView.setTextColor(colors);
             mFirstTextView.setTextColor(colors);
             mSecondTextView.setTextColor(colors);
         }
@@ -418,10 +418,12 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
     private void updateHeaderSelectedView(final int viewIndex) {
         switch (viewIndex) {
             case MONTH_AND_DAY_VIEW:
+                mDayOfWeekView.setSelected(true);  // Not dependent on locale ordering of (MD) and Y
                 mFirstTextView.setSelected(mLocaleMonthDayIndex == 0);
                 mSecondTextView.setSelected(mLocaleMonthDayIndex != 0);
                 break;
             case YEAR_VIEW:
+                mDayOfWeekView.setSelected(false); // Not dependent on locale ordering of (MD) and Y
                 mFirstTextView.setSelected(mLocaleYearIndex == 0);
                 mSecondTextView.setSelected(mLocaleYearIndex != 0);
                 break;

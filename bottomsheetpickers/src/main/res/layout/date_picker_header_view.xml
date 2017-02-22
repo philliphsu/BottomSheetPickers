@@ -18,8 +18,7 @@
     android:id="@+id/date_picker_header"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:duplicateParentState="true"
     android:includeFontPadding="false"
-    android:textColor="@color/text_color_secondary_dark"
+    android:textColor="@color/date_picker_selector"
     android:textSize="@dimen/date_picker_header_text_size"
     android:importantForAccessibility="no" />
