@@ -799,6 +799,12 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         final OnDateSetListener mListener;
         final int mYear, mMonthOfYear, mDayOfMonth;
 
+        private int mWeekStart;
+        private int mMinYear;
+        private int mMaxYear;
+        private Calendar mMinDate;
+        private Calendar mMaxDate;
+        
         private int mHeaderTextColorSelected;
         private int mHeaderTextColorUnselected;
         private int mDayOfWeekHeaderTextColor;
@@ -810,7 +816,55 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
             mDayOfMonth = dayOfMonth;
         }
         
-        /* TODO: Create setters for the four (or so) date range APIs. */
+        /**
+         * Use this to set the day that a week should start on.
+         * @param startOfWeek A value from {@link Calendar#SUNDAY SUNDAY}
+         *                    through {@link Calendar#SATURDAY SATURDAY}
+         */
+        public Builder setFirstDayOfWeek(int startOfWeek) {
+            mWeekStart = startOfWeek;
+            return this;
+        }
+
+        /**
+         * Sets the range of years to be displayed by this date picker. If a {@link #setMinDate(Calendar)
+         * minimal date} and/or {@link #setMaxDate(Calendar) maximal date} were set, dates in the
+         * specified range of years that lie outside of the minimal and maximal dates will be disallowed
+         * from being selected.
+         * <em>This does NOT change the minimal date's year or the maximal date's year.</em>
+         *
+         * @param startYear the start of the year range
+         * @param endYear the end of the year range
+         */
+        public Builder setYearRange(int startYear, int endYear) {
+            mMinYear = startYear;
+            mMaxYear = endYear;
+            return this;
+        }
+
+        /**
+         * Sets the minimal date that can be selected in this date picker. Dates before (but not including)
+         * the specified date will be disallowed from being selected.
+         *
+         * @param calendar a Calendar object set to the year, month, day desired as the mindate.
+         */
+        public Builder setMinDate(Calendar calendar) {
+            mMinDate = calendar;
+            setYearRange(calendar.get(Calendar.YEAR), mMaxYear);
+            return this;
+        }
+
+        /**
+         * Sets the maximal date that can be selected in this date picker. Dates after (but not including)
+         * the specified date will be disallowed from being selected.
+         *
+         * @param calendar a Calendar object set to the year, month, day desired as the maxdate.
+         */
+        public Builder setMaxDate(Calendar calendar) {
+            mMaxDate = calendar;
+            setYearRange(mMinYear, calendar.get(Calendar.YEAR));
+            return this;
+        }
 
         /**
          * Set the color of the header text when it is selected.
@@ -882,7 +936,10 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
             datePickerDialog.setHeaderTextColorSelected(mHeaderTextColorSelected);
             datePickerDialog.setHeaderTextColorUnselected(mHeaderTextColorUnselected);
             datePickerDialog.setDayOfWeekHeaderTextColor(mDayOfWeekHeaderTextColor);
-            /* TODO: Call the date range setter APIs */
+            datePickerDialog.setFirstDayOfWeek(mWeekStart);
+            datePickerDialog.setYearRange(mMinYear, mMaxYear);
+            datePickerDialog.setMinDate(mMinDate);
+            datePickerDialog.setMaxDate(mMaxDate);
         }
     }
 }

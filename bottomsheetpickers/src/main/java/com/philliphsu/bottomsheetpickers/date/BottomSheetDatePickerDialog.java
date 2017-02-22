@@ -18,6 +18,8 @@ package com.philliphsu.bottomsheetpickers.date;
 
 import android.support.annotation.ColorInt;
 
+import java.util.Calendar;
+
 /**
  * Wrapper around {@link DatePickerDialog} to maintain backward compatibility with existing client code.
  *
@@ -35,6 +37,26 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog {
     public static final class Builder extends DatePickerDialog.Builder {
         public Builder(OnDateSetListener listener, int year, int monthOfYear, int dayOfMonth) {
             super(listener, year, monthOfYear, dayOfMonth);
+        }
+
+        @Override
+        public Builder setFirstDayOfWeek(int startOfWeek) {
+            return (Builder) super.setFirstDayOfWeek(startOfWeek);
+        }
+
+        @Override
+        public Builder setYearRange(int startYear, int endYear) {
+            return (Builder) super.setYearRange(startYear, endYear);
+        }
+
+        @Override
+        public Builder setMinDate(Calendar calendar) {
+            return (Builder) super.setMinDate(calendar);
+        }
+
+        @Override
+        public Builder setMaxDate(Calendar calendar) {
+            return (Builder) super.setMaxDate(calendar);
         }
 
         @Override
