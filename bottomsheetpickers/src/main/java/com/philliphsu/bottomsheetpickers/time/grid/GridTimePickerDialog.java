@@ -42,8 +42,6 @@ import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static android.support.v4.content.ContextCompat.getColor;
-
 /**
  * A derivative of the AOSP datetimepicker TimePickerDialog class.
  */
@@ -255,33 +253,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         mMinutePickerDescription = res.getString(R.string.minute_picker_description);
         mSelectMinutes = res.getString(R.string.select_minutes);
 
-        // Default header text colors.
-        mSelectedColor = mHalfDaySelectedColor = mWhite;
-        mUnselectedColor = mHalfDayUnselectedColor = mWhiteTextDisabled;
-
-        // Before setting any custom header text colors, check if the dark header text theme was
-        // requested and apply it.
-        if (mHeaderTextColorSetAtRuntime && mHeaderTextDark) {
-            mSelectedColor = mHalfDaySelectedColor = mBlackText;
-            mUnselectedColor = mHalfDayUnselectedColor = mBlackTextDisabled;
-        }
-
-        // Apply the custom colors for the header texts, if applicable.
-        if (mHeaderTextColorSelected != 0 || mHeaderTextColorUnselected != 0) {
-            mSelectedColor = mHeaderTextColorSelected != 0 ? mHeaderTextColorSelected
-                    : (mHeaderTextDark ? mBlackText : mWhite);
-            mUnselectedColor = mHeaderTextColorUnselected != 0 ? mHeaderTextColorUnselected
-                    : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
-        }
-
-        // Apply the custom colors for the half-day buttons, if applicable.
-        if (mHalfDayButtonColorSelected != 0 || mHalfDayButtonColorUnselected != 0) {
-            mHalfDaySelectedColor = mHalfDayButtonColorSelected != 0 ? mHalfDayButtonColorSelected
-                    : (mHeaderTextDark ? mBlackText : mWhite);
-            mHalfDayUnselectedColor = mHalfDayButtonColorUnselected != 0 ? mHalfDayButtonColorUnselected
-                    : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
-        }
-
         mHourView = (TextView) view.findViewById(R.id.hours);
         mHourView.setOnKeyListener(keyboardListener);
         mHourSpaceView = (TextView) view.findViewById(R.id.hour_space);
@@ -321,8 +292,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
                 savedInstanceState.containsKey(KEY_CURRENT_ITEM_SHOWING)) {
             currentItemShowing = savedInstanceState.getInt(KEY_CURRENT_ITEM_SHOWING);
         }
-        setCurrentItemShowing(currentItemShowing, false, true, true);
-        mTimePicker.invalidate();
 
         mHourView.setOnClickListener(new OnClickListener() {
             @Override
@@ -355,7 +324,6 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
 
         mAmPmHitspace = view.findViewById(R.id.ampm_hitspace);
         mHalfDaysHitspace = view.findViewById(R.id.half_days_hitspace);
-        // TODO: Verify this callback is working for both 12 and 24 hour modes.
         mAmPmHitspace.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -408,34 +376,57 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             mTypedTimes = new ArrayList<Integer>();
         }
 
-        // Prepare some colors to use.
-        final int white = getColor(ctx, android.R.color.white);
-        final int darkGray = getColor(ctx, R.color.dark_gray);
-        final int lightGray = getColor(ctx, R.color.light_gray);
+        // Default header text colors.
+        mSelectedColor = mHalfDaySelectedColor = mWhite;
+        mUnselectedColor = mHalfDayUnselectedColor = mWhiteTextDisabled;
+
+        // Before setting any custom header text colors, check if the dark header text theme was
+        // requested and apply it.
+        if (mHeaderTextColorSetAtRuntime && mHeaderTextDark) {
+            mSelectedColor = mHalfDaySelectedColor = mBlackText;
+            mUnselectedColor = mHalfDayUnselectedColor = mBlackTextDisabled;
+        }
+
+        // Apply the custom colors for the header texts, if applicable.
+        if (mHeaderTextColorSelected != 0 || mHeaderTextColorUnselected != 0) {
+            mSelectedColor = mHeaderTextColorSelected != 0 ? mHeaderTextColorSelected
+                    : (mHeaderTextDark ? mBlackText : mWhite);
+            mUnselectedColor = mHeaderTextColorUnselected != 0 ? mHeaderTextColorUnselected
+                    : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
+        }
+
+        // Apply the custom colors for the half-day buttons, if applicable.
+        if (mHalfDayButtonColorSelected != 0 || mHalfDayButtonColorUnselected != 0) {
+            mHalfDaySelectedColor = mHalfDayButtonColorSelected != 0 ? mHalfDayButtonColorSelected
+                    : (mHeaderTextDark ? mBlackText : mWhite);
+            mHalfDayUnselectedColor = mHalfDayButtonColorUnselected != 0 ? mHalfDayButtonColorUnselected
+                    : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
+        }
+
         final @ColorInt int accentColor = mAccentColorSetAtRuntime
                 ? mAccentColor : Utils.getThemeAccentColor(getActivity());
-
         if (mAccentColorSetAtRuntime) {
-            mTimePicker.setAccentColor(mAccentColor);
+            mTimePicker.setAccentColor(accentColor);
         }
         mTimePicker.setTheme(getActivity().getApplicationContext(), mThemeDark);
 
         // Set the whole view's background color first
         view.setBackgroundColor(mBackgroundColorSetAtRuntime
-                ? mBackgroundColor : (mThemeDark ? darkGray : white));
+                ? mBackgroundColor : (mThemeDark ? mDarkGray : mWhite));
         // Set the colors for each view based on the theme.
         view.findViewById(R.id.time_display_background).setBackgroundColor(mHeaderColorSetAtRuntime
-                ? mHeaderColor : (mThemeDark ? lightGray : accentColor));
+                ? mHeaderColor : (mThemeDark ? mLightGray : accentColor));
         view.findViewById(R.id.time_display).setBackgroundColor(mHeaderColorSetAtRuntime
-                ? mHeaderColor : (mThemeDark ? lightGray : accentColor));
+                ? mHeaderColor : (mThemeDark ? mLightGray : accentColor));
         ((TextView) view.findViewById(R.id.separator)).setTextColor(mTimeSeparatorColor != 0
                 ? mTimeSeparatorColor : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled));
 
         // Color in normal state
         mDoneButton.setBackgroundTintList(ColorStateList.valueOf(accentColor));
-//TODO        mDoneButton.setRippleColor();
 
-        // Update the half day at the end when the state colors have been initialized
+        // Set current item at the end when the header text colors have been initialized.
+        setCurrentItemShowing(currentItemShowing, false, true, true);
+        // Update the half day at the end when the state colors have been initialized.
         updateAmPmDisplay(mInitialHourOfDay < 12? HALF_DAY_1 : HALF_DAY_2);
         return view;
     }
