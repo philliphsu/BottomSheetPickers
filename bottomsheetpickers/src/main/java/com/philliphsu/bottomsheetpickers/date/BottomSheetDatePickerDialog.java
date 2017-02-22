@@ -34,6 +34,10 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog {
         return ret;
     }
 
+    /**
+     * Wrapper around {@link com.philliphsu.bottomsheetpickers.date.DatePickerDialog.Builder
+     * DatePickerDialog.Builder} to maintain forward compatibility with potential future client code.
+     */
     public static final class Builder extends DatePickerDialog.Builder {
         public Builder(OnDateSetListener listener, int year, int monthOfYear, int dayOfMonth) {
             super(listener, year, monthOfYear, dayOfMonth);
