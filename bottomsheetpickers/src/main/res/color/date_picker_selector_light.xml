@@ -17,6 +17,6 @@
     <item android:state_selected="true"
           android:color="@color/text_color_primary_light"/>
     <item android:state_selected="false"
-          android:color="@color/text_color_secondary_light"/>
-    <item android:color="@color/text_color_secondary_light"/>
+          android:color="@color/text_color_disabled_light"/>
+    <item android:color="@color/text_color_disabled_light"/>
 </selector>
