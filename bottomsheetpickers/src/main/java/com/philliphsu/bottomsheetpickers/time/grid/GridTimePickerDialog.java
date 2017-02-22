@@ -369,13 +369,10 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         mUnselectedColor = mHeaderTextColorUnselected != 0 ? mHeaderTextColorUnselected
                 : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
 
-        // Apply the custom colors for the half-day buttons, if applicable.
-        if (mHalfDayButtonColorSelected != 0 || mHalfDayButtonColorUnselected != 0) {
-            mHalfDaySelectedColor = mHalfDayButtonColorSelected != 0 ? mHalfDayButtonColorSelected
-                    : (mHeaderTextDark ? mBlackText : mWhite);
-            mHalfDayUnselectedColor = mHalfDayButtonColorUnselected != 0 ? mHalfDayButtonColorUnselected
-                    : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
-        }
+        mHalfDaySelectedColor = mHalfDayButtonColorSelected != 0 ? mHalfDayButtonColorSelected
+                : (mHeaderTextDark ? mBlackText : mWhite);
+        mHalfDayUnselectedColor = mHalfDayButtonColorUnselected != 0 ? mHalfDayButtonColorUnselected
+                : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
 
         mTimePicker.setAccentColor(mAccentColor);
         mTimePicker.setTheme(getActivity().getApplicationContext(), mThemeDark);
