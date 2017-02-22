@@ -364,24 +364,10 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             mTypedTimes = new ArrayList<Integer>();
         }
 
-        // Default header text colors.
-        mSelectedColor = mHalfDaySelectedColor = mWhite;
-        mUnselectedColor = mHalfDayUnselectedColor = mWhiteTextDisabled;
-
-        // Before setting any custom header text colors, check if the dark header text theme was
-        // requested and apply it.
-        if (mHeaderTextDark) {
-            mSelectedColor = mHalfDaySelectedColor = mBlackText;
-            mUnselectedColor = mHalfDayUnselectedColor = mBlackTextDisabled;
-        }
-
-        // Apply the custom colors for the header texts, if applicable.
-        if (mHeaderTextColorSelected != 0 || mHeaderTextColorUnselected != 0) {
-            mSelectedColor = mHeaderTextColorSelected != 0 ? mHeaderTextColorSelected
-                    : (mHeaderTextDark ? mBlackText : mWhite);
-            mUnselectedColor = mHeaderTextColorUnselected != 0 ? mHeaderTextColorUnselected
-                    : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
-        }
+        mSelectedColor = mHeaderTextColorSelected != 0 ? mHeaderTextColorSelected
+                : (mHeaderTextDark ? mBlackText : mWhite);
+        mUnselectedColor = mHeaderTextColorUnselected != 0 ? mHeaderTextColorUnselected
+                : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
 
         // Apply the custom colors for the half-day buttons, if applicable.
         if (mHalfDayButtonColorSelected != 0 || mHalfDayButtonColorUnselected != 0) {
