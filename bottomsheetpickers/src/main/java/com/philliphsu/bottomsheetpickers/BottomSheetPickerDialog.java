@@ -199,7 +199,7 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
          * 
          * @param dialog A dialog already built by one of our subclasses.
          */
-        protected final void super_build(@NonNull BottomSheetPickerDialog dialog) {
+        protected void super_build(@NonNull BottomSheetPickerDialog dialog) {
             dialog.setAccentColor(mAccentColor);
             dialog.setBackgroundColor(mBackgroundColor);
             dialog.setHeaderColor(mHeaderColor);

@@ -16,6 +16,8 @@
 
 package com.philliphsu.bottomsheetpickers.date;
 
+import android.support.annotation.ColorInt;
+
 /**
  * Wrapper around {@link DatePickerDialog} to maintain backward compatibility with existing client code.
  *
@@ -30,4 +32,56 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog {
         return ret;
     }
 
+    public static final class Builder extends DatePickerDialog.Builder {
+        public Builder(OnDateSetListener listener, int year, int monthOfYear, int dayOfMonth) {
+            super(listener, year, monthOfYear, dayOfMonth);
+        }
+
+        @Override
+        public Builder setHeaderTextColorSelected(@ColorInt int color) {
+            return (Builder) super.setHeaderTextColorSelected(color);
+        }
+
+        @Override
+        public Builder setHeaderTextColorUnselected(@ColorInt int color) {
+            return (Builder) super.setHeaderTextColorUnselected(color);
+        }
+
+        @Override
+        public Builder setDayOfWeekHeaderTextColor(@ColorInt int color) {
+            return (Builder) super.setDayOfWeekHeaderTextColor(color);
+        }
+
+        @Override
+        public Builder setAccentColor(int accentColor) {
+            return (Builder) super.setAccentColor(accentColor);
+        }
+
+        @Override
+        public Builder setBackgroundColor(int backgroundColor) {
+            return (Builder) super.setBackgroundColor(backgroundColor);
+        }
+
+        @Override
+        public Builder setHeaderColor(int headerColor) {
+            return (Builder) super.setHeaderColor(headerColor);
+        }
+
+        @Override
+        public Builder setHeaderTextDark(boolean headerTextDark) {
+            return (Builder) super.setHeaderTextDark(headerTextDark);
+        }
+
+        @Override
+        public Builder setThemeDark(boolean themeDark) {
+            return (Builder) super.setThemeDark(themeDark);
+        }
+
+        @Override
+        public BottomSheetDatePickerDialog build() {
+            BottomSheetDatePickerDialog dialog = newInstance(mListener, mYear, mMonthOfYear, mDayOfMonth);
+            super_build(dialog);
+            return dialog;
+        }
+    }
 }

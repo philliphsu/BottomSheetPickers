@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
@@ -794,9 +795,9 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         return R.layout.date_picker_dialog;
     }
 
-    public static final class Builder extends BottomSheetPickerDialog.Builder {
-        private final OnDateSetListener mListener;
-        private final int mYear, mMonthOfYear, mDayOfMonth;
+    public static class Builder extends BottomSheetPickerDialog.Builder {
+        final OnDateSetListener mListener;
+        final int mYear, mMonthOfYear, mDayOfMonth;
 
         private int mHeaderTextColorSelected;
         private int mHeaderTextColorUnselected;
@@ -861,14 +862,27 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         }
 
         @Override
+        protected final void super_build(@NonNull BottomSheetPickerDialog dialog) {
+            super.super_build(dialog);
+            // This is here instead of in build() so that BottomSheetDatePickerDialog
+            // can call up to set these attributes.
+            build(dialog);
+        }
+
+        @Override
         public DatePickerDialog build() {
             DatePickerDialog dialog = newInstance(mListener, mYear, mMonthOfYear, mDayOfMonth);
             super_build(dialog);
-            dialog.setHeaderTextColorSelected(mHeaderTextColorSelected);
-            dialog.setHeaderTextColorUnselected(mHeaderTextColorUnselected);
-            dialog.setDayOfWeekHeaderTextColor(mDayOfWeekHeaderTextColor);
-            /* TODO: Call the date range setter APIs */
             return dialog;
+        }
+
+        /** Builds this class's attributes. */
+        private void build(@NonNull BottomSheetPickerDialog dialog) {
+            DatePickerDialog datePickerDialog = (DatePickerDialog) dialog;
+            datePickerDialog.setHeaderTextColorSelected(mHeaderTextColorSelected);
+            datePickerDialog.setHeaderTextColorUnselected(mHeaderTextColorUnselected);
+            datePickerDialog.setDayOfWeekHeaderTextColor(mDayOfWeekHeaderTextColor);
+            /* TODO: Call the date range setter APIs */
         }
     }
 }
