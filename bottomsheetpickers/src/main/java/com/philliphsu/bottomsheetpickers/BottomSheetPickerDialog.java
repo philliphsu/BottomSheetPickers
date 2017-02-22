@@ -31,7 +31,6 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     private static final String KEY_HEADER_TEXT_DARK = "header_text_dark";
     private static final String KEY_HEADER_TEXT_COLOR_SET_AT_RUNTIME = "header_text_color_set_at_runtime";
 
-    // TODO: Other classes in this package may need this? If not, make private.
     // TODO: Remove duplicates in time picker classes.
     protected boolean mThemeDark;
     protected boolean mThemeSetAtRuntime;
