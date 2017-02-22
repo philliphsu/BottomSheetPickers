@@ -39,6 +39,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.philliphsu.bottomsheetpickers.BottomSheetPickerDialog;
 import com.philliphsu.bottomsheetpickers.HapticFeedbackController;
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
@@ -786,5 +787,83 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog implements
     @Override
     protected int contentLayout() {
         return R.layout.date_picker_dialog;
+    }
+    
+    public static final class Builder extends BottomSheetPickerDialog.Builder {
+        private final OnDateSetListener mListener;
+        private final int mYear, mMonthOfYear, mDayOfMonth;
+
+        private int mHeaderTextColorSelected;
+        private int mHeaderTextColorUnselected;
+        private int mDayOfWeekHeaderTextColor;
+
+        public Builder(OnDateSetListener listener, int year, int monthOfYear, int dayOfMonth) {
+            mListener = listener;
+            mYear = year;
+            mMonthOfYear = monthOfYear;
+            mDayOfMonth = dayOfMonth;
+        }
+        
+        /* TODO: Create setters for the four (or so) date range APIs. */
+        
+        /**
+         * Set the color of the header text when it is selected.
+         */
+        public Builder setHeaderTextColorSelected(@ColorInt int color) {
+            mHeaderTextColorSelected = color;
+            return this;
+        }
+
+        /**
+         * Set the color of the header text when it is not selected.
+         */
+        public Builder setHeaderTextColorUnselected(@ColorInt int color) {
+            mHeaderTextColorUnselected = color;
+            return this;
+        }
+
+        /**
+         * Set the color of the day-of-week header text.
+         */
+        public Builder setDayOfWeekHeaderTextColor(@ColorInt int color) {
+            mDayOfWeekHeaderTextColor = color;
+            return this;
+        }
+
+        @Override
+        public Builder setAccentColor(int accentColor) {
+            return (Builder) super.setAccentColor(accentColor);
+        }
+
+        @Override
+        public Builder setBackgroundColor(int backgroundColor) {
+            return (Builder) super.setBackgroundColor(backgroundColor);
+        }
+
+        @Override
+        public Builder setHeaderColor(int headerColor) {
+            return (Builder) super.setHeaderColor(headerColor);
+        }
+
+        @Override
+        public Builder setHeaderTextDark(boolean headerTextDark) {
+            return (Builder) super.setHeaderTextDark(headerTextDark);
+        }
+
+        @Override
+        public Builder setThemeDark(boolean themeDark) {
+            return (Builder) super.setThemeDark(themeDark);
+        }
+
+        @Override
+        public BottomSheetDatePickerDialog build() {
+            BottomSheetDatePickerDialog dialog = newInstance(mListener, mYear, mMonthOfYear, mDayOfMonth);
+            super_build(dialog);
+            dialog.setHeaderTextColorSelected(mHeaderTextColorSelected);
+            dialog.setHeaderTextColorUnselected(mHeaderTextColorUnselected);
+            dialog.setDayOfWeekHeaderTextColor(mDayOfWeekHeaderTextColor);
+            /* TODO: Call the date range setter APIs */
+            return dialog;
+        }
     }
 }
