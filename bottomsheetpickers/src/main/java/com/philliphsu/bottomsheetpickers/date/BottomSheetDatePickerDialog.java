@@ -17,8 +17,17 @@
 package com.philliphsu.bottomsheetpickers.date;
 
 /**
+ * Wrapper around {@link DatePickerDialog} to maintain backward compatibility with existing client code.
+ *
  * @deprecated Use {@link DatePickerDialog} instead.
  */
 public class BottomSheetDatePickerDialog extends DatePickerDialog {
+
+    public static BottomSheetDatePickerDialog newInstance(OnDateSetListener callBack, int year,
+                                               int monthOfYear, int dayOfMonth) {
+        BottomSheetDatePickerDialog ret = new BottomSheetDatePickerDialog();
+        ret.initialize(callBack, year, monthOfYear, dayOfMonth);
+        return ret;
+    }
 
 }
