@@ -84,7 +84,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
     private LinearLayout mAmPmToggles;
     private TextView mAmTextView;
     private TextView mPmTextView;
-    private View mAmPmHitspace; // TODO: Rename to mAmPmOrHalfDayHitspace or something
+    private View mAmPmHitspace;
     private LinearLayout mHalfDayToggles;
     private ImageView mFirstHalfDayToggle;
     private ImageView mSecondHalfDayToggle;
@@ -94,6 +94,9 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
 
     private int mSelectedColor;
     private int mUnselectedColor;
+    private int mHalfDaySelectedColor;
+    private int mHalfDayUnselectedColor;
+
     private int mHeaderTextColorSelected;
     private int mHeaderTextColorUnselected;
     private int mTimeSeparatorColor;
@@ -253,12 +256,30 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         mSelectMinutes = res.getString(R.string.select_minutes);
 
         // Default header text colors.
-        mSelectedColor = mWhite;
-        mUnselectedColor = mWhiteTextDisabled;
+        mSelectedColor = mHalfDaySelectedColor = mWhite;
+        mUnselectedColor = mHalfDayUnselectedColor = mWhiteTextDisabled;
 
-        if (mHeaderTextColorSetAtRuntime) {
-            mSelectedColor = mHeaderTextDark ? mBlackText : mWhite;
-            mUnselectedColor = mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled;
+        // Before setting any custom header text colors, check if the dark header text theme was
+        // requested and apply it.
+        if (mHeaderTextColorSetAtRuntime && mHeaderTextDark) {
+            mSelectedColor = mHalfDaySelectedColor = mBlackText;
+            mUnselectedColor = mHalfDayUnselectedColor = mBlackTextDisabled;
+        }
+
+        // Apply the custom colors for the header texts, if applicable.
+        if (mHeaderTextColorSelected != 0 || mHeaderTextColorUnselected != 0) {
+            mSelectedColor = mHeaderTextColorSelected != 0 ? mHeaderTextColorSelected
+                    : (mHeaderTextDark ? mBlackText : mWhite);
+            mUnselectedColor = mHeaderTextColorUnselected != 0 ? mHeaderTextColorUnselected
+                    : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
+        }
+
+        // Apply the custom colors for the half-day buttons, if applicable.
+        if (mHalfDayButtonColorSelected != 0 || mHalfDayButtonColorUnselected != 0) {
+            mHalfDaySelectedColor = mHalfDayButtonColorSelected != 0 ? mHalfDayButtonColorSelected
+                    : (mHeaderTextDark ? mBlackText : mWhite);
+            mHalfDayUnselectedColor = mHalfDayButtonColorUnselected != 0 ? mHalfDayButtonColorUnselected
+                    : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
         }
 
         mHourView = (TextView) view.findViewById(R.id.hours);
@@ -295,6 +316,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             mInitialMinute, mIs24HourMode);
 
         int currentItemShowing = HOUR_INDEX;
+        // TODO: Restore stuff here.
         if (savedInstanceState != null &&
                 savedInstanceState.containsKey(KEY_CURRENT_ITEM_SHOWING)) {
             currentItemShowing = savedInstanceState.getInt(KEY_CURRENT_ITEM_SHOWING);
@@ -406,7 +428,8 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
                 ? mHeaderColor : (mThemeDark ? lightGray : accentColor));
         view.findViewById(R.id.time_display).setBackgroundColor(mHeaderColorSetAtRuntime
                 ? mHeaderColor : (mThemeDark ? lightGray : accentColor));
-        ((TextView) view.findViewById(R.id.separator)).setTextColor(mUnselectedColor);
+        ((TextView) view.findViewById(R.id.separator)).setTextColor(mTimeSeparatorColor != 0
+                ? mTimeSeparatorColor : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled));
 
         // Color in normal state
         mDoneButton.setBackgroundTintList(ColorStateList.valueOf(accentColor));
@@ -434,24 +457,21 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
     }
 
     private void updateAmPmDisplay(int amOrPm) {
+        int firstColor = amOrPm == HALF_DAY_1 ? mHalfDaySelectedColor : mHalfDayUnselectedColor;
+        int secondColor = amOrPm == HALF_DAY_2 ? mHalfDaySelectedColor : mHalfDayUnselectedColor;
+
+        if (mIs24HourMode) {
+            ((VectorDrawableCompat) mFirstHalfDayToggle.getDrawable()).setTint(firstColor);
+            ((VectorDrawableCompat) mSecondHalfDayToggle.getDrawable()).setTint(secondColor);
+        } else {
+            mAmTextView.setTextColor(firstColor);
+            mPmTextView.setTextColor(secondColor);
+        }
+
         if (amOrPm == HALF_DAY_1) {
-            if (mIs24HourMode) {
-                ((VectorDrawableCompat) mFirstHalfDayToggle.getDrawable()).setTint(mSelectedColor);
-                ((VectorDrawableCompat) mSecondHalfDayToggle.getDrawable()).setTint(mUnselectedColor);
-            } else {
-                mAmTextView.setTextColor(mSelectedColor);
-                mPmTextView.setTextColor(mUnselectedColor);
-            }
             Utils.tryAccessibilityAnnounce(mTimePicker, mAmText);
             mAmPmHitspace.setContentDescription(mAmText);
         } else if (amOrPm == HALF_DAY_2) {
-            if (mIs24HourMode) {
-                ((VectorDrawableCompat) mFirstHalfDayToggle.getDrawable()).setTint(mUnselectedColor);
-                ((VectorDrawableCompat) mSecondHalfDayToggle.getDrawable()).setTint(mSelectedColor);
-            } else {
-                mAmTextView.setTextColor(mUnselectedColor);
-                mPmTextView.setTextColor(mSelectedColor);
-            }
             Utils.tryAccessibilityAnnounce(mTimePicker, mPmText);
             mAmPmHitspace.setContentDescription(mPmText);
         } else {
