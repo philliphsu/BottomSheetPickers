@@ -65,6 +65,14 @@ public class MainActivity extends AppCompatActivity implements
                         custom = checkedId == R.id.choice_grid_picker_custom;
                         customDark = checkedId == R.id.choice_grid_picker_custom_dark;
                         themeDark = checkedId == R.id.choice_grid_picker_dark || customDark;
+                        GridTimePickerDialog gridDialog = (GridTimePickerDialog) dialog;
+                        if (custom || customDark) {
+                            gridDialog.setHeaderTextColorSelected(0xFFFF4081);
+                            gridDialog.setHeaderTextColorUnselected(0x4AFF4081);
+                            gridDialog.setTimeSeparatorColor(0xFF000000);
+                            gridDialog.setHalfDayButtonColorSelected(0xFFFF4081);
+                            gridDialog.setHalfDayButtonColorUnselected(0x4AFF4081);
+                        }
                         break;
                     }
                     case R.id.choice_date_picker:
