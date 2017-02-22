@@ -364,15 +364,19 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             mTypedTimes = new ArrayList<Integer>();
         }
 
-        mSelectedColor = mHeaderTextColorSelected != 0 ? mHeaderTextColorSelected
-                : (mHeaderTextDark ? mBlackText : mWhite);
-        mUnselectedColor = mHeaderTextColorUnselected != 0 ? mHeaderTextColorUnselected
-                : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
+        // Prepare default header text colors.
+        final int defaultSelectedColor = mHeaderTextDark ? mBlackText : mWhite;
+        final int defaultUnselectedColor = mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled;
 
-        mHalfDaySelectedColor = mHalfDayButtonColorSelected != 0 ? mHalfDayButtonColorSelected
-                : (mHeaderTextDark ? mBlackText : mWhite);
-        mHalfDayUnselectedColor = mHalfDayButtonColorUnselected != 0 ? mHalfDayButtonColorUnselected
-                : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled);
+        mSelectedColor = mHeaderTextColorSelected != 0
+                ? mHeaderTextColorSelected : defaultSelectedColor;
+        mUnselectedColor = mHeaderTextColorUnselected != 0
+                ? mHeaderTextColorUnselected : defaultUnselectedColor;
+
+        mHalfDaySelectedColor = mHalfDayButtonColorSelected != 0
+                ? mHalfDayButtonColorSelected : defaultSelectedColor;
+        mHalfDayUnselectedColor = mHalfDayButtonColorUnselected != 0
+                ? mHalfDayButtonColorUnselected : defaultUnselectedColor;
 
         mTimePicker.setAccentColor(mAccentColor);
         mTimePicker.setTheme(getActivity().getApplicationContext(), mThemeDark);
