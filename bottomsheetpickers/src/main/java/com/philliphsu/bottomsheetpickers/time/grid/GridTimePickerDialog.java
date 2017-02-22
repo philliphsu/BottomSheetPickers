@@ -287,10 +287,15 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             mInitialMinute, mIs24HourMode);
 
         int currentItemShowing = HOUR_INDEX;
-        // TODO: Restore stuff here.
-        if (savedInstanceState != null &&
-                savedInstanceState.containsKey(KEY_CURRENT_ITEM_SHOWING)) {
-            currentItemShowing = savedInstanceState.getInt(KEY_CURRENT_ITEM_SHOWING);
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(KEY_CURRENT_ITEM_SHOWING)) {
+                currentItemShowing = savedInstanceState.getInt(KEY_CURRENT_ITEM_SHOWING);
+            }
+            mHeaderTextColorSelected = savedInstanceState.getInt(KEY_HEADER_TEXT_COLOR_SELECTED);
+            mHeaderTextColorUnselected = savedInstanceState.getInt(KEY_HEADER_TEXT_COLOR_UNSELECTED);
+            mHalfDayButtonColorSelected = savedInstanceState.getInt(KEY_HALF_DAY_BUTTON_COLOR_SELECTED);
+            mHalfDayButtonColorUnselected = savedInstanceState.getInt(KEY_HALF_DAY_BUTTON_COLOR_UNSELECTED);
+            mTimeSeparatorColor = savedInstanceState.getInt(KEY_TIME_SEPARATOR_COLOR);
         }
 
         mHourView.setOnClickListener(new OnClickListener() {
