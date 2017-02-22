@@ -177,4 +177,54 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
         mHeaderTextDark = dark;
         mHeaderTextColorSetAtRuntime = true;
     }
+    
+    public static abstract class Builder {
+        private int mAccentColor;
+        private int mBackgroundColor;
+        private int mHeaderColor;
+        private boolean mHeaderTextDark;
+        private boolean mThemeDark;
+
+        public final Builder setAccentColor(int accentColor) {
+            mAccentColor = accentColor;
+            return this;
+        }
+
+        public final Builder setBackgroundColor(int backgroundColor) {
+            mBackgroundColor = backgroundColor;
+            return this;
+        }
+
+        public final Builder setHeaderColor(int headerColor) {
+            mHeaderColor = headerColor;
+            return this;
+        }
+
+        public final Builder setHeaderTextDark(boolean headerTextDark) {
+            mHeaderTextDark = headerTextDark;
+            return this;
+        }
+
+        public final Builder setThemeDark(boolean themeDark) {
+            mThemeDark = themeDark;
+            return this;
+        }
+
+        /**
+         * Hacky workaround to mimic a {@code super.build()} call, which would otherwise be 
+         * impossible to make because we can't possibly know what explicit type of 
+         * {@code BottomSheetPickerDialog} should be instantiated.
+         * 
+         * @param dialog A dialog already built by one of our subclasses.
+         */
+        protected final void super_build(@NonNull BottomSheetPickerDialog dialog) {
+            dialog.setAccentColor(mAccentColor);
+            dialog.setBackgroundColor(mBackgroundColor);
+            dialog.setHeaderColor(mHeaderColor);
+            dialog.setHeaderTextDark(mHeaderTextDark);
+            dialog.setThemeDark(mThemeDark);
+        }
+        
+        public abstract BottomSheetPickerDialog build();
+    }
 }

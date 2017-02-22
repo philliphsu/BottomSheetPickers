@@ -34,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.philliphsu.bottomsheetpickers.BottomSheetPickerDialog;
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
@@ -1016,6 +1017,98 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             secondDigit.addChild(thirdDigit);
             // The time must be finished now. E.g. 2:57am, 9:30pm.
             thirdDigit.addChild(ampm);
+        }
+    }
+    
+    public static final class Builder extends BottomSheetPickerDialog.Builder {
+        private final OnTimeSetListener mListener;
+        private final int mHour;
+        private final int mMinute;
+        private final boolean mIs24HourMode;
+
+        private int mHeaderTextColorSelected;
+        private int mHeaderTextColorUnselected;
+        private int mTimeSeparatorColor;
+        private int mHalfDayButtonColorSelected;
+        private int mHalfDayButtonColorUnselected;
+
+        public Builder(OnTimeSetListener listener, int hourOfDay, int minute, boolean is24HourMode) {
+            this.mListener = listener;
+            this.mHour = hourOfDay;
+            this.mMinute = minute;
+            this.mIs24HourMode = is24HourMode;
+        }
+
+        /**
+         * Set the color of the header text when it is selected.
+         */
+        public Builder setHeaderTextColorSelected(@ColorInt int color) {
+            mHeaderTextColorSelected = color;
+            return this;
+        }
+
+        /**
+         * Set the color of the header text when it is not selected.
+         */
+        public Builder setHeaderTextColorUnselected(@ColorInt int color) {
+            mHeaderTextColorUnselected = color;
+            return this;
+        }
+
+        /**
+         * Set the color of the time separator that separates the hour and minute views in the header.
+         */
+        public Builder setTimeSeparatorColor(@ColorInt int color) {
+            mTimeSeparatorColor = color;
+            return this;
+        }
+
+        /**
+         * Set the color of the AM/PM text when it is selected. This is equivalent to
+         * {@link #setHalfDayButtonColorSelected(int)} in 24-hour time.
+         */
+        public Builder setAmPmTextColorSelected(@ColorInt int color) {
+            setHalfDayButtonColorSelected(color);
+            return this;
+        }
+
+        /**
+         * Set the color of the AM/PM text when it is not selected. This is equivalent to
+         * {@link #setHalfDayButtonColorUnselected(int)} in 24-hour time.
+         */
+        public Builder setAmPmTextColorUnselected(@ColorInt int color) {
+            setHalfDayButtonColorUnselected(color);
+            return this;
+        }
+
+        /**
+         * Set the color of the half-day image button when it is selected. This is equivalent to
+         * {@link #setAmPmTextColorSelected(int)} in 12-hour time.
+         */
+        public Builder setHalfDayButtonColorSelected(@ColorInt int color) {
+            mHalfDayButtonColorSelected = color;
+            return this;
+        }
+
+        /**
+         * Set the color of the half-day image button when it is not selected. This is equivalent to
+         * {@link #setAmPmTextColorUnselected(int)} in 12-hour time.
+         */
+        public Builder setHalfDayButtonColorUnselected(@ColorInt int color) {
+            mHalfDayButtonColorUnselected = color;
+            return this;
+        }
+
+        @Override
+        public GridTimePickerDialog build() {
+            GridTimePickerDialog dialog = newInstance(mListener, mHour, mMinute, mIs24HourMode);
+            super_build(dialog);
+            dialog.setHeaderTextColorSelected(mHeaderTextColorSelected);
+            dialog.setHeaderTextColorUnselected(mHeaderTextColorUnselected);
+            dialog.setHalfDayButtonColorSelected(mHalfDayButtonColorSelected);
+            dialog.setHalfDayButtonColorUnselected(mHalfDayButtonColorUnselected);
+            dialog.setTimeSeparatorColor(mTimeSeparatorColor);
+            return dialog;
         }
     }
 
