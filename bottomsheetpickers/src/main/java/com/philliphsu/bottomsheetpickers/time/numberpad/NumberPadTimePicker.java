@@ -76,6 +76,8 @@ class NumberPadTimePicker extends GridLayoutNumberPad {
     @Nullable
     private final ObjectAnimator mElevationAnimator;
 
+    private boolean mIs24HourMode;
+
     /**
      * Provides additional APIs to configure clients' display output.
      */
@@ -110,19 +112,10 @@ class NumberPadTimePicker extends GridLayoutNumberPad {
             mElevationAnimator = null;
         }
 
-        mFabDisabledColorDark = ContextCompat.getColor(getContext(), R.color.fab_disabled_dark);
-        mFabDisabledColorLight = ContextCompat.getColor(getContext(), R.color.fab_disabled_light);
+        mFabDisabledColorDark = ContextCompat.getColor(context, R.color.fab_disabled_dark);
+        mFabDisabledColorLight = ContextCompat.getColor(context, R.color.fab_disabled_light);
 
-        // TODO: We should have the user pass in is24HourMode when they create an instance of the dialog.
-        if (DateFormat.is24HourFormat(getContext())) {
-            mAltButtons[0].setText(R.string.left_alt_24hr);
-            mAltButtons[1].setText(R.string.right_alt_24hr);
-        } else {
-            String[] amPm = new DateFormatSymbols().getAmPmStrings();
-            mAltButtons[0].setText(amPm[0].length() > 2 ? "AM" : amPm[0]);
-            mAltButtons[1].setText(amPm[1].length() > 2 ? "PM" : amPm[1]);
-        }
-        updateNumpadStates();
+        setIs24HourMode(DateFormat.is24HourFormat(context));
     }
 
     @Override
@@ -174,6 +167,19 @@ class NumberPadTimePicker extends GridLayoutNumberPad {
 
         // Make sure the dark theme disabled color shows up initially
         updateFabState();
+    }
+
+    void setIs24HourMode(boolean is24HourMode) {
+        mIs24HourMode = is24HourMode;
+        if (is24HourMode) {
+            mAltButtons[0].setText(R.string.left_alt_24hr);
+            mAltButtons[1].setText(R.string.right_alt_24hr);
+        } else {
+            String[] amPm = new DateFormatSymbols().getAmPmStrings();
+            mAltButtons[0].setText(amPm[0].length() > 2 ? "AM" : amPm[0]);
+            mAltButtons[1].setText(amPm[1].length() > 2 ? "PM" : amPm[1]);
+        }
+        updateNumpadStates();
     }
 
     @Override
@@ -376,7 +382,7 @@ class NumberPadTimePicker extends GridLayoutNumberPad {
     }
 
     private boolean is24HourFormat() {
-        return DateFormat.is24HourFormat(getContext());
+        return mIs24HourMode;
     }
 
     private void updateFormattedInputOnDigitInserted(String newDigits) {

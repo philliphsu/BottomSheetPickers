@@ -39,8 +39,10 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
     private static final String KEY_IS_24_HOUR_VIEW = "is_24_hour_view";
     private static final String KEY_DIGITS_INPUTTED = "digits_inputted";
     private static final String KEY_AMPM_STATE = "ampm_state";
+    private static final String KEY_IS_24_HOUR_MODE_SET_AT_RUNTIME = "is_24_hour_mode_set_at_runtime";
 
     private boolean mIs24HourMode;
+    private boolean mIs24HourModeSetAtRuntime;
     /*
      * The digits stored in the numpad from the last time onSaveInstanceState() was called.
      *
@@ -63,16 +65,27 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
      */
     public static NumberPadTimePickerDialog newInstance(OnTimeSetListener callback) {
         NumberPadTimePickerDialog ret = new NumberPadTimePickerDialog();
-        // TODO: Write an initialize() to do these
-        ret.setOnTimeSetListener(callback);
-        ret.mThemeDark = false;
-        ret.mThemeSetAtRuntime = false;
+        ret.initialize(callback, false /* set24HourModeAtRuntime */, false /* irrelevant */);
         return ret;
     }
 
-    // TODO: Implement and make public
-    private static NumberPadTimePickerDialog newInstance(OnTimeSetListener callback, boolean is24HourMode) {
-        return null;
+    /**
+     * The number pad will be configured according to the 24-hour mode specified here.
+     */
+    public static NumberPadTimePickerDialog newInstance(OnTimeSetListener callback, boolean is24HourMode) {
+        NumberPadTimePickerDialog ret = new NumberPadTimePickerDialog();
+        ret.initialize(callback, true /* set24HourModeAtRuntime */, is24HourMode);
+        return ret;
+    }
+
+    private void initialize(OnTimeSetListener callback, boolean set24HourModeAtRuntime, boolean is24HourMode) {
+        setOnTimeSetListener(callback);
+        mThemeDark = false;
+        mThemeSetAtRuntime = false;
+        mIs24HourModeSetAtRuntime = set24HourModeAtRuntime;
+        if (set24HourModeAtRuntime) {
+            mIs24HourMode = is24HourMode;
+        }
     }
 
     @Override
@@ -82,6 +95,7 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
             mInputtedDigits = savedInstanceState.getIntArray(KEY_DIGITS_INPUTTED);
             mIs24HourMode = savedInstanceState.getBoolean(KEY_IS_24_HOUR_VIEW);
             mAmPmState = savedInstanceState.getInt(KEY_AMPM_STATE);
+            mIs24HourModeSetAtRuntime = savedInstanceState.getBoolean(KEY_IS_24_HOUR_MODE_SET_AT_RUNTIME);
         }
     }
 
@@ -103,6 +117,9 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
             }
         });
 
+        if (mIs24HourModeSetAtRuntime) {
+            mNumpad.setIs24HourMode(mIs24HourMode);
+        }
         mNumpad.setOnInputChangeListener(this);
         mNumpad.insertDigits(mInputtedDigits); // TOneverDO: before mNumpad.setOnInputChangeListener(this);
         mNumpad.setAmPmState(mAmPmState);
@@ -141,6 +158,7 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
             outState.putIntArray(KEY_DIGITS_INPUTTED, mNumpad.getDigits());
             outState.putBoolean(KEY_IS_24_HOUR_VIEW, mIs24HourMode);
             outState.putInt(KEY_AMPM_STATE, mNumpad.getAmPmState());
+            outState.putBoolean(KEY_IS_24_HOUR_MODE_SET_AT_RUNTIME, mIs24HourModeSetAtRuntime);
         }
     }
 
