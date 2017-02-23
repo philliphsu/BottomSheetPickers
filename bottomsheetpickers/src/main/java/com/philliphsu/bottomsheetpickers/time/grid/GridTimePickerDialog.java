@@ -34,7 +34,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.philliphsu.bottomsheetpickers.BottomSheetPickerDialog;
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
@@ -998,11 +997,9 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         }
     }
     
-    public static final class Builder extends BottomSheetPickerDialog.Builder {
-        private final OnTimeSetListener mListener;
+    public static final class Builder extends BottomSheetTimePickerDialog.Builder {
         private final int mHour;
         private final int mMinute;
-        private final boolean mIs24HourMode;
 
         private int mHeaderTextColorSelected;
         private int mHeaderTextColorUnselected;
@@ -1011,10 +1008,9 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         private int mHalfDayButtonColorUnselected;
 
         public Builder(OnTimeSetListener listener, int hourOfDay, int minute, boolean is24HourMode) {
-            this.mListener = listener;
-            this.mHour = hourOfDay;
-            this.mMinute = minute;
-            this.mIs24HourMode = is24HourMode;
+            super(listener, is24HourMode);
+            mHour = hourOfDay;
+            mMinute = minute;
         }
 
         /**

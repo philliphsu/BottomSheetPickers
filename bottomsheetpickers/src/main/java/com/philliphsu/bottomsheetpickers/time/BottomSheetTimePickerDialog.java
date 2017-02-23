@@ -16,6 +16,7 @@
 
 package com.philliphsu.bottomsheetpickers.time;
 
+import android.support.annotation.NonNull;
 import android.view.ViewGroup;
 
 import com.philliphsu.bottomsheetpickers.BottomSheetPickerDialog;
@@ -47,5 +48,24 @@ public abstract class BottomSheetTimePickerDialog extends BottomSheetPickerDialo
             mCallback.onTimeSet(vg, hourOfDay, minute);
         }
         dismiss();
+    }
+
+    protected static abstract class Builder extends BottomSheetPickerDialog.Builder {
+        protected final OnTimeSetListener mListener;
+        protected final boolean mIs24HourMode;
+
+        protected Builder(OnTimeSetListener listener) {
+            this(listener, false);
+        }
+
+        protected Builder(OnTimeSetListener listener, boolean is24HourMode) {
+            mListener = listener;
+            mIs24HourMode = is24HourMode;
+        }
+
+        @Override
+        protected final void super_build(@NonNull BottomSheetPickerDialog dialog) {
+            super.super_build(dialog);
+        }
     }
 }

@@ -17,6 +17,7 @@
 package com.philliphsu.bottomsheetpickers.time.numberpad;
 
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
 import android.util.TypedValue;
@@ -40,6 +41,7 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
     private static final String KEY_DIGITS_INPUTTED = "digits_inputted";
     private static final String KEY_AMPM_STATE = "ampm_state";
     private static final String KEY_IS_24_HOUR_MODE_SET_AT_RUNTIME = "is_24_hour_mode_set_at_runtime";
+    private static final String KEY_HEADER_TEXT_COLOR = "header_text_color";
 
     private boolean mIs24HourMode;
     private boolean mIs24HourModeSetAtRuntime;
@@ -56,6 +58,7 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
     private String mHint;
     private int mTextSize;
     private int mHintResId;
+    private int mHeaderTextColor;
 
     private TextView            mInputField;
     private NumberPadTimePicker mNumpad;
@@ -96,6 +99,7 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
             mIs24HourMode = savedInstanceState.getBoolean(KEY_IS_24_HOUR_VIEW);
             mAmPmState = savedInstanceState.getInt(KEY_AMPM_STATE);
             mIs24HourModeSetAtRuntime = savedInstanceState.getBoolean(KEY_IS_24_HOUR_MODE_SET_AT_RUNTIME);
+            mHeaderTextColor = savedInstanceState.getInt(KEY_HEADER_TEXT_COLOR);
         }
     }
 
@@ -138,7 +142,7 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
             mInputField.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
         }
 
-        mInputField.setTextColor(mHeaderTextDark? mBlackText : mWhite);
+        mInputField.setTextColor(mHeaderTextColor != 0 ? mHeaderTextColor : getDefaultHeaderTextColor());
         mNumpad.setAccentColor(mAccentColor);
         mNumpad.setTheme(getContext()/*DO NOT GIVE THE APPLICATION CONTEXT, OR ELSE THE NUMPAD
         CAN'T GET THE CORRECT ACCENT COLOR*/, mThemeDark);
@@ -159,6 +163,7 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
             outState.putBoolean(KEY_IS_24_HOUR_VIEW, mIs24HourMode);
             outState.putInt(KEY_AMPM_STATE, mNumpad.getAmPmState());
             outState.putBoolean(KEY_IS_24_HOUR_MODE_SET_AT_RUNTIME, mIs24HourModeSetAtRuntime);
+            outState.putInt(KEY_HEADER_TEXT_COLOR, mHeaderTextColor);
         }
     }
 
@@ -201,6 +206,13 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         return mInputField;
     }
 
+    /**
+     * Set the color of the header text that stores the inputted time.
+     */
+    public final void setHeaderTextColor(@ColorInt int color) {
+        mHeaderTextColor = color;
+    }
+
     @Override
     public void onDigitInserted(String newStr) {
         updateInputText(newStr);
@@ -223,5 +235,75 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
 
     private void updateInputText(String inputText) {
         TimeTextUtils.setText(inputText, mInputField);
+    }
+
+    private @ColorInt int getDefaultHeaderTextColor() {
+        return getDefaultHeaderTextColorSelected();
+    }
+    
+    public static final class Builder extends BottomSheetTimePickerDialog.Builder {
+        private final boolean mSet24HourMode;
+
+        private int mHeaderTextColor;
+
+        /**
+         * Creates a new {@code Builder} for a {@code NumberPadTimePickerDialog} that will
+         * automatically determine whether to use 24-hour mode based on system preferences.
+         */
+        public Builder(OnTimeSetListener listener) {
+            super(listener);
+            mSet24HourMode = false;
+        }
+
+        /**
+         * Creates a new {@code Builder} for a {@code NumberPadTimePickerDialog} that will
+         * use or not use 24-hour mode as specified here.
+         */
+        public Builder(OnTimeSetListener listener, boolean is24HourMode) {
+            super(listener, is24HourMode);
+            mSet24HourMode = true;
+        }
+
+        /**
+         * Set the color of the header text that stores the inputted time.
+         */
+        public Builder setHeaderTextColor(@ColorInt int color) {
+            mHeaderTextColor = color;
+            return this;
+        }
+
+        @Override
+        public Builder setAccentColor(int accentColor) {
+            return (Builder) super.setAccentColor(accentColor);
+        }
+
+        @Override
+        public Builder setBackgroundColor(int backgroundColor) {
+            return (Builder) super.setBackgroundColor(backgroundColor);
+        }
+
+        @Override
+        public Builder setHeaderColor(int headerColor) {
+            return (Builder) super.setHeaderColor(headerColor);
+        }
+
+        @Override
+        public Builder setHeaderTextDark(boolean headerTextDark) {
+            return (Builder) super.setHeaderTextDark(headerTextDark);
+        }
+
+        @Override
+        public Builder setThemeDark(boolean themeDark) {
+            return (Builder) super.setThemeDark(themeDark);
+        }
+
+        @Override
+        public NumberPadTimePickerDialog build() {
+            NumberPadTimePickerDialog dialog = mSet24HourMode
+                    ? newInstance(mListener, mIs24HourMode) : newInstance(mListener);
+            super_build(dialog);
+            dialog.setHeaderTextColor(mHeaderTextColor);
+            return dialog;
+        }
     }
 }
