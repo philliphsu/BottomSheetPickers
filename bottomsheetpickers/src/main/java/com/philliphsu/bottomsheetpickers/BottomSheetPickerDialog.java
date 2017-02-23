@@ -159,6 +159,24 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     public final void setHeaderTextDark(boolean dark) {
         mHeaderTextDark = dark;
     }
+
+    /**
+     * @return The default color for header texts when they are in the selected state, and when
+     *         no custom color has been set. Not all pickers support selectable/toggleable
+     *         header texts, so you should only call this for those that do.
+     */
+    protected final int getDefaultHeaderTextColorSelected() {
+        return mHeaderTextDark ? mBlackText : mWhite;
+    }
+
+    /**
+     * @return The default color for header texts when they are in the unselected state, and
+     *         when no custom color has been set. Not all pickers support selectable/toggleable
+     *         header texts, so you should only call this for those that do.
+     */
+    protected final int getDefaultHeaderTextColorUnselected() {
+        return mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled;
+    }
     
     public static abstract class Builder {
         private int mAccentColor;

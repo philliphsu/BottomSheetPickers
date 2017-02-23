@@ -339,8 +339,8 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         }
 
         // Prepare default header text colors.
-        final int defaultSelectedColor = mHeaderTextDark ? mBlackText : mWhite;
-        final int defaultUnselectedColor = mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled;
+        final int defaultSelectedColor = getDefaultHeaderTextColorSelected();
+        final int defaultUnselectedColor = getDefaultHeaderTextColorUnselected();
 
         // Apply the custom colors for the header texts, if applicable.
         if (mHeaderTextColorSelected != 0 || mHeaderTextColorUnselected != 0) {

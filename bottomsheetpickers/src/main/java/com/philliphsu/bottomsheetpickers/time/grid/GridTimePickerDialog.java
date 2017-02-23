@@ -365,8 +365,8 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         }
 
         // Prepare default header text colors.
-        final int defaultSelectedColor = mHeaderTextDark ? mBlackText : mWhite;
-        final int defaultUnselectedColor = mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled;
+        final int defaultSelectedColor = getDefaultHeaderTextColorSelected();
+        final int defaultUnselectedColor = getDefaultHeaderTextColorUnselected();
 
         mSelectedColor = mHeaderTextColorSelected != 0
                 ? mHeaderTextColorSelected : defaultSelectedColor;
