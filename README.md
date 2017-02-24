@@ -170,7 +170,7 @@ available both as setter methods and as `Builder` options, unless otherwise note
 These APIs are available in all pickers.
 
 * `setThemeDark(boolean dark)`
-Set a dark or light theme. NOTE: this will only take effect for the next onCreateView.
+Set a dark or light theme.
 
 * `setAccentColor(@ColorInt int color)`
 Set the accent color. This color is primarily used to tint views in the picker.
