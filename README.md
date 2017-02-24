@@ -34,6 +34,22 @@ supporting API level 14 and up.
 <img src="screenshots/minutes-grid-dark.png" width="180" height="320">
 <img src="screenshots/24h-grid-dark.png" width="180" height="320">
 
+## Table of Contents
+1. [Installation](#installation)
+2. [Usage](#usage)
+ 1. [Implement Callbacks](#implement-callbacks)
+ 2. [Create Pickers](#create-pickers)
+ 3. [Show the Dialog](#show-the-dialog)
+ 4. [Theming](#theming)
+ 5. [Additional Options](#additional-options)
+  1. [Basic Options](#basic-options)
+  2. [DatePickerDialog and DatePickerDialog.Builder](#datepickerdialog-and-datepickerdialogbuilder)
+  3. [NumberPadTimePickerDialog and NumberPadTimePickerDialog.Builder](#numberpadtimepickerdialog-and-numberpadtimepickerdialogbuilder)
+  4. [GridTimePickerDialog and GridTimePickerDialog.Builder](#gridtimepickerdialog-and-gridtimepickerdialogbuilder)
+  5. [Setters Only](#setters-only)
+3. [Attribution](#attribution)
+4. [License](#license)
+
 ## Installation
 Add the following dependency to your module's `build.gradle`:
 ```groovy
@@ -58,7 +74,7 @@ compile('com.philliphsu:bottomsheetpickers:2.3.0') {
 You must be using a `android.support.v4.app.FragmentActivity` or `android.support.v4.app.Fragment`.
 The pickers are indirect subclasses of `android.support.v4.app.DialogFragment`.
 
-### Implement callbacks
+### Implement Callbacks
 
 To retrieve the date or time set in the pickers, implement an appropriate callback interface.
 
@@ -84,7 +100,7 @@ public void onTimeSet(ViewGroup viewGroup, int hourOfDay, int minute) {
 }
 ```
 
-### Create pickers
+### Create Pickers
 
 ```java
 Calendar now = Calendar.getInstance();
@@ -140,7 +156,7 @@ GridTimePickerDialog grid = new GridTimePickerDialog.Builder(
     .build();
 ```
 
-### Show the dialog
+### Show the Dialog
 
 Pass in a `android.support.v4.app.FragmentManager` to the dialog's `show()`.
 
@@ -251,7 +267,7 @@ Set the color of the half-day image button when it is selected. This is equivale
 Set the color of the half-day image button when it is not selected. This is equivalent to
 `setAmPmTextColorUnselected(int)` in 12-hour time.
 
-#### Setters only
+#### Setters Only
 These are only available as setter methods in `NumberPadTimePickerDialog`.
 
 * `setHint(String hint)` or `setHint(@StringRes int resid)`
