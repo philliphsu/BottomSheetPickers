@@ -11,7 +11,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.BottomSheetPickerDialog;
-import com.philliphsu.bottomsheetpickers.date.BottomSheetDatePickerDialog;
 import com.philliphsu.bottomsheetpickers.date.DatePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.grid.GridTimePickerDialog;
@@ -136,13 +135,12 @@ public class MainActivity extends AppCompatActivity implements
                 Calendar now = Calendar.getInstance();
                 Calendar max = Calendar.getInstance();
                 max.add(Calendar.YEAR, 10);
-                builder = new BottomSheetDatePickerDialog.Builder(
+                builder = new DatePickerDialog.Builder(
                         MainActivity.this,
                         now.get(Calendar.YEAR),
                         now.get(Calendar.MONTH),
                         now.get(Calendar.DAY_OF_MONTH));
-                BottomSheetDatePickerDialog.Builder dateDialogBuilder =
-                        (BottomSheetDatePickerDialog.Builder) builder;
+                DatePickerDialog.Builder dateDialogBuilder = (DatePickerDialog.Builder) builder;
                 dateDialogBuilder.setMaxDate(max)
                         .setMinDate(now)
                         .setYearRange(1970, 2032);
@@ -214,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.choice_date_picker_custom:
             case R.id.choice_date_picker_custom_dark: {
                 Calendar now = Calendar.getInstance();
-                dialog = BottomSheetDatePickerDialog.newInstance(
+                dialog = DatePickerDialog.newInstance(
                         MainActivity.this,
                         now.get(Calendar.YEAR),
                         now.get(Calendar.MONTH),
@@ -222,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements
                 custom = checkedId == R.id.choice_date_picker_custom;
                 customDark = checkedId == R.id.choice_date_picker_custom_dark;
                 themeDark = checkedId == R.id.choice_date_picker_dark || customDark;
-                BottomSheetDatePickerDialog dateDialog = (BottomSheetDatePickerDialog) dialog;
+                DatePickerDialog dateDialog = (DatePickerDialog) dialog;
                 dateDialog.setMinDate(now);
                 Calendar max = Calendar.getInstance();
                 max.add(Calendar.YEAR, 10);
