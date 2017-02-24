@@ -38,7 +38,7 @@ supporting API level 14 and up.
 Add the following dependency to your module's `build.gradle`:
 ```groovy
 dependencies {
-  compile 'com.philliphsu:bottomsheetpickers:2.2.0'
+  compile 'com.philliphsu:bottomsheetpickers:2.3.0'
 }
 ```
 
@@ -47,7 +47,7 @@ you should exclude them from the library and keep those dependencies in your own
 file.
 
 ```groovy
-compile('com.philliphsu:bottomsheetpickers:2.2.0') {
+compile('com.philliphsu:bottomsheetpickers:2.3.0') {
     exclude group: 'com.android.support', module: 'appcompat-v7'
     exclude group: 'com.android.support', module: 'design'
     exclude group: 'com.android.support', module: 'gridlayout-v7'
@@ -84,23 +84,60 @@ public void onTimeSet(ViewGroup viewGroup, int hourOfDay, int minute) {
 }
 ```
 
-### Create your desired picker
+### Create pickers
 
 ```java
 Calendar now = Calendar.getInstance();
-BottomSheetDatePickerDialog date = BottomSheetDatePickerDialog.newInstance(
+// As of version 2.3.0, `BottomSheetDatePickerDialog` is deprecated.
+DatePickerDialog date = DatePickerDialog.newInstance(
     MainActivity.this,
     now.get(Calendar.YEAR),
     now.get(Calendar.MONTH),
     now.get(Calendar.DAY_OF_MONTH));
 
+// Configured according to the system preference for 24-hour time.
 NumberPadTimePickerDialog pad = NumberPadTimePickerDialog.newInstance(MainActivity.this);
+// Alternatively, you can set 24-hour mode on your own.
+boolean is24HourMode = ...
+NumberPadTimePickerDialog pad = NumberPadTimePickerDialog.newInstance(MainActivity.this, is24HourMode);
 
 GridTimePickerDialog grid = GridTimePickerDialog.newInstance(
     MainActivity.this,
     now.get(Calendar.HOUR_OF_DAY),
     now.get(Calendar.MINUTE),
     DateFormat.is24HourFormat(MainActivity.this));
+```
+
+As of version 2.3.0, you have the option to create pickers using the `Builder` pattern.
+This is helpful if you want to chain together [additional options](#additional-options)
+before creating the dialog. Of course, you can continue creating a dialog with
+`newInstance()` as usual, and then just call setters on the dialog itself.
+
+```java
+DatePickerDialog date = new DatePickerDialog.Builder(
+    MainActivity.this,
+    now.get(Calendar.YEAR),
+    now.get(Calendar.MONTH),
+    now.get(Calendar.DAY_OF_MONTH))
+    /* ... Set additional options ... */
+    .build();
+
+// Configured according to the system preference for 24-hour time.
+NumberPadTimePickerDialog pad = new NumberPadTimePickerDialog.Builder(MainActivity.this)
+    /* ... Set additional options ... */
+    .build();
+// Alternatively, you can set 24-hour mode on your own.
+NumberPadTimePickerDialog pad = new NumberPadTimePickerDialog.Builder(MainActivity.this, is24HourMode)
+    /* ... Set additional options ... */
+    .build();
+
+GridTimePickerDialog grid = new GridTimePickerDialog.Builder(
+    MainActivity.this,
+    now.get(Calendar.HOUR_OF_DAY),
+    now.get(Calendar.MINUTE),
+    DateFormat.is24HourFormat(MainActivity.this))
+    /* ... Set additional options ... */
+    .build();
 ```
 
 ### Show the dialog
@@ -119,29 +156,40 @@ dialog.show(getFragmentManager(), TAG);
 The pickers automatically use your current theme's `colorAccent` defined in your `styles.xml`.
 
 You can specify whether to use a light (default) or dark theme:
-* in code with the dialog's `setThemeDark(boolean dark)` method. **Call this before `show()`ing the dialog.**
 * in `styles.xml` by specifying a boolean value for the attribute `themeDark` in your theme.
-
 ```xml
 <item name="themeDark">true</item>
 ```
-
-> **NOTE:** `setThemeDark(boolean dark)` overwrites the value specified in XML.
+* in code with the dialog's `setThemeDark(boolean dark)` method. This overwrites the value specified in XML.
 
 ### Additional Options
-Certain pickers expose additional APIs that can be used to customize their appearance.
+These additional APIs can be used to customize the appearance of the picker. They are
+available both as setter methods and as `Builder` options, unless otherwise noted.
 
-#### `NumberPadTimePickerDialog`
-* `setHint(String hint)` or `setHint(@StringRes int resid)`
-Sets the hint of the input time TextView.
+#### Basic Options
+These APIs are available in all pickers.
 
-* `setInputTextSize(int textSize)`
-Sets the text size in px of the input time TextView.
+* `setThemeDark(boolean dark)`
+Set a dark or light theme. NOTE: this will only take effect for the next onCreateView.
 
-* `getInputTextView()`
-Returns the `TextView` that stores the inputted time.
+* `setAccentColor(@ColorInt int color)`
+Set the accent color. This color is primarily used to tint views in the picker.
+If this picker is using the light theme and you did not call `setHeaderColor(int)`,
+this color will also be applied to the dialog's header.
 
-#### `BottomSheetDatePickerDialog`
+* `setBackgroundColor(@ColorInt int color)`
+Set the background color. If this color is dark, consider setting the theme dark to ensure text
+in the picker has enough contrast.
+
+* `setHeaderColor(@ColorInt int color)`
+Set the header color. If this color is light, consider setting the header text dark to ensure
+it has enough contrast.
+
+* `setHeaderTextDark(boolean dark)`
+Set the header text to use a light or dark color. The default is false, so a light color is applied.
+
+#### `DatePickerDialog` and `DatePickerDialog.Builder`
+
 * `setFirstDayOfWeek(int startOfWeek)`
 Use this to set the day (`Calendar.SUNDAY` through `Calendar.SATURDAY`) that a week should start on.
 
@@ -159,6 +207,62 @@ the specified date will be disallowed from being selected.
 Sets the maximal date that can be selected in this date picker. Dates after (but not including)
 the specified date will be disallowed from being selected.
 
+* `setHeaderTextColorSelected(@ColorInt int color)`
+Set the color of the header text when it is selected.
+
+* `setHeaderTextColorUnselected(@ColorInt int color)`
+Set the color of the header text when it is not selected.
+
+* `setDayOfWeekHeaderTextColorSelected(@ColorInt int color)`
+Set the color of the day-of-week header text when it is selected.
+
+* `setDayOfWeekHeaderTextColorUnselected(@ColorInt int color)`
+Set the color of the day-of-week header text when it is not selected.
+
+#### `NumberPadTimePickerDialog` and `NumberPadTimePickerDialog.Builder`
+
+* `setHeaderTextColor(@ColorInt int color)`
+Set the color of the header text that stores the inputted time.
+
+#### `GridTimePickerDialog` and `GridTimePickerDialog.Builder`
+
+* `setHeaderTextColorSelected(@ColorInt int color)`
+Set the color of the header text when it is selected.
+
+* `setHeaderTextColorUnselected(@ColorInt int color)`
+Set the color of the header text when it is not selected.
+
+* `setTimeSeparatorColor(@ColorInt int color)`
+Set the color of the time separator that separates the hour and minute views in the header.
+
+* `setAmPmTextColorSelected(@ColorInt int color)`
+Set the color of the AM/PM text when it is selected. This is equivalent to
+`setHalfDayButtonColorSelected(int)` in 24-hour time.
+
+* `setAmPmTextColorUnselected(@ColorInt int color)`
+Set the color of the AM/PM text when it is not selected. This is equivalent to
+`setHalfDayButtonColorUnselected(int)` in 24-hour time.
+
+* `setHalfDayButtonColorSelected(@ColorInt int color)`
+Set the color of the half-day image button when it is selected. This is equivalent to
+`setAmPmTextColorSelected(int)` in 12-hour time.
+
+* `setHalfDayButtonColorUnselected(@ColorInt int color)`
+Set the color of the half-day image button when it is not selected. This is equivalent to
+`setAmPmTextColorUnselected(int)` in 12-hour time.
+
+#### Setters only
+These are only available as setter methods in `NumberPadTimePickerDialog`.
+
+* `setHint(String hint)` or `setHint(@StringRes int resid)`
+Sets the hint of the input time TextView.
+
+* `setInputTextSize(int textSize)`
+Sets the text size in px of the input time TextView.
+
+* `getInputTextView()`
+Returns the `TextView` that stores the inputted time.
+
 ## Attribution
 
 This library is based on code from the following AOSP repositories:
@@ -167,7 +271,7 @@ This library is based on code from the following AOSP repositories:
 
 ## License
 ```
-Copyright 2016 Phillip Hsu
+Copyright 2017 Phillip Hsu
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
