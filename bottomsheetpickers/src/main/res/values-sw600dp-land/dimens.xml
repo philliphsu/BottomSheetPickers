@@ -18,6 +18,6 @@
 -->
 
 <resources>
-    <dimen name="left_side_width">300dp</dimen>
-    <dimen name="bottom_sheet_width">720dp</dimen>
+    <dimen name="bsp_left_side_width">300dp</dimen>
+    <dimen name="bsp_bottom_sheet_width">720dp</dimen>
 </resources>

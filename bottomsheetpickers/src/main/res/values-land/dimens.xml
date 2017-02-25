@@ -17,31 +17,31 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <dimen name="dialog_height">252dp</dimen> <!-- number_grid_height + + 16dp top margin + 16dp bottom margin -->
-    <dimen name="left_side_width">250dip</dimen>
+    <dimen name="bsp_dialog_height">252dp</dimen> <!-- number_grid_height + + 16dp top margin + 16dp bottom margin -->
+    <dimen name="bsp_left_side_width">250dip</dimen>
 
-	<dimen name="selected_date_year_size">30dp</dimen>
-    <dimen name="selected_date_day_size">100dp</dimen>
-    <dimen name="selected_date_month_size">40dp</dimen>
-    <dimen name="selected_calendar_layout_keyline">16dp</dimen>
-    <dimen name="selected_calendar_layout_top_keyline">20dp</dimen>
+	<dimen name="bsp_selected_date_year_size">30dp</dimen>
+    <dimen name="bsp_selected_date_day_size">100dp</dimen>
+    <dimen name="bsp_selected_date_month_size">40dp</dimen>
+    <dimen name="bsp_selected_calendar_layout_keyline">16dp</dimen>
+    <dimen name="bsp_selected_calendar_layout_top_keyline">20dp</dimen>
 
-    <dimen name="day_number_select_circle_radius">18dp</dimen>
+    <dimen name="bsp_day_number_select_circle_radius">18dp</dimen>
 
     <!-- (324dp default portrait height) - (64dp footer area) = 260dp -->
-    <dimen name="date_picker_view_animator_height">260dp</dimen>
-    <dimen name="month_view_edge_padding">18dp</dimen>
-    <dimen name="month_view_top_padding">0dp</dimen>
+    <dimen name="bsp_date_picker_view_animator_height">260dp</dimen>
+    <dimen name="bsp_month_view_edge_padding">18dp</dimen>
+    <dimen name="bsp_month_view_top_padding">0dp</dimen>
 
-    <dimen name="grid_element_text_size">24sp</dimen>
+    <dimen name="bsp_grid_element_text_size">24sp</dimen>
 
     <!-- NumberPadTimePickerDialog -->
-    <dimen name="numeric_keypad_cell_height">42dp</dimen>
+    <dimen name="bsp_numeric_keypad_cell_height">42dp</dimen>
 
     <!-- NumberGridTimePickerDialog -->
-    <dimen name="number_grid_24_hour_item_primary_text_size">26sp</dimen>
-    <dimen name="number_grid_24_hour_item_secondary_text_size">14sp</dimen>
-    <dimen name="number_grid_minute_text_size">20sp</dimen>
+    <dimen name="bsp_number_grid_24_hour_item_primary_text_size">26sp</dimen>
+    <dimen name="bsp_number_grid_24_hour_item_secondary_text_size">14sp</dimen>
+    <dimen name="bsp_number_grid_minute_text_size">20sp</dimen>
 
-    <dimen name="time_picker_pad_height">200dp</dimen>
+    <dimen name="bsp_time_picker_pad_height">200dp</dimen>
 </resources>
