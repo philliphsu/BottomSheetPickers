@@ -17,15 +17,15 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="done_label" msgid="7007948707597430919">"થઈ ગયું"</string>
-    <string name="hour_picker_description" msgid="7586639618712934060">"કલાકનું વર્તુળાકાર સ્લાઇડર"</string>
-    <string name="minute_picker_description" msgid="6024811202872705251">"મિનિટનું વર્તુળાકાર સ્લાઇડર"</string>
-    <string name="select_hours" msgid="7651068754188418859">"કલાક પસંદ કરો"</string>
-    <string name="select_minutes" msgid="8327182090226828481">"મિનિટ પસંદ કરો"</string>
-    <string name="day_picker_description" msgid="3968620852217927702">"દિવસની મહિનો ગ્રિડ"</string>
-    <string name="year_picker_description" msgid="6963340404644587098">"વર્ષ સૂચિ"</string>
-    <string name="select_day" msgid="3973338219107019769">"મહિનો અને દિવસ પસંદ કરો"</string>
-    <string name="select_year" msgid="2603330600102539372">"વર્ષ પસંદ કરો"</string>
-    <string name="item_is_selected" msgid="2674929164900463786">"<xliff:g id="ITEM">%1$s</xliff:g> પસંદ કરી"</string>
-    <string name="deleted_key" msgid="6908431551612331381">"<xliff:g id="KEY">%1$s</xliff:g> કાઢી નાખી"</string>
+    <string name="bsp_done_label" msgid="7007948707597430919">"થઈ ગયું"</string>
+    <string name="bsp_hour_picker_description" msgid="7586639618712934060">"કલાકનું વર્તુળાકાર સ્લાઇડર"</string>
+    <string name="bsp_minute_picker_description" msgid="6024811202872705251">"મિનિટનું વર્તુળાકાર સ્લાઇડર"</string>
+    <string name="bsp_select_hours" msgid="7651068754188418859">"કલાક પસંદ કરો"</string>
+    <string name="bsp_select_minutes" msgid="8327182090226828481">"મિનિટ પસંદ કરો"</string>
+    <string name="bsp_day_picker_description" msgid="3968620852217927702">"દિવસની મહિનો ગ્રિડ"</string>
+    <string name="bsp_year_picker_description" msgid="6963340404644587098">"વર્ષ સૂચિ"</string>
+    <string name="bsp_select_day" msgid="3973338219107019769">"મહિનો અને દિવસ પસંદ કરો"</string>
+    <string name="bsp_select_year" msgid="2603330600102539372">"વર્ષ પસંદ કરો"</string>
+    <string name="bsp_item_is_selected" msgid="2674929164900463786">"<xliff:g id="ITEM">%1$s</xliff:g> પસંદ કરી"</string>
+    <string name="bsp_deleted_key" msgid="6908431551612331381">"<xliff:g id="KEY">%1$s</xliff:g> કાઢી નાખી"</string>
 </resources>

@@ -17,15 +17,15 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="done_label" msgid="7007948707597430919">"Fet"</string>
-    <string name="hour_picker_description" msgid="7586639618712934060">"Control circular de les hores"</string>
-    <string name="minute_picker_description" msgid="6024811202872705251">"Control circular dels minuts"</string>
-    <string name="select_hours" msgid="7651068754188418859">"Selecciona les hores"</string>
-    <string name="select_minutes" msgid="8327182090226828481">"Selecciona els minuts"</string>
-    <string name="day_picker_description" msgid="3968620852217927702">"Graella mensual de dies"</string>
-    <string name="year_picker_description" msgid="6963340404644587098">"Llista anual"</string>
-    <string name="select_day" msgid="3973338219107019769">"Selecciona un mes i un dia"</string>
-    <string name="select_year" msgid="2603330600102539372">"Selecciona un any"</string>
-    <string name="item_is_selected" msgid="2674929164900463786">"<xliff:g id="ITEM">%1$s</xliff:g> seleccionat"</string>
-    <string name="deleted_key" msgid="6908431551612331381">"<xliff:g id="KEY">%1$s</xliff:g> suprimit"</string>
+    <string name="bsp_done_label" msgid="7007948707597430919">"Fet"</string>
+    <string name="bsp_hour_picker_description" msgid="7586639618712934060">"Control circular de les hores"</string>
+    <string name="bsp_minute_picker_description" msgid="6024811202872705251">"Control circular dels minuts"</string>
+    <string name="bsp_select_hours" msgid="7651068754188418859">"Selecciona les hores"</string>
+    <string name="bsp_select_minutes" msgid="8327182090226828481">"Selecciona els minuts"</string>
+    <string name="bsp_day_picker_description" msgid="3968620852217927702">"Graella mensual de dies"</string>
+    <string name="bsp_year_picker_description" msgid="6963340404644587098">"Llista anual"</string>
+    <string name="bsp_select_day" msgid="3973338219107019769">"Selecciona un mes i un dia"</string>
+    <string name="bsp_select_year" msgid="2603330600102539372">"Selecciona un any"</string>
+    <string name="bsp_item_is_selected" msgid="2674929164900463786">"<xliff:g id="ITEM">%1$s</xliff:g> seleccionat"</string>
+    <string name="bsp_deleted_key" msgid="6908431551612331381">"<xliff:g id="KEY">%1$s</xliff:g> suprimit"</string>
 </resources>

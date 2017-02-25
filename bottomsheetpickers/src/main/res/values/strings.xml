@@ -1,15 +1,15 @@
 <resources>
     <!-- Content description for '00-11' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_half_day_1">morning hours</string>
+    <string name="bsp_desc_half_day_1">morning hours</string>
     <!-- Content description for '12-23' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_half_day_2">noon to evening hours</string>
+    <string name="bsp_desc_half_day_2">noon to evening hours</string>
     <!-- Content description for 'Done' floating action button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_done">done</string>
+    <string name="bsp_desc_done">done</string>
     <!-- Description of the button to move to the previous month. [CHAR LIMIT=NONE] -->
-    <string name="date_picker_prev_month_button">Previous month</string>
+    <string name="bsp_date_picker_prev_month_button">Previous month</string>
     <!-- Description of the button to move to the next month. [CHAR LIMIT=NONE] -->
-    <string name="date_picker_next_month_button">Next month</string>
+    <string name="bsp_date_picker_next_month_button">Next month</string>
     <!-- Description of the button that displays the month and year title and also accesses the month picker. [CHAR LIMIT=NONE] -->
-    <string name="date_picker_month_year_title">Switch to month picker</string>
+    <string name="bsp_date_picker_month_year_title">Switch to month picker</string>
 
 </resources>
