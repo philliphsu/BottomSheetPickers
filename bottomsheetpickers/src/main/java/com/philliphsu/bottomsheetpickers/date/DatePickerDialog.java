@@ -274,10 +274,10 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         mYearPickerView.setOnScrollListener(this);
 
         Resources res = getResources();
-        mDayPickerDescription = res.getString(R.string.day_picker_description);
-        mSelectDay = res.getString(R.string.select_day);
-        mYearPickerDescription = res.getString(R.string.year_picker_description);
-        mSelectYear = res.getString(R.string.select_year);
+        mDayPickerDescription = res.getString(R.string.bsp_day_picker_description);
+        mSelectDay = res.getString(R.string.bsp_select_day);
+        mYearPickerDescription = res.getString(R.string.bsp_year_picker_description);
+        mSelectYear = res.getString(R.string.bsp_select_year);
 
         mAnimator = (AccessibleDateAnimator) view.findViewById(R.id.animator);
         mAnimator.addView(mDayPickerView);

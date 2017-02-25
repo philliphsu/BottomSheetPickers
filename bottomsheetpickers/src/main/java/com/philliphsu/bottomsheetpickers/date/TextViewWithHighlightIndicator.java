@@ -30,9 +30,9 @@ public class TextViewWithHighlightIndicator extends TextViewWithIndicator {
         super(context, attrs);
         Resources res = context.getResources();
         mHighlightColor = Utils.getThemeAccentColor(context);
-        mItemIsSelectedText = context.getResources().getString(R.string.item_is_selected);
+        mItemIsSelectedText = context.getResources().getString(R.string.bsp_item_is_selected);
         mDefaultTextSize = getTextSize();
-        mSelectedTextSize = res.getDimension(R.dimen.year_label_selected_text_size);
+        mSelectedTextSize = res.getDimension(R.dimen.bsp_year_label_selected_text_size);
         mDisabledTextColor = getColor(context, R.color.text_color_disabled_light);
     }
 

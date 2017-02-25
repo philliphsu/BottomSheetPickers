@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:contentDescription="@string/desc_done"
+        android:contentDescription="@string/bsp_desc_done"
         android:layout_marginTop="@dimen/bsp_fab_margin_top"
         android:layout_marginBottom="@dimen/bsp_fab_margin"
         app:srcCompat="@drawable/ic_done_24dp" />

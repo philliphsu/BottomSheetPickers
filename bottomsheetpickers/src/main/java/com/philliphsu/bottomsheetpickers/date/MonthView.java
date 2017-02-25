@@ -211,8 +211,8 @@ public abstract class MonthView extends View {
         mDayLabelCalendar = Calendar.getInstance();
         mCalendar = Calendar.getInstance();
 
-        mDayOfWeekTypeface = res.getString(R.string.day_of_week_label_typeface);
-        mMonthTitleTypeface = res.getString(R.string.sans_serif);
+        mDayOfWeekTypeface = res.getString(R.string.bsp_day_of_week_label_typeface);
+        mMonthTitleTypeface = res.getString(R.string.bsp_sans_serif);
 
         mDayTextColor = res.getColor(R.color.text_color_primary_light);
         // Same as background color
@@ -223,16 +223,16 @@ public abstract class MonthView extends View {
         mMonthTitleBGColor = res.getColor(R.color.circle_background);
         mMonthDayLabelTextColor = getColor(context, R.color.text_color_disabled_light);
 
-        MINI_DAY_NUMBER_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.day_number_size);
-        MONTH_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.month_label_size);
-        MONTH_DAY_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.month_day_label_text_size);
+        MINI_DAY_NUMBER_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.bsp_day_number_size);
+        MONTH_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.bsp_month_label_size);
+        MONTH_DAY_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.bsp_month_day_label_text_size);
         MONTH_HEADER_SIZE = res.getDimensionPixelOffset(DRAW_TITLE ?
-                R.dimen.month_list_item_header_height : R.dimen.month_list_item_header_height_no_title);
-        DAY_SELECTED_CIRCLE_SIZE = res.getDimensionPixelSize(R.dimen.day_number_select_circle_radius);
+                R.dimen.bsp_month_list_item_header_height : R.dimen.bsp_month_list_item_header_height_no_title);
+        DAY_SELECTED_CIRCLE_SIZE = res.getDimensionPixelSize(R.dimen.bsp_day_number_select_circle_radius);
 
-        mRowHeight = (res.getDimensionPixelOffset(R.dimen.date_picker_view_animator_height)
+        mRowHeight = (res.getDimensionPixelOffset(R.dimen.bsp_date_picker_view_animator_height)
                 - getMonthHeaderSize() - getMonthNavigationBarSize()) / MAX_NUM_ROWS;
-        mEdgePadding = res.getDimensionPixelSize(R.dimen.month_view_edge_padding);
+        mEdgePadding = res.getDimensionPixelSize(R.dimen.bsp_month_view_edge_padding);
 
         // Set up accessibility components.
         mTouchHelper = getMonthViewTouchHelper();
@@ -786,7 +786,7 @@ public abstract class MonthView extends View {
                     mTempCalendar.getTimeInMillis());
 
             if (day == mSelectedDay) {
-                return getContext().getString(R.string.item_is_selected, date);
+                return getContext().getString(R.string.bsp_item_is_selected, date);
             }
 
             return date;

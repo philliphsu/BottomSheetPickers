@@ -102,7 +102,7 @@ class NumberPadTimePicker extends GridLayoutNumberPad {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mElevationAnimator = ObjectAnimator.ofFloat(mFab, "elevation",
-                    getResources().getDimension(R.dimen.fab_elevation))
+                    getResources().getDimension(R.dimen.bsp_fab_elevation))
                     .setDuration(200);
             mElevationAnimator.setInterpolator(new DecelerateInterpolator());
         } else {
@@ -172,8 +172,8 @@ class NumberPadTimePicker extends GridLayoutNumberPad {
     void setIs24HourMode(boolean is24HourMode) {
         mIs24HourMode = is24HourMode;
         if (is24HourMode) {
-            mAltButtons[0].setText(R.string.left_alt_24hr);
-            mAltButtons[1].setText(R.string.right_alt_24hr);
+            mAltButtons[0].setText(R.string.bsp_left_alt_24hr);
+            mAltButtons[1].setText(R.string.bsp_right_alt_24hr);
         } else {
             String[] amPm = new DateFormatSymbols().getAmPmStrings();
             mAltButtons[0].setText(amPm[0].length() > 2 ? "AM" : amPm[0]);

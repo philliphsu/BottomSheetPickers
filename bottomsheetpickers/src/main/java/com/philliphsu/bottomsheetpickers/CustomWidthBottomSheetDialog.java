@@ -15,7 +15,7 @@ final class CustomWidthBottomSheetDialog extends BottomSheetDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int width = getContext().getResources().getDimensionPixelSize(R.dimen.bottom_sheet_width);
+        int width = getContext().getResources().getDimensionPixelSize(R.dimen.bsp_bottom_sheet_width);
         getWindow().setLayout(width > 0 ? width : ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
     }

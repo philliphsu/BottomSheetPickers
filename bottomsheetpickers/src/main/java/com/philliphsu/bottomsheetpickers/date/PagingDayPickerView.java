@@ -134,8 +134,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         setLayoutParams(new LayoutParams(MATCH_PARENT, MATCH_PARENT));
 
         Resources res = getResources();
-        MONTH_NAVIGATION_BAR_SIZE = res.getDimensionPixelOffset(R.dimen.month_navigation_bar_height)
-                + res.getDimensionPixelOffset(R.dimen.month_view_top_padding);
+        MONTH_NAVIGATION_BAR_SIZE = res.getDimensionPixelOffset(R.dimen.bsp_month_navigation_bar_height)
+                + res.getDimensionPixelOffset(R.dimen.bsp_month_view_top_padding);
 
         final View view = LayoutInflater.from(context).inflate(R.layout.day_picker_content, this, true);
         mMonthAnimator = (DayPickerViewAnimator) findViewById(R.id.month_animator);

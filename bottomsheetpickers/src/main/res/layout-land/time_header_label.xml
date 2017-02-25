@@ -34,7 +34,7 @@
             android:id="@+id/hour_space"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/time_placeholder"
+            android:text="@string/bsp_time_placeholder"
             android:layout_toLeftOf="@+id/separator"
             android:layout_centerVertical="true"
             android:visibility="invisible"
@@ -52,7 +52,7 @@
                 android:id="@+id/hours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/time_placeholder"
+                android:text="@string/bsp_time_placeholder"
                 android:textColor="@color/blue"
                 android:gravity="center_horizontal"
                 android:layout_gravity="center"
@@ -63,7 +63,7 @@
             android:id="@+id/separator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/time_separator"
+            android:text="@string/bsp_time_separator"
             android:paddingLeft="@dimen/bsp_separator_padding"
             android:paddingRight="@dimen/bsp_separator_padding"
             android:layout_alignRight="@+id/center_view"
@@ -75,7 +75,7 @@
             android:id="@+id/minutes_space"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/time_placeholder"
+            android:text="@string/bsp_time_placeholder"
             android:layout_toRightOf="@+id/separator"
             android:layout_centerVertical="true"
             android:visibility="invisible"
@@ -95,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="@string/time_placeholder"
+                android:text="@string/bsp_time_placeholder"
                 android:layout_gravity="center" />
         </FrameLayout>
         <com.philliphsu.bottomsheetpickers.AccessibleTextView
@@ -122,7 +122,7 @@
                 android:id="@+id/am_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/time_placeholder"
+                android:text="@string/bsp_time_placeholder"
                 style="@style/ampm_label"
                 android:importantForAccessibility="no" />
 
@@ -134,7 +134,7 @@
                 android:id="@+id/pm_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/time_placeholder"
+                android:text="@string/bsp_time_placeholder"
                 style="@style/ampm_label"
                 android:importantForAccessibility="no" />
 

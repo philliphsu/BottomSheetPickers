@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:text="@string/done_label"
+            android:text="@string/bsp_done_label"
             android:textSize="@dimen/bsp_done_label_size"
             android:textColor="@color/done_text_color" />
     </LinearLayout>

@@ -83,12 +83,12 @@ final class MonthPickerView extends View {
         mCurrentMonth = now.get(Calendar.MONTH);
         mCurrentYear = now.get(Calendar.YEAR);
 
-        MONTH_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.month_picker_month_label_size);
-        MONTH_SELECTED_CIRCLE_SIZE = res.getDimensionPixelSize(R.dimen.month_select_circle_radius);
+        MONTH_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.bsp_month_picker_month_label_size);
+        MONTH_SELECTED_CIRCLE_SIZE = res.getDimensionPixelSize(R.dimen.bsp_month_select_circle_radius);
 
-        mRowHeight = (res.getDimensionPixelOffset(R.dimen.date_picker_view_animator_height)
+        mRowHeight = (res.getDimensionPixelOffset(R.dimen.bsp_date_picker_view_animator_height)
                 - MONTH_NAVIGATION_BAR_SIZE) / NUM_ROWS;
-        mEdgePadding = res.getDimensionPixelSize(R.dimen.month_view_edge_padding);
+        mEdgePadding = res.getDimensionPixelSize(R.dimen.bsp_month_view_edge_padding);
 
         // TODO: Set up accessibility components.
         // Sets up any standard paints that will be used

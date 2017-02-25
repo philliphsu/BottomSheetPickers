@@ -230,10 +230,10 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
 
         final Resources res = getResources();
         final Context ctx = getActivity();
-        mHourPickerDescription = res.getString(R.string.hour_picker_description);
-        mSelectHours = res.getString(R.string.select_hours);
-        mMinutePickerDescription = res.getString(R.string.minute_picker_description);
-        mSelectMinutes = res.getString(R.string.select_minutes);
+        mHourPickerDescription = res.getString(R.string.bsp_hour_picker_description);
+        mSelectHours = res.getString(R.string.bsp_select_hours);
+        mMinutePickerDescription = res.getString(R.string.bsp_minute_picker_description);
+        mSelectMinutes = res.getString(R.string.bsp_select_minutes);
 
         mHourView = (TextView) view.findViewById(R.id.hours);
         mHourView.setOnKeyListener(keyboardListener);
@@ -350,8 +350,8 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         setMinute(mInitialMinute);
 
         // Set up for keyboard mode.
-        mDoublePlaceholderText = res.getString(R.string.time_placeholder);
-        mDeletedKeyFormat = res.getString(R.string.deleted_key);
+        mDoublePlaceholderText = res.getString(R.string.bsp_time_placeholder);
+        mDeletedKeyFormat = res.getString(R.string.bsp_deleted_key);
         mPlaceholderText = mDoublePlaceholderText.charAt(0);
         mAmKeyCode = mPmKeyCode = -1;
         generateLegalTimesTree();
