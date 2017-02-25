@@ -18,12 +18,12 @@
     <attr name="themeDark" format="boolean">false</attr>
 
     <style name="time_label">
-        <item name="android:textSize">@dimen/time_label_size</item>
+        <item name="android:textSize">@dimen/bsp_time_label_size</item>
         <item name="android:textColor">@color/numbers_text_color</item>
     </style>
 
     <style name="ampm_label">
-        <item name="android:textSize">@dimen/ampm_label_size</item>
+        <item name="android:textSize">@dimen/bsp_ampm_label_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/ampm_text_color</item>
         <item name="android:textStyle">bold</item>

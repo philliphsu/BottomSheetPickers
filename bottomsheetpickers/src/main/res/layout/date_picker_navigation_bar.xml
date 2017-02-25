@@ -4,18 +4,18 @@
               android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:paddingStart="@dimen/month_view_edge_padding"
-              android:paddingLeft="@dimen/month_view_edge_padding"
-              android:paddingEnd="@dimen/month_view_edge_padding"
-              android:paddingRight="@dimen/month_view_edge_padding"
-              android:paddingTop="@dimen/month_view_top_padding">
+              android:paddingStart="@dimen/bsp_month_view_edge_padding"
+              android:paddingLeft="@dimen/bsp_month_view_edge_padding"
+              android:paddingEnd="@dimen/bsp_month_view_edge_padding"
+              android:paddingRight="@dimen/bsp_month_view_edge_padding"
+              android:paddingTop="@dimen/bsp_month_view_top_padding">
 
     <ImageButton
         android:id="@+id/prev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="@dimen/month_navigation_bar_height"
-        android:minHeight="@dimen/month_navigation_bar_height"
+        android:minWidth="@dimen/bsp_month_navigation_bar_height"
+        android:minHeight="@dimen/bsp_month_navigation_bar_height"
         android:visibility="invisible"
         android:contentDescription="@string/date_picker_prev_month_button"
         android:nextFocusForward="@+id/month_year_title"
@@ -26,7 +26,7 @@
     <FrameLayout
         android:id="@+id/month_year_title_container"
         android:layout_width="0dp"
-        android:layout_height="@dimen/month_navigation_bar_height"
+        android:layout_height="@dimen/bsp_month_navigation_bar_height"
         android:layout_weight="1"
         android:background="?android:attr/selectableItemBackground">
 
@@ -39,7 +39,7 @@
             android:contentDescription="@string/date_picker_month_year_title"
             android:nextFocusForward="@+id/next"
             android:nextFocusDown="@+id/month_view"
-            android:textSize="@dimen/month_label_size"
+            android:textSize="@dimen/bsp_month_label_size"
             android:textAllCaps="false"
             android:drawablePadding="4dp"/>
 
@@ -49,8 +49,8 @@
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="@dimen/month_navigation_bar_height"
-        android:minHeight="@dimen/month_navigation_bar_height"
+        android:minWidth="@dimen/bsp_month_navigation_bar_height"
+        android:minHeight="@dimen/bsp_month_navigation_bar_height"
         android:visibility="invisible"
         android:contentDescription="@string/date_picker_next_month_button"
         android:nextFocusForward="@+id/month_view"

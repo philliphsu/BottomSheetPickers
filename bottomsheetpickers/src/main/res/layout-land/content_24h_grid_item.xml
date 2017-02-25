@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
-        android:textSize="@dimen/number_grid_24_hour_item_primary_text_size"
+        android:textSize="@dimen/bsp_number_grid_24_hour_item_primary_text_size"
         android:includeFontPadding="false"
         style="@style/TextAppearance.AppCompat"
         android:layout_marginRight="6dp"/>
@@ -33,7 +33,7 @@
         android:id="@+id/secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/number_grid_24_hour_item_secondary_text_size"
+        android:textSize="@dimen/bsp_number_grid_24_hour_item_secondary_text_size"
         android:includeFontPadding="false"/>
 
 </merge>

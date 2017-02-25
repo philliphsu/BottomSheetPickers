@@ -37,7 +37,7 @@
     <ImageButton
         android:id="@+id/backspace"
         app:srcCompat="@drawable/ic_backspace_24dp"
-        android:layout_height="@dimen/numeric_keypad_backspace_height"
+        android:layout_height="@dimen/bsp_numeric_keypad_backspace_height"
         style="@style/GridLayoutNumpadElement"
         app:layout_column="2"/>
 

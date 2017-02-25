@@ -2,12 +2,12 @@
 <android.support.v7.widget.ButtonBarLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/alert_dialog_action_area_height"
+    android:layout_height="@dimen/bsp_alert_dialog_action_area_height"
     android:gravity="end|center_vertical"
-    android:paddingStart="@dimen/alert_dialog_action_area_right_padding"
-    android:paddingLeft="@dimen/alert_dialog_action_area_right_padding"
-    android:paddingEnd="@dimen/alert_dialog_action_area_right_padding"
-    android:paddingRight="@dimen/alert_dialog_action_area_right_padding"
+    android:paddingStart="@dimen/bsp_alert_dialog_action_area_right_padding"
+    android:paddingLeft="@dimen/bsp_alert_dialog_action_area_right_padding"
+    android:paddingEnd="@dimen/bsp_alert_dialog_action_area_right_padding"
+    android:paddingRight="@dimen/bsp_alert_dialog_action_area_right_padding"
     style="@style/Widget.AppCompat.ButtonBar.AlertDialog" >
 
     <Button

@@ -28,12 +28,12 @@
         <include
             layout="@layout/time_header_label"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/header_height"
+            android:layout_height="@dimen/bsp_header_height"
             android:layout_gravity="center" />
     </FrameLayout>
     <com.philliphsu.bottomsheetpickers.time.RadialPickerLayout
         android:id="@+id/time_picker"
-        android:layout_height="@dimen/picker_dimen"
+        android:layout_height="@dimen/bsp_picker_dimen"
         android:layout_width="wrap_content"
         android:layout_gravity="center"
         android:background="@color/circle_background"
@@ -51,6 +51,6 @@
         android:layout_height="wrap_content"
         android:minHeight="48dp"
         android:text="@string/done_label"
-        android:textSize="@dimen/done_label_size"
+        android:textSize="@dimen/bsp_done_label_size"
         android:textColor="@color/done_text_color" />
 </LinearLayout>

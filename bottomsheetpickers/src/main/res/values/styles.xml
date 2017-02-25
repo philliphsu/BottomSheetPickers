@@ -22,14 +22,14 @@
          Here, we are referencing the "grid:" namespace -->
         <item name="layout_columnWeight">1</item>
         <!--<item name="layout_rowWeight">1</item>-->
-        <item name="android:layout_height">@dimen/numeric_keypad_cell_height</item>
+        <item name="android:layout_height">@dimen/bsp_numeric_keypad_cell_height</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:gravity">center</item>
     </style>
 
     <!-- TODO: Rename to GridLayout[Text/Button/TextView]? -->
     <style name="GridLayoutNumpadButton" parent="GridLayoutNumpadElement">
-        <item name="android:textSize">@dimen/grid_element_text_size</item>
+        <item name="android:textSize">@dimen/bsp_grid_element_text_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
@@ -41,7 +41,7 @@
     <style name="BaseNumberPadFabStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">@dimen/fab_margin</item>
+        <item name="android:layout_marginBottom">@dimen/bsp_fab_margin</item>
         <item name="layout_gravity">center</item>
         <item name="layout_column">1</item>
         <item name="srcCompat">@drawable/ic_done_24dp</item>
@@ -61,7 +61,7 @@
     </style>
 
     <style name="ModalStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="behavior_peekHeight">@dimen/peek_height_upper_limit</item>
+        <item name="behavior_peekHeight">@dimen/bsp_peek_height_upper_limit</item>
     </style>
 
     <style name="BasePadButtonStyle" parent="Widget.AppCompat.Button.Borderless">

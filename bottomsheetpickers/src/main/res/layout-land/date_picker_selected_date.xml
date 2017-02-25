@@ -20,9 +20,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/blue"
-    android:paddingLeft="@dimen/selected_calendar_layout_keyline"
-    android:paddingStart="@dimen/selected_calendar_layout_keyline"
-    android:paddingTop="@dimen/selected_calendar_layout_top_keyline">
+    android:paddingLeft="@dimen/bsp_selected_calendar_layout_keyline"
+    android:paddingStart="@dimen/bsp_selected_calendar_layout_keyline"
+    android:paddingTop="@dimen/bsp_selected_calendar_layout_top_keyline">
 
     <include layout="@layout/date_picker_header_view" />
 
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:textColor="@color/date_picker_selector"
-            android:textSize="@dimen/selected_date_month_size" />
+            android:textSize="@dimen/bsp_selected_date_month_size" />
 
         <com.philliphsu.bottomsheetpickers.AccessibleTextView
             android:id="@+id/date_picker_second_textview"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:textColor="@color/date_picker_selector"
-            android:textSize="@dimen/selected_date_month_size" />
+            android:textSize="@dimen/bsp_selected_date_month_size" />
 
     </com.philliphsu.bottomsheetpickers.AccessibleLinearLayout>
 

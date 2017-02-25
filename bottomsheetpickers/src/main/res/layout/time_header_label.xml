@@ -45,8 +45,8 @@
             android:layout_height="match_parent"
             android:layout_alignRight="@+id/hour_space"
             android:layout_alignLeft="@+id/hour_space"
-            android:layout_marginLeft="@dimen/extra_time_label_margin"
-            android:layout_marginRight="@dimen/extra_time_label_margin"
+            android:layout_marginLeft="@dimen/bsp_extra_time_label_margin"
+            android:layout_marginRight="@dimen/bsp_extra_time_label_margin"
             android:layout_centerVertical="true" >
             <com.philliphsu.bottomsheetpickers.AccessibleTextView
                 android:id="@+id/hours"
@@ -64,8 +64,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/time_separator"
-            android:paddingLeft="@dimen/separator_padding"
-            android:paddingRight="@dimen/separator_padding"
+            android:paddingLeft="@dimen/bsp_separator_padding"
+            android:paddingRight="@dimen/bsp_separator_padding"
             android:layout_alignRight="@+id/center_view"
             android:layout_centerVertical="true"
             style="@style/time_label"
@@ -86,8 +86,8 @@
             android:layout_height="match_parent"
             android:layout_alignRight="@+id/minutes_space"
             android:layout_alignLeft="@+id/minutes_space"
-            android:layout_marginLeft="@dimen/extra_time_label_margin"
-            android:layout_marginRight="@dimen/extra_time_label_margin"
+            android:layout_marginLeft="@dimen/bsp_extra_time_label_margin"
+            android:layout_marginRight="@dimen/bsp_extra_time_label_margin"
             android:layout_centerVertical="true" >
             <com.philliphsu.bottomsheetpickers.AccessibleTextView
                 android:id="@+id/minutes"
@@ -100,7 +100,7 @@
         </FrameLayout>
         <com.philliphsu.bottomsheetpickers.AccessibleTextView
             android:id="@+id/ampm_hitspace"
-            android:layout_width="@dimen/ampm_label_size"
+            android:layout_width="@dimen/bsp_ampm_label_size"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
@@ -123,8 +123,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/time_placeholder"
-                android:paddingLeft="@dimen/ampm_left_padding"
-                android:paddingRight="@dimen/ampm_left_padding"
+                android:paddingLeft="@dimen/bsp_ampm_left_padding"
+                android:paddingRight="@dimen/bsp_ampm_left_padding"
                 style="@style/ampm_label"
                 android:importantForAccessibility="no" />
 
@@ -137,8 +137,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/time_placeholder"
-                android:paddingLeft="@dimen/ampm_left_padding"
-                android:paddingRight="@dimen/ampm_left_padding"
+                android:paddingLeft="@dimen/bsp_ampm_left_padding"
+                android:paddingRight="@dimen/bsp_ampm_left_padding"
                 style="@style/ampm_label"
                 android:importantForAccessibility="no" />
 
@@ -168,21 +168,21 @@
                 android:id="@+id/half_day_toggle_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/ampm_left_padding"
-                android:paddingRight="@dimen/ampm_left_padding"
+                android:paddingLeft="@dimen/bsp_ampm_left_padding"
+                android:paddingRight="@dimen/bsp_ampm_left_padding"
                 app:srcCompat="@drawable/ic_half_day_1_24dp"
                 android:importantForAccessibility="no" />
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/half_day_icon_padding"/>
+                android:layout_height="@dimen/bsp_half_day_icon_padding"/>
 
             <ImageView
                 android:id="@+id/half_day_toggle_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/ampm_left_padding"
-                android:paddingRight="@dimen/ampm_left_padding"
+                android:paddingLeft="@dimen/bsp_ampm_left_padding"
+                android:paddingRight="@dimen/bsp_ampm_left_padding"
                 app:srcCompat="@drawable/ic_half_day_2_24dp"
                 android:importantForAccessibility="no" />
 

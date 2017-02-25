@@ -20,5 +20,5 @@
     android:layout_height="wrap_content"
     android:includeFontPadding="false"
     android:textColor="@color/date_picker_selector"
-    android:textSize="@dimen/date_picker_header_text_size"
+    android:textSize="@dimen/bsp_date_picker_header_text_size"
     android:importantForAccessibility="no" />

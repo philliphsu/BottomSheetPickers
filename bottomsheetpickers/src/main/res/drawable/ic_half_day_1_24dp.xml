@@ -16,8 +16,8 @@
   -->
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="@dimen/half_day_icon_size"
-        android:height="@dimen/half_day_icon_size"
+        android:width="@dimen/bsp_half_day_icon_size"
+        android:height="@dimen/bsp_half_day_icon_size"
         android:viewportWidth="24.0"
         android:viewportHeight="24.0">
     <path

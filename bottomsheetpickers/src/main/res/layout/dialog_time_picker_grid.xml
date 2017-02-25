@@ -32,19 +32,19 @@
         <include
             layout="@layout/time_header_label"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/header_height"
+            android:layout_height="@dimen/bsp_header_height"
             android:layout_gravity="center" />
     </FrameLayout>
 
     <com.philliphsu.bottomsheetpickers.time.grid.GridPickerLayout
         android:id="@+id/time_picker"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/time_picker_pad_height"
-        android:layout_marginTop="@dimen/bottom_sheet_vertical_space"
-        android:layout_marginLeft="@dimen/bottom_sheet_edge_margin"
-        android:layout_marginStart="@dimen/bottom_sheet_edge_margin"
-        android:layout_marginRight="@dimen/bottom_sheet_edge_margin"
-        android:layout_marginEnd="@dimen/bottom_sheet_edge_margin" />
+        android:layout_height="@dimen/bsp_time_picker_pad_height"
+        android:layout_marginTop="@dimen/bsp_bottom_sheet_vertical_space"
+        android:layout_marginLeft="@dimen/bsp_bottom_sheet_edge_margin"
+        android:layout_marginStart="@dimen/bsp_bottom_sheet_edge_margin"
+        android:layout_marginRight="@dimen/bsp_bottom_sheet_edge_margin"
+        android:layout_marginEnd="@dimen/bsp_bottom_sheet_edge_margin" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -52,8 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:contentDescription="@string/desc_done"
-        android:layout_marginTop="@dimen/fab_margin_top"
-        android:layout_marginBottom="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/bsp_fab_margin_top"
+        android:layout_marginBottom="@dimen/bsp_fab_margin"
         app:srcCompat="@drawable/ic_done_24dp" />
 
 </LinearLayout>

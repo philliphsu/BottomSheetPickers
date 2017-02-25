@@ -22,15 +22,15 @@
 
     <FrameLayout
         android:id="@+id/input_time_container"
-        android:layout_width="@dimen/left_side_width"
+        android:layout_width="@dimen/bsp_left_side_width"
         android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/input_time"
-            android:layout_width="@dimen/left_side_width"
+            android:layout_width="@dimen/bsp_left_side_width"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="@dimen/text_size_display_3"
+            android:textSize="@dimen/bsp_text_size_display_3"
             android:fontFamily="sans-serif"
             android:textColor="@color/text_color_primary_dark"
             android:textColorHint="@color/text_color_disabled_dark"
@@ -43,10 +43,10 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:layout_marginTop="@dimen/bottom_sheet_vertical_space"
-        android:layout_marginLeft="@dimen/bottom_sheet_edge_margin"
-        android:layout_marginStart="@dimen/bottom_sheet_edge_margin"
-        android:layout_marginRight="@dimen/bottom_sheet_edge_margin"
-        android:layout_marginEnd="@dimen/bottom_sheet_edge_margin"/>
+        android:layout_marginTop="@dimen/bsp_bottom_sheet_vertical_space"
+        android:layout_marginLeft="@dimen/bsp_bottom_sheet_edge_margin"
+        android:layout_marginStart="@dimen/bsp_bottom_sheet_edge_margin"
+        android:layout_marginRight="@dimen/bsp_bottom_sheet_edge_margin"
+        android:layout_marginEnd="@dimen/bsp_bottom_sheet_edge_margin"/>
 
 </LinearLayout>
