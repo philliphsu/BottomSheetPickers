@@ -158,11 +158,11 @@ class NumberPadTimePicker extends GridLayoutNumberPad {
         Utils.setColorControlHighlight(mBackspace, mAccentColor);
 
         ColorStateList colorBackspace = ContextCompat.getColorStateList(context,
-                themeDark? R.color.icon_color_dark : R.color.icon_color);
+                themeDark? R.color.bsp_icon_color_dark : R.color.bsp_icon_color);
         Utils.setTintList(mBackspace, mBackspace.getDrawable(), colorBackspace);
 
         ColorStateList colorIcon = ContextCompat.getColorStateList(context,
-                themeDark? R.color.icon_color_dark : R.color.fab_icon_color);
+                themeDark? R.color.bsp_icon_color_dark : R.color.bsp_fab_icon_color);
         Utils.setTintList(mFab, mFab.getDrawable(), colorIcon);
 
         // Make sure the dark theme disabled color shows up initially
@@ -189,7 +189,7 @@ class NumberPadTimePicker extends GridLayoutNumberPad {
 
     @Override
     protected int contentLayout() {
-        return R.layout.content_numpad_time_picker;
+        return R.layout.bsp_content_numpad_time_picker;
     }
 
     @Override

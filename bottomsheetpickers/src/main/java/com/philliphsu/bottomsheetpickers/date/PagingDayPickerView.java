@@ -137,7 +137,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
         MONTH_NAVIGATION_BAR_SIZE = res.getDimensionPixelOffset(R.dimen.bsp_month_navigation_bar_height)
                 + res.getDimensionPixelOffset(R.dimen.bsp_month_view_top_padding);
 
-        final View view = LayoutInflater.from(context).inflate(R.layout.day_picker_content, this, true);
+        final View view = LayoutInflater.from(context).inflate(R.layout.bsp_day_picker_content, this, true);
         mMonthAnimator = (DayPickerViewAnimator) findViewById(R.id.month_animator);
         mMonthPickerView = (MonthPickerView) findViewById(R.id.month_picker);
         mMonthPickerView.setOnMonthClickListener(this);
@@ -173,8 +173,8 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
             }
         });
 
-        mArrowDownDrawable = AnimatedVectorDrawableCompat.create(context, R.drawable.animated_arrow_drop_down);
-        mArrowUpDrawable   = AnimatedVectorDrawableCompat.create(context, R.drawable.animated_arrow_drop_up);
+        mArrowDownDrawable = AnimatedVectorDrawableCompat.create(context, R.drawable.bsp_animated_arrow_drop_down);
+        mArrowUpDrawable   = AnimatedVectorDrawableCompat.create(context, R.drawable.bsp_animated_arrow_drop_up);
         setArrowDrawableOnTitle(mArrowDownDrawable);
 
         // Theme-specific configurations.

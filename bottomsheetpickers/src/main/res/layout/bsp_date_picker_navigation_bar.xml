@@ -20,7 +20,7 @@
         android:contentDescription="@string/bsp_date_picker_prev_month_button"
         android:nextFocusForward="@+id/month_year_title"
         android:nextFocusDown="@+id/month_view"
-        app:srcCompat="@drawable/ic_chevron_start"
+        app:srcCompat="@drawable/bsp_ic_chevron_start"
         style="@style/SelectableButton"/>
 
     <FrameLayout
@@ -55,7 +55,7 @@
         android:contentDescription="@string/bsp_date_picker_next_month_button"
         android:nextFocusForward="@+id/month_view"
         android:nextFocusDown="@+id/month_view"
-        app:srcCompat="@drawable/ic_chevron_end"
+        app:srcCompat="@drawable/bsp_ic_chevron_end"
         style="@style/SelectableButton"/>
 
 </LinearLayout>

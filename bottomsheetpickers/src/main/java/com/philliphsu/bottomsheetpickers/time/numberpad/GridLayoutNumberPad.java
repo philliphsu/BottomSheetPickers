@@ -90,7 +90,7 @@ abstract class GridLayoutNumberPad extends GridLayout implements View.OnClickLis
         // to them as TextViews... which is fine since TextView is the superclass
         // of Button.
         mTextColors = ContextCompat.getColorStateList(context, themeDark?
-                R.color.numeric_keypad_button_text_dark : R.color.numeric_keypad_button_text);
+                R.color.bsp_numeric_keypad_button_text_dark : R.color.bsp_numeric_keypad_button_text);
 
         if (!mAccentColorSetAtRuntime) {
             // AFAIK, the only way to get the user's accent color is programmatically,

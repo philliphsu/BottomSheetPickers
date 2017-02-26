@@ -125,7 +125,7 @@
         android:nextFocusUp="@+id/minute_45"
         android:nextFocusRight="@+id/inc_min"
         style="@style/PadButtonStyle"
-        app:srcCompat="@drawable/ic_minus_circle_24dp" />
+        app:srcCompat="@drawable/bsp_ic_minus_circle_24dp" />
 
     <Space style="@style/PadButtonStyle" />
 
@@ -134,6 +134,6 @@
         android:nextFocusLeft="@+id/dec_min"
         android:nextFocusUp="@+id/minute_55"
         style="@style/PadButtonStyle"
-        app:srcCompat="@drawable/ic_add_circle_24dp" />
+        app:srcCompat="@drawable/bsp_ic_add_circle_24dp" />
 
 </com.philliphsu.bottomsheetpickers.time.grid.MinutesGrid>

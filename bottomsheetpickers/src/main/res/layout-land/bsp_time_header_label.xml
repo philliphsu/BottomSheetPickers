@@ -165,7 +165,7 @@
                 android:id="@+id/half_day_toggle_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_half_day_1_24dp"
+                app:srcCompat="@drawable/bsp_ic_half_day_1_24dp"
                 android:importantForAccessibility="no" />
 
             <Space
@@ -176,7 +176,7 @@
                 android:id="@+id/half_day_toggle_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_half_day_2_24dp"
+                app:srcCompat="@drawable/bsp_ic_half_day_2_24dp"
                 android:importantForAccessibility="no" />
 
         </LinearLayout>

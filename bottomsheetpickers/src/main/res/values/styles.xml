@@ -15,6 +15,22 @@
   -->
 
 <resources>
+    <attr name="themeDark" format="boolean">false</attr>
+
+    <style name="time_label">
+        <item name="android:textSize">@dimen/bsp_time_label_size</item>
+        <item name="android:textColor">@color/numbers_text_color</item>
+    </style>
+
+    <style name="ampm_label">
+        <item name="android:textSize">@dimen/bsp_ampm_label_size</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/ampm_text_color</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="day_of_week_label_condensed" />
+
     <!-- TODO: Rename to GridLayoutElement -->
     <style name="GridLayoutNumpadElement">
         <!-- http://stackoverflow.com/a/6868308/5055032
@@ -44,7 +60,7 @@
         <item name="android:layout_marginBottom">@dimen/bsp_fab_margin</item>
         <item name="layout_gravity">center</item>
         <item name="layout_column">1</item>
-        <item name="srcCompat">@drawable/ic_done_24dp</item>
+        <item name="srcCompat">@drawable/bsp_ic_done_24dp</item>
         <item name="borderWidth">0dp</item>
     </style>
 

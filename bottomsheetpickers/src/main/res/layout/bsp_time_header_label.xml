@@ -170,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/bsp_ampm_left_padding"
                 android:paddingRight="@dimen/bsp_ampm_left_padding"
-                app:srcCompat="@drawable/ic_half_day_1_24dp"
+                app:srcCompat="@drawable/bsp_ic_half_day_1_24dp"
                 android:importantForAccessibility="no" />
 
             <Space
@@ -183,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/bsp_ampm_left_padding"
                 android:paddingRight="@dimen/bsp_ampm_left_padding"
-                app:srcCompat="@drawable/ic_half_day_2_24dp"
+                app:srcCompat="@drawable/bsp_ic_half_day_2_24dp"
                 android:importantForAccessibility="no" />
 
         </LinearLayout>

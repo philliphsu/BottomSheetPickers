@@ -30,7 +30,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/white" >
         <include
-            layout="@layout/time_header_label"
+            layout="@layout/bsp_time_header_label"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center" />
@@ -59,7 +59,7 @@
             android:contentDescription="@string/bsp_desc_done"
             android:layout_marginTop="@dimen/bsp_fab_margin_top"
             android:layout_marginBottom="@dimen/bsp_fab_margin"
-            app:srcCompat="@drawable/ic_done_24dp" />
+            app:srcCompat="@drawable/bsp_ic_done_24dp" />
 
     </LinearLayout>
 

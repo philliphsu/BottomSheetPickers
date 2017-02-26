@@ -332,7 +332,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         // requested and apply it.
         if (mHeaderTextDark) {
             final ColorStateList colors = ContextCompat.getColorStateList(activity,
-                    R.color.date_picker_selector_light);
+                    R.color.bsp_date_picker_selector_light);
             mDayOfWeekView.setTextColor(colors);
             mFirstTextView.setTextColor(colors);
             mSecondTextView.setTextColor(colors);
@@ -809,7 +809,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
 
     @Override
     protected int contentLayout() {
-        return R.layout.date_picker_dialog;
+        return R.layout.bsp_date_picker_dialog;
     }
 
     private static ColorStateList createColorStateList(int selectedColor, int unselectedColor) {

@@ -23,10 +23,10 @@ final class DayPickerViewAnimator extends ViewAnimator {
 
     public DayPickerViewAnimator(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mDayPickerInAnimation = AnimationUtils.loadAnimation(context, R.anim.day_picker_slide_up);
-        mDayPickerOutAnimation = AnimationUtils.loadAnimation(context, R.anim.day_picker_slide_down);
-        mMonthPickerInAnimation = AnimationUtils.loadAnimation(context, R.anim.month_picker_slide_down);
-        mMonthPickerOutAnimation = AnimationUtils.loadAnimation(context, R.anim.month_picker_slide_up);
+        mDayPickerInAnimation = AnimationUtils.loadAnimation(context, R.anim.bsp_day_picker_slide_up);
+        mDayPickerOutAnimation = AnimationUtils.loadAnimation(context, R.anim.bsp_day_picker_slide_down);
+        mMonthPickerInAnimation = AnimationUtils.loadAnimation(context, R.anim.bsp_month_picker_slide_down);
+        mMonthPickerOutAnimation = AnimationUtils.loadAnimation(context, R.anim.bsp_month_picker_slide_up);
     }
 
     @Override

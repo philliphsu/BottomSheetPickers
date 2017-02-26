@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white" >
         <include
-            layout="@layout/time_header_label"
+            layout="@layout/bsp_time_header_label"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bsp_header_height"
             android:layout_gravity="center" />
@@ -46,11 +46,11 @@
         android:background="@color/line_background" />
     <Button
         android:id="@+id/done_button"
-        android:background="@drawable/done_background_color"
+        android:background="@drawable/bsp_done_background_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
         android:text="@string/bsp_done_label"
         android:textSize="@dimen/bsp_done_label_size"
-        android:textColor="@color/done_text_color" />
+        android:textColor="@color/bsp_done_text_color" />
 </LinearLayout>

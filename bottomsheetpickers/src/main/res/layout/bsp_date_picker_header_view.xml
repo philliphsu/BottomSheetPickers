@@ -14,20 +14,11 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="@color/date_picker_view_animator">
-
-    <include
-        android:id="@+id/day_picker_selected_date_layout"
-        layout="@layout/date_picker_selected_date" />
-
-    <include layout="@layout/date_picker_view_animator" />
-
-    <include layout="@layout/date_picker_footer_buttons" />
-
-</LinearLayout>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/date_picker_header"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:includeFontPadding="false"
+    android:textColor="@color/bsp_date_picker_selector"
+    android:textSize="@dimen/bsp_date_picker_header_text_size"
+    android:importantForAccessibility="no" />

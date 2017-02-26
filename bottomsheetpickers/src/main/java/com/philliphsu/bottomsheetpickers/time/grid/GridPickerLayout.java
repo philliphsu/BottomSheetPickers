@@ -80,7 +80,7 @@ public class GridPickerLayout extends ViewAnimator implements NumbersGrid.OnNumb
         // code that REALLY needs to be done in this class instead.
         mIs24HourMode = is24HourMode;
         if (is24HourMode) {
-            m24HoursGrid = (TwentyFourHoursGrid) inflate(context, R.layout.pad_24_hours, null);
+            m24HoursGrid = (TwentyFourHoursGrid) inflate(context, R.layout.bsp_pad_24_hours, null);
             m24HoursGrid.initialize(this/*OnNumberSelectedListener*/);
             if (initialHoursOfDay >= 12) {
                 // 24 hour grid is always initialized with 00-11 in the primary position
@@ -88,11 +88,11 @@ public class GridPickerLayout extends ViewAnimator implements NumbersGrid.OnNumb
             }
             addView(m24HoursGrid);
         } else {
-            mHoursGrid = (HoursGrid) inflate(context, R.layout.pad_12_hours, null);
+            mHoursGrid = (HoursGrid) inflate(context, R.layout.bsp_pad_12_hours, null);
             mHoursGrid.initialize(this/*OnNumberSelectedListener*/);
             addView(mHoursGrid);
         }
-        mMinutesGrid = (MinutesGrid) inflate(context, R.layout.pad_minutes, null);
+        mMinutesGrid = (MinutesGrid) inflate(context, R.layout.bsp_pad_minutes, null);
         mMinutesGrid.initialize(this/*OnNumberSelectedListener*/);
         addView(mMinutesGrid);
 

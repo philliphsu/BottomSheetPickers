@@ -124,7 +124,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
 
     @Override
     protected int contentLayout() {
-        return R.layout.dialog_time_picker_grid;
+        return R.layout.bsp_dialog_time_picker_grid;
     }
 
     public static GridTimePickerDialog newInstance(OnTimeSetListener callback,
