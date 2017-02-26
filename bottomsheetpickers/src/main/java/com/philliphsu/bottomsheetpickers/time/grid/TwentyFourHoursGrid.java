@@ -39,7 +39,7 @@ public class TwentyFourHoursGrid extends NumbersGrid implements View.OnLongClick
 
     public TwentyFourHoursGrid(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mSecondaryTextColor = ContextCompat.getColor(context, R.color.text_color_secondary_light);
+        mSecondaryTextColor = ContextCompat.getColor(context, R.color.bsp_text_color_secondary_light);
     }
 
     @Override
@@ -92,9 +92,9 @@ public class TwentyFourHoursGrid extends NumbersGrid implements View.OnLongClick
     @Override
     void setTheme(Context context, boolean themeDark) {
         mDefaultTextColor = ContextCompat.getColor(context, themeDark?
-                R.color.text_color_primary_dark : R.color.text_color_primary_light);
+                R.color.bsp_text_color_primary_dark : R.color.bsp_text_color_primary_light);
         mSecondaryTextColor = ContextCompat.getColor(context, themeDark?
-                R.color.text_color_secondary_dark : R.color.text_color_secondary_light);
+                R.color.bsp_text_color_secondary_dark : R.color.bsp_text_color_secondary_light);
         for (int i = 0; i < getChildCount(); i++) {
             TwentyFourHourGridItem item = (TwentyFourHourGridItem) getChildAt(i);
             // TODO: We could move this to the ctor, in the superclass. If so, then this class

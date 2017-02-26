@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bsp_time_placeholder"
-                android:textColor="@color/blue"
+                android:textColor="@color/bsp_blue"
                 android:gravity="center_horizontal"
                 android:layout_gravity="center"
                 style="@style/time_label" />

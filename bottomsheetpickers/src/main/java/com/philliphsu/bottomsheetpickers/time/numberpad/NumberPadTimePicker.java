@@ -112,8 +112,8 @@ class NumberPadTimePicker extends GridLayoutNumberPad {
             mElevationAnimator = null;
         }
 
-        mFabDisabledColorDark = ContextCompat.getColor(context, R.color.fab_disabled_dark);
-        mFabDisabledColorLight = ContextCompat.getColor(context, R.color.fab_disabled_light);
+        mFabDisabledColorDark = ContextCompat.getColor(context, R.color.bsp_fab_disabled_dark);
+        mFabDisabledColorLight = ContextCompat.getColor(context, R.color.bsp_fab_disabled_light);
 
         setIs24HourMode(DateFormat.is24HourFormat(context));
     }

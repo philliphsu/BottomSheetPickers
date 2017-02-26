@@ -44,7 +44,7 @@
             android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="1dip"
-            android:background="@color/line_background" />
+            android:background="@color/bsp_line_background" />
         <Button
             android:id="@+id/done_button"
             android:background="@drawable/bsp_done_background_color"
@@ -62,5 +62,5 @@
         android:layout_gravity="center"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:background="@color/circle_background" />
+        android:background="@color/bsp_circle_background" />
 </LinearLayout>

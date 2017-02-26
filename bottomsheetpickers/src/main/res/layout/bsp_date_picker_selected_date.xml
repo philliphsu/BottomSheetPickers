@@ -20,7 +20,7 @@
     android:layout_height="@dimen/bsp_selected_calendar_layout_height"
     android:orientation="vertical"
     android:gravity="center_vertical"
-    android:background="@color/blue"
+    android:background="@color/bsp_blue"
     android:paddingLeft="@dimen/bsp_selected_calendar_layout_keyline"
     android:paddingStart="@dimen/bsp_selected_calendar_layout_keyline" >
 

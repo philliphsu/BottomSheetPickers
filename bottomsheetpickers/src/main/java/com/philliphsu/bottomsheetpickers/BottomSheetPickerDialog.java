@@ -60,12 +60,12 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
         }
         // Prepare common colors.
         final Context ctx = getActivity();
-        mDarkGray = getColor(ctx, R.color.dark_gray);
-        mLightGray = getColor(ctx, R.color.light_gray);
+        mDarkGray = getColor(ctx, R.color.bsp_dark_gray);
+        mLightGray = getColor(ctx, R.color.bsp_light_gray);
         mWhite = getColor(ctx, android.R.color.white);
-        mWhiteTextDisabled = getColor(ctx, R.color.text_color_disabled_dark);
-        mBlackText = getColor(ctx, R.color.text_color_primary_light);
-        mBlackTextDisabled = getColor(ctx, R.color.text_color_disabled_light);
+        mWhiteTextDisabled = getColor(ctx, R.color.bsp_text_color_disabled_dark);
+        mBlackText = getColor(ctx, R.color.bsp_text_color_primary_light);
+        mBlackTextDisabled = getColor(ctx, R.color.bsp_text_color_disabled_light);
     }
 
     @Nullable

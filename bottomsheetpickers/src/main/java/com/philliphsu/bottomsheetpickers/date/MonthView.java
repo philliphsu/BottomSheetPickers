@@ -214,14 +214,14 @@ public abstract class MonthView extends View {
         mDayOfWeekTypeface = res.getString(R.string.bsp_day_of_week_label_typeface);
         mMonthTitleTypeface = res.getString(R.string.bsp_sans_serif);
 
-        mDayTextColor = res.getColor(R.color.text_color_primary_light);
+        mDayTextColor = res.getColor(R.color.bsp_text_color_primary_light);
         // Same as background color
-        mSelectedDayTextColor = getColor(context, R.color.date_picker_view_animator);
+        mSelectedDayTextColor = getColor(context, R.color.bsp_date_picker_view_animator);
         mTodayNumberColor = Utils.getThemeAccentColor(context);
-        mDisabledDayTextColor = res.getColor(R.color.text_color_disabled_light);
+        mDisabledDayTextColor = res.getColor(R.color.bsp_text_color_disabled_light);
         mMonthTitleColor = res.getColor(android.R.color.white);
-        mMonthTitleBGColor = res.getColor(R.color.circle_background);
-        mMonthDayLabelTextColor = getColor(context, R.color.text_color_disabled_light);
+        mMonthTitleBGColor = res.getColor(R.color.bsp_circle_background);
+        mMonthDayLabelTextColor = getColor(context, R.color.bsp_text_color_disabled_light);
 
         MINI_DAY_NUMBER_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.bsp_day_number_size);
         MONTH_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.bsp_month_label_size);
@@ -250,10 +250,10 @@ public abstract class MonthView extends View {
 
     void setTheme(Context context, boolean themeDark) {
         if (themeDark) {
-            mDayTextColor = getColor(context, R.color.text_color_primary_dark);
-            mSelectedDayTextColor = getColor(context, R.color.dark_gray);
-            mMonthDayLabelTextColor = getColor(context, R.color.text_color_disabled_dark);
-            mDisabledDayTextColor = getColor(context, R.color.text_color_disabled_dark);
+            mDayTextColor = getColor(context, R.color.bsp_text_color_primary_dark);
+            mSelectedDayTextColor = getColor(context, R.color.bsp_dark_gray);
+            mMonthDayLabelTextColor = getColor(context, R.color.bsp_text_color_disabled_dark);
+            mDisabledDayTextColor = getColor(context, R.color.bsp_text_color_disabled_dark);
             initView();
         }
     }

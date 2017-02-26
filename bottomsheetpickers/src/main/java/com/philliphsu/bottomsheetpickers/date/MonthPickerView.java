@@ -73,11 +73,11 @@ final class MonthPickerView extends View {
 
         mShortMonthLabels = new DateFormatSymbols().getShortMonths();
 
-        mNormalTextColor = getColor(context, R.color.text_color_primary_light);
+        mNormalTextColor = getColor(context, R.color.bsp_text_color_primary_light);
         // Same as background color
-        mSelectedMonthTextColor = getColor(context, R.color.date_picker_view_animator);
+        mSelectedMonthTextColor = getColor(context, R.color.bsp_date_picker_view_animator);
         mCurrentMonthTextColor = Utils.getThemeAccentColor(context);
-        mDisabledMonthTextColor = getColor(context, R.color.text_color_disabled_light);
+        mDisabledMonthTextColor = getColor(context, R.color.bsp_text_color_disabled_light);
 
         Calendar now = Calendar.getInstance();
         mCurrentMonth = now.get(Calendar.MONTH);
@@ -136,9 +136,9 @@ final class MonthPickerView extends View {
 
     void setTheme(Context context, boolean themeDark) {
         if (themeDark) {
-            mNormalTextColor = getColor(context, R.color.text_color_primary_dark);
-            mSelectedMonthTextColor = getColor(context, R.color.dark_gray);
-            mDisabledMonthTextColor = getColor(context, R.color.text_color_disabled_dark);
+            mNormalTextColor = getColor(context, R.color.bsp_text_color_primary_dark);
+            mSelectedMonthTextColor = getColor(context, R.color.bsp_dark_gray);
+            mDisabledMonthTextColor = getColor(context, R.color.bsp_text_color_disabled_dark);
             initView();
         }
     }

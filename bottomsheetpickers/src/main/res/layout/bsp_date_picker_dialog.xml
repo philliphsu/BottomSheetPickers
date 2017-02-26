@@ -20,7 +20,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/date_picker_view_animator">
+    android:background="@color/bsp_date_picker_view_animator">
 
     <include
         android:id="@+id/day_picker_selected_date_layout"

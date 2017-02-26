@@ -87,7 +87,7 @@ public class MinutesGrid extends NumbersGrid {
     void setTheme(Context context, boolean themeDark) {
         super.setTheme(context, themeDark);
         if (!themeDark) {
-            final int colorActiveLight = ContextCompat.getColor(context, R.color.icon_color_active_light);
+            final int colorActiveLight = ContextCompat.getColor(context, R.color.bsp_icon_color_active_light);
             Utils.applyTint(mMinusButton, colorActiveLight);
             Utils.applyTint(mPlusButton, colorActiveLight);
         }

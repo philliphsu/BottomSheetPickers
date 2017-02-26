@@ -16,6 +16,6 @@
   -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="false" android:color="@color/icon_color_inactive_dark"/>
-    <item android:color="@color/icon_color_active_dark"/>
+    <item android:state_enabled="false" android:color="@color/bsp_icon_color_inactive_dark"/>
+    <item android:color="@color/bsp_icon_color_active_dark"/>
 </selector>

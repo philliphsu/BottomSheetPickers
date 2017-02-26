@@ -17,6 +17,6 @@
     <item android:state_selected="true"
           android:color="@android:color/white"/>
     <item android:state_selected="false"
-          android:color="@color/unselected_color"/>
-    <item android:color="@color/unselected_color"/>
+          android:color="@color/bsp_unselected_color"/>
+    <item android:color="@color/bsp_unselected_color"/>
 </selector>

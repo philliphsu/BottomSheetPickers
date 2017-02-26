@@ -28,10 +28,10 @@ abstract class TextViewWithIndicator extends TextView {
 
     void setTheme(Context context, boolean themeDark) {
         mDefaultTextColor = ContextCompat.getColor(context, themeDark?
-                R.color.text_color_primary_dark : R.color.text_color_primary_light);
+                R.color.bsp_text_color_primary_dark : R.color.bsp_text_color_primary_light);
         setTextColor(mDefaultTextColor);
         if (themeDark) {
-            int selectableItemBg = ContextCompat.getColor(context, R.color.selectable_item_background_dark);
+            int selectableItemBg = ContextCompat.getColor(context, R.color.bsp_selectable_item_background_dark);
             Utils.setColorControlHighlight(this, selectableItemBg);
         }
     }

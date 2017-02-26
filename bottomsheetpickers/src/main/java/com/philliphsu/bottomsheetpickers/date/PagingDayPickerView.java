@@ -179,20 +179,20 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
 
         // Theme-specific configurations.
         if (mThemeDark) {
-            int selectableItemBg = getColor(context, R.color.selectable_item_background_dark);
+            int selectableItemBg = getColor(context, R.color.bsp_selectable_item_background_dark);
             Utils.setColorControlHighlight(mPreviousButton, selectableItemBg);
             Utils.setColorControlHighlight(mNextButton, selectableItemBg);
             Utils.setColorControlHighlight(mTitleContainer, selectableItemBg);
-            int cursor = getColor(context, R.color.text_color_secondary_dark);
+            int cursor = getColor(context, R.color.bsp_text_color_secondary_dark);
             Utils.applyTint(mPreviousButton, cursor);
             Utils.applyTint(mNextButton, cursor);
         }
 
         // Set up colors.
         int monthYearTitleColor = getColor(context, mThemeDark?
-                R.color.text_color_primary_dark : R.color.text_color_primary_light);
+                R.color.bsp_text_color_primary_dark : R.color.bsp_text_color_primary_light);
         int dropdownArrowColor = getColor(context, mThemeDark?
-                R.color.icon_color_active_dark : R.color.icon_color_active_light);
+                R.color.bsp_icon_color_active_dark : R.color.bsp_icon_color_active_light);
 
         mMonthYearTitleView.setTextColor(monthYearTitleColor);
         mArrowDownDrawable.setTint(dropdownArrowColor);

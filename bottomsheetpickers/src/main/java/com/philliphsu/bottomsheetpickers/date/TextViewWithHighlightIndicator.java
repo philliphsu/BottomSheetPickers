@@ -33,7 +33,7 @@ public class TextViewWithHighlightIndicator extends TextViewWithIndicator {
         mItemIsSelectedText = context.getResources().getString(R.string.bsp_item_is_selected);
         mDefaultTextSize = getTextSize();
         mSelectedTextSize = res.getDimension(R.dimen.bsp_year_label_selected_text_size);
-        mDisabledTextColor = getColor(context, R.color.text_color_disabled_light);
+        mDisabledTextColor = getColor(context, R.color.bsp_text_color_disabled_light);
     }
 
     public void drawIndicator(boolean drawHighlight) {
@@ -64,7 +64,7 @@ public class TextViewWithHighlightIndicator extends TextViewWithIndicator {
     void setTheme(Context context, boolean themeDark) {
         super.setTheme(context, themeDark);
         mDisabledTextColor = getColor(context, themeDark?
-                R.color.text_color_disabled_dark : R.color.text_color_disabled_light);
+                R.color.bsp_text_color_disabled_dark : R.color.bsp_text_color_disabled_light);
     }
 
     void setHighlightIndicatorColor(int highlightColor) {

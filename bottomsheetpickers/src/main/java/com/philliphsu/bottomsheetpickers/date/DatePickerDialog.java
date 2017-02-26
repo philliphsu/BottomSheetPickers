@@ -323,7 +323,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
 
         if (mThemeDark) {
             final int selectableItemBg = ContextCompat.getColor(activity,
-                    R.color.selectable_item_background_dark);
+                    R.color.bsp_selectable_item_background_dark);
             Utils.setColorControlHighlight(mCancelButton, selectableItemBg);
             Utils.setColorControlHighlight(mDoneButton, selectableItemBg);
         }

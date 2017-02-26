@@ -19,13 +19,13 @@
 
     <style name="time_label">
         <item name="android:textSize">@dimen/bsp_time_label_size</item>
-        <item name="android:textColor">@color/numbers_text_color</item>
+        <item name="android:textColor">@color/bsp_numbers_text_color</item>
     </style>
 
     <style name="ampm_label">
         <item name="android:textSize">@dimen/bsp_ampm_label_size</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/ampm_text_color</item>
+        <item name="android:textColor">@color/bsp_ampm_text_color</item>
         <item name="android:textStyle">bold</item>
     </style>
 
