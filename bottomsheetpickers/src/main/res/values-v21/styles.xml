@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <style name="GridLayoutNumpadElement">
+    <style name="BSP_GridLayoutNumpadElement">
         <!-- http://stackoverflow.com/a/6868308/5055032
          Leave off the namespace to reference a custom attribute.
          Here, we are referencing the "grid:" namespace -->
@@ -26,16 +26,16 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="NumberPadFabStyle" parent="BaseNumberPadFabStyle">
+    <style name="BSP_NumberPadFabStyle" parent="BSP_BaseNumberPadFabStyle">
         <!-- Hardcoded is fine since this file is the only usage -->
         <item name="android:layout_marginTop">4dp</item>
     </style>
 
-    <style name="SelectableButton">
+    <style name="BSP_SelectableButton">
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
     </style>
 
-    <style name="PadButtonStyle" parent="BasePadButtonStyle">
+    <style name="BSP_PadButtonStyle" parent="BSP_BasePadButtonStyle">
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
     </style>
 </resources>

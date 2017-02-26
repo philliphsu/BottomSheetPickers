@@ -17,22 +17,22 @@
 <resources>
     <attr name="themeDark" format="boolean">false</attr>
 
-    <style name="time_label">
+    <style name="BSP_time_label">
         <item name="android:textSize">@dimen/bsp_time_label_size</item>
         <item name="android:textColor">@color/bsp_numbers_text_color</item>
     </style>
 
-    <style name="ampm_label">
+    <style name="BSP_ampm_label">
         <item name="android:textSize">@dimen/bsp_ampm_label_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/bsp_ampm_text_color</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="day_of_week_label_condensed" />
+    <style name="BSP_day_of_week_label_condensed" />
 
     <!-- TODO: Rename to GridLayoutElement -->
-    <style name="GridLayoutNumpadElement">
+    <style name="BSP_GridLayoutNumpadElement">
         <!-- http://stackoverflow.com/a/6868308/5055032
          Leave off the namespace to reference a custom attribute.
          Here, we are referencing the "grid:" namespace -->
@@ -44,17 +44,17 @@
     </style>
 
     <!-- TODO: Rename to GridLayout[Text/Button/TextView]? -->
-    <style name="GridLayoutNumpadButton" parent="GridLayoutNumpadElement">
+    <style name="BSP_GridLayoutNumpadButton" parent="BSP_GridLayoutNumpadElement">
         <item name="android:textSize">@dimen/bsp_grid_element_text_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
-    <style name="GridLayoutNumpadButton.Inverse">
+    <style name="BSP_GridLayoutNumpadButton.Inverse">
         <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
     </style>
 
-    <style name="BaseNumberPadFabStyle">
+    <style name="BSP_BaseNumberPadFabStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">@dimen/bsp_fab_margin</item>
@@ -64,23 +64,23 @@
         <item name="borderWidth">0dp</item>
     </style>
 
-    <style name="NumberPadFabStyle" parent="BaseNumberPadFabStyle">
+    <style name="BSP_NumberPadFabStyle" parent="BSP_BaseNumberPadFabStyle">
         <item name="elevation">0dp</item>
     </style>
 
-    <style name="SelectableButton">
+    <style name="BSP_SelectableButton">
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
-    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/ModalStyle</item>
+    <style name="BSP_BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BSP_ModalStyle</item>
     </style>
 
-    <style name="ModalStyle" parent="Widget.Design.BottomSheet.Modal">
+    <style name="BSP_ModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="behavior_peekHeight">@dimen/bsp_peek_height_upper_limit</item>
     </style>
 
-    <style name="BasePadButtonStyle" parent="Widget.AppCompat.Button.Borderless">
+    <style name="BSP_BasePadButtonStyle" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
@@ -91,7 +91,7 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="PadButtonStyle" parent="BasePadButtonStyle">
+    <style name="BSP_PadButtonStyle" parent="BSP_BasePadButtonStyle">
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 </resources>

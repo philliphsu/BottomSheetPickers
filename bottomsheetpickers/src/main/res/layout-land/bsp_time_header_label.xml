@@ -38,7 +38,7 @@
             android:layout_toLeftOf="@+id/separator"
             android:layout_centerVertical="true"
             android:visibility="invisible"
-            style="@style/time_label"
+            style="@style/BSP_time_label"
             android:importantForAccessibility="no" />
         <FrameLayout
             android:layout_width="0dp"
@@ -56,7 +56,7 @@
                 android:textColor="@color/bsp_blue"
                 android:gravity="center_horizontal"
                 android:layout_gravity="center"
-                style="@style/time_label" />
+                style="@style/BSP_time_label" />
             </FrameLayout>
 
         <TextView
@@ -68,7 +68,7 @@
             android:paddingRight="@dimen/bsp_separator_padding"
             android:layout_alignRight="@+id/center_view"
             android:layout_centerVertical="true"
-            style="@style/time_label"
+            style="@style/BSP_time_label"
             android:importantForAccessibility="no" />
 
         <TextView
@@ -79,7 +79,7 @@
             android:layout_toRightOf="@+id/separator"
             android:layout_centerVertical="true"
             android:visibility="invisible"
-            style="@style/time_label"
+            style="@style/BSP_time_label"
             android:importantForAccessibility="no" />
         <FrameLayout
             android:layout_width="0dp"
@@ -91,7 +91,7 @@
             android:layout_centerVertical="true" >
             <com.philliphsu.bottomsheetpickers.AccessibleTextView
                 android:id="@+id/minutes"
-                style="@style/time_label"
+                style="@style/BSP_time_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -123,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bsp_time_placeholder"
-                style="@style/ampm_label"
+                style="@style/BSP_ampm_label"
                 android:importantForAccessibility="no" />
 
             <Space
@@ -135,7 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bsp_time_placeholder"
-                style="@style/ampm_label"
+                style="@style/BSP_ampm_label"
                 android:importantForAccessibility="no" />
 
         </LinearLayout>

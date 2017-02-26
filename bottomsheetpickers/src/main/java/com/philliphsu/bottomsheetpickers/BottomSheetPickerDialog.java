@@ -97,7 +97,7 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
     public final Dialog onCreateDialog(Bundle savedInstanceState) {
         // TODO: Pass in a dark/light BottomSheetDialog theme depending on the theme set.
         // Verify this changes colors for text, selectableBackground, etc. appropriately.
-        return new CustomWidthBottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
+        return new CustomWidthBottomSheetDialog(getContext(), R.style.BSP_BottomSheetDialogTheme);
     }
 
     @Override

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="PadButtonStyle.Numeric">
+    <style name="BSP_PadButtonStyle.Numeric">
         <item name="android:textSize">36sp</item>
     </style>
 
-    <style name="PadButtonStyle.Numeric.Minute">
+    <style name="BSP_PadButtonStyle.Numeric.Minute">
         <item name="android:textSize">30sp</item>
     </style>
 </resources>

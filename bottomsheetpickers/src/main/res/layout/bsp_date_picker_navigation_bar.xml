@@ -21,7 +21,7 @@
         android:nextFocusForward="@+id/month_year_title"
         android:nextFocusDown="@+id/month_view"
         app:srcCompat="@drawable/bsp_ic_chevron_start"
-        style="@style/SelectableButton"/>
+        style="@style/BSP_SelectableButton"/>
 
     <FrameLayout
         android:id="@+id/month_year_title_container"
@@ -56,6 +56,6 @@
         android:nextFocusForward="@+id/month_view"
         android:nextFocusDown="@+id/month_view"
         app:srcCompat="@drawable/bsp_ic_chevron_end"
-        style="@style/SelectableButton"/>
+        style="@style/BSP_SelectableButton"/>
 
 </LinearLayout>
