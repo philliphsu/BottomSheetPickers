@@ -222,7 +222,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         KeyboardListener keyboardListener = new KeyboardListener();
-        view.findViewById(R.id.time_picker_dialog).setOnKeyListener(keyboardListener);
+        view.findViewById(R.id.bsp_time_picker_dialog).setOnKeyListener(keyboardListener);
 
         if (!mThemeSetAtRuntime) {
             mThemeDark = Utils.isDarkTheme(getActivity(), mThemeDark);
@@ -235,17 +235,17 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         mMinutePickerDescription = res.getString(R.string.bsp_minute_picker_description);
         mSelectMinutes = res.getString(R.string.bsp_select_minutes);
 
-        mHourView = (TextView) view.findViewById(R.id.hours);
+        mHourView = (TextView) view.findViewById(R.id.bsp_hours);
         mHourView.setOnKeyListener(keyboardListener);
-        mHourSpaceView = (TextView) view.findViewById(R.id.hour_space);
-        mMinuteSpaceView = (TextView) view.findViewById(R.id.minutes_space);
-        mMinuteView = (TextView) view.findViewById(R.id.minutes);
+        mHourSpaceView = (TextView) view.findViewById(R.id.bsp_hour_space);
+        mMinuteSpaceView = (TextView) view.findViewById(R.id.bsp_minutes_space);
+        mMinuteView = (TextView) view.findViewById(R.id.bsp_minutes);
         mMinuteView.setOnKeyListener(keyboardListener);
         // TODO: setOnKeyListener?
-        mAmPmToggles = (LinearLayout) view.findViewById(R.id.ampm_toggles);
-        mAmTextView = (TextView) view.findViewById(R.id.am_label);
+        mAmPmToggles = (LinearLayout) view.findViewById(R.id.bsp_ampm_toggles);
+        mAmTextView = (TextView) view.findViewById(R.id.bsp_am_label);
         mAmTextView.setOnKeyListener(keyboardListener);
-        mPmTextView = (TextView) view.findViewById(R.id.pm_label);
+        mPmTextView = (TextView) view.findViewById(R.id.bsp_pm_label);
         mPmTextView.setOnKeyListener(keyboardListener);
         String[] amPmTexts = new DateFormatSymbols().getAmPmStrings();
         mAmText = amPmTexts[0];
@@ -254,15 +254,15 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         mAmTextView.setText(mAmText);
         mPmTextView.setText(mPmText);
         // TODO: setOnKeyListener?
-        mHalfDayToggles = (LinearLayout) view.findViewById(R.id.half_day_toggles);
-        mFirstHalfDayToggle = (ImageView) view.findViewById(R.id.half_day_toggle_1);
+        mHalfDayToggles = (LinearLayout) view.findViewById(R.id.bsp_half_day_toggles);
+        mFirstHalfDayToggle = (ImageView) view.findViewById(R.id.bsp_half_day_toggle_1);
         mFirstHalfDayToggle.setOnKeyListener(keyboardListener);
-        mSecondHalfDayToggle = (ImageView) view.findViewById(R.id.half_day_toggle_2);
+        mSecondHalfDayToggle = (ImageView) view.findViewById(R.id.bsp_half_day_toggle_2);
         mSecondHalfDayToggle.setOnKeyListener(keyboardListener);
 
         // TODO: Restore
 //        mHapticFeedbackController = new HapticFeedbackController(getActivity());
-        mTimePicker = (GridPickerLayout) view.findViewById(R.id.time_picker);
+        mTimePicker = (GridPickerLayout) view.findViewById(R.id.bsp_time_picker);
         mTimePicker.setOnValueSelectedListener(this);
         mTimePicker.setOnKeyListener(keyboardListener);
         mTimePicker.initialize(getActivity(), /*mHapticFeedbackController,*/ mInitialHourOfDay,
@@ -295,7 +295,7 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
             }
         });
 
-        mDoneButton = (FloatingActionButton) view.findViewById(R.id.fab);
+        mDoneButton = (FloatingActionButton) view.findViewById(R.id.bsp_fab);
         mDoneButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -309,8 +309,8 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         });
         mDoneButton.setOnKeyListener(keyboardListener);
 
-        mAmPmHitspace = view.findViewById(R.id.ampm_hitspace);
-        mHalfDaysHitspace = view.findViewById(R.id.half_days_hitspace);
+        mAmPmHitspace = view.findViewById(R.id.bsp_ampm_hitspace);
+        mHalfDaysHitspace = view.findViewById(R.id.bsp_half_days_hitspace);
         mAmPmHitspace.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -381,9 +381,9 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         mTimePicker.setTheme(getActivity().getApplicationContext(), mThemeDark);
 
         // Set the colors for each view based on the theme.
-        view.findViewById(R.id.time_display_background).setBackgroundColor(mHeaderColor);
-        view.findViewById(R.id.time_display).setBackgroundColor(mHeaderColor);
-        ((TextView) view.findViewById(R.id.separator)).setTextColor(mTimeSeparatorColor != 0
+        view.findViewById(R.id.bsp_time_display_background).setBackgroundColor(mHeaderColor);
+        view.findViewById(R.id.bsp_time_display).setBackgroundColor(mHeaderColor);
+        ((TextView) view.findViewById(R.id.bsp_separator)).setTextColor(mTimeSeparatorColor != 0
                 ? mTimeSeparatorColor : (mHeaderTextDark ? mBlackTextDisabled : mWhiteTextDisabled));
 
         // Color in normal state

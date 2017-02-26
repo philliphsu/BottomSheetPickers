@@ -95,10 +95,10 @@ class NumberPadTimePicker extends GridLayoutNumberPad {
 
     public NumberPadTimePicker(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mAltButtons[0] = (Button) findViewById(R.id.leftAlt);
-        mAltButtons[1] = (Button) findViewById(R.id.rightAlt);
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
-        mBackspace = (ImageButton) findViewById(R.id.backspace);
+        mAltButtons[0] = (Button) findViewById(R.id.bsp_leftAlt);
+        mAltButtons[1] = (Button) findViewById(R.id.bsp_rightAlt);
+        mFab = (FloatingActionButton) findViewById(R.id.bsp_fab);
+        mBackspace = (ImageButton) findViewById(R.id.bsp_backspace);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mElevationAnimator = ObjectAnimator.ofFloat(mFab, "elevation",

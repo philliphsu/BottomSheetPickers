@@ -214,13 +214,13 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
                              Bundle savedInstanceState) {
         final View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        mDayOfWeekView = (TextView) view.findViewById(R.id.date_picker_header);
+        mDayOfWeekView = (TextView) view.findViewById(R.id.bsp_date_picker_header);
         mDayOfWeekView.setTypeface(Utils.SANS_SERIF_LIGHT_BOLD);
-        mMonthDayYearView = (LinearLayout) view.findViewById(R.id.date_picker_month_day_year);
-        mFirstTextView = (TextView) view.findViewById(R.id.date_picker_first_textview);
+        mMonthDayYearView = (LinearLayout) view.findViewById(R.id.bsp_date_picker_month_day_year);
+        mFirstTextView = (TextView) view.findViewById(R.id.bsp_date_picker_first_textview);
         mFirstTextView.setOnClickListener(this);
         mFirstTextView.setTypeface(Utils.SANS_SERIF_LIGHT_BOLD);
-        mSecondTextView = (TextView) view.findViewById(R.id.date_picker_second_textview);
+        mSecondTextView = (TextView) view.findViewById(R.id.bsp_date_picker_second_textview);
         mSecondTextView.setOnClickListener(this);
         mSecondTextView.setTypeface(Utils.SANS_SERIF_LIGHT_BOLD);
 
@@ -279,7 +279,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         mYearPickerDescription = res.getString(R.string.bsp_year_picker_description);
         mSelectYear = res.getString(R.string.bsp_select_year);
 
-        mAnimator = (AccessibleDateAnimator) view.findViewById(R.id.animator);
+        mAnimator = (AccessibleDateAnimator) view.findViewById(R.id.bsp_animator);
         mAnimator.addView(mDayPickerView);
         mAnimator.addView(mYearPickerView);
         mAnimator.setDateMillis(mCalendar.getTimeInMillis());
@@ -292,7 +292,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         animation2.setDuration(ANIMATION_DURATION);
         mAnimator.setOutAnimation(animation2);
 
-        mDoneButton = (Button) view.findViewById(R.id.done);
+        mDoneButton = (Button) view.findViewById(R.id.bsp_done);
         mDoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -305,7 +305,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
             }
         });
 
-        mCancelButton = (Button) view.findViewById(R.id.cancel);
+        mCancelButton = (Button) view.findViewById(R.id.bsp_cancel);
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -319,7 +319,7 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
 
         mAnimator.setBackgroundColor(mBackgroundColor);
         mDayPickerView.setAccentColor(mAccentColor);
-        view.findViewById(R.id.day_picker_selected_date_layout).setBackgroundColor(mHeaderColor);
+        view.findViewById(R.id.bsp_day_picker_selected_date_layout).setBackgroundColor(mHeaderColor);
 
         if (mThemeDark) {
             final int selectableItemBg = ContextCompat.getColor(activity,
@@ -699,9 +699,9 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
     @Override
     public void onClick(View v) {
         tryVibrate();
-        if (v.getId() == R.id.date_picker_second_textview) {
+        if (v.getId() == R.id.bsp_date_picker_second_textview) {
             setCurrentView(mLocaleMonthDayIndex == 0 ? YEAR_VIEW : MONTH_AND_DAY_VIEW);
-        } else if (v.getId() == R.id.date_picker_first_textview) {
+        } else if (v.getId() == R.id.bsp_date_picker_first_textview) {
             setCurrentView(mLocaleMonthDayIndex == 0 ? MONTH_AND_DAY_VIEW : YEAR_VIEW);
         }
     }

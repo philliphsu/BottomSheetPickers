@@ -138,13 +138,13 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 + res.getDimensionPixelOffset(R.dimen.bsp_month_view_top_padding);
 
         final View view = LayoutInflater.from(context).inflate(R.layout.bsp_day_picker_content, this, true);
-        mMonthAnimator = (DayPickerViewAnimator) findViewById(R.id.month_animator);
-        mMonthPickerView = (MonthPickerView) findViewById(R.id.month_picker);
+        mMonthAnimator = (DayPickerViewAnimator) findViewById(R.id.bsp_month_animator);
+        mMonthPickerView = (MonthPickerView) findViewById(R.id.bsp_month_picker);
         mMonthPickerView.setOnMonthClickListener(this);
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager = (ViewPager) findViewById(R.id.bsp_viewpager);
         mViewPager.addOnPageChangeListener(this);
-        mMonthYearTitleView = (TextView) view.findViewById(R.id.month_year_title);
-        mTitleContainer = view.findViewById(R.id.month_year_title_container);
+        mMonthYearTitleView = (TextView) view.findViewById(R.id.bsp_month_year_title);
+        mTitleContainer = view.findViewById(R.id.bsp_month_year_title_container);
         mTitleContainer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,7 +152,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 setupCurrentView(newIndex, true);
             }
         });
-        mPreviousButton = (ImageButton) view.findViewById(R.id.prev);
+        mPreviousButton = (ImageButton) view.findViewById(R.id.bsp_prev);
         mPreviousButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,7 +162,7 @@ class PagingDayPickerView extends LinearLayout implements OnDateChangedListener,
                 }
             }
         });
-        mNextButton = (ImageButton) view.findViewById(R.id.next);
+        mNextButton = (ImageButton) view.findViewById(R.id.bsp_next);
         mNextButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

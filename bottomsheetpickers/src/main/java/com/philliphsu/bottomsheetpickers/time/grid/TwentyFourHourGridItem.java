@@ -42,8 +42,8 @@ public class TwentyFourHourGridItem extends LinearLayout {
         setGravity(Gravity.CENTER);
         inflate(getContext(), R.layout.bsp_content_24h_grid_item, this);
 
-        mPrimaryText = (TextView) findViewById(R.id.primary);
-        mSecondaryText = (TextView) findViewById(R.id.secondary);
+        mPrimaryText = (TextView) findViewById(R.id.bsp_primary);
+        mSecondaryText = (TextView) findViewById(R.id.bsp_secondary);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs,
                 R.styleable.TwentyFourHourGridItem, 0, 0);

@@ -288,16 +288,16 @@ abstract class GridLayoutNumberPad extends GridLayout implements View.OnClickLis
         setAlignmentMode(ALIGN_BOUNDS);
         setColumnCount(COLUMNS);
         View.inflate(getContext(), contentLayout(), this);
-        mButtons[0] = (TextView) findViewById(R.id.zero);
-        mButtons[1] = (TextView) findViewById(R.id.one);
-        mButtons[2] = (TextView) findViewById(R.id.two);
-        mButtons[3] = (TextView) findViewById(R.id.three);
-        mButtons[4] = (TextView) findViewById(R.id.four);
-        mButtons[5] = (TextView) findViewById(R.id.five);
-        mButtons[6] = (TextView) findViewById(R.id.six);
-        mButtons[7] = (TextView) findViewById(R.id.seven);
-        mButtons[8] = (TextView) findViewById(R.id.eight);
-        mButtons[9] = (TextView) findViewById(R.id.nine);
+        mButtons[0] = (TextView) findViewById(R.id.bsp_zero);
+        mButtons[1] = (TextView) findViewById(R.id.bsp_one);
+        mButtons[2] = (TextView) findViewById(R.id.bsp_two);
+        mButtons[3] = (TextView) findViewById(R.id.bsp_three);
+        mButtons[4] = (TextView) findViewById(R.id.bsp_four);
+        mButtons[5] = (TextView) findViewById(R.id.bsp_five);
+        mButtons[6] = (TextView) findViewById(R.id.bsp_six);
+        mButtons[7] = (TextView) findViewById(R.id.bsp_seven);
+        mButtons[8] = (TextView) findViewById(R.id.bsp_eight);
+        mButtons[9] = (TextView) findViewById(R.id.bsp_nine);
         for (TextView tv : mButtons) {
             tv.setOnClickListener(this);
         }

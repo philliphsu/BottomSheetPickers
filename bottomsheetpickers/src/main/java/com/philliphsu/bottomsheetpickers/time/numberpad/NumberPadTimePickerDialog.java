@@ -108,10 +108,10 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        mInputField = (TextView) view.findViewById(R.id.input_time);
-        mNumpad = (NumberPadTimePicker) view.findViewById(R.id.number_grid);
+        mInputField = (TextView) view.findViewById(R.id.bsp_input_time);
+        mNumpad = (NumberPadTimePicker) view.findViewById(R.id.bsp_number_grid);
 
-        final FloatingActionButton fab = (FloatingActionButton) mNumpad.findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) mNumpad.findViewById(R.id.bsp_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,7 +128,7 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         mNumpad.insertDigits(mInputtedDigits); // TOneverDO: before mNumpad.setOnInputChangeListener(this);
         mNumpad.setAmPmState(mAmPmState);
 
-        view.findViewById(R.id.input_time_container).setBackgroundColor(mHeaderColor);
+        view.findViewById(R.id.bsp_input_time_container).setBackgroundColor(mHeaderColor);
 
         if (mHint != null || mHintResId != 0) {
             if (mHint != null) {

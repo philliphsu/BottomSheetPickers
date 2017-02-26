@@ -171,12 +171,12 @@ public class GridPickerLayout extends ViewAnimator implements NumbersGrid.OnNumb
         // Only highlight on TVs
         if (Utils.isTv(getContext())) {
             if (index == MINUTE_INDEX) {
-                findViewById(R.id.minute_0).requestFocus();
+                findViewById(R.id.bsp_minute_0).requestFocus();
             } else if (index == HOUR_INDEX) {
-                if (findViewById(R.id.hour_0_12) != null) {
-                    findViewById(R.id.hour_0_12).requestFocus();
+                if (findViewById(R.id.bsp_hour_0_12) != null) {
+                    findViewById(R.id.bsp_hour_0_12).requestFocus();
                 } else {
-                    findViewById(R.id.hour_1).requestFocus();
+                    findViewById(R.id.bsp_hour_1).requestFocus();
                 }
             }
         }
