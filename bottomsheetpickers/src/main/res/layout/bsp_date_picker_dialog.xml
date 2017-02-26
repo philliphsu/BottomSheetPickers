@@ -23,7 +23,7 @@
     android:background="@color/bsp_date_picker_view_animator">
 
     <include
-        android:id="@+id/day_picker_selected_date_layout"
+        android:id="@+id/bsp_day_picker_selected_date_layout"
         layout="@layout/bsp_date_picker_selected_date" />
 
     <include layout="@layout/bsp_date_picker_view_animator" />

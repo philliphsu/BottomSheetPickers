@@ -27,13 +27,13 @@
     <include layout="@layout/bsp_date_picker_header_view" />
 
     <com.philliphsu.bottomsheetpickers.AccessibleLinearLayout
-        android:id="@+id/date_picker_month_day_year"
+        android:id="@+id/bsp_date_picker_month_day_year"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <com.philliphsu.bottomsheetpickers.AccessibleTextView
-            android:id="@+id/date_picker_first_textview"
+            android:id="@+id/bsp_date_picker_first_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
@@ -41,7 +41,7 @@
             android:textSize="@dimen/bsp_selected_date_month_size" />
 
         <com.philliphsu.bottomsheetpickers.AccessibleTextView
-            android:id="@+id/date_picker_second_textview"
+            android:id="@+id/bsp_date_picker_second_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"

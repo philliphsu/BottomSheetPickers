@@ -21,12 +21,12 @@
     android:orientation="horizontal">
 
     <FrameLayout
-        android:id="@+id/input_time_container"
+        android:id="@+id/bsp_input_time_container"
         android:layout_width="@dimen/bsp_left_side_width"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/input_time"
+            android:id="@+id/bsp_input_time"
             android:layout_width="@dimen/bsp_left_side_width"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -39,7 +39,7 @@
     </FrameLayout>
 
     <com.philliphsu.bottomsheetpickers.time.numberpad.NumberPadTimePicker
-        android:id="@+id/number_grid"
+        android:id="@+id/bsp_number_grid"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

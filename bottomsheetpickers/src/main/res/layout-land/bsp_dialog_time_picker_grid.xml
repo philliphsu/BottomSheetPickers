@@ -18,14 +18,14 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/time_picker_dialog"
+    android:id="@+id/bsp_time_picker_dialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:focusable="true">
 
     <FrameLayout
-        android:id="@+id/time_display_background"
+        android:id="@+id/bsp_time_display_background"
         android:layout_width="@dimen/bsp_left_side_width"
         android:layout_height="match_parent"
         android:background="@android:color/white" >
@@ -42,7 +42,7 @@
         android:orientation="vertical">
 
         <com.philliphsu.bottomsheetpickers.time.grid.GridPickerLayout
-            android:id="@+id/time_picker"
+            android:id="@+id/bsp_time_picker"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bsp_time_picker_pad_height"
             android:layout_marginTop="@dimen/bsp_bottom_sheet_vertical_space"
@@ -52,7 +52,7 @@
             android:layout_marginEnd="@dimen/bsp_bottom_sheet_edge_margin" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/bsp_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

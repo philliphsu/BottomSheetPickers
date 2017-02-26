@@ -18,52 +18,52 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
        xmlns:grid="http://schemas.android.com/apk/res-auto">
     <Button
-        android:id="@+id/one"
+        android:id="@+id/bsp_one"
         style="@style/BSP_GridLayoutNumpadButton"
         android:text="1"/>
 
     <Button
-        android:id="@+id/two"
+        android:id="@+id/bsp_two"
         style="@style/BSP_GridLayoutNumpadButton"
         android:text="2"/>
 
     <Button
-        android:id="@+id/three"
+        android:id="@+id/bsp_three"
         style="@style/BSP_GridLayoutNumpadButton"
         android:text="3"/>
 
     <Button
-        android:id="@+id/four"
+        android:id="@+id/bsp_four"
         style="@style/BSP_GridLayoutNumpadButton"
         android:text="4"/>
 
     <Button
-        android:id="@+id/five"
+        android:id="@+id/bsp_five"
         style="@style/BSP_GridLayoutNumpadButton"
         android:text="5"/>
 
     <Button
-        android:id="@+id/six"
+        android:id="@+id/bsp_six"
         style="@style/BSP_GridLayoutNumpadButton"
         android:text="6"/>
 
     <Button
-        android:id="@+id/seven"
+        android:id="@+id/bsp_seven"
         style="@style/BSP_GridLayoutNumpadButton"
         android:text="7"/>
 
     <Button
-        android:id="@+id/eight"
+        android:id="@+id/bsp_eight"
         style="@style/BSP_GridLayoutNumpadButton"
         android:text="8"/>
 
     <Button
-        android:id="@+id/nine"
+        android:id="@+id/bsp_nine"
         style="@style/BSP_GridLayoutNumpadButton"
         android:text="9"/>
 
     <Button
-        android:id="@+id/zero"
+        android:id="@+id/bsp_zero"
         style="@style/BSP_GridLayoutNumpadButton"
         grid:layout_column="1"
         android:text="0"/>

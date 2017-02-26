@@ -15,7 +15,7 @@
   ~ limitations under the License
   -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/time_picker_dialog"
+    android:id="@+id/bsp_time_picker_dialog"
     android:layout_height="@dimen/bsp_dialog_height"
     android:layout_width="wrap_content"
     android:orientation="horizontal"
@@ -29,7 +29,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <FrameLayout
-            android:id="@+id/time_display_background"
+            android:id="@+id/bsp_time_display_background"
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1"
@@ -41,12 +41,12 @@
                 android:layout_gravity="center" />
         </FrameLayout>
         <View
-            android:id="@+id/line"
+            android:id="@+id/bsp_line"
             android:layout_width="match_parent"
             android:layout_height="1dip"
             android:background="@color/bsp_line_background" />
         <Button
-            android:id="@+id/done_button"
+            android:id="@+id/bsp_done_button"
             android:background="@drawable/bsp_done_background_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
             android:textColor="@color/bsp_done_text_color" />
     </LinearLayout>
     <com.philliphsu.bottomsheetpickers.time.RadialPickerLayout
-        android:id="@+id/time_picker"
+        android:id="@+id/bsp_time_picker"
         android:layout_width="@dimen/bsp_picker_dimen"
         android:layout_height="match_parent"
         android:layout_gravity="center"

@@ -20,7 +20,7 @@
               android:orientation="horizontal">
 
     <include
-        android:id="@+id/day_picker_selected_date_layout"
+        android:id="@+id/bsp_day_picker_selected_date_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="5"

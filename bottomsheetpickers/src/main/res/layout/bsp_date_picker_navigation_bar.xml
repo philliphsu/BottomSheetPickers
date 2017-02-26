@@ -11,34 +11,34 @@
               android:paddingTop="@dimen/bsp_month_view_top_padding">
 
     <ImageButton
-        android:id="@+id/prev"
+        android:id="@+id/bsp_prev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="@dimen/bsp_month_navigation_bar_height"
         android:minHeight="@dimen/bsp_month_navigation_bar_height"
         android:visibility="invisible"
         android:contentDescription="@string/bsp_date_picker_prev_month_button"
-        android:nextFocusForward="@+id/month_year_title"
-        android:nextFocusDown="@+id/month_view"
+        android:nextFocusForward="@+id/bsp_month_year_title"
+        android:nextFocusDown="@+id/bsp_month_view"
         app:srcCompat="@drawable/bsp_ic_chevron_start"
         style="@style/BSP_SelectableButton"/>
 
     <FrameLayout
-        android:id="@+id/month_year_title_container"
+        android:id="@+id/bsp_month_year_title_container"
         android:layout_width="0dp"
         android:layout_height="@dimen/bsp_month_navigation_bar_height"
         android:layout_weight="1"
         android:background="?android:attr/selectableItemBackground">
 
         <TextView
-            android:id="@+id/month_year_title"
+            android:id="@+id/bsp_month_year_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
             android:contentDescription="@string/bsp_date_picker_month_year_title"
-            android:nextFocusForward="@+id/next"
-            android:nextFocusDown="@+id/month_view"
+            android:nextFocusForward="@+id/bsp_next"
+            android:nextFocusDown="@+id/bsp_month_view"
             android:textSize="@dimen/bsp_month_label_size"
             android:textAllCaps="false"
             android:drawablePadding="4dp"/>
@@ -46,15 +46,15 @@
     </FrameLayout>
 
     <ImageButton
-        android:id="@+id/next"
+        android:id="@+id/bsp_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="@dimen/bsp_month_navigation_bar_height"
         android:minHeight="@dimen/bsp_month_navigation_bar_height"
         android:visibility="invisible"
         android:contentDescription="@string/bsp_date_picker_next_month_button"
-        android:nextFocusForward="@+id/month_view"
-        android:nextFocusDown="@+id/month_view"
+        android:nextFocusForward="@+id/bsp_month_view"
+        android:nextFocusDown="@+id/bsp_month_view"
         app:srcCompat="@drawable/bsp_ic_chevron_end"
         style="@style/BSP_SelectableButton"/>
 

@@ -21,13 +21,13 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/input_time_container"
+        android:id="@+id/bsp_input_time_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bsp_numeric_keypad_output_box_height">
 
         <!-- TODO: Create a style for this instead and remove duplicated code in landscape layout.-->
         <TextView
-            android:id="@+id/input_time"
+            android:id="@+id/bsp_input_time"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bsp_numeric_keypad_output_box_height"
             android:gravity="center"
@@ -40,7 +40,7 @@
     </FrameLayout>
 
     <com.philliphsu.bottomsheetpickers.time.numberpad.NumberPadTimePicker
-        android:id="@+id/number_grid"
+        android:id="@+id/bsp_number_grid"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bsp_numeric_keypad_height"
         android:layout_marginTop="@dimen/bsp_bottom_sheet_vertical_space"

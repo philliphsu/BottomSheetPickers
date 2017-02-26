@@ -20,7 +20,7 @@
     <!-- TODO: Define styles -->
 
     <TextView
-        android:id="@+id/primary"
+        android:id="@+id/bsp_primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
@@ -30,7 +30,7 @@
         android:layout_marginRight="6dp"/>
 
     <TextView
-        android:id="@+id/secondary"
+        android:id="@+id/bsp_secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/bsp_number_grid_24_hour_item_secondary_text_size"

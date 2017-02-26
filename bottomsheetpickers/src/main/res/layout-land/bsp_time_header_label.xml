@@ -16,13 +16,13 @@
   -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/time_display"
+                android:id="@+id/bsp_time_display"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:background="@android:color/white">
         <View
-            android:id="@+id/center_view"
+            android:id="@+id/bsp_center_view"
             android:layout_width="1dp"
             android:layout_height="1dp"
             android:background="#00000000"
@@ -31,11 +31,11 @@
             android:importantForAccessibility="no" />
 
         <TextView
-            android:id="@+id/hour_space"
+            android:id="@+id/bsp_hour_space"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bsp_time_placeholder"
-            android:layout_toLeftOf="@+id/separator"
+            android:layout_toLeftOf="@+id/bsp_separator"
             android:layout_centerVertical="true"
             android:visibility="invisible"
             style="@style/BSP_time_label"
@@ -43,13 +43,13 @@
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_alignRight="@+id/hour_space"
-            android:layout_alignLeft="@+id/hour_space"
+            android:layout_alignRight="@+id/bsp_hour_space"
+            android:layout_alignLeft="@+id/bsp_hour_space"
             android:layout_marginLeft="@dimen/bsp_extra_time_label_margin"
             android:layout_marginRight="@dimen/bsp_extra_time_label_margin"
             android:layout_centerVertical="true" >
             <com.philliphsu.bottomsheetpickers.AccessibleTextView
-                android:id="@+id/hours"
+                android:id="@+id/bsp_hours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bsp_time_placeholder"
@@ -60,23 +60,23 @@
             </FrameLayout>
 
         <TextView
-            android:id="@+id/separator"
+            android:id="@+id/bsp_separator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bsp_time_separator"
             android:paddingLeft="@dimen/bsp_separator_padding"
             android:paddingRight="@dimen/bsp_separator_padding"
-            android:layout_alignRight="@+id/center_view"
+            android:layout_alignRight="@+id/bsp_center_view"
             android:layout_centerVertical="true"
             style="@style/BSP_time_label"
             android:importantForAccessibility="no" />
 
         <TextView
-            android:id="@+id/minutes_space"
+            android:id="@+id/bsp_minutes_space"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bsp_time_placeholder"
-            android:layout_toRightOf="@+id/separator"
+            android:layout_toRightOf="@+id/bsp_separator"
             android:layout_centerVertical="true"
             android:visibility="invisible"
             style="@style/BSP_time_label"
@@ -84,13 +84,13 @@
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_alignRight="@+id/minutes_space"
-            android:layout_alignLeft="@+id/minutes_space"
+            android:layout_alignRight="@+id/bsp_minutes_space"
+            android:layout_alignLeft="@+id/bsp_minutes_space"
             android:layout_marginLeft="@dimen/bsp_extra_time_label_margin"
             android:layout_marginRight="@dimen/bsp_extra_time_label_margin"
             android:layout_centerVertical="true" >
             <com.philliphsu.bottomsheetpickers.AccessibleTextView
-                android:id="@+id/minutes"
+                android:id="@+id/bsp_minutes"
                 style="@style/BSP_time_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,27 +99,27 @@
                 android:layout_gravity="center" />
         </FrameLayout>
         <com.philliphsu.bottomsheetpickers.AccessibleTextView
-            android:id="@+id/ampm_hitspace"
+            android:id="@+id/bsp_ampm_hitspace"
             android:layout_width="@dimen/bsp_ampm_label_size"
             android:layout_height="wrap_content"
-            android:layout_below="@id/separator"
+            android:layout_below="@id/bsp_separator"
             android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@+id/ampm_toggles"
-            android:layout_alignStart="@id/ampm_toggles"
-            android:layout_alignRight="@+id/ampm_toggles"
-            android:layout_alignEnd="@id/ampm_toggles" />
+            android:layout_alignLeft="@+id/bsp_ampm_toggles"
+            android:layout_alignStart="@id/bsp_ampm_toggles"
+            android:layout_alignRight="@+id/bsp_ampm_toggles"
+            android:layout_alignEnd="@id/bsp_ampm_toggles" />
         <LinearLayout
-            android:id="@+id/ampm_toggles"
+            android:id="@+id/bsp_ampm_toggles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@+id/separator"
-            android:layout_alignRight="@+id/center_view"
-            android:layout_alignEnd="@id/center_view"
+            android:layout_below="@+id/bsp_separator"
+            android:layout_alignRight="@+id/bsp_center_view"
+            android:layout_alignEnd="@id/bsp_center_view"
             android:layout_marginTop="8dp">
 
             <TextView
-                android:id="@+id/am_label"
+                android:id="@+id/bsp_am_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bsp_time_placeholder"
@@ -131,7 +131,7 @@
                 android:layout_height="6dp"/>
 
             <TextView
-                android:id="@+id/pm_label"
+                android:id="@+id/bsp_pm_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bsp_time_placeholder"
@@ -140,29 +140,29 @@
 
         </LinearLayout>
         <com.philliphsu.bottomsheetpickers.AccessibleTextView
-            android:id="@+id/half_days_hitspace"
+            android:id="@+id/bsp_half_days_hitspace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/separator"
+            android:layout_below="@id/bsp_separator"
             android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@+id/half_day_toggles"
-            android:layout_alignStart="@id/half_day_toggles"
-            android:layout_alignRight="@+id/half_day_toggles"
-            android:layout_alignEnd="@id/half_day_toggles"
+            android:layout_alignLeft="@+id/bsp_half_day_toggles"
+            android:layout_alignStart="@id/bsp_half_day_toggles"
+            android:layout_alignRight="@+id/bsp_half_day_toggles"
+            android:layout_alignEnd="@id/bsp_half_day_toggles"
             android:visibility="gone" />
         <LinearLayout
-            android:id="@+id/half_day_toggles"
+            android:id="@+id/bsp_half_day_toggles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@+id/separator"
-            android:layout_alignRight="@+id/center_view"
-            android:layout_alignEnd="@id/center_view"
+            android:layout_below="@+id/bsp_separator"
+            android:layout_alignRight="@+id/bsp_center_view"
+            android:layout_alignEnd="@id/bsp_center_view"
             android:layout_marginTop="8dp"
             android:visibility="gone">
 
             <ImageView
-                android:id="@+id/half_day_toggle_1"
+                android:id="@+id/bsp_half_day_toggle_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/bsp_ic_half_day_1_24dp"
@@ -173,7 +173,7 @@
                 android:layout_height="@dimen/bsp_half_day_icon_padding"/>
 
             <ImageView
-                android:id="@+id/half_day_toggle_2"
+                android:id="@+id/bsp_half_day_toggle_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/bsp_ic_half_day_2_24dp"

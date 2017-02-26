@@ -15,7 +15,7 @@
 -->
 <com.philliphsu.bottomsheetpickers.date.AccessibleDateAnimator
      xmlns:android="http://schemas.android.com/apk/res/android"
-     android:id="@+id/animator"
+     android:id="@+id/bsp_animator"
      android:layout_width="match_parent"
      android:layout_height="@dimen/bsp_date_picker_view_animator_height"
      android:gravity="center"
