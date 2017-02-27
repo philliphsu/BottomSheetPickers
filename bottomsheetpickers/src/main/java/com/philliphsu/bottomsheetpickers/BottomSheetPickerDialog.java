@@ -184,6 +184,7 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
         private int mHeaderColor;
         private boolean mHeaderTextDark;
         private boolean mThemeDark;
+        private boolean mThemeSetAtRuntime;
 
         public Builder setAccentColor(int accentColor) {
             mAccentColor = accentColor;
@@ -207,6 +208,7 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
 
         public Builder setThemeDark(boolean themeDark) {
             mThemeDark = themeDark;
+            mThemeSetAtRuntime = true;
             return this;
         }
 
@@ -222,7 +224,9 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
             dialog.setBackgroundColor(mBackgroundColor);
             dialog.setHeaderColor(mHeaderColor);
             dialog.setHeaderTextDark(mHeaderTextDark);
-            dialog.setThemeDark(mThemeDark);
+            if (mThemeSetAtRuntime) {
+                dialog.setThemeDark(mThemeDark);
+            }
         }
         
         public abstract BottomSheetPickerDialog build();
