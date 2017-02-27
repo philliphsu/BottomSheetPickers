@@ -186,26 +186,50 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
         private boolean mThemeDark;
         private boolean mThemeSetAtRuntime;
 
+        /**
+         * Set the accent color. This color is primarily used to tint views in the picker.
+         * If this picker is using the light theme and you did not call {@link #setHeaderColor(int)},
+         * this color will also be applied to the dialog's header.
+         */
         public Builder setAccentColor(int accentColor) {
             mAccentColor = accentColor;
             return this;
         }
 
+        /**
+         * Set the background color. If this color is dark, consider
+         * setting the theme dark to ensure text in the picker has enough contrast.
+         */
         public Builder setBackgroundColor(int backgroundColor) {
             mBackgroundColor = backgroundColor;
             return this;
         }
 
+        /**
+         * Set the header color. If this color is light, consider
+         * setting the header text dark to ensure it has enough contrast.
+         * <p>
+         * If this picker is using the light theme, this will normally be your Activity's
+         * {@code colorAccent} or the accent color set with {@link #setAccentColor(int)}.
+         * </p>
+         */
         public Builder setHeaderColor(int headerColor) {
             mHeaderColor = headerColor;
             return this;
         }
 
+        /**
+         * Set the header text to use a light or dark color.
+         * The default is false, so a light color is applied.
+         */
         public Builder setHeaderTextDark(boolean headerTextDark) {
             mHeaderTextDark = headerTextDark;
             return this;
         }
 
+        /**
+         * Set a dark or light theme.
+         */
         public Builder setThemeDark(boolean themeDark) {
             mThemeDark = themeDark;
             mThemeSetAtRuntime = true;
