@@ -54,7 +54,7 @@ supporting API level 14 and up.
 Add the following dependency to your module's `build.gradle`:
 ```groovy
 dependencies {
-  compile 'com.philliphsu:bottomsheetpickers:2.3.0'
+  compile 'com.philliphsu:bottomsheetpickers:2.3.1'
 }
 ```
 
@@ -63,7 +63,7 @@ you should exclude them from the library and keep those dependencies in your own
 file.
 
 ```groovy
-compile('com.philliphsu:bottomsheetpickers:2.3.0') {
+compile('com.philliphsu:bottomsheetpickers:2.3.1') {
     exclude group: 'com.android.support', module: 'appcompat-v7'
     exclude group: 'com.android.support', module: 'design'
     exclude group: 'com.android.support', module: 'gridlayout-v7'
