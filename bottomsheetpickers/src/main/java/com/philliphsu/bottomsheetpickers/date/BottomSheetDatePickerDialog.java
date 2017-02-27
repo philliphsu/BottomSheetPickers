@@ -39,6 +39,12 @@ public class BottomSheetDatePickerDialog extends DatePickerDialog {
      * DatePickerDialog.Builder} to maintain forward compatibility with potential future client code.
      */
     public static final class Builder extends DatePickerDialog.Builder {
+        /**
+         * @param listener    How the parent is notified that the date is set.
+         * @param year        The initial year of the dialog.
+         * @param monthOfYear The initial month of the dialog.
+         * @param dayOfMonth  The initial day of the dialog.
+         */
         public Builder(OnDateSetListener listener, int year, int monthOfYear, int dayOfMonth) {
             super(listener, year, monthOfYear, dayOfMonth);
         }

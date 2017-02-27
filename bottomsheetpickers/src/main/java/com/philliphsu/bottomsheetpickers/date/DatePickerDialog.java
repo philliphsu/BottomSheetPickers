@@ -837,6 +837,12 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         private int mDayOfWeekHeaderTextColorSelected;
         private int mDayOfWeekHeaderTextColorUnselected;
 
+        /**
+         * @param listener    How the parent is notified that the date is set.
+         * @param year        The initial year of the dialog.
+         * @param monthOfYear The initial month of the dialog.
+         * @param dayOfMonth  The initial day of the dialog.
+         */
         public Builder(OnDateSetListener listener, int year, int monthOfYear, int dayOfMonth) {
             mListener = listener;
             mYear = year;

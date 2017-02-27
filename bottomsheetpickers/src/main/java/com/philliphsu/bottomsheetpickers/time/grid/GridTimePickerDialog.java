@@ -127,6 +127,12 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         return R.layout.bsp_dialog_time_picker_grid;
     }
 
+    /**
+     * @param callback      How the parent is notified that the time is set.
+     * @param hourOfDay     The initial hour-of-day of the dialog.
+     * @param minute        The initial minute of the dialog.
+     * @param is24HourMode  Whether the dialog should be configured for 24-hour mode.
+     */
     public static GridTimePickerDialog newInstance(OnTimeSetListener callback,
                                                    int hourOfDay, int minute, boolean is24HourMode) {
         GridTimePickerDialog ret = new GridTimePickerDialog();
@@ -1007,6 +1013,12 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         private int mHalfDayButtonColorSelected;
         private int mHalfDayButtonColorUnselected;
 
+        /**
+         * @param listener      How the parent is notified that the time is set.
+         * @param hourOfDay     The initial hour-of-day of the dialog.
+         * @param minute        The initial minute of the dialog.
+         * @param is24HourMode  Whether the dialog should be configured for 24-hour mode.
+         */
         public Builder(OnTimeSetListener listener, int hourOfDay, int minute, boolean is24HourMode) {
             super(listener, is24HourMode);
             mHour = hourOfDay;
