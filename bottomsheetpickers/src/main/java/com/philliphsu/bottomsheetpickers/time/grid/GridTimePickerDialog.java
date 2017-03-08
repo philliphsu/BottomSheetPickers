@@ -19,6 +19,8 @@ package com.philliphsu.bottomsheetpickers.time.grid;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.design.widget.FloatingActionButton;
@@ -423,8 +425,17 @@ public class GridTimePickerDialog extends BottomSheetTimePickerDialog
         int secondColor = amOrPm == HALF_DAY_2 ? mHalfDaySelectedColor : mHalfDayUnselectedColor;
 
         if (mIs24HourMode) {
-            ((VectorDrawableCompat) mFirstHalfDayToggle.getDrawable()).setTint(firstColor);
-            ((VectorDrawableCompat) mSecondHalfDayToggle.getDrawable()).setTint(secondColor);
+            final Drawable firstHalfDayToggle = mFirstHalfDayToggle.getDrawable();
+            final Drawable secondHalfDayToggle = mSecondHalfDayToggle.getDrawable();
+            if (Utils.checkApiLevel(Build.VERSION_CODES.LOLLIPOP)) {
+                firstHalfDayToggle.setTint(firstColor);
+                secondHalfDayToggle.setTint(secondColor);
+            } else {
+                // Ignore the Lint warning that says the casting is redundant;
+                // it is in fact necessary.
+                ((VectorDrawableCompat) firstHalfDayToggle).setTint(firstColor);
+                ((VectorDrawableCompat) secondHalfDayToggle).setTint(secondColor);
+            }
         } else {
             mAmTextView.setTextColor(firstColor);
             mPmTextView.setTextColor(secondColor);
