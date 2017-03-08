@@ -8,8 +8,8 @@ android {
         applicationId "com.example.bottomsheetpickers"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 6
-        versionName "2.3.1"
+        versionCode 7
+        versionName "2.3.2"
     }
     buildTypes {
         release {
