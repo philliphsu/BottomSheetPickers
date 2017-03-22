@@ -1,52 +1,40 @@
 # BottomSheetPickers
-[ ![Download](https://api.bintray.com/packages/philliphsu/maven/bottom-sheet-pickers/images/download.svg) ]
-(https://bintray.com/philliphsu/maven/bottom-sheet-pickers/_latestVersion)
+[![Download](https://api.bintray.com/packages/philliphsu/maven/bottom-sheet-pickers/images/download.svg)](https://bintray.com/philliphsu/maven/bottom-sheet-pickers/_latestVersion)
 
 BottomSheetPickers is a library of new date and time pickers for Android,
 supporting API level 14 and up.
 
 ## Date Picker
 
-<img src="screenshots/paging-date-picker-light.png" width="180" height="320">
-<img src="screenshots/month-picker-light.png" width="180" height="320">
-<img src="screenshots/year-picker-light.png" width="180" height="320">
+<img src="screenshots/paging-date-picker-light.png" width="180" height="320"> <img src="screenshots/month-picker-light.png" width="180" height="320"> <img src="screenshots/year-picker-light.png" width="180" height="320">
 
-<img src="screenshots/paging-date-picker-dark.png" width="180" height="320">
-<img src="screenshots/month-picker-dark.png" width="180" height="320">
-<img src="screenshots/year-picker-dark.png" width="180" height="320">
+<img src="screenshots/paging-date-picker-dark.png" width="180" height="320"> <img src="screenshots/month-picker-dark.png" width="180" height="320"> <img src="screenshots/year-picker-dark.png" width="180" height="320">
 
 ## Time Pickers
 
 ### Number Pad
 
-<img src="screenshots/number-pad-12h-light.png" width="180" height="320">
-<img src="screenshots/number-pad-24h-light.png" width="180" height="320">
-<img src="screenshots/number-pad-12h-dark.png" width="180" height="320">
-<img src="screenshots/number-pad-24h-dark.png" width="180" height="320">
+<img src="screenshots/number-pad-12h-light.png" width="180" height="320"> <img src="screenshots/number-pad-24h-light.png" width="180" height="320"> <img src="screenshots/number-pad-12h-dark.png" width="180" height="320"> <img src="screenshots/number-pad-24h-dark.png" width="180" height="320">
 
 ### Grid Picker
 
-<img src="screenshots/12h-grid-light.png" width="180" height="320">
-<img src="screenshots/minutes-grid-light.png" width="180" height="320">
-<img src="screenshots/24h-grid-light.png" width="180" height="320">
+<img src="screenshots/12h-grid-light.png" width="180" height="320"> <img src="screenshots/minutes-grid-light.png" width="180" height="320"> <img src="screenshots/24h-grid-light.png" width="180" height="320">
 
-<img src="screenshots/12h-grid-dark.png" width="180" height="320">
-<img src="screenshots/minutes-grid-dark.png" width="180" height="320">
-<img src="screenshots/24h-grid-dark.png" width="180" height="320">
+<img src="screenshots/12h-grid-dark.png" width="180" height="320"> <img src="screenshots/minutes-grid-dark.png" width="180" height="320"> <img src="screenshots/24h-grid-dark.png" width="180" height="320">
 
 ## Table of Contents
 1. [Installation](#installation)
 2. [Usage](#usage)
-  1. [Implement Callbacks](#implement-callbacks)
-  2. [Create Pickers](#create-pickers)
-  3. [Show the Dialog](#show-the-dialog)
-  4. [Theming](#theming)
-  5. [Additional Options](#additional-options)
-    1. [Basic Options](#basic-options)
-    2. [DatePickerDialog and DatePickerDialog.Builder](#datepickerdialog-and-datepickerdialogbuilder)
-    3. [NumberPadTimePickerDialog and NumberPadTimePickerDialog.Builder](#numberpadtimepickerdialog-and-numberpadtimepickerdialogbuilder)
-    4. [GridTimePickerDialog and GridTimePickerDialog.Builder](#gridtimepickerdialog-and-gridtimepickerdialogbuilder)
-    5. [Setters Only](#setters-only)
+    1. [Implement Callbacks](#implement-callbacks)
+    2. [Create Pickers](#create-pickers)
+    3. [Show the Dialog](#show-the-dialog)
+    4. [Theming](#theming)
+    5. [Additional Options](#additional-options)
+        1. [Basic Options](#basic-options)
+        2. [DatePickerDialog and DatePickerDialog.Builder](#datepickerdialog-and-datepickerdialogbuilder)
+        3. [NumberPadTimePickerDialog and NumberPadTimePickerDialog.Builder](#numberpadtimepickerdialog-and-numberpadtimepickerdialogbuilder)
+        4. [GridTimePickerDialog and GridTimePickerDialog.Builder](#gridtimepickerdialog-and-gridtimepickerdialogbuilder)
+        5. [Setters Only](#setters-only)
 3. [Attribution](#attribution)
 4. [License](#license)
 
@@ -54,7 +42,7 @@ supporting API level 14 and up.
 Add the following dependency to your module's `build.gradle`:
 ```groovy
 dependencies {
-  compile 'com.philliphsu:bottomsheetpickers:2.3.2'
+    compile 'com.philliphsu:bottomsheetpickers:2.3.2'
 }
 ```
 
