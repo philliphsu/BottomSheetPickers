@@ -29,6 +29,7 @@ public class TextSwitcherActivity extends AppCompatActivity {
         });
         switcher.setInAnimation(this, android.R.anim.fade_in);
         switcher.setOutAnimation(this, android.R.anim.fade_out);
+        switcher.setCurrentText("Click the button to change the text.");
 
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
