@@ -11,6 +11,8 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.philliphsu.bottomsheetpickers.view.TwentyFourHourPickerDialog;
+
 public class TextSwitcherActivity extends AppCompatActivity {
 
     private int count = 0;
@@ -57,6 +59,15 @@ public class TextSwitcherActivity extends AppCompatActivity {
                     ((TextSwitcher) switchersGroup.getChildAt(i)).setText(newText);
                 }
                 countGroup++;
+            }
+        });
+
+        Button button3 = (Button) findViewById(R.id.button3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TwentyFourHourPickerDialog dialog = new TwentyFourHourPickerDialog(TextSwitcherActivity.this);
+                dialog.show();
             }
         });
     }
