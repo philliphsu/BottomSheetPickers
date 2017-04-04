@@ -30,8 +30,6 @@ public final class TwentyFourHourPickerView extends GridLayout {
 
     private static final int NUM_TEXT_SWITCHERS = TEXT_SWITCHER_IDS.length;
 
-    private static final TextSwitcher[] TEXT_SWITCHERS = new TextSwitcher[NUM_TEXT_SWITCHERS];
-
     private static final String[] HOURS_TEXTS_00_11 = new String[12];
     private static final String[] HOURS_TEXTS_12_23 = new String[12];
 
@@ -41,6 +39,8 @@ public final class TwentyFourHourPickerView extends GridLayout {
             HOURS_TEXTS_12_23[i] = String.format("%02d", i + 12);
         }
     }
+
+    private final TextSwitcher[] TEXT_SWITCHERS = new TextSwitcher[NUM_TEXT_SWITCHERS];
 
     private boolean mIsShowingHoursTextsForHalfDay2;
 
