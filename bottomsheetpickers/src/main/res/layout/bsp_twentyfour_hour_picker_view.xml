@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Contents of a TwentyFourHourPickerView. -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bsp_gridpicker_margin_top" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout style="@style/BSP_GridPickerButtonRowLayout">
+            <Space style="@style/BSP_GridPickerSpaceStyle" />
+            <TextSwitcher android:id="@+id/switcher0" style="@style/BSP_GridPickerButtonStyle" />
+            <TextSwitcher android:id="@+id/switcher1" style="@style/BSP_GridPickerButtonStyle" />
+            <TextSwitcher android:id="@+id/switcher2" style="@style/BSP_GridPickerButtonStyle" />
+            <Space style="@style/BSP_GridPickerSpaceStyle" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/BSP_GridPickerButtonRowLayout">
+            <Space style="@style/BSP_GridPickerSpaceStyle" />
+            <TextSwitcher android:id="@+id/switcher3" style="@style/BSP_GridPickerButtonStyle" />
+            <TextSwitcher android:id="@+id/switcher4" style="@style/BSP_GridPickerButtonStyle" />
+            <TextSwitcher android:id="@+id/switcher5" style="@style/BSP_GridPickerButtonStyle" />
+            <Space style="@style/BSP_GridPickerSpaceStyle" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/BSP_GridPickerButtonRowLayout">
+            <Space style="@style/BSP_GridPickerSpaceStyle" />
+            <TextSwitcher android:id="@+id/switcher6" style="@style/BSP_GridPickerButtonStyle" />
+            <TextSwitcher android:id="@+id/switcher7" style="@style/BSP_GridPickerButtonStyle" />
+            <TextSwitcher android:id="@+id/switcher8" style="@style/BSP_GridPickerButtonStyle" />
+            <Space style="@style/BSP_GridPickerSpaceStyle" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/BSP_GridPickerButtonRowLayout">
+            <Space style="@style/BSP_GridPickerSpaceStyle" />
+            <TextSwitcher android:id="@+id/switcher9" style="@style/BSP_GridPickerButtonStyle" />
+            <TextSwitcher android:id="@+id/switcher10" style="@style/BSP_GridPickerButtonStyle" />
+            <TextSwitcher android:id="@+id/switcher11" style="@style/BSP_GridPickerButtonStyle" />
+            <Space style="@style/BSP_GridPickerSpaceStyle" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- From dimens.xml: dialpad_bottom_space_height = 80dp
+         "The bottom space of the dialpad to account for the dial button"
+         
+         dialpad_space_below_keys = 8dp
+         floating_action_button_height = 56dp
+         floating_action_button_margin_bottom = 16dp
+         TOTAL = 80dp
+         
+         Note that the DialpadView is a subclass of RelativeLayout, so they
+         had to use some workaround to add the FAB and the bottom space.
+    -->
+    <!--<Space-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dialpad_bottom_space_height" />-->
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bsp_gridpicker_margin_bottom" />
+
+</merge>

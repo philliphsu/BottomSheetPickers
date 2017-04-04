@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Top margin of a grid-based picker. -->
+    <dimen name="bsp_gridpicker_margin_top">16dp</dimen>
+    <!-- Bottom margin of a grid-based picker. -->
+    <dimen name="bsp_gridpicker_margin_bottom">16dp</dimen>
+    <!-- Height of a button in a grid-based picker. -->
+    <dimen name="bsp_gridpicker_button_height">64dp</dimen>
+</resources>
