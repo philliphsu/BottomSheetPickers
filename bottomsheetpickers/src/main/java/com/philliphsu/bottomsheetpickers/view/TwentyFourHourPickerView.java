@@ -18,6 +18,7 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
  * View to pick an hour (00 - 23) from a 4 x 3 grid.
  */
 public final class TwentyFourHourPickerView extends FrameLayout {
+    private static final String TAG = TwentyFourHourPickerView.class.getSimpleName();
 
     private static final @IdRes int[] TEXT_SWITCHER_IDS = {
             R.id.switcher0,
@@ -40,6 +41,8 @@ public final class TwentyFourHourPickerView extends FrameLayout {
 
     private static final String[] HOURS_TEXTS_00_11 = new String[12];
     private static final String[] HOURS_TEXTS_12_23 = new String[12];
+
+    private boolean mIsShowingHoursTextsForHalfDay2;
 
     static {
         for (int i = 0; i < 12; i++) {
@@ -69,6 +72,8 @@ public final class TwentyFourHourPickerView extends FrameLayout {
             TEXT_SWITCHERS[i].setCurrentText(HOURS_TEXTS_00_11[i]);
             TEXT_SWITCHERS[i].setOnClickListener(mOnClickListener);
         }
+
+        mIsShowingHoursTextsForHalfDay2 = false;
     }
 
 //    @TargetApi(21)
@@ -81,8 +86,10 @@ public final class TwentyFourHourPickerView extends FrameLayout {
         @Override
         public void onClick(View v) {
             for (int i = 0; i < NUM_TEXT_SWITCHERS; i++) {
-                TEXT_SWITCHERS[i].setText(HOURS_TEXTS_12_23[i]);
+                TEXT_SWITCHERS[i].setText(mIsShowingHoursTextsForHalfDay2
+                        ? HOURS_TEXTS_00_11[i] : HOURS_TEXTS_12_23[i]);
             }
+            mIsShowingHoursTextsForHalfDay2 = !mIsShowingHoursTextsForHalfDay2;
         }
     };
 
@@ -93,6 +100,7 @@ public final class TwentyFourHourPickerView extends FrameLayout {
             TextView view = new TextView(getContext());
             view.setGravity(Gravity.CENTER);
             view.setLayoutParams(new LayoutParams(MATCH_PARENT, MATCH_PARENT));
+            // TODO: Create new style.
             view.setTextAppearance(getContext(), R.style.BSP_PadButtonStyle_Numeric);
             return view;
         }
