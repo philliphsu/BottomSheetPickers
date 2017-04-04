@@ -22,10 +22,10 @@ public final class TwentyFourHourPickerView extends GridLayout {
     private static final String TAG = TwentyFourHourPickerView.class.getSimpleName();
 
     private static final @IdRes int[] TEXT_SWITCHER_IDS = {
-            R.id.switcher0,  R.id.switcher1,   R.id.switcher2,
-            R.id.switcher3,  R.id.switcher4,   R.id.switcher5,
-            R.id.switcher6,  R.id.switcher7,   R.id.switcher8,
-            R.id.switcher9,  R.id.switcher10,  R.id.switcher11,
+            R.id.bsp_switcher0,  R.id.bsp_switcher1,   R.id.bsp_switcher2,
+            R.id.bsp_switcher3,  R.id.bsp_switcher4,   R.id.bsp_switcher5,
+            R.id.bsp_switcher6,  R.id.bsp_switcher7,   R.id.bsp_switcher8,
+            R.id.bsp_switcher9,  R.id.bsp_switcher10,  R.id.bsp_switcher11,
     };
 
     private static final int NUM_TEXT_SWITCHERS = TEXT_SWITCHER_IDS.length;

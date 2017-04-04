@@ -7,30 +7,30 @@
 
     <!-- Row 1 -->
     <Space style="@style/BSP_GridPickerRowGutterStyle" />
-    <TextSwitcher android:id="@+id/switcher0" style="@style/BSP_GridPickerButtonStyle" />
-    <TextSwitcher android:id="@+id/switcher1" style="@style/BSP_GridPickerButtonStyle" />
-    <TextSwitcher android:id="@+id/switcher2" style="@style/BSP_GridPickerButtonStyle" />
+    <TextSwitcher android:id="@+id/bsp_switcher0" style="@style/BSP_GridPickerButtonStyle" />
+    <TextSwitcher android:id="@+id/bsp_switcher1" style="@style/BSP_GridPickerButtonStyle" />
+    <TextSwitcher android:id="@+id/bsp_switcher2" style="@style/BSP_GridPickerButtonStyle" />
     <Space style="@style/BSP_GridPickerRowGutterStyle" />
 
     <!-- Row 2 -->
     <Space style="@style/BSP_GridPickerRowGutterStyle" />
-    <TextSwitcher android:id="@+id/switcher3" style="@style/BSP_GridPickerButtonStyle" />
-    <TextSwitcher android:id="@+id/switcher4" style="@style/BSP_GridPickerButtonStyle" />
-    <TextSwitcher android:id="@+id/switcher5" style="@style/BSP_GridPickerButtonStyle" />
+    <TextSwitcher android:id="@+id/bsp_switcher3" style="@style/BSP_GridPickerButtonStyle" />
+    <TextSwitcher android:id="@+id/bsp_switcher4" style="@style/BSP_GridPickerButtonStyle" />
+    <TextSwitcher android:id="@+id/bsp_switcher5" style="@style/BSP_GridPickerButtonStyle" />
     <Space style="@style/BSP_GridPickerRowGutterStyle" />
 
     <!-- Row 3 -->
     <Space style="@style/BSP_GridPickerRowGutterStyle" />
-    <TextSwitcher android:id="@+id/switcher6" style="@style/BSP_GridPickerButtonStyle" />
-    <TextSwitcher android:id="@+id/switcher7" style="@style/BSP_GridPickerButtonStyle" />
-    <TextSwitcher android:id="@+id/switcher8" style="@style/BSP_GridPickerButtonStyle" />
+    <TextSwitcher android:id="@+id/bsp_switcher6" style="@style/BSP_GridPickerButtonStyle" />
+    <TextSwitcher android:id="@+id/bsp_switcher7" style="@style/BSP_GridPickerButtonStyle" />
+    <TextSwitcher android:id="@+id/bsp_switcher8" style="@style/BSP_GridPickerButtonStyle" />
     <Space style="@style/BSP_GridPickerRowGutterStyle" />
 
     <!-- Row 4 -->
     <Space style="@style/BSP_GridPickerRowGutterStyle" />
-    <TextSwitcher android:id="@+id/switcher9" style="@style/BSP_GridPickerButtonStyle" />
-    <TextSwitcher android:id="@+id/switcher10" style="@style/BSP_GridPickerButtonStyle" />
-    <TextSwitcher android:id="@+id/switcher11" style="@style/BSP_GridPickerButtonStyle" />
+    <TextSwitcher android:id="@+id/bsp_switcher9" style="@style/BSP_GridPickerButtonStyle" />
+    <TextSwitcher android:id="@+id/bsp_switcher10" style="@style/BSP_GridPickerButtonStyle" />
+    <TextSwitcher android:id="@+id/bsp_switcher11" style="@style/BSP_GridPickerButtonStyle" />
     <Space style="@style/BSP_GridPickerRowGutterStyle" />
 
     <!-- From dimens.xml: dialpad_bottom_space_height = 80dp
