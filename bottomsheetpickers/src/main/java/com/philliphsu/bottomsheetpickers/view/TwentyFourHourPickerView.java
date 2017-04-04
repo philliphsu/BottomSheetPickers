@@ -3,16 +3,21 @@ package com.philliphsu.bottomsheetpickers.view;
 import android.content.Context;
 import android.support.annotation.IdRes;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.TextSwitcher;
+import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.philliphsu.bottomsheetpickers.R;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
  * View to pick an hour (00 - 23) from a 4 x 3 grid.
  */
-public final class TwentyFourHourPickerView extends LinearLayout {
+public final class TwentyFourHourPickerView extends FrameLayout {
 
     private static final @IdRes int[] TEXT_SWITCHER_IDS = {
             R.id.switcher0,
@@ -57,10 +62,12 @@ public final class TwentyFourHourPickerView extends LinearLayout {
 
         for (int i = 0; i < NUM_TEXT_SWITCHERS; i++) {
             TEXT_SWITCHERS[i] = (TextSwitcher) findViewById(TEXT_SWITCHER_IDS[i]);
-            if (i < 12) {
-                TEXT_SWITCHERS[i].setCurrentText(HOURS_TEXTS_00_11[i]);
-                TEXT_SWITCHERS[i].setOnClickListener(mOnClickListener);
-            }
+            TEXT_SWITCHERS[i].setFactory(mFactory);
+            // TODO: Load the animation once and set it here.
+            TEXT_SWITCHERS[i].setInAnimation(context, android.R.anim.fade_in);
+            TEXT_SWITCHERS[i].setOutAnimation(context, android.R.anim.fade_out);
+            TEXT_SWITCHERS[i].setCurrentText(HOURS_TEXTS_00_11[i]);
+            TEXT_SWITCHERS[i].setOnClickListener(mOnClickListener);
         }
     }
 
@@ -73,9 +80,21 @@ public final class TwentyFourHourPickerView extends LinearLayout {
     private OnClickListener mOnClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            for (int i = 0; i < 12; i++) {
+            for (int i = 0; i < NUM_TEXT_SWITCHERS; i++) {
                 TEXT_SWITCHERS[i].setText(HOURS_TEXTS_12_23[i]);
             }
+        }
+    };
+
+    // TODO: Proper implementation--not this anonymous inner class.
+    private ViewSwitcher.ViewFactory mFactory = new ViewSwitcher.ViewFactory() {
+        @Override
+        public View makeView() {
+            TextView view = new TextView(getContext());
+            view.setGravity(Gravity.CENTER);
+            view.setLayoutParams(new LayoutParams(MATCH_PARENT, MATCH_PARENT));
+            view.setTextAppearance(getContext(), R.style.BSP_PadButtonStyle_Numeric);
+            return view;
         }
     };
 }
