@@ -22,18 +22,10 @@ public final class TwentyFourHourPickerView extends GridLayout {
     private static final String TAG = TwentyFourHourPickerView.class.getSimpleName();
 
     private static final @IdRes int[] TEXT_SWITCHER_IDS = {
-            R.id.switcher0,
-            R.id.switcher1,
-            R.id.switcher2,
-            R.id.switcher3,
-            R.id.switcher4,
-            R.id.switcher5,
-            R.id.switcher6,
-            R.id.switcher7,
-            R.id.switcher8,
-            R.id.switcher9,
-            R.id.switcher10,
-            R.id.switcher11,
+            R.id.switcher0,  R.id.switcher1,   R.id.switcher2,
+            R.id.switcher3,  R.id.switcher4,   R.id.switcher5,
+            R.id.switcher6,  R.id.switcher7,   R.id.switcher8,
+            R.id.switcher9,  R.id.switcher10,  R.id.switcher11,
     };
 
     private static final int NUM_TEXT_SWITCHERS = TEXT_SWITCHER_IDS.length;
@@ -43,14 +35,14 @@ public final class TwentyFourHourPickerView extends GridLayout {
     private static final String[] HOURS_TEXTS_00_11 = new String[12];
     private static final String[] HOURS_TEXTS_12_23 = new String[12];
 
-    private boolean mIsShowingHoursTextsForHalfDay2;
-
     static {
         for (int i = 0; i < 12; i++) {
             HOURS_TEXTS_00_11[i] = String.format("%02d", i);
             HOURS_TEXTS_12_23[i] = String.format("%02d", i + 12);
         }
     }
+
+    private boolean mIsShowingHoursTextsForHalfDay2;
 
     public TwentyFourHourPickerView(Context context) {
         this(context, null);
