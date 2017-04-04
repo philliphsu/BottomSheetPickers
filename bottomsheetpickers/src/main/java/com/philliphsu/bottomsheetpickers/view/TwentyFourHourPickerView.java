@@ -2,10 +2,10 @@ package com.philliphsu.bottomsheetpickers.view;
 
 import android.content.Context;
 import android.support.annotation.IdRes;
+import android.support.v7.widget.GridLayout;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -17,7 +17,8 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 /**
  * View to pick an hour (00 - 23) from a 4 x 3 grid.
  */
-public final class TwentyFourHourPickerView extends FrameLayout {
+// TODO: Make package private after you're done testing in TextSwitcherActivity. Then delete the usage in its layout.
+public final class TwentyFourHourPickerView extends GridLayout {
     private static final String TAG = TwentyFourHourPickerView.class.getSimpleName();
 
     private static final @IdRes int[] TEXT_SWITCHER_IDS = {
@@ -61,6 +62,7 @@ public final class TwentyFourHourPickerView extends FrameLayout {
 
     public TwentyFourHourPickerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setColumnCount(5);  // 3 buttons + 2 spaces. No explicit row count is needed.
         inflate(context, R.layout.bsp_twentyfour_hour_picker_view, this);
 
         for (int i = 0; i < NUM_TEXT_SWITCHERS; i++) {
@@ -99,7 +101,14 @@ public final class TwentyFourHourPickerView extends FrameLayout {
         public View makeView() {
             TextView view = new TextView(getContext());
             view.setGravity(Gravity.CENTER);
-            view.setLayoutParams(new LayoutParams(MATCH_PARENT, MATCH_PARENT));
+            // Set the view to match the TextSwitcher's width and height. Otherwise, the
+            // TextSwitcher will, by default, set this view's width to MATCH_PARENT but its
+            // height to WRAP_CONTENT.
+            //
+            // A TextSwitcher is a ViewSwitcher, which itself is a FrameLayout, so this LayoutParams
+            // will be accepted under the hood and the ViewSwitcher will not create its own
+            // LayoutParams.
+            view.setLayoutParams(new TextSwitcher.LayoutParams(MATCH_PARENT, MATCH_PARENT));
             // TODO: Create new style.
             view.setTextAppearance(getContext(), R.style.BSP_PadButtonStyle_Numeric);
             return view;

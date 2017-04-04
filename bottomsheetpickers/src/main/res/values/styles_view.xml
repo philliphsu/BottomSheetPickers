@@ -17,25 +17,32 @@
 
 <!-- platform/packages/apps/PhoneCommon/+/master/res/values/styles.xml -->
 <resources>
-    <style name="BSP_GridPickerButtonRowLayout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:orientation">horizontal</item>
-    </style>
-    
-    <style name="BSP_GridPickerSpaceStyle">
+    <style name="BSP_GridPickerVerticalTopSpaceStyle">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_weight">3</item>
+        <item name="android:layout_height">@dimen/bsp_gridpicker_margin_top</item>
+        <item name="app:layout_columnSpan">5</item>
+    </style>
+
+    <style name="BSP_GridPickerVerticalBottomSpaceStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/bsp_gridpicker_margin_bottom</item>
+        <item name="app:layout_columnSpan">5</item>
+    </style>
+
+    <style name="BSP_GridPickerRowGutterStyle">
+        <!-- TODO: Define dimens for width using 16dp when smallest width < 600dp and 24dp otherwise. -->
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_columnWeight">3</item>
     </style>
 
     <style name="BSP_GridPickerButtonStyle">
         <item name="android:soundEffectsEnabled">false</item>
         <item name="android:clickable">true</item>
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_weight">13</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!-- TODO: If you do change the gutters to use an exact width, determine if this needs to adapt. -->
+        <item name="layout_columnWeight">13</item>
         <item name="android:minHeight">@dimen/bsp_gridpicker_button_height</item>
         <item name="android:background">?selectableItemBackground</item>
         <item name="android:focusable">true</item>
