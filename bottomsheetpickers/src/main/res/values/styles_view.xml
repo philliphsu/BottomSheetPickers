@@ -37,7 +37,7 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">13</item>
         <item name="android:minHeight">@dimen/bsp_gridpicker_button_height</item>
-        <item name="android:background">@drawable/bsp_gridpicker_button_background</item>
+        <item name="android:background">?selectableItemBackground</item>
         <item name="android:focusable">true</item>
     </style>
 </resources>
