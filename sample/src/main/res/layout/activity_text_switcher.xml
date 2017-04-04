@@ -23,4 +23,36 @@
         android:layout_below="@id/text_switcher"
         android:text="Click me!"/>
 
+    <LinearLayout
+        android:id="@+id/text_switchers_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/button"
+        android:layout_marginTop="48dp">
+
+        <TextSwitcher
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextSwitcher
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextSwitcher
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_switchers_group"
+        android:text="Click me!" />
+
 </RelativeLayout>
