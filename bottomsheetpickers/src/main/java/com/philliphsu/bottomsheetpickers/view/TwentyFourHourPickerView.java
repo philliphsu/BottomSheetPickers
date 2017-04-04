@@ -12,7 +12,7 @@ import com.philliphsu.bottomsheetpickers.R;
 /**
  * View to pick an hour (00 - 23) from a 4 x 3 grid.
  */
-final class TwentyFourHourPickerView extends LinearLayout {
+public final class TwentyFourHourPickerView extends LinearLayout {
 
     private static final @IdRes int[] TEXT_SWITCHER_IDS = {
             R.id.switcher0,

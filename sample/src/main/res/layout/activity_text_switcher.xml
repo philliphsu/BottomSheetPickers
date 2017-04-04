@@ -55,4 +55,9 @@
         android:layout_below="@+id/text_switchers_group"
         android:text="Click me!" />
 
+    <com.philliphsu.bottomsheetpickers.view.TwentyFourHourPickerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button2"/>
+
 </RelativeLayout>
