@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Contents of a MinutePickerView (GridLayout). -->
+<!-- TODO: Create a new style for the TextViews. -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <!-- Row 0 -->
+    <Space style="@style/BSP_GridPickerVerticalTopSpaceStyle" />
+
+    <!-- Row 1 -->
+    <Space style="@style/BSP_GridPickerRowGutterStyle" />
+    <TextView android:id="@+id/bsp_text0" style="@style/BSP_PadButtonStyle.Numeric.Minute" />
+    <TextView android:id="@+id/bsp_text1" style="@style/BSP_PadButtonStyle.Numeric.Minute" />
+    <TextView android:id="@+id/bsp_text2" style="@style/BSP_PadButtonStyle.Numeric.Minute" />
+    <Space style="@style/BSP_GridPickerRowGutterStyle" />
+
+    <!-- Row 2 -->
+    <Space style="@style/BSP_GridPickerRowGutterStyle" />
+    <TextView android:id="@+id/bsp_text3" style="@style/BSP_PadButtonStyle.Numeric.Minute" />
+    <TextView android:id="@+id/bsp_text4" style="@style/BSP_PadButtonStyle.Numeric.Minute" />
+    <TextView android:id="@+id/bsp_text5" style="@style/BSP_PadButtonStyle.Numeric.Minute" />
+    <Space style="@style/BSP_GridPickerRowGutterStyle" />
+
+    <!-- Row 3 -->
+    <Space style="@style/BSP_GridPickerRowGutterStyle" />
+    <TextView android:id="@+id/bsp_text6" style="@style/BSP_PadButtonStyle.Numeric.Minute" />
+    <TextView android:id="@+id/bsp_text7" style="@style/BSP_PadButtonStyle.Numeric.Minute" />
+    <TextView android:id="@+id/bsp_text8" style="@style/BSP_PadButtonStyle.Numeric.Minute" />
+    <Space style="@style/BSP_GridPickerRowGutterStyle" />
+
+    <!-- Row 4 -->
+    <Space style="@style/BSP_GridPickerRowGutterStyle" />
+    <TextView android:id="@+id/bsp_text9" style="@style/BSP_PadButtonStyle.Numeric.Minute" />
+    <TextView android:id="@+id/bsp_text10" style="@style/BSP_PadButtonStyle.Numeric.Minute" />
+    <TextView android:id="@+id/bsp_text11" style="@style/BSP_PadButtonStyle.Numeric.Minute" />
+    <Space style="@style/BSP_GridPickerRowGutterStyle" />
+
+    <!-- Row 5 -->
+    <Space style="@style/BSP_GridPickerRowGutterStyle" app:layout_column="0" />
+    <!-- TODO: Create styles for these buttons. -->
+    <ImageButton android:id="@+id/bsp_dec_min"
+                 app:srcCompat="@drawable/bsp_ic_minus_circle_24dp"
+                 app:layout_column="1" />
+    <ImageButton android:id="@+id/bsp_inc_min"
+                 app:srcCompat="@drawable/bsp_ic_add_circle_24dp"
+                 app:layout_column="3" />
+    <Space style="@style/BSP_GridPickerRowGutterStyle" app:layout_column="4" />
+    
+    <!-- Row 6 -->
+    <Space style="@style/BSP_GridPickerVerticalBottomSpaceStyle" />
+    
+</merge>
