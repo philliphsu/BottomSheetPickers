@@ -4,9 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.philliphsu.bottomsheetpickers.view.HourPickerView
+    <com.philliphsu.bottomsheetpickers.view.NumberPadTimePickerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <com.philliphsu.bottomsheetpickers.view.HourPickerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
     <com.philliphsu.bottomsheetpickers.view.TwentyFourHourPickerView
         android:layout_width="match_parent"
