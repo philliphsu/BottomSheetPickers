@@ -1,4 +1,4 @@
-package com.philliphsu.bottomsheetpickers.view;
+package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;

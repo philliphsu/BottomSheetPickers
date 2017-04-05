@@ -12,7 +12,7 @@ import java.util.Locale;
 /**
  * Utilities for text formatting of dates and times.
  */
-final class DateTimeFormatUtils {
+public final class DateTimeFormatUtils {
     /**
      * The time separator is defined in the Unicode CLDR and cannot be supposed to be ":".
      *
@@ -22,7 +22,7 @@ final class DateTimeFormatUtils {
      * separator as the character which is just after the hour marker in the returned pattern.
      */
     @TargetApi(18)
-    static String getTimeSeparator(@NonNull Context context, boolean is24Hour) {
+    public static String getTimeSeparator(@NonNull Context context, boolean is24Hour) {
         // TODO: Figure out what to do for API < 18.
         final String bestDateTimePattern = DateFormat.getBestDateTimePattern(
                 getPrimaryLocale(context), (is24Hour) ? "Hm" : "hm");

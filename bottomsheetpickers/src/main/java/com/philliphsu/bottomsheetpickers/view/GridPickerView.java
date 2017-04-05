@@ -12,7 +12,7 @@ import com.philliphsu.bottomsheetpickers.R;
 /**
  * View to show a 4 x 3 grid of text buttons.
  */
-class GridPickerView extends GridLayout {
+public class GridPickerView extends GridLayout {
 
     private static final @IdRes int[] TEXTVIEW_IDS = {
             R.id.bsp_text0,  R.id.bsp_text1,   R.id.bsp_text2,

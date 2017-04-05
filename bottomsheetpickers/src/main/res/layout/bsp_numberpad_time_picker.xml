@@ -10,7 +10,7 @@
         android:layout_height="96dp"
         android:layout_gravity="center" />
     <Space style="@style/BSP_GridPickerVerticalTopSpaceStyle"/>
-    <com.philliphsu.bottomsheetpickers.view.NumberPadTimePickerView
+    <com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadTimePickerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Space style="@style/BSP_GridPickerVerticalBottomSpaceStyle"/>
