@@ -1,11 +1,17 @@
 package com.philliphsu.bottomsheetpickers.view;
 
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
+import static java.util.Calendar.AM;
+import static java.util.Calendar.PM;
 
 /**
  * Controller that manages the UI states of a number pad time picker.
@@ -13,8 +19,10 @@ import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
 final class NumberPadTimePickerController {
 
     // Determines how the time should be formatted for display.
-    private static final int AM = 0;
-    private static final int PM = 1;
+    @IntDef({AM, PM, NOT_APPLICABLE})
+    @Retention(RetentionPolicy.SOURCE)
+    private @interface HalfDay {}
+
     private static final int NOT_APPLICABLE = -1;
 
     private static final int MAX_CHARS = 8;
@@ -33,7 +41,7 @@ final class NumberPadTimePickerController {
     private final @NonNull View mBackspaceButton;
     private final @NonNull View mOkButton;
 
-    private int mTimeState;
+    private @HalfDay int mChosenHalfDay;
 
     public NumberPadTimePickerController(@NonNull NumberPadTimePickerView numberPadView,
                                          @NonNull TextView timeDisplayView,
