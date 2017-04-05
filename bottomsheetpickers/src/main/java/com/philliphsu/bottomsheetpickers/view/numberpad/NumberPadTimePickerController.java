@@ -2,7 +2,6 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,34 +24,21 @@ final class NumberPadTimePickerController {
 
     private static final int NOT_APPLICABLE = -1;
 
-    // (M)odel: Simply stores data and provides us access to that data.
     private final DigitwiseTimeModel mDigitwiseTimeModel = new DigitwiseTimeModel();
 
-    // Used by the (C)ontroller to format/process the data from the model for
-    // consumption by the end user.
     // We do not set an initial capacity because the length of a complete time
     // string is locale-dependent.
     private final StringBuilder mTimeFormatter = new StringBuilder();
 
-    // (V)iews
-    private final @NonNull NumberPadTimePickerView mNumberPadView;
-    private final @NonNull TextView mTimeDisplayView;
-    private final @Nullable TextView mAmPmDisplayView;
-    private final @NonNull View mBackspaceButton;
+    private final @NonNull NumberPadTimePicker mTimePicker;
     private final @NonNull View mOkButton;
 
     private @HalfDay int mChosenHalfDay;
 
-    public NumberPadTimePickerController(@NonNull NumberPadTimePickerView numberPadView,
-                                         @NonNull TextView timeDisplayView,
-                                         @Nullable TextView ampmDisplayView,
-                                         @NonNull View backspaceButton,
+    public NumberPadTimePickerController(@NonNull NumberPadTimePicker timePicker,
                                          @NonNull View okButton) {
-        mNumberPadView = checkNotNull(numberPadView);
-        mTimeDisplayView = checkNotNull(timeDisplayView);
-        mBackspaceButton = checkNotNull(backspaceButton);
+        mTimePicker = checkNotNull(timePicker);
         mOkButton = checkNotNull(okButton);
-        mAmPmDisplayView = ampmDisplayView;
     }
 
     void onButtonClick(TextView button) {
