@@ -47,4 +47,9 @@
         <item name="android:background">?selectableItemBackground</item>
         <item name="android:focusable">true</item>
     </style>
+
+    <style name="BSP_GridPickerTextButtonStyle" parent="BSP_GridPickerButtonStyle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>
