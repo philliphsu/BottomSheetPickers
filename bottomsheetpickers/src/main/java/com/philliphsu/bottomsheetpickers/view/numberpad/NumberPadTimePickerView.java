@@ -47,4 +47,8 @@ class NumberPadTimePickerView extends GridPickerView {
     void setNumberKeysEnabled(int start, int end) {
         // TODO
     }
+
+    void setOnNumberKeyClickListener(OnClickListener l) {
+        setOnButtonClickListener(l);
+    }
 }

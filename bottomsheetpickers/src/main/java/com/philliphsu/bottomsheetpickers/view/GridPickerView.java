@@ -41,7 +41,7 @@ public class GridPickerView extends GridLayout {
         }
     }
 
-    public final void setOnButtonClickListener(OnClickListener l) {
+    protected final void setOnButtonClickListener(OnClickListener l) {
         for (int i = 0; i < 12; i++) {
             TEXTVIEWS[i].setOnClickListener(l);
         }
