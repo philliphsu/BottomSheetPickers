@@ -26,7 +26,7 @@ final class NumberPadTimePickerController {
     private static final int NOT_APPLICABLE = -1;
 
     // (M)odel: Simply stores data and provides us access to that data.
-    private final TimeModel mTimeModel = new TimeModel();
+    private final DigitwiseTimeModel mDigitwiseTimeModel = new DigitwiseTimeModel();
 
     // Used by the (C)ontroller to format/process the data from the model for
     // consumption by the end user.
@@ -58,7 +58,7 @@ final class NumberPadTimePickerController {
     void onButtonClick(TextView button) {
         final String text = button.getText().toString();
         try {
-            mTimeModel.storeDigit(Integer.parseInt(text));
+            mDigitwiseTimeModel.storeDigit(Integer.parseInt(text));
         } catch (NumberFormatException e) {
             // TODO: This is either an AM/PM state, or an alt button.
         }
@@ -66,7 +66,7 @@ final class NumberPadTimePickerController {
     }
 
     void onBackspaceClick() {
-        mTimeModel.removeDigit();
+        mDigitwiseTimeModel.removeDigit();
         updateViews();
     }
 
@@ -77,30 +77,4 @@ final class NumberPadTimePickerController {
         // TODO: Format text for display and update time display view.
     }
 
-    /**
-     * Model that encapsulates data pertaining to the inputted time.
-     * The data is insignificant enough that we can make the model
-     * an inner class of the controller.
-     */
-    private static class TimeModel {
-        final int[] mDigits = new int[4];
-
-        void storeDigit(int digit) {
-            int i = -1; // TODO: keep track of our "cursor"
-            mDigits[i] = digit;
-            i++;
-        }
-
-        int getDigit(int at) {
-            return mDigits[at];
-        }
-
-        void removeDigit() {
-            int i = -1; // TODO: keep track of our "cursor"
-            if (i > 0) {
-                i--; // move the cursor back
-                mDigits[i] = -1;
-            }
-        }
-    }
 }
