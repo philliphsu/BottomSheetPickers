@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Contents of a MinutePickerView (GridLayout). -->
+<!-- Contents of a MinutePickerView (LinearLayout). -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
        xmlns:app="http://schemas.android.com/apk/res-auto">
-    
-    <!-- Row 0 -->
+
     <Space style="@style/BSP_GridPickerVerticalTopSpaceStyle" />
 
-    <!-- Rows 1 - 4 -->
-    <include layout="@layout/bsp_gridpicker_text_buttons" />
+    <com.philliphsu.bottomsheetpickers.view.GridPickerView
+        android:id="@+id/bsp_preset_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    <!-- Row 5 -->
-    <Space style="@style/BSP_GridPickerRowGutterStyle" app:layout_column="0" />
-    <ImageButton android:id="@+id/bsp_dec_min"
-                 style="@style/BSP_GridPickerButtonStyle"
-                 app:srcCompat="@drawable/bsp_ic_minus_circle_view_24dp"
-                 app:layout_column="1" />
-    <ImageButton android:id="@+id/bsp_inc_min"
-                 style="@style/BSP_GridPickerButtonStyle"
-                 app:srcCompat="@drawable/bsp_ic_add_circle_view_24dp"
-                 app:layout_column="3" />
-    <Space style="@style/BSP_GridPickerRowGutterStyle" app:layout_column="4" />
-    
+    <android.support.v7.widget.GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:columnCount="5">
+
+        <Space style="@style/BSP_GridPickerRowGutterStyle" />
+
+        <ImageButton
+            android:id="@+id/bsp_dec_min"
+            style="@style/BSP_GridPickerButtonStyle"
+            app:srcCompat="@drawable/bsp_ic_minus_circle_view_24dp" />
+
+        <Space style="@style/BSP_GridPickerButtonStyle" />
+
+        <ImageButton
+            android:id="@+id/bsp_inc_min"
+            style="@style/BSP_GridPickerButtonStyle"
+            app:srcCompat="@drawable/bsp_ic_add_circle_view_24dp" />
+
+        <Space style="@style/BSP_GridPickerRowGutterStyle" />
+
+    </android.support.v7.widget.GridLayout>
+
     <!-- Row 6 -->
     <Space style="@style/BSP_GridPickerVerticalBottomSpaceStyle" />
     

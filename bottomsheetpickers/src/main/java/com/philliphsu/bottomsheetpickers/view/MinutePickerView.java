@@ -1,9 +1,11 @@
 package com.philliphsu.bottomsheetpickers.view;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.annotation.IdRes;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.philliphsu.bottomsheetpickers.R;
 
@@ -11,7 +13,7 @@ import com.philliphsu.bottomsheetpickers.R;
  * View to pick a minute (00 - 59) from a 4 x 3 grid of preset options
  * and buttons to increment and decrement.
  */
-public class MinutePickerView extends GridPickerView {
+public class MinutePickerView extends LinearLayout {
 
     private static final @IdRes int[] TUNER_BUTTONS_IDS =
             { R.id.bsp_dec_min,  R.id.bsp_inc_min };
@@ -26,6 +28,8 @@ public class MinutePickerView extends GridPickerView {
 
     private final ImageButton[] TUNER_BUTTONS = new ImageButton[2];
 
+    private GridPickerView mPresetOptions;
+
     public MinutePickerView(Context context) {
         this(context, null);
     }
@@ -36,13 +40,23 @@ public class MinutePickerView extends GridPickerView {
 
     public MinutePickerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        // TODO: Inflate a layout with just these views?
-        TUNER_BUTTONS[0] = (ImageButton) findViewById(TUNER_BUTTONS_IDS[0]);
-        TUNER_BUTTONS[1] = (ImageButton) findViewById(TUNER_BUTTONS_IDS[1]);
+        init();
     }
 
-    @Override
-    protected String getTextForPosition(int i) {
-        return MINUTES_TEXTS[i];
+    @TargetApi(21)
+    public MinutePickerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+    }
+
+    private void init() {
+        setOrientation(VERTICAL);
+        inflate(getContext(), R.layout.bsp_minute_picker_view, this);
+        mPresetOptions = (GridPickerView) findViewById(R.id.bsp_preset_options);
+        for (int i = 0; i < 12; i++) {
+            mPresetOptions.setTextForPosition(i, MINUTES_TEXTS[i]);
+        }
+        TUNER_BUTTONS[0] = (ImageButton) findViewById(TUNER_BUTTONS_IDS[0]);
+        TUNER_BUTTONS[1] = (ImageButton) findViewById(TUNER_BUTTONS_IDS[1]);
     }
 }

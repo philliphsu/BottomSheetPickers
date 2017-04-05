@@ -2,6 +2,7 @@ package com.philliphsu.bottomsheetpickers.view;
 
 import android.content.Context;
 import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayout;
 import android.util.AttributeSet;
 import android.widget.TextView;
@@ -9,10 +10,9 @@ import android.widget.TextView;
 import com.philliphsu.bottomsheetpickers.R;
 
 /**
- * Base view to show a 4 x 3 grid of text buttons.
+ * View to show a 4 x 3 grid of text buttons.
  */
-// TODO: Make package private when done testing in public Activities.
-public abstract class GridPickerView extends GridLayout {
+class GridPickerView extends GridLayout {
 
     private static final @IdRes int[] TEXTVIEW_IDS = {
             R.id.bsp_text0,  R.id.bsp_text1,   R.id.bsp_text2,
@@ -38,13 +38,14 @@ public abstract class GridPickerView extends GridLayout {
 
         for (int i = 0; i < 12; i++) {
             TEXTVIEWS[i] = (TextView) findViewById(TEXTVIEW_IDS[i]);
-            TEXTVIEWS[i].setText(getTextForPosition(i));
         }
     }
 
     /**
-     * @return   The text to be displayed at position i.
-     * @param i  A position from {@code 0 <= i < 12}.
+     * @param i     A position from {@code 0 <= i < 12}.
+     * @param text  The text to be displayed at position i.
      */
-    protected abstract String getTextForPosition(int i);
+    protected final void setTextForPosition(int i, @Nullable CharSequence text) {
+        TEXTVIEWS[i].setText(text);
+    }
 }
