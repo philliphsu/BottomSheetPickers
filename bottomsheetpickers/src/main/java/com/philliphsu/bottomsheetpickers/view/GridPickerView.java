@@ -41,6 +41,12 @@ public class GridPickerView extends GridLayout {
         }
     }
 
+    public final void setOnButtonClickListener(OnClickListener l) {
+        for (int i = 0; i < 12; i++) {
+            TEXTVIEWS[i].setOnClickListener(l);
+        }
+    }
+
     /**
      * @param i     A position from {@code 0 <= i < 12}.
      * @param text  The text to be displayed at position i.
