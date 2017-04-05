@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
 
 /**
  * Dialog to type in a time.
@@ -11,11 +12,16 @@ import android.support.v7.app.AlertDialog;
 public class NumberPadTimePickerDialog extends AlertDialog implements INumberPadTimePicker.View {
 
     private final NumberPadTimePicker mTimePicker;
+    private final INumberPadTimePicker.Presenter mPresenter;
 
     public NumberPadTimePickerDialog(@NonNull Context context) {
         super(context);
+
         mTimePicker = new NumberPadTimePicker(context);
+        mPresenter = new NumberPadTimePickerPresenter(this);
+        mTimePicker.setOnBackspaceClickListener(new OnBackspaceClickListener(mPresenter));
         setView(mTimePicker);
+
         setButton(BUTTON_POSITIVE, context.getString(android.R.string.ok), new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -63,5 +69,18 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
     @Override
     public void setAmPmDisplayIndex(int index) {
         mTimePicker.setAmPmDisplayIndex(index);
+    }
+
+    private static class OnBackspaceClickListener implements View.OnClickListener {
+        private final INumberPadTimePicker.Presenter mPresenter;
+
+        OnBackspaceClickListener(INumberPadTimePicker.Presenter presenter) {
+            mPresenter = presenter;
+        }
+
+        @Override
+        public void onClick(View v) {
+            mPresenter.onBackspaceClick();
+        }
     }
 }

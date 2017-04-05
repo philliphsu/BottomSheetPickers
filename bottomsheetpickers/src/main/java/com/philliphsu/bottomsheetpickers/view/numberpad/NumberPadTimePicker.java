@@ -84,4 +84,8 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         mHeaderLayout.removeViewAt(1);
         mHeaderLayout.addView(mAmPmDisplay, 0);
     }
+
+    void setOnBackspaceClickListener(OnClickListener l) {
+        mBackspace.setOnClickListener(l);
+    }
 }
