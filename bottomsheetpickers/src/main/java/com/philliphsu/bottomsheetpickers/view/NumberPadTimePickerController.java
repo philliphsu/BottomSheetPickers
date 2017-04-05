@@ -8,6 +8,12 @@ import android.widget.TextView;
  * Controller that manages the UI states of a number pad time picker.
  */
 final class NumberPadTimePickerController {
+
+    // Determines how the time should be formatted for display.
+    private static final int AM = 0;
+    private static final int PM = 1;
+    private static final int NOT_APPLICABLE = -1;
+
     private static final int MAX_CHARS = 8;
 
     // (M)odel: Simply stores data and provides us access to that data.
@@ -22,6 +28,8 @@ final class NumberPadTimePickerController {
     private final TextView mTimeDisplayView;
     private final View mBackspaceButton;
     private final View mOkButton;
+
+    private int mTimeState;
 
     public NumberPadTimePickerController(@NonNull NumberPadTimePickerView numberPadView,
                                          @NonNull TextView timeDisplayView,
@@ -61,13 +69,7 @@ final class NumberPadTimePickerController {
      * an inner class of the controller.
      */
     private static class TimeModel {
-        private static final int AM = 0;
-        private static final int PM = 1;
-        private static final int NOT_APPLICABLE = -1;
-
         private final int[] mDigits = new int[4];
-
-        private int mTimeState;
 
         private void storeDigit(int digit) {
             int i = -1; // TODO: keep track of our "cursor"
