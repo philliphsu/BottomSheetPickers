@@ -6,33 +6,8 @@
     <!-- Row 0 -->
     <Space style="@style/BSP_GridPickerVerticalTopSpaceStyle" />
 
-    <!-- Row 1 -->
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
-    <TextView android:id="@+id/bsp_text0" style="@style/BSP_GridPickerTextButtonStyle" />
-    <TextView android:id="@+id/bsp_text1" style="@style/BSP_GridPickerTextButtonStyle" />
-    <TextView android:id="@+id/bsp_text2" style="@style/BSP_GridPickerTextButtonStyle" />
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
-
-    <!-- Row 2 -->
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
-    <TextView android:id="@+id/bsp_text3" style="@style/BSP_GridPickerTextButtonStyle" />
-    <TextView android:id="@+id/bsp_text4" style="@style/BSP_GridPickerTextButtonStyle" />
-    <TextView android:id="@+id/bsp_text5" style="@style/BSP_GridPickerTextButtonStyle" />
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
-
-    <!-- Row 3 -->
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
-    <TextView android:id="@+id/bsp_text6" style="@style/BSP_GridPickerTextButtonStyle" />
-    <TextView android:id="@+id/bsp_text7" style="@style/BSP_GridPickerTextButtonStyle" />
-    <TextView android:id="@+id/bsp_text8" style="@style/BSP_GridPickerTextButtonStyle" />
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
-
-    <!-- Row 4 -->
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
-    <TextView android:id="@+id/bsp_text9" style="@style/BSP_GridPickerTextButtonStyle" />
-    <TextView android:id="@+id/bsp_text10" style="@style/BSP_GridPickerTextButtonStyle" />
-    <TextView android:id="@+id/bsp_text11" style="@style/BSP_GridPickerTextButtonStyle" />
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
+    <!-- Rows 1 - 4 -->
+    <include layout="@layout/bsp_gridpicker_text_buttons" />
 
     <!-- Row 5 -->
     <Space style="@style/BSP_GridPickerRowGutterStyle" app:layout_column="0" />
