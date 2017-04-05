@@ -23,12 +23,21 @@ class NumberPadTimePickerView extends GridPickerView {
         for (int i = 0; i < 9; i++) {
             setTextForPosition(i, String.format("%d", i + 1));
         }
-        // TODO: Localize these.
-        setTextForPosition(9, DateFormat.is24HourFormat(context) ? ":00" : "AM");
 
+        final String altText1, altText2;
+        if (DateFormat.is24HourFormat(context)) {
+            final String timeSeparator = DateTimeFormatUtils.getTimeSeparator(context, true);
+            altText1 = timeSeparator + String.format("%02d", 0);
+            altText2 = timeSeparator + String.format("%02d", 30);
+        } else  {
+            // TODO: Get localized.
+            altText1 = "AM";
+            altText2 = "PM";
+        }
+        // TODO: Apply a smaller text size.
+        setTextForPosition(9, altText1);
         setTextForPosition(10, String.format("%d", 0));
-
-        // TODO: Localize these.
-        setTextForPosition(11, DateFormat.is24HourFormat(context) ? ":30" : "PM");
+        // TODO: Apply a smaller text size.
+        setTextForPosition(11, altText2);
     }
 }
