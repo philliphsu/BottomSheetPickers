@@ -4,6 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.philliphsu.bottomsheetpickers.view.HourPickerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <com.philliphsu.bottomsheetpickers.view.TwentyFourHourPickerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,6 +15,7 @@
 
     <com.philliphsu.bottomsheetpickers.view.MinutePickerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
 </FrameLayout>
