@@ -1,8 +1,11 @@
 package com.philliphsu.bottomsheetpickers.view;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
+
+import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
 
 /**
  * Controller that manages the UI states of a number pad time picker.
@@ -24,21 +27,24 @@ final class NumberPadTimePickerController {
     private final StringBuilder mTimeFormatter = new StringBuilder(MAX_CHARS);
 
     // (V)iews
-    private final NumberPadTimePickerView mNumberPadView;
-    private final TextView mTimeDisplayView;
-    private final View mBackspaceButton;
-    private final View mOkButton;
+    private final @NonNull NumberPadTimePickerView mNumberPadView;
+    private final @NonNull TextView mTimeDisplayView;
+    private final @Nullable TextView mAmPmDisplayView;
+    private final @NonNull View mBackspaceButton;
+    private final @NonNull View mOkButton;
 
     private int mTimeState;
 
     public NumberPadTimePickerController(@NonNull NumberPadTimePickerView numberPadView,
                                          @NonNull TextView timeDisplayView,
+                                         @Nullable TextView ampmDisplayView,
                                          @NonNull View backspaceButton,
                                          @NonNull View okButton) {
-        mNumberPadView = numberPadView;
-        mTimeDisplayView = timeDisplayView;
-        mBackspaceButton = backspaceButton;
-        mOkButton = okButton;
+        mNumberPadView = checkNotNull(numberPadView);
+        mTimeDisplayView = checkNotNull(timeDisplayView);
+        mBackspaceButton = checkNotNull(backspaceButton);
+        mOkButton = checkNotNull(okButton);
+        mAmPmDisplayView = ampmDisplayView;
     }
 
     void onButtonClick(TextView button) {
