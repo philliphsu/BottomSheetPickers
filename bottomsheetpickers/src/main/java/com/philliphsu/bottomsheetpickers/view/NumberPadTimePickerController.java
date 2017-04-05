@@ -83,19 +83,19 @@ final class NumberPadTimePickerController {
      * an inner class of the controller.
      */
     private static class TimeModel {
-        private final int[] mDigits = new int[4];
+        final int[] mDigits = new int[4];
 
-        private void storeDigit(int digit) {
+        void storeDigit(int digit) {
             int i = -1; // TODO: keep track of our "cursor"
             mDigits[i] = digit;
             i++;
         }
 
-        private int getDigit(int at) {
+        int getDigit(int at) {
             return mDigits[at];
         }
 
-        private void removeDigit() {
+        void removeDigit() {
             int i = -1; // TODO: keep track of our "cursor"
             if (i > 0) {
                 i--; // move the cursor back
