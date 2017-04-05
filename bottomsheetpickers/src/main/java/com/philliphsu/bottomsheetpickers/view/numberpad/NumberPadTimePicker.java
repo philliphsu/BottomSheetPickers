@@ -9,11 +9,7 @@ import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
 
-/**
- * Created by Phillip Hsu on 4/5/2017.
- */
-
-public class NumberPadTimePicker extends LinearLayout {
+class NumberPadTimePicker extends LinearLayout {
 
     private final NumberPadTimePickerView mNumberPad;
     private final TextView mTimeDisplay;
