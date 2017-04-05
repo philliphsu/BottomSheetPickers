@@ -38,11 +38,11 @@
     <Space style="@style/BSP_GridPickerRowGutterStyle" app:layout_column="0" />
     <ImageButton android:id="@+id/bsp_dec_min"
                  style="@style/BSP_GridPickerButtonStyle"
-                 app:srcCompat="@drawable/bsp_ic_minus_circle_24dp"
+                 app:srcCompat="@drawable/bsp_ic_minus_circle_view_24dp"
                  app:layout_column="1" />
     <ImageButton android:id="@+id/bsp_inc_min"
                  style="@style/BSP_GridPickerButtonStyle"
-                 app:srcCompat="@drawable/bsp_ic_add_circle_24dp"
+                 app:srcCompat="@drawable/bsp_ic_add_circle_view_24dp"
                  app:layout_column="3" />
     <Space style="@style/BSP_GridPickerRowGutterStyle" app:layout_column="4" />
     
