@@ -17,8 +17,7 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 /**
  * View to pick an hour (00 - 23) from a 4 x 3 grid.
  */
-// TODO: Make package private after you're done testing in TextSwitcherActivity. Then delete the usage in its layout.
-public final class TwentyFourHourPickerView extends GridLayout {
+class TwentyFourHourPickerView extends GridLayout {
     private static final String TAG = TwentyFourHourPickerView.class.getSimpleName();
 
     private static final @IdRes int[] TEXT_SWITCHER_IDS = {

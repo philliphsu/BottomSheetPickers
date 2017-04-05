@@ -13,7 +13,7 @@ import com.philliphsu.bottomsheetpickers.R;
  * View to pick a minute (00 - 59) from a 4 x 3 grid of preset options
  * and buttons to increment and decrement.
  */
-public class MinutePickerView extends LinearLayout {
+class MinutePickerView extends LinearLayout {
 
     private static final @IdRes int[] TUNER_BUTTONS_IDS =
             { R.id.bsp_dec_min,  R.id.bsp_inc_min };
