@@ -25,14 +25,14 @@ final class NumberPadTimePickerController {
 
     private static final int NOT_APPLICABLE = -1;
 
-    private static final int MAX_CHARS = 8;
-
     // (M)odel: Simply stores data and provides us access to that data.
     private final TimeModel mTimeModel = new TimeModel();
 
-    // Objects used by the (C)ontroller to format/process the data from the model
-    // for consumption by the end user.
-    private final StringBuilder mTimeFormatter = new StringBuilder(MAX_CHARS);
+    // Used by the (C)ontroller to format/process the data from the model for
+    // consumption by the end user.
+    // We do not set an initial capacity because the length of a complete time
+    // string is locale-dependent.
+    private final StringBuilder mTimeFormatter = new StringBuilder();
 
     // (V)iews
     private final @NonNull NumberPadTimePickerView mNumberPadView;
