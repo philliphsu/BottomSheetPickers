@@ -11,7 +11,7 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import com.philliphsu.bottomsheetpickers.view.TwentyFourHourPickerDialog;
+import com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadTimePickerDialog;
 
 public class TextSwitcherActivity extends AppCompatActivity {
 
@@ -66,7 +66,7 @@ public class TextSwitcherActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TwentyFourHourPickerDialog dialog = new TwentyFourHourPickerDialog(TextSwitcherActivity.this);
+                NumberPadTimePickerDialog dialog = new NumberPadTimePickerDialog(TextSwitcherActivity.this);
                 dialog.show();
             }
         });

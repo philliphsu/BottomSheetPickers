@@ -43,4 +43,8 @@ class NumberPadTimePickerView extends GridPickerView {
         // TODO: Apply a smaller text size.
         setTextForPosition(11, altText2);
     }
+
+    void setNumberKeysEnabled(int start, int end) {
+        // TODO
+    }
 }

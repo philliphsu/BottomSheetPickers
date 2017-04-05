@@ -32,26 +32,36 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
 
     @Override
     public void setNumberKeysEnabled(int start, int end) {
-        // TODO: Delegate to NumberPadTimePicker#setNumberKeysEnabled()
+        mTimePicker.setNumberKeysEnabled(start, end);
     }
 
     @Override
     public void setBackspaceEnabled(boolean enabled) {
-        // TODO: Delegate to NumberPadTimePicker#setBackspaceEnabled()
+        mTimePicker.setBackspaceEnabled(enabled);
     }
 
     @Override
     public void updateTimeDisplay(CharSequence time) {
-        // TODO: Delegate to NumberPadTimePicker#updateTimeDisplay()
+        mTimePicker.updateTimeDisplay(time);
     }
 
     @Override
     public void updateAmPmDisplay(CharSequence ampm) {
-        // TODO: Delegate to NumberPadTimePicker#updateAmPmDisplay()
+        mTimePicker.updateAmPmDisplay(ampm);
     }
 
     @Override
     public void setOkButtonEnabled(boolean enabled) {
         getButton(BUTTON_POSITIVE).setEnabled(enabled);
+    }
+
+    @Override
+    public void setAmPmDisplayVisible(boolean visible) {
+        mTimePicker.setAmPmDisplayVisible(visible);
+    }
+
+    @Override
+    public void setAmPmDisplayIndex(int index) {
+        mTimePicker.setAmPmDisplayIndex(index);
     }
 }

@@ -7,6 +7,8 @@ interface INumberPadTimePicker {
         void updateTimeDisplay(CharSequence time);
         void updateAmPmDisplay(CharSequence ampm);
         void setOkButtonEnabled(boolean enabled);
+        void setAmPmDisplayVisible(boolean visible);
+        void setAmPmDisplayIndex(int index);
     }
     interface Presenter {
         void onNumberKeyClick(CharSequence numberKeyText);
