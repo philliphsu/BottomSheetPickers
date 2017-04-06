@@ -1,6 +1,7 @@
 package com.example.bottomsheetpickers;
 
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadTimePickerDialog;
+import com.philliphsu.bottomsheetpickers.view.numberpad.BottomSheetNumberPadTimePickerDialog;
 
 public class TextSwitcherActivity extends AppCompatActivity {
 
@@ -66,7 +67,8 @@ public class TextSwitcherActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NumberPadTimePickerDialog dialog = new NumberPadTimePickerDialog(TextSwitcherActivity.this);
+                BottomSheetDialog dialog = new BottomSheetNumberPadTimePickerDialog(
+                        TextSwitcherActivity.this);
                 dialog.show();
             }
         });
