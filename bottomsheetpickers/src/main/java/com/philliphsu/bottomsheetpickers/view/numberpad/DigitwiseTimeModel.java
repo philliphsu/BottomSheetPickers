@@ -7,31 +7,78 @@ import java.util.Arrays;
  * in a number pad time picker.
  */
 final class DigitwiseTimeModel {
-    private final int[] digits = new int[4];
+    private static final int MAX_DIGITS = 4;
+    private static final int UNMODIFIED = -1;
 
-    private int count;
+    private final int[] mInput = new int[MAX_DIGITS];
+
+    private int mCount;
 
     DigitwiseTimeModel() {
-        Arrays.fill(digits, -1);
+        // Set contents of input array to UNMODIFIED.
+        clearDigits();
     }
 
     void storeDigit(int digit) {
-        digits[count] = digit;
-        count++;
+        mInput[mCount] = digit;
+        mCount++;
     }
 
     int getDigit(int at) {
-        return digits[at];
+        return mInput[at];
+    }
+
+    /**
+     * @return a defensive copy of the internal array of inputted digits
+     */
+    int[] getDigits() {
+        int[] digits = new int[mInput.length];
+        System.arraycopy(mInput, 0, digits, 0, mInput.length);
+        return digits;
     }
 
     void removeDigit() {
-        if (count > 0) {
-            count--; // move the cursor back
-            digits[count] = -1;
+        if (mCount > 0) {
+            mCount--; // move the cursor back
+            mInput[mCount] = UNMODIFIED;
         }
     }
 
+    void clearDigits() {
+        Arrays.fill(mInput, UNMODIFIED);
+        mCount = 0;
+    }
+
     int count() {
-        return count;
+        return mCount;
+    }
+
+    /**
+     * @return the integer represented by the inputted digits
+     */
+    int getInput() {
+        if (mCount <= 0) return UNMODIFIED;
+
+        int result = 0;
+        for (int i = 0; i < mCount; i++) {
+            result = result * 10 + mInput[i];
+        }
+        return result;
+    }
+
+    /**
+     * Inserts as many of the digits in the given sequence
+     * into the input as possible.
+     */
+    void storeDigits(int... digits) {
+        if (digits == null)
+            return;
+        for (int d : digits) {
+            if (mCount == mInput.length)
+                break;
+            if (d >= 0 && d < 10) {
+                storeDigit(d);
+            }
+        }
     }
 }
