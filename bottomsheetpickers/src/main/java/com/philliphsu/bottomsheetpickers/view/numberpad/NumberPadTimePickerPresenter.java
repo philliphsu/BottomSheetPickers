@@ -30,7 +30,12 @@ final class NumberPadTimePickerPresenter implements INumberPadTimePicker.Present
     }
 
     @Override
-    public void onShowTimePicker() {
+    public void onShowTimePicker(/*TODO: Require is24HourMode param*/) {
         view.setOkButtonEnabled(false);
+        view.setBackspaceEnabled(false);
+        view.updateTimeDisplay(null);
+        view.updateAmPmDisplay(null);
+        // TODO: Update number key states.
+        // TODO: Set the alt button texts according to is24HourMode.
     }
 }

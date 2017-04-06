@@ -28,6 +28,7 @@ class NumberPadTimePickerView extends GridPickerView {
         }
 
         final String altText1, altText2;
+        // TODO: Allow passing in a parameter so the user can set 24hr mode on their own.
         if (DateFormat.is24HourFormat(context)) {
             final String timeSeparator = DateTimeFormatUtils.getTimeSeparator(context, true);
             altText1 = timeSeparator + String.format("%02d", 0);
