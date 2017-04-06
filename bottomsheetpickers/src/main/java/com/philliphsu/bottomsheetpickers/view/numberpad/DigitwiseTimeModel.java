@@ -20,8 +20,10 @@ final class DigitwiseTimeModel {
     }
 
     void storeDigit(int digit) {
-        mInput[mCount] = digit;
-        mCount++;
+        if (mCount < MAX_DIGITS) {
+            mInput[mCount] = digit;
+            mCount++;
+        }
     }
 
     int getDigit(int at) {
@@ -74,11 +76,11 @@ final class DigitwiseTimeModel {
         if (digits == null)
             return;
         for (int d : digits) {
-            if (mCount == mInput.length)
+            if (d < 0 || d > 9)
+                throw new IllegalArgumentException("Cannot store digit " + d);
+            if (mCount == MAX_DIGITS)
                 break;
-            if (d >= 0 && d < 10) {
-                storeDigit(d);
-            }
+            storeDigit(d);
         }
     }
 }
