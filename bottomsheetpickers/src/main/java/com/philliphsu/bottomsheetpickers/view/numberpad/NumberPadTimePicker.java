@@ -90,6 +90,16 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         mNumberPad.setIs24HourMode(is24HourMode);
     }
 
+    @Override
+    public void setLeftAltKeyEnabled(boolean enabled) {
+        mNumberPad.setLeftAltKeyEnabled(enabled);
+    }
+
+    @Override
+    public void setRightAltKeyEnabled(boolean enabled) {
+        mNumberPad.setRightAltKeyEnabled(enabled);
+    }
+
     void setOnBackspaceClickListener(OnClickListener l) {
         mBackspace.setOnClickListener(l);
     }

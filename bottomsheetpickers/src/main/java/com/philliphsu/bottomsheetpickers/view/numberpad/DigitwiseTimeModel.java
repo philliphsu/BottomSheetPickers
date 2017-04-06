@@ -7,8 +7,9 @@ import java.util.Arrays;
  * in a number pad time picker.
  */
 final class DigitwiseTimeModel {
-    private static final int MAX_DIGITS = 4;
     private static final int UNMODIFIED = -1;
+
+    static final int MAX_DIGITS = 4;
 
     private final int[] mInput = new int[MAX_DIGITS];
 

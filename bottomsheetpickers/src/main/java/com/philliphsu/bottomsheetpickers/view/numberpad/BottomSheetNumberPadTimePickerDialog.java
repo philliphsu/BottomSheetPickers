@@ -77,4 +77,14 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog
     public void setIs24HourMode(boolean is24HourMode) {
 
     }
+
+    @Override
+    public void setLeftAltKeyEnabled(boolean enabled) {
+
+    }
+
+    @Override
+    public void setRightAltKeyEnabled(boolean enabled) {
+
+    }
 }

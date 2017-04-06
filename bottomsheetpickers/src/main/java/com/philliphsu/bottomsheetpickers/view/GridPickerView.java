@@ -54,4 +54,11 @@ public class GridPickerView extends GridLayout {
     protected final void setTextForPosition(int i, @Nullable CharSequence text) {
         TEXTVIEWS[i].setText(text);
     }
+
+    /**
+     * @param i  A position from {@code 0 <= i < 12}.
+     */
+    protected final TextView getButton(int i) {
+        return TEXTVIEWS[i];
+    }
 }
