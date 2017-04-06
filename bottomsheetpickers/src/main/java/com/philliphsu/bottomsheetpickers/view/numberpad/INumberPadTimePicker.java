@@ -9,6 +9,7 @@ interface INumberPadTimePicker {
         void setOkButtonEnabled(boolean enabled);
         void setAmPmDisplayVisible(boolean visible);
         void setAmPmDisplayIndex(int index);
+        void setIs24HourMode(boolean is24HourMode);
     }
     interface Presenter {
         void onNumberKeyClick(CharSequence numberKeyText);

@@ -72,4 +72,9 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog
     public void setAmPmDisplayIndex(int index) {
 
     }
+
+    @Override
+    public void setIs24HourMode(boolean is24HourMode) {
+
+    }
 }
