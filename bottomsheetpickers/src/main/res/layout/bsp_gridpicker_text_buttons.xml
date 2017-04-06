@@ -1,28 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
     <TextView android:id="@+id/bsp_text0" style="@style/BSP_GridPickerTextButtonStyle" />
     <TextView android:id="@+id/bsp_text1" style="@style/BSP_GridPickerTextButtonStyle" />
     <TextView android:id="@+id/bsp_text2" style="@style/BSP_GridPickerTextButtonStyle" />
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
 
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
     <TextView android:id="@+id/bsp_text3" style="@style/BSP_GridPickerTextButtonStyle" />
     <TextView android:id="@+id/bsp_text4" style="@style/BSP_GridPickerTextButtonStyle" />
     <TextView android:id="@+id/bsp_text5" style="@style/BSP_GridPickerTextButtonStyle" />
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
 
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
     <TextView android:id="@+id/bsp_text6" style="@style/BSP_GridPickerTextButtonStyle" />
     <TextView android:id="@+id/bsp_text7" style="@style/BSP_GridPickerTextButtonStyle" />
     <TextView android:id="@+id/bsp_text8" style="@style/BSP_GridPickerTextButtonStyle" />
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
 
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
     <TextView android:id="@+id/bsp_text9" style="@style/BSP_GridPickerTextButtonStyle" />
     <TextView android:id="@+id/bsp_text10" style="@style/BSP_GridPickerTextButtonStyle" />
     <TextView android:id="@+id/bsp_text11" style="@style/BSP_GridPickerTextButtonStyle" />
-    <Space style="@style/BSP_GridPickerRowGutterStyle" />
 
 </merge>

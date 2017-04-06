@@ -3,8 +3,6 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Space style="@style/BSP_GridPickerVerticalTopSpaceStyle" />
-
     <com.philliphsu.bottomsheetpickers.view.GridPickerView
         android:id="@+id/bsp_preset_options"
         android:layout_width="match_parent"
@@ -13,9 +11,7 @@
     <android.support.v7.widget.GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:columnCount="5">
-
-        <Space style="@style/BSP_GridPickerRowGutterStyle" />
+        app:columnCount="@integer/bsp_gridpicker_column_count">
 
         <ImageButton
             android:id="@+id/bsp_dec_min"
@@ -29,11 +25,6 @@
             style="@style/BSP_GridPickerButtonStyle"
             app:srcCompat="@drawable/bsp_ic_add_circle_view_24dp" />
 
-        <Space style="@style/BSP_GridPickerRowGutterStyle" />
-
     </android.support.v7.widget.GridLayout>
-
-    <!-- Row 6 -->
-    <Space style="@style/BSP_GridPickerVerticalBottomSpaceStyle" />
     
 </merge>

@@ -33,7 +33,7 @@ public class GridPickerView extends GridLayout {
 
     public GridPickerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        setColumnCount(5);
+        setColumnCount(context.getResources().getInteger(R.integer.bsp_gridpicker_column_count));
         inflate(context, R.layout.bsp_gridpicker_text_buttons, this);
 
         for (int i = 0; i < 12; i++) {

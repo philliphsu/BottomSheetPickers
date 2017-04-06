@@ -20,13 +20,13 @@
     <style name="BSP_GridPickerVerticalTopSpaceStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/bsp_gridpicker_margin_top</item>
-        <item name="layout_columnSpan">5</item>
+        <item name="layout_columnSpan">@integer/bsp_gridpicker_column_count</item>
     </style>
 
     <style name="BSP_GridPickerVerticalBottomSpaceStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/bsp_gridpicker_margin_bottom</item>
-        <item name="layout_columnSpan">5</item>
+        <item name="layout_columnSpan">@integer/bsp_gridpicker_column_count</item>
     </style>
 
     <style name="BSP_GridPickerRowGutterStyle">

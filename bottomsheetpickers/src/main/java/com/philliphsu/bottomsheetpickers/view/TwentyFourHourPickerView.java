@@ -53,7 +53,7 @@ class TwentyFourHourPickerView extends GridLayout {
 
     public TwentyFourHourPickerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setColumnCount(5);  // 3 buttons + 2 spaces. No explicit row count is needed.
+        setColumnCount(context.getResources().getInteger(R.integer.bsp_gridpicker_column_count));
         inflate(context, R.layout.bsp_twentyfour_hour_picker_view, this);
 
         for (int i = 0; i < NUM_TEXT_SWITCHERS; i++) {
