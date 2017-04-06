@@ -30,7 +30,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         setOrientation(VERTICAL);
         inflate(context, R.layout.bsp_numberpad_time_picker, this);
         mNumberPad = (NumberPadTimePickerView) findViewById(R.id.bsp_numberpad_time_picker_view);
-        mHeaderLayout = (LinearLayout) findViewById(R.id.bsp_header_layout);
+        mHeaderLayout = (LinearLayout) findViewById(R.id.bsp_input_time_container);
         mTimeDisplay = (TextView) findViewById(R.id.bsp_input_time);
         mAmPmDisplay = (TextView) findViewById(R.id.bsp_input_ampm);
         mBackspace = findViewById(R.id.bsp_backspace);
@@ -42,7 +42,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         setOrientation(VERTICAL);
         inflate(context, R.layout.bsp_numberpad_time_picker, this);
         mNumberPad = (NumberPadTimePickerView) findViewById(R.id.bsp_numberpad_time_picker_view);
-        mHeaderLayout = (LinearLayout) findViewById(R.id.bsp_header_layout);
+        mHeaderLayout = (LinearLayout) findViewById(R.id.bsp_input_time_container);
         mTimeDisplay = (TextView) findViewById(R.id.bsp_input_time);
         mAmPmDisplay = (TextView) findViewById(R.id.bsp_input_ampm);
         mBackspace = findViewById(R.id.bsp_backspace);

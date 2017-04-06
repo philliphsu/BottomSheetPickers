@@ -2,7 +2,6 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
     <include
         layout="@layout/bsp_numberpad_time_picker_header"
-        android:id="@+id/bsp_header_layout"
         android:layout_width="match_parent"
         android:layout_height="96dp"
         android:layout_gravity="center" />

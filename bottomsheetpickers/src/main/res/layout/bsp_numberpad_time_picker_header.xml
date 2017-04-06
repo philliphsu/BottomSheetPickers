@@ -7,6 +7,7 @@
                 android:paddingEnd="16dp">
 
     <LinearLayout
+        android:id="@+id/bsp_input_time_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
