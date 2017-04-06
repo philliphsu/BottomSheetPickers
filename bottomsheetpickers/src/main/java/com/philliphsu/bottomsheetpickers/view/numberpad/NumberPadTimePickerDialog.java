@@ -34,6 +34,8 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
                 dialog.cancel();
             }
         });
+
+        setOnShowListener(new OnShowTimePickerListener(mPresenter));
     }
 
     @Override

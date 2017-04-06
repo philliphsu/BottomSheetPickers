@@ -13,5 +13,6 @@ interface INumberPadTimePicker {
     interface Presenter {
         void onNumberKeyClick(CharSequence numberKeyText);
         void onBackspaceClick();
+        void onShowTimePicker();
     }
 }

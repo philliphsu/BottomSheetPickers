@@ -28,4 +28,9 @@ final class NumberPadTimePickerPresenter implements INumberPadTimePicker.Present
         // TODO: Update number key states.
         // TODO: Update ok button state.
     }
+
+    @Override
+    public void onShowTimePicker() {
+        view.setOkButtonEnabled(false);
+    }
 }
