@@ -1,6 +1,10 @@
 package com.philliphsu.bottomsheetpickers.view.numberpad;
 
+import java.text.DateFormatSymbols;
+
+import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.AM;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.HRS_24;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.PM;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.UNSPECIFIED;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.DigitwiseTimeModel.MAX_DIGITS;
 
@@ -50,7 +54,51 @@ final class NumberPadTimePickerPresenter implements
 
     @Override
     public void onAltKeyClick(CharSequence altKeyText) {
+        // Manually insert special characters for 12-hour clock
+        boolean needsNumpadStatesUpdate = true;
+        if (!is24HourFormat()) {
+            if (count() <= 2) {
+                // The colon is inserted for you
+                insertDigits(0, 0);
+                // There will be a sufficient number of callbacks
+                // to onDigitStored() that will update the number
+                // pad for you, so there is no need to manually
+                // update at the end of this method.
+                needsNumpadStatesUpdate = false;
+            }
+            // text is AM or PM, so include space before
+            String ampm = altKeyText.toString();
+            // TODO: When we're finalizing the code, we probably don't need to
+            // format this in anymore; just tell the view to update its am/pm
+            // display directly.
+            // However, we currently need to leave this in for the backspace
+            // logic to work correctly.
+            mFormattedInput.append(' ').append(ampm);
+            String am = new DateFormatSymbols().getAmPmStrings()[0];
+            mAmPmState = ampm.equalsIgnoreCase(am) ? AM : PM;
+            // Digits will be shown for you on insert, but not AM/PM
+            view.updateAmPmDisplay(ampm);
+        } else {
+            // Assuming the text is one of ":00" or ":30", this
+            // evaluates to 2.
+            final int numDigits = altKeyText.length() - 1;
+            int[] digits = new int[numDigits];
+            // charAt(0) is the colon, so skip i = 0.
+            // We are only interested in storing the digits.
+            for (int i = 1; i < altKeyText.length(); i++) {
+                // The array and the text do not have the same lengths,
+                // so the iterator value does not correspond to the
+                // array index directly
+                digits[i - 1] = Character.digit(altKeyText.charAt(i), BASE_10);
+            }
+            // Colon is added for you
+            insertDigits(digits);
+            mAmPmState = HRS_24;
+        }
 
+        if (needsNumpadStatesUpdate) {
+            updateNumpadStates();
+        }
     }
 
     @Override
@@ -113,6 +161,10 @@ final class NumberPadTimePickerPresenter implements
 
     private void enable(int start, int end) {
         view.setNumberKeysEnabled(start, end);
+    }
+
+    private void insertDigits(int... digits) {
+        timeModel.storeDigits(digits);
     }
     
     private void updateNumpadStates() {

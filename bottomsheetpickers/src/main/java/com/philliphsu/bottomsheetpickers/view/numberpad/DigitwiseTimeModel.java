@@ -120,7 +120,7 @@ final class DigitwiseTimeModel {
             return;
         for (int d : digits) {
             if (d < 0 || d > 9)
-                throw new IllegalArgumentException("Cannot store digit " + d);
+                throw new IllegalArgumentException("Not a digit " + d);
             if (mCount == MAX_DIGITS)
                 break;
             storeDigit(d);
