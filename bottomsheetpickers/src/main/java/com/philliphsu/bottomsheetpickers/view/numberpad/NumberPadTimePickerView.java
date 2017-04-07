@@ -63,12 +63,6 @@ class NumberPadTimePickerView extends GridPickerView {
         for (int i = 0; i < mNumberButtons.length; i++) {
             mNumberButtons[i].setEnabled(i >= lowerLimitInclusive && i < upperLimitExclusive);
         }
-//        if (lowerLimitInclusive == 0 && upperLimitExclusive == 0) {
-//            // For 12-hour clock, alt buttons need to be disabled as well before firing onInputDisabled()
-//            if (!is24HourFormat() && (mAltButtons[0].isEnabled() || mAltButtons[1].isEnabled())) {
-//                return;
-//            }
-//        }
     }
 
     void setOnNumberKeyClickListener(OnClickListener l) {
