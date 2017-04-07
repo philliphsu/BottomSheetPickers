@@ -41,7 +41,9 @@ final class NumberPadTimePickerPresenter implements INumberPadTimePicker.Present
 
     @Override
     public void onNumberKeyClick(CharSequence numberKeyText) {
-
+        timeModel.storeDigit(Integer.parseInt(numberKeyText.toString()));
+        // TODO: Update the time display. Perhaps by subscribing to the
+        // model to react to changes.
     }
 
     @Override
