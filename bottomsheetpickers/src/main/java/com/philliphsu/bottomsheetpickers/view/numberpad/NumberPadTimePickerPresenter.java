@@ -178,16 +178,10 @@ final class NumberPadTimePickerPresenter implements
     }
 
     private void updateViewEnabledStates() {
-        // TODO: Determine if this warning still applies.
-        // TOneverDO: after updateNumberKeysStates(), esp. if clock is 12-hour,
-        // because it calls enable(0, 0), which checks if the alt buttons have been
-        // disabled as well before firing the onInputDisabled().
-        updateAltKeysStates();
-
-        updateBackspaceState();
         updateNumberKeysStates();
+        updateAltKeysStates();
+        updateBackspaceState();
         updateOkButtonState();
-
         // TOneverDO: Call before both updateAltKeysStates() and updateNumberKeysStates().
         updateHeaderDisplayFocus();
     }
