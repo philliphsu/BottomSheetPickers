@@ -319,17 +319,18 @@ final class NumberPadTimePickerPresenter implements
         if (count() == 3) {
             int value = getInput();
             // Move the colon from its 4-digit position to its 3-digit position, unless doing
-            // so would give an invalid time. (e.g. 17:55 becomes 1:75, which is invalid)
+            // so would give an invalid time (e.g. 17:55 becomes 1:75, which is invalid).
+            // This could possibly be an issue only when using 24-hour time.
             //
-            // All 3-digit times in the 12-hour clock at this point should be valid.
-            // As such, the following limits are only imposed on the 24-hour clock;
-            // it is therefore not necessary to perform a is24HourFormat() check.
+            // 4-digit times in the 24-hour clock must be within one of the following ranges
+            // to become valid 3-digit times:
+            //     [00:00, 05:59] to become [0:00, 0:55] or
+            //     [10:00, 15:59] to become [1:00, 1:55] or
+            //     [20:00, 23:59] to become [2:00, 2:35].
+            // These 3-digit times are represented within the limits below.
             //
-            // 4-digit times in the 24-hour clock must be within the ranges
-            //     [00:00, 05:59] or
-            //     [10:00, 15:59] or
-            //     [20:00, 23:59]
-            // if they are to remain valid when they become three digits.
+            // All 3-digit times in the 12-hour clock at this point are valid times.
+            // They are represented within the range [100, 125].
             if (value >= 0 && value <= 55
                     || value >= 100 && value <= 155
                     || value >= 200 && value <= 235) {
