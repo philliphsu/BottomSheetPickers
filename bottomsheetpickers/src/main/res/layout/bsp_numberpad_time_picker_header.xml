@@ -41,4 +41,13 @@
         android:layout_alignParentRight="true"
         app:srcCompat="@drawable/bsp_ic_backspace_24dp" />
 
+    <!-- TODO: Change the background color depending on the
+         focus state of the input time container. -->
+    <View
+        android:id="@+id/bsp_input_time_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorAccent"
+        android:layout_alignParentBottom="true" />
+
 </RelativeLayout>
