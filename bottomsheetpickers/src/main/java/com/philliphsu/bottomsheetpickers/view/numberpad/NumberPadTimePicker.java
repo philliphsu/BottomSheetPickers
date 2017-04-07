@@ -2,6 +2,7 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -16,6 +17,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     private final TextView mTimeDisplay;
     private final TextView mAmPmDisplay;
     private final View mBackspace;
+    private final View mDivider;
 
     public NumberPadTimePicker(Context context) {
         this(context, null);
@@ -34,6 +36,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         mTimeDisplay = (TextView) findViewById(R.id.bsp_input_time);
         mAmPmDisplay = (TextView) findViewById(R.id.bsp_input_ampm);
         mBackspace = findViewById(R.id.bsp_backspace);
+        mDivider = findViewById(R.id.bsp_input_time_divider);
     }
 
     @TargetApi(21)
@@ -46,6 +49,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         mTimeDisplay = (TextView) findViewById(R.id.bsp_input_time);
         mAmPmDisplay = (TextView) findViewById(R.id.bsp_input_ampm);
         mBackspace = findViewById(R.id.bsp_backspace);
+        mDivider = findViewById(R.id.bsp_input_time_divider);
     }
 
     @Override
@@ -98,6 +102,14 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     @Override
     public void setRightAltKeyEnabled(boolean enabled) {
         mNumberPad.setRightAltKeyEnabled(enabled);
+    }
+
+    @Override
+    public void setHeaderDisplayFocused(boolean focused) {
+        // Add or remove the highlight from the divider.
+        // TODO: Retrieve theme accent color.
+        // TODO: Retrieve theme secondary text color.
+        mDivider.setBackgroundColor(focused ? Color.GREEN : Color.DKGRAY);
     }
 
     void setOnBackspaceClickListener(OnClickListener l) {

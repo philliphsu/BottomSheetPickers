@@ -12,6 +12,7 @@ interface INumberPadTimePicker {
         void setIs24HourMode(boolean is24HourMode);
         void setLeftAltKeyEnabled(boolean enabled);
         void setRightAltKeyEnabled(boolean enabled);
+        void setHeaderDisplayFocused(boolean focused);
     }
     interface Presenter {
         void onNumberKeyClick(CharSequence numberKeyText);

@@ -37,6 +37,10 @@ final class NumberPadTimePickerPresenter implements
 
     private final boolean mIs24HourMode;
 
+    private boolean mAltKeysDisabled;
+    private boolean mAllNumberKeysDisabled;
+    private boolean mHeaderDisplayFocused;
+
     @Deprecated // TODO: Delete this! THis should not make it into release.
     NumberPadTimePickerPresenter(INumberPadTimePicker.View view) {
         this(view, false);
@@ -166,13 +170,16 @@ final class NumberPadTimePickerPresenter implements
 
     private void enable(int start, int end) {
         view.setNumberKeysEnabled(start, end);
+        mAllNumberKeysDisabled = start == 0 && end == 0;
     }
 
     private void insertDigits(int... digits) {
         timeModel.storeDigits(digits);
     }
-    
+
+    // TODO: Rename to updateViewEnabledStates().
     private void updateNumpadStates() {
+        // TODO: Determine if this warning still applies.
         // TOneverDO: after updateNumberKeysStates(), esp. if clock is 12-hour,
         // because it calls enable(0, 0), which checks if the alt buttons have been
         // disabled as well before firing the onInputDisabled().
@@ -181,6 +188,17 @@ final class NumberPadTimePickerPresenter implements
         updateBackspaceState();
         updateNumberKeysStates();
         updateOkButtonState();
+
+        // TOneverDO: Call before both updateAltKeysStates() and updateNumberKeysStates().
+        updateHeaderDisplayFocus();
+    }
+
+    private void updateHeaderDisplayFocus() {
+        final boolean showHeaderDisplayFocused = !(mAllNumberKeysDisabled && mAltKeysDisabled);
+        if (mHeaderDisplayFocused != showHeaderDisplayFocused) {
+            view.setHeaderDisplayFocused(showHeaderDisplayFocused);
+            mHeaderDisplayFocused = showHeaderDisplayFocused;
+        }
     }
 
     private void updateOkButtonState() {
@@ -213,6 +231,8 @@ final class NumberPadTimePickerPresenter implements
         }
         view.setLeftAltKeyEnabled(enabled);
         view.setRightAltKeyEnabled(enabled);
+
+        mAltKeysDisabled = !enabled;
     }
     
     private void updateNumberKeysStates() {

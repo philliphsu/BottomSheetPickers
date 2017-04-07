@@ -98,4 +98,9 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
     public void setRightAltKeyEnabled(boolean enabled) {
         mTimePicker.setRightAltKeyEnabled(enabled);
     }
+
+    @Override
+    public void setHeaderDisplayFocused(boolean focused) {
+        mTimePicker.setHeaderDisplayFocused(focused);
+    }
 }
