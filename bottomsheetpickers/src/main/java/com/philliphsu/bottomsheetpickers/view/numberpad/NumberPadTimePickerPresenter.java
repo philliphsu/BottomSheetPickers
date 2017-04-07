@@ -27,7 +27,7 @@ final class NumberPadTimePickerPresenter implements INumberPadTimePicker.Present
     
     private @AmPmStates.AmPmState int mAmPmState = UNSPECIFIED;
 
-    private boolean mIs24HourMode;
+    private final boolean mIs24HourMode;
 
     @Deprecated // TODO: Delete this! THis should not make it into release.
     NumberPadTimePickerPresenter(INumberPadTimePicker.View view) {
