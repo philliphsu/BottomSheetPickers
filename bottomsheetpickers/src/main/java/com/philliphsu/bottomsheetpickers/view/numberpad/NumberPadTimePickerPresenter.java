@@ -318,20 +318,25 @@ final class NumberPadTimePickerPresenter implements
         mFormattedInput.delete(len - 1, len);
         if (count() == 3) {
             int value = getInput();
-            // Move the colon from its 4-digit position to its 3-digit position,
-            // unless doing so gives an invalid time.
-            // e.g. 17:55 becomes 1:75, which is invalid.
-            // All 3-digit times in the 12-hour clock at this point should be
-            // valid. The limits <=155 and (>=200 && <=235) are really only
-            // imposed on the 24-hour clock, and were chosen because 4-digit times
-            // in the 24-hour clock can only go up to 15:5[0-9] or be within the range
-            // [20:00, 23:59] if they are to remain valid when they become three digits.
-            // The is24HourFormat() check is therefore unnecessary.
-            if (value <= 155 || value >= 200 && value <= 235) {
+            // Move the colon from its 4-digit position to its 3-digit position, unless doing
+            // so would give an invalid time. (e.g. 17:55 becomes 1:75, which is invalid)
+            //
+            // All 3-digit times in the 12-hour clock at this point should be valid.
+            // As such, the following limits are only imposed on the 24-hour clock;
+            // it is therefore not necessary to perform a is24HourFormat() check.
+            //
+            // 4-digit times in the 24-hour clock must be within the ranges
+            //     [00:00, 05:59] or
+            //     [10:00, 15:59] or
+            //     [20:00, 23:59]
+            // if they are to remain valid when they become three digits.
+            if (value >= 0 && value <= 55
+                    || value >= 100 && value <= 155
+                    || value >= 200 && value <= 235) {
                 mFormattedInput.deleteCharAt(mFormattedInput.indexOf(":"));
                 mFormattedInput.insert(1, ":");
             } else {
-                // previously [16:00, 19:59]
+                // previously [06:00, 09:59] or [16:00, 19:59]
                 mAmPmState = UNSPECIFIED;
             }
         } else if (count() == 2) {
