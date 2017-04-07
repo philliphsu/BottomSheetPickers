@@ -29,8 +29,14 @@ final class NumberPadTimePickerPresenter implements INumberPadTimePicker.Present
 
     private boolean mIs24HourMode;
 
+    @Deprecated // TODO: Delete this! THis should not make it into release.
     NumberPadTimePickerPresenter(INumberPadTimePicker.View view) {
+        this(view, false);
+    }
+
+    NumberPadTimePickerPresenter(INumberPadTimePicker.View view, boolean is24HourMode) {
         this.view = view;
+        mIs24HourMode = is24HourMode;
     }
 
     @Override
