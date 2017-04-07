@@ -143,6 +143,9 @@ final class NumberPadTimePickerPresenter implements
         mAmPmState = UNSPECIFIED;
         updateNumpadStates(); // TOneverDO: before resetting mAmPmState to UNSPECIFIED
         view.updateTimeDisplay(null);
+        if (!mIs24HourMode) {
+            view.updateAmPmDisplay(null);
+        }
     }
 
     private int count() {
