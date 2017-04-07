@@ -55,16 +55,10 @@ final class NumberPadTimePickerPresenter implements
     @Override
     public void onAltKeyClick(CharSequence altKeyText) {
         // Manually insert special characters for 12-hour clock
-        boolean needsNumpadStatesUpdate = true;
         if (!is24HourFormat()) {
             if (count() <= 2) {
                 // The colon is inserted for you
                 insertDigits(0, 0);
-                // There will be a sufficient number of callbacks
-                // to onDigitStored() that will update the number
-                // pad for you, so there is no need to manually
-                // update at the end of this method.
-                needsNumpadStatesUpdate = false;
             }
             // text is AM or PM, so include space before
             String ampm = altKeyText.toString();
@@ -96,9 +90,7 @@ final class NumberPadTimePickerPresenter implements
             mAmPmState = HRS_24;
         }
 
-        if (needsNumpadStatesUpdate) {
-            updateNumpadStates();
-        }
+        updateNumpadStates();
     }
 
     @Override
