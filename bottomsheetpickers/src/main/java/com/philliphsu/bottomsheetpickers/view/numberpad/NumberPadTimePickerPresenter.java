@@ -109,6 +109,11 @@ final class NumberPadTimePickerPresenter implements
     }
 
     @Override
+    public boolean onBackspaceLongClick() {
+        return timeModel.clearDigits();
+    }
+
+    @Override
     public void onShowTimePicker(/*TODO: Require is24HourMode param*/) {
         view.updateTimeDisplay(null);
         view.updateAmPmDisplay(null);

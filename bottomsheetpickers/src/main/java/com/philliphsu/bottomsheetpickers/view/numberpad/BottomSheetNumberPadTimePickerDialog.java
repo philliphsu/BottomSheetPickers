@@ -33,7 +33,7 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog
         });
 
         mPresenter = new NumberPadTimePickerPresenter(this);
-        mTimePicker.setOnBackspaceClickListener(new OnBackspaceClickListener(mPresenter));
+        mTimePicker.setOnBackspaceClickListener(new OnBackspaceClickHandler(mPresenter));
         mTimePicker.setOnNumberKeyClickListener(new OnNumberKeyClickListener(mPresenter));
         setOnShowListener(new OnShowTimePickerListener(mPresenter));
     }

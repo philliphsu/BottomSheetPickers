@@ -86,12 +86,13 @@ final class DigitwiseTimeModel {
         }
     }
 
-    void clearDigits() {
+    boolean clearDigits() {
         Arrays.fill(mInput, UNMODIFIED);
         mCount = 0;
         if (mListener != null) {
             mListener.onDigitsCleared();
         }
+        return true;
     }
 
     int count() {
