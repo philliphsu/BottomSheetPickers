@@ -119,6 +119,10 @@ final class NumberPadTimePickerPresenter implements
         view.updateAmPmDisplay(null);
         view.setAmPmDisplayVisible(!mIs24HourMode);
         view.setIs24HourMode(mIs24HourMode);
+        if (!mIs24HourMode) {
+            // TODO: Determine the actual index based on locale.
+            view.setAmPmDisplayIndex(1);
+        }
         updateNumpadStates();
     }
 
@@ -172,14 +176,14 @@ final class NumberPadTimePickerPresenter implements
         // TOneverDO: after updateNumberKeysStates(), esp. if clock is 12-hour,
         // because it calls enable(0, 0), which checks if the alt buttons have been
         // disabled as well before firing the onInputDisabled().
-        updateAltButtonStates();
+        updateAltKeysStates();
 
         updateBackspaceState();
         updateNumberKeysStates();
-        updateFabState();
+        updateOkButtonState();
     }
 
-    private void updateFabState() {
+    private void updateOkButtonState() {
         view.setOkButtonEnabled(timeParser.checkTimeValid(mAmPmState));
     }
 
@@ -187,7 +191,7 @@ final class NumberPadTimePickerPresenter implements
         view.setBackspaceEnabled(count() > 0);
     }
 
-    private void updateAltButtonStates() {
+    private void updateAltKeysStates() {
         if (count() == 0) {
             // No input, no access!
             view.setLeftAltKeyEnabled(false);
