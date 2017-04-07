@@ -14,8 +14,6 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
     private final NumberPadTimePicker mTimePicker;
     private final INumberPadTimePicker.Presenter mPresenter;
 
-    private final boolean mIs24HourMode;
-
     @Deprecated // TODO: Delete this when we're done testing! This should not make it into release.
     public NumberPadTimePickerDialog(@NonNull Context context) {
         this(context, DateFormat.is24HourFormat(context));
@@ -29,8 +27,6 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
         mTimePicker.setOnBackspaceClickListener(new OnBackspaceClickListener(mPresenter));
         mTimePicker.setOnNumberKeyClickListener(new OnNumberKeyClickListener(mPresenter));
         setView(mTimePicker);
-
-        mIs24HourMode = is24HourMode;
 
         setButton(BUTTON_POSITIVE, context.getString(android.R.string.ok), new OnClickListener() {
             @Override
