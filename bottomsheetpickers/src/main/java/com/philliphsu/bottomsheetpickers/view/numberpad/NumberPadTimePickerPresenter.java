@@ -94,7 +94,7 @@ final class NumberPadTimePickerPresenter implements
             mAmPmState = HRS_24;
         }
 
-        updateNumpadStates();
+        updateViewEnabledStates();
     }
 
     @Override
@@ -106,7 +106,7 @@ final class NumberPadTimePickerPresenter implements
             view.updateAmPmDisplay(null);
             /* No digit was actually deleted, so there is no need to 
              * update the time display. */
-            updateNumpadStates();
+            updateViewEnabledStates();
         } else {
             timeModel.removeDigit();
         }
@@ -127,7 +127,7 @@ final class NumberPadTimePickerPresenter implements
             // TODO: Determine the actual index based on locale.
             view.setAmPmDisplayIndex(1);
         }
-        updateNumpadStates();
+        updateViewEnabledStates();
     }
 
     @Override
@@ -135,21 +135,21 @@ final class NumberPadTimePickerPresenter implements
         // Append the new digit(s) to the formatter
         updateFormattedInputOnDigitInserted(digit);
         view.updateTimeDisplay(mFormattedInput.toString());
-        updateNumpadStates();
+        updateViewEnabledStates();
     }
 
     @Override
     public void onDigitRemoved(int digit) {
         updateFormattedInputOnDigitDeleted();
         view.updateTimeDisplay(mFormattedInput.toString());
-        updateNumpadStates();
+        updateViewEnabledStates();
     }
 
     @Override
     public void onDigitsCleared() {
         mFormattedInput.delete(0, mFormattedInput.length());
         mAmPmState = UNSPECIFIED;
-        updateNumpadStates(); // TOneverDO: before resetting mAmPmState to UNSPECIFIED
+        updateViewEnabledStates(); // TOneverDO: before resetting mAmPmState to UNSPECIFIED
         view.updateTimeDisplay(null);
         if (!mIs24HourMode) {
             view.updateAmPmDisplay(null);
@@ -177,8 +177,7 @@ final class NumberPadTimePickerPresenter implements
         timeModel.storeDigits(digits);
     }
 
-    // TODO: Rename to updateViewEnabledStates().
-    private void updateNumpadStates() {
+    private void updateViewEnabledStates() {
         // TODO: Determine if this warning still applies.
         // TOneverDO: after updateNumberKeysStates(), esp. if clock is 12-hour,
         // because it calls enable(0, 0), which checks if the alt buttons have been
