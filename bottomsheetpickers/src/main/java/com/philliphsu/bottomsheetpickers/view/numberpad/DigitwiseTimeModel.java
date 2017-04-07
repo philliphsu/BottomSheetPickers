@@ -1,5 +1,7 @@
 package com.philliphsu.bottomsheetpickers.view.numberpad;
 
+import android.support.annotation.Nullable;
+
 import java.util.Arrays;
 
 /**
@@ -13,17 +15,50 @@ final class DigitwiseTimeModel {
 
     private final int[] mInput = new int[MAX_DIGITS];
 
+    private final @Nullable OnInputChangeListener mListener;
+
     private int mCount;
 
+    /**
+     * Informs clients of new digit insertion and deletion events.
+     */
+    interface OnInputChangeListener {
+        /**
+         * @param digit The stored digit.
+         */
+        void onDigitStored(int digit);
+
+        /**
+         * @param digit The removed digit.
+         */
+        void onDigitRemoved(int digit);
+
+        void onDigitsCleared();
+    }
+
+    // TODO: Delete this!
+    @Deprecated
     DigitwiseTimeModel() {
-        // Set contents of input array to UNMODIFIED.
-        clearDigits();
+        this(null);
+    }
+
+    DigitwiseTimeModel(OnInputChangeListener listener) {
+        mListener = listener;
+
+        // TOneverDO: Call clearDigits() to do this, otherwise we'll
+        // end up calling back to the listener with an unintended
+        // onDigitsCleared() event.
+        Arrays.fill(mInput, UNMODIFIED);
+        mCount = 0;
     }
 
     void storeDigit(int digit) {
         if (mCount < MAX_DIGITS) {
             mInput[mCount] = digit;
             mCount++;
+            if (mListener != null) {
+                mListener.onDigitStored(digit);
+            }
         }
     }
 
@@ -43,13 +78,20 @@ final class DigitwiseTimeModel {
     void removeDigit() {
         if (mCount > 0) {
             mCount--; // move the cursor back
+            int digit = mInput[mCount];
             mInput[mCount] = UNMODIFIED;
+            if (mListener != null) {
+                mListener.onDigitRemoved(digit);
+            }
         }
     }
 
     void clearDigits() {
         Arrays.fill(mInput, UNMODIFIED);
         mCount = 0;
+        if (mListener != null) {
+            mListener.onDigitsCleared();
+        }
     }
 
     int count() {
