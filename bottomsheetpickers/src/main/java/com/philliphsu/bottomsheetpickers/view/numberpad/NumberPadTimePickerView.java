@@ -69,7 +69,14 @@ class NumberPadTimePickerView extends GridPickerView {
     }
 
     void setOnNumberKeyClickListener(OnClickListener l) {
-        setOnButtonClickListener(l);
+        for (TextView tv : mNumberButtons) {
+            tv.setOnClickListener(l);
+        }
+    }
+
+    void setOnAltKeyClickListener(OnClickListener l) {
+        mAltButtons[0].setOnClickListener(l);
+        mAltButtons[1].setOnClickListener(l);
     }
 
     void setIs24HourMode(boolean is24HourMode) {

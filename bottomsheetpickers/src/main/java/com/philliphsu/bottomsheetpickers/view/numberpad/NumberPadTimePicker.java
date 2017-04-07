@@ -107,4 +107,8 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     void setOnNumberKeyClickListener(OnClickListener l) {
         mNumberPad.setOnNumberKeyClickListener(l);
     }
+
+    void setOnAltKeyClickListener(OnClickListener l) {
+        mNumberPad.setOnAltKeyClickListener(l);
+    }
 }

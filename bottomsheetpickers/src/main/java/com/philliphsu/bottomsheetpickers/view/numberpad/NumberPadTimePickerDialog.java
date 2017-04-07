@@ -26,6 +26,7 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
         mPresenter = new NumberPadTimePickerPresenter(this, is24HourMode);
         mTimePicker.setOnBackspaceClickListener(new OnBackspaceClickListener(mPresenter));
         mTimePicker.setOnNumberKeyClickListener(new OnNumberKeyClickListener(mPresenter));
+        mTimePicker.setOnAltKeyClickListener(new OnAltKeyClickListener(mPresenter));
         setView(mTimePicker);
 
         setButton(BUTTON_POSITIVE, context.getString(android.R.string.ok), new OnClickListener() {

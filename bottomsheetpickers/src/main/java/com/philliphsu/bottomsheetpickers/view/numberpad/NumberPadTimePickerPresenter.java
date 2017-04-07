@@ -45,6 +45,11 @@ final class NumberPadTimePickerPresenter implements INumberPadTimePicker.Present
     }
 
     @Override
+    public void onAltKeyClick(CharSequence altKeyText) {
+
+    }
+
+    @Override
     public void onBackspaceClick() {
         final int len = mFormattedInput.length();
         if (!mIs24HourMode && mAmPmState != UNSPECIFIED) {
