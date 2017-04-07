@@ -102,6 +102,7 @@ final class NumberPadTimePickerPresenter implements
             view.updateAmPmDisplay(null);
             /* No digit was actually deleted, so there is no need to 
              * update the time display. */
+            updateNumpadStates();
         } else {
             timeModel.removeDigit();
         }
