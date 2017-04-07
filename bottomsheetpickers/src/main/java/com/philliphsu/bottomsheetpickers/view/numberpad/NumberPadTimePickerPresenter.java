@@ -192,40 +192,27 @@ final class NumberPadTimePickerPresenter implements
     }
 
     private void updateAltKeysStates() {
+        boolean enabled = false;
         if (count() == 0) {
             // No input, no access!
-            view.setLeftAltKeyEnabled(false);
-            view.setRightAltKeyEnabled(false);
+            enabled = false;
         } else if (count() == 1) {
             // Any of 0-9 inputted, always have access in either clock.
-            view.setLeftAltKeyEnabled(true);
-            view.setRightAltKeyEnabled(true);
+            enabled = true;
         } else if (count() == 2) {
             // Any 2 digits that make a valid hour for either clock are eligible for access
-            int time = getInput();
-            boolean validTwoDigitHour = is24HourFormat() ? time <= 23 : time >= 10 && time <= 12;
-            view.setLeftAltKeyEnabled(validTwoDigitHour);
-            view.setRightAltKeyEnabled(validTwoDigitHour);
-        } else if (count() == 3) {
-            if (is24HourFormat()) {
-                // For the 24-hour clock, no access at all because
-                // two more digits (00 or 30) cannot be added to 3 digits.
-                view.setLeftAltKeyEnabled(false);
-                view.setRightAltKeyEnabled(false);
-            } else {
-                // True for any 3 digits, if AM/PM not already entered
-                boolean enabled = mAmPmState == UNSPECIFIED;
-                view.setLeftAltKeyEnabled(enabled);
-                view.setRightAltKeyEnabled(enabled);
-            }
-        } else if (count() == MAX_DIGITS) {
-            // If all 4 digits are filled in, the 24-hour clock has absolutely
-            // no need for the alt buttons. However, The 12-hour clock has
-            // complete need of them, if not already used.
-            boolean enabled = !is24HourFormat() && mAmPmState == UNSPECIFIED;
-            view.setLeftAltKeyEnabled(enabled);
-            view.setRightAltKeyEnabled(enabled);
+            final int time = getInput();
+            enabled = is24HourFormat() ? time <= 23 : time >= 10 && time <= 12;
+        } else if (count() == 3 || count() == MAX_DIGITS) {
+            // For the 24-hour clock, no access at all because
+            // two more digits (00 or 30) cannot be added without
+            // exceeding MAX_DIGITS.
+            // For the 12-hour clock, any 3-digit or 4-digit times have
+            // complete need of the alt buttons, if AM/PM not already entered.
+            enabled = !is24HourFormat() && mAmPmState == UNSPECIFIED;
         }
+        view.setLeftAltKeyEnabled(enabled);
+        view.setRightAltKeyEnabled(enabled);
     }
     
     private void updateNumberKeysStates() {
