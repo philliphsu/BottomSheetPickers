@@ -39,7 +39,10 @@ class NumberPadTimePickerView extends GridPickerView {
             setTextForPosition(i, String.format("%d", i + 1));
         }
         setTextForPosition(10, String.format("%d", 0));
-        setIs24HourMode(DateFormat.is24HourFormat(context));
+
+        final boolean is24HourMode = DateFormat.is24HourFormat(context);
+        setAltKeysTexts(is24HourMode);
+        mIs24HourMode = is24HourMode;
 
         // Store our own references to the grid's buttons by
         // mapping an index to the button that represents that
@@ -80,6 +83,25 @@ class NumberPadTimePickerView extends GridPickerView {
     }
 
     void setIs24HourMode(boolean is24HourMode) {
+        if (mIs24HourMode != is24HourMode) {
+            setAltKeysTexts(is24HourMode);
+            mIs24HourMode = is24HourMode;
+        }
+    }
+
+    void setLeftAltKeyEnabled(boolean enabled) {
+        mAltButtons[0].setEnabled(enabled);
+    }
+
+    void setRightAltKeyEnabled(boolean enabled) {
+        mAltButtons[1].setEnabled(enabled);
+    }
+
+    private boolean is24HourFormat() {
+        return mIs24HourMode;
+    }
+
+    private void setAltKeysTexts(boolean is24HourMode) {
         final String altText1, altText2;
         if (is24HourMode) {
             final String timeSeparator = DateTimeFormatUtils.getTimeSeparator(getContext(), true);
@@ -95,19 +117,5 @@ class NumberPadTimePickerView extends GridPickerView {
         setTextForPosition(9, altText1);
         // TODO: Apply a smaller text size.
         setTextForPosition(11, altText2);
-
-        mIs24HourMode = is24HourMode;
-    }
-
-    void setLeftAltKeyEnabled(boolean enabled) {
-        mAltButtons[0].setEnabled(enabled);
-    }
-
-    void setRightAltKeyEnabled(boolean enabled) {
-        mAltButtons[1].setEnabled(enabled);
-    }
-
-    private boolean is24HourFormat() {
-        return mIs24HourMode;
     }
 }
