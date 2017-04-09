@@ -1,8 +1,8 @@
 package com.philliphsu.bottomsheetpickers.view;
 
 import android.content.Context;
-
-import com.philliphsu.bottomsheetpickers.R;
+import android.os.Build;
+import android.view.View;
 
 /**
  * Model that encapsulates the formatting conventions of the user's locale.
@@ -26,6 +26,12 @@ public final class LocaleModel {
     }
 
     public boolean isLayoutRtl() {
-        return mAppContext.getResources().getBoolean(R.bool.bsp_is_rtl);
+        if (Build.VERSION.SDK_INT >= 17) {
+            return mAppContext.getResources().getConfiguration()
+                    .getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        } else {
+            // There is only LTR before SDK 17.
+            return false;
+        }
     }
 }
