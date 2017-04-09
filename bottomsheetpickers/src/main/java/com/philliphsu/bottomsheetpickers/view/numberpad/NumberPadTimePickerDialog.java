@@ -90,11 +90,6 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
     }
 
     @Override
-    public void setIs24HourMode(boolean is24HourMode) {
-        mTimePicker.setIs24HourMode(is24HourMode);
-    }
-
-    @Override
     public void setLeftAltKeyText(CharSequence text) {
         mTimePicker.setLeftAltKeyText(text);
     }

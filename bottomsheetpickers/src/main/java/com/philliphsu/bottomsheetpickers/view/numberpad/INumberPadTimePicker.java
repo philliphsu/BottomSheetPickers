@@ -9,7 +9,6 @@ interface INumberPadTimePicker {
         void setOkButtonEnabled(boolean enabled);
         void setAmPmDisplayVisible(boolean visible);
         void setAmPmDisplayIndex(int index);
-        @Deprecated void setIs24HourMode(boolean is24HourMode);
         void setLeftAltKeyText(CharSequence text);
         void setRightAltKeyText(CharSequence text);
         void setLeftAltKeyEnabled(boolean enabled);
