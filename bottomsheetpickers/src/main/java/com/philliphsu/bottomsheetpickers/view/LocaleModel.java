@@ -2,6 +2,8 @@ package com.philliphsu.bottomsheetpickers.view;
 
 import android.content.Context;
 
+import com.philliphsu.bottomsheetpickers.R;
+
 /**
  * Model that encapsulates the formatting conventions of the user's locale.
  */
@@ -21,5 +23,9 @@ public final class LocaleModel {
 
     public boolean isAmPmWrittenBeforeTime() {
         return DateTimeFormatUtils.isAmPmWrittenBeforeTime(mAppContext);
+    }
+
+    public boolean isLayoutRtl() {
+        return mAppContext.getResources().getBoolean(R.bool.bsp_is_rtl);
     }
 }

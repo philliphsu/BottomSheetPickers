@@ -84,20 +84,12 @@ final class NumberPadTimePickerPresenter implements
             // Digits will be shown for you on insert, but not AM/PM
             view.updateAmPmDisplay(ampm);
         } else {
-            // Assuming the text is one of ":00" or ":30", this
-            // evaluates to 2.
-            final int numDigits = altKeyText.length() - 1;
-            int[] digits = new int[numDigits];
-            // charAt(0) is the time separator, so skip i = 0.
-            // We are only interested in storing the digits.
-            for (int i = 1; i < altKeyText.length(); i++) {
-                // The array and the text do not have the same lengths,
-                // so the iterator value does not correspond to the
-                // array index directly
-                digits[i - 1] = Character.digit(altKeyText.charAt(i), BASE_10);
+            for (int i = 0; i < altKeyText.length(); i++) {
+                final char c = altKeyText.charAt(i);
+                if (Character.isDigit(c)) {
+                    timeModel.storeDigit(Character.digit(c, BASE_10));
+                }
             }
-            // Time separator is added for you
-            insertDigits(digits);
             mAmPmState = HRS_24;
         }
 
@@ -184,11 +176,15 @@ final class NumberPadTimePickerPresenter implements
     }
 
     private void setAltKeysTexts(boolean is24HourMode) {
-        final String altText1, altText2;
+        String altText1, altText2;
         if (is24HourMode) {
-            altText1 = timeSeparator + String.format("%02d", 0);
-            altText2 = timeSeparator + String.format("%02d", 30);
-        } else  {
+            altText1 = String.format("%02d", 0);
+            altText2 = String.format("%02d", 30);
+            altText1 = localeModel.isLayoutRtl() ?
+                    (altText1 + timeSeparator) : (timeSeparator + altText1);
+            altText2 = localeModel.isLayoutRtl() ?
+                    (altText2 + timeSeparator) : (timeSeparator + altText2);
+        } else {
             String[] amPm = new DateFormatSymbols().getAmPmStrings();
             // TODO: Get localized. Or get the same am/pm strings as the framework.
             altText1 = amPm[0].length() > 2 ? "AM" : amPm[0];
