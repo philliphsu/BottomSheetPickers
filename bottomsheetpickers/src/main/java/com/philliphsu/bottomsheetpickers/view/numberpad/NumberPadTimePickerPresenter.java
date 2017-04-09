@@ -282,7 +282,7 @@ final class NumberPadTimePickerPresenter implements
     }
 
     private void updateFormattedInputOnDigitInserted(int newDigit) {
-        mFormattedInput.append(newDigit);
+        mFormattedInput.append(String.format("%d", newDigit));
         // Add time separator if necessary, depending on how many digits entered so far
         if (count() == 3) {
             // Insert a time separator
