@@ -84,6 +84,9 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
     @Override
     public void setAmPmDisplayIndex(int index) {
+        if (index != 0 && index != 1) {
+            throw new IllegalArgumentException("Index of AM/PM display must be 0 or 1. index == " + index);
+        }
         if (index == 1) return;
         mHeaderLayout.removeViewAt(1);
         mHeaderLayout.addView(mAmPmDisplay, 0);
