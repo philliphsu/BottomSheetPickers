@@ -39,6 +39,18 @@ public final class DateTimeFormatUtils {
         return separatorText;
     }
 
+    /**
+     * @return {@code true} if the AM or PM label is written before the time
+     *         in the user's locale.
+     */
+    @TargetApi(18)
+    public static boolean isAmPmWrittenBeforeTime(@NonNull Context context) {
+        // TODO: Figure out what to do for API < 18.
+        final String dateTimePattern = DateFormat.getBestDateTimePattern(
+                getPrimaryLocale(context), "hm");
+        return dateTimePattern.startsWith("a");
+    }
+
     private static Locale getPrimaryLocale(@NonNull Context context) {
         final Configuration config = context.getResources().getConfiguration();
         if (Build.VERSION.SDK_INT >= 24) {
