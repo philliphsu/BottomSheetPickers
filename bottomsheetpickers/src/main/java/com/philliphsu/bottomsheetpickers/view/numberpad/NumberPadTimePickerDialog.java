@@ -95,6 +95,16 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
     }
 
     @Override
+    public void setLeftAltKeyText(CharSequence text) {
+        mTimePicker.setLeftAltKeyText(text);
+    }
+
+    @Override
+    public void setRightAltKeyText(CharSequence text) {
+        mTimePicker.setRightAltKeyText(text);
+    }
+
+    @Override
     public void setLeftAltKeyEnabled(boolean enabled) {
         mTimePicker.setLeftAltKeyEnabled(enabled);
     }

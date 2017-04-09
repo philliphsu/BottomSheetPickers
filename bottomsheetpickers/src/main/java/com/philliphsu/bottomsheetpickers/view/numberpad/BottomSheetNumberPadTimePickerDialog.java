@@ -92,4 +92,14 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog
     public void setHeaderDisplayFocused(boolean focused) {
 
     }
+
+    @Override
+    public void setLeftAltKeyText(CharSequence text) {
+
+    }
+
+    @Override
+    public void setRightAltKeyText(CharSequence text) {
+
+    }
 }

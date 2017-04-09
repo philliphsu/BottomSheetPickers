@@ -98,6 +98,16 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     }
 
     @Override
+    public void setLeftAltKeyText(CharSequence text) {
+        mNumberPad.setLeftAltKeyText(text);
+    }
+
+    @Override
+    public void setRightAltKeyText(CharSequence text) {
+        mNumberPad.setRightAltKeyText(text);
+    }
+
+    @Override
     public void setLeftAltKeyEnabled(boolean enabled) {
         mNumberPad.setLeftAltKeyEnabled(enabled);
     }
