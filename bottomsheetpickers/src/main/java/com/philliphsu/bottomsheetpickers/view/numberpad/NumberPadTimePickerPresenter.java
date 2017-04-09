@@ -1,7 +1,12 @@
 package com.philliphsu.bottomsheetpickers.view.numberpad;
 
+import android.support.annotation.NonNull;
+
+import com.philliphsu.bottomsheetpickers.view.LocaleModel;
+
 import java.text.DateFormatSymbols;
 
+import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.AM;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.HRS_24;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.PM;
@@ -25,13 +30,14 @@ final class NumberPadTimePickerPresenter implements
     private static final int BASE_10 = 10;
 
     private final DigitwiseTimeModel timeModel = new DigitwiseTimeModel(this);
-    
+
     private final DigitwiseTimeParser timeParser = new DigitwiseTimeParser(timeModel);
 
     // TODO: Delete setting of capacity.
     private final StringBuilder mFormattedInput = new StringBuilder(MAX_CHARS);
 
-    private final INumberPadTimePicker.View view;
+    private final @NonNull INumberPadTimePicker.View view;
+    private final @NonNull LocaleModel localeModel;
     
     private @AmPmStates.AmPmState int mAmPmState = UNSPECIFIED;
 
@@ -43,11 +49,14 @@ final class NumberPadTimePickerPresenter implements
 
     @Deprecated // TODO: Delete this! THis should not make it into release.
     NumberPadTimePickerPresenter(INumberPadTimePicker.View view) {
-        this(view, false);
+        this(view, null, false);
     }
 
-    NumberPadTimePickerPresenter(INumberPadTimePicker.View view, boolean is24HourMode) {
-        this.view = view;
+    NumberPadTimePickerPresenter(@NonNull INumberPadTimePicker.View view,
+                                 @NonNull LocaleModel localeModel,
+                                 boolean is24HourMode) {
+        this.view = checkNotNull(view);
+        this.localeModel = checkNotNull(localeModel);
         mIs24HourMode = is24HourMode;
     }
 
@@ -124,8 +133,7 @@ final class NumberPadTimePickerPresenter implements
         view.setAmPmDisplayVisible(!mIs24HourMode);
         view.setIs24HourMode(mIs24HourMode);
         if (!mIs24HourMode) {
-            // TODO: Determine the actual index based on locale.
-            view.setAmPmDisplayIndex(1);
+            view.setAmPmDisplayIndex(localeModel.isAmPmWrittenBeforeTime() ? 0 : 1);
         }
         updateViewEnabledStates();
     }

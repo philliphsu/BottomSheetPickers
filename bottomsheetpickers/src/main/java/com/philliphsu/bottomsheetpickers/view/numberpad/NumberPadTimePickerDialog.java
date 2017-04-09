@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 
+import com.philliphsu.bottomsheetpickers.view.LocaleModel;
+
 /**
  * Dialog to type in a time.
  */
@@ -22,7 +24,10 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
     public NumberPadTimePickerDialog(@NonNull Context context, boolean is24HourMode) {
         super(context);
         mTimePicker = new NumberPadTimePicker(context);
-        mPresenter = new NumberPadTimePickerPresenter(this, is24HourMode);
+
+        // TODO: If this model is needed by other classes, make it a singleton.
+        final LocaleModel localeModel = new LocaleModel(context);
+        mPresenter = new NumberPadTimePickerPresenter(this, localeModel, is24HourMode);
 
         final OnBackspaceClickHandler onBackspaceClickHandler
                 = new OnBackspaceClickHandler(mPresenter);
