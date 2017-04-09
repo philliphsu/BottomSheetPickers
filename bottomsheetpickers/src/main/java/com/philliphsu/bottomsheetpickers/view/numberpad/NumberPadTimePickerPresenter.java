@@ -13,9 +13,6 @@ import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.PM;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.UNSPECIFIED;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.DigitwiseTimeModel.MAX_DIGITS;
 
-/**
- * Created by Phillip Hsu on 4/5/2017.
- */
 final class NumberPadTimePickerPresenter implements
         INumberPadTimePicker.Presenter,
         DigitwiseTimeModel.OnInputChangeListener {
@@ -38,11 +35,11 @@ final class NumberPadTimePickerPresenter implements
 
     private final @NonNull INumberPadTimePicker.View view;
     private final @NonNull LocaleModel localeModel;
+
+    private final String timeSeparator;
+    private final boolean mIs24HourMode;
     
     private @AmPmStates.AmPmState int mAmPmState = UNSPECIFIED;
-
-    private final boolean mIs24HourMode;
-
     private boolean mAltKeysDisabled;
     private boolean mAllNumberKeysDisabled;
     private boolean mHeaderDisplayFocused;
@@ -57,6 +54,7 @@ final class NumberPadTimePickerPresenter implements
                                  boolean is24HourMode) {
         this.view = checkNotNull(view);
         this.localeModel = checkNotNull(localeModel);
+        timeSeparator = localeModel.getTimeSeparator(is24HourMode);
         mIs24HourMode = is24HourMode;
     }
 
@@ -70,7 +68,7 @@ final class NumberPadTimePickerPresenter implements
         // Manually insert special characters for 12-hour clock
         if (!is24HourFormat()) {
             if (count() <= 2) {
-                // The colon is inserted for you
+                // The time separator is inserted for you
                 insertDigits(0, 0);
             }
             // text is AM or PM, so include space before
@@ -90,7 +88,7 @@ final class NumberPadTimePickerPresenter implements
             // evaluates to 2.
             final int numDigits = altKeyText.length() - 1;
             int[] digits = new int[numDigits];
-            // charAt(0) is the colon, so skip i = 0.
+            // charAt(0) is the time separator, so skip i = 0.
             // We are only interested in storing the digits.
             for (int i = 1; i < altKeyText.length(); i++) {
                 // The array and the text do not have the same lengths,
@@ -98,7 +96,7 @@ final class NumberPadTimePickerPresenter implements
                 // array index directly
                 digits[i - 1] = Character.digit(altKeyText.charAt(i), BASE_10);
             }
-            // Colon is added for you
+            // Time separator is added for you
             insertDigits(digits);
             mAmPmState = HRS_24;
         }
@@ -285,22 +283,22 @@ final class NumberPadTimePickerPresenter implements
 
     private void updateFormattedInputOnDigitInserted(int newDigit) {
         mFormattedInput.append(newDigit);
-        // Add colon if necessary, depending on how many digits entered so far
+        // Add time separator if necessary, depending on how many digits entered so far
         if (count() == 3) {
-            // Insert a colon
+            // Insert a time separator
             int digits = getInput();
             if (digits >= 60 && digits < 100 || digits >= 160 && digits < 200) {
                 // From 060-099 (really only to 095, but might as well go up to 100)
                 // From 160-199 (really only to 195, but might as well go up to 200),
-                // time does not exist if colon goes at pos. 1
-                mFormattedInput.insert(2, ':');
+                // time does not exist if time separator goes at pos. 1
+                mFormattedInput.insert(2, timeSeparator);
                 // These times only apply to the 24-hour clock, and if we're here,
                 // the time is not legal yet. So we can't set mAmPmState here for
                 // either clock.
                 // The 12-hour clock can only have mAmPmState set when AM/PM are clicked.
             } else {
-                // A valid time exists if colon is at pos. 1
-                mFormattedInput.insert(1, ':');
+                // A valid time exists if time separator is at pos. 1
+                mFormattedInput.insert(1, timeSeparator);
                 // We can set mAmPmState here (and not in the above case) because
                 // the time here is legal in 24-hour clock
                 if (is24HourFormat()) {
@@ -308,15 +306,15 @@ final class NumberPadTimePickerPresenter implements
                 }
             }
         } else if (count() == MAX_DIGITS) {
-            int colonAt = mFormattedInput.indexOf(":");
+            int timeSeparatorAt = mFormattedInput.indexOf(timeSeparator);
             // Since we now batch update the formatted input whenever
-            // digits are inserted, the colon may legitimately not be
+            // digits are inserted, the time separator may legitimately not be
             // present in the formatted input when this is initialized.
-            if (colonAt != -1) {
-                // Colon needs to move, so remove the colon previously added
-                mFormattedInput.deleteCharAt(colonAt);
+            if (timeSeparatorAt != -1) {
+                // Time separator needs to move, so remove the time separator previously added
+                mFormattedInput.deleteCharAt(timeSeparatorAt);
             }
-            mFormattedInput.insert(2, ':');
+            mFormattedInput.insert(2, timeSeparator);
 
             // Time is legal in 24-hour clock
             if (is24HourFormat()) {
@@ -330,7 +328,7 @@ final class NumberPadTimePickerPresenter implements
         mFormattedInput.delete(len - 1, len);
         if (count() == 3) {
             int value = getInput();
-            // Move the colon from its 4-digit position to its 3-digit position, unless doing
+            // Move the time separator from its 4-digit position to its 3-digit position, unless doing
             // so would give an invalid time (e.g. 17:55 becomes 1:75, which is invalid).
             // This could possibly be an issue only when using 24-hour time.
             //
@@ -346,15 +344,15 @@ final class NumberPadTimePickerPresenter implements
             if (value >= 0 && value <= 55
                     || value >= 100 && value <= 155
                     || value >= 200 && value <= 235) {
-                mFormattedInput.deleteCharAt(mFormattedInput.indexOf(":"));
-                mFormattedInput.insert(1, ":");
+                mFormattedInput.deleteCharAt(mFormattedInput.indexOf(timeSeparator));
+                mFormattedInput.insert(1, timeSeparator);
             } else {
                 // previously [06:00, 09:59] or [16:00, 19:59]
                 mAmPmState = UNSPECIFIED;
             }
         } else if (count() == 2) {
-            // Remove the colon
-            mFormattedInput.deleteCharAt(mFormattedInput.indexOf(":"));
+            // Remove the time separator
+            mFormattedInput.deleteCharAt(mFormattedInput.indexOf(timeSeparator));
             // No time can be valid with only 2 digits in either system.
             // I don't think we actually need this, but it can't hurt?
             mAmPmState = UNSPECIFIED;
