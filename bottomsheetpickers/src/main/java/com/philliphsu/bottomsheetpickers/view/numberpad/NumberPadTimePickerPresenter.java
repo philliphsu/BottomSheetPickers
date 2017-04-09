@@ -129,7 +129,7 @@ final class NumberPadTimePickerPresenter implements
         view.updateTimeDisplay(null);
         view.updateAmPmDisplay(null);
         view.setAmPmDisplayVisible(!mIs24HourMode);
-        view.setIs24HourMode(mIs24HourMode);
+        setAltKeysTexts(mIs24HourMode);
         if (!mIs24HourMode) {
             view.setAmPmDisplayIndex(localeModel.isAmPmWrittenBeforeTime() ? 0 : 1);
         }
@@ -181,6 +181,23 @@ final class NumberPadTimePickerPresenter implements
 
     private void insertDigits(int... digits) {
         timeModel.storeDigits(digits);
+    }
+
+    private void setAltKeysTexts(boolean is24HourMode) {
+        final String altText1, altText2;
+        if (is24HourMode) {
+            altText1 = timeSeparator + String.format("%02d", 0);
+            altText2 = timeSeparator + String.format("%02d", 30);
+        } else  {
+            String[] amPm = new DateFormatSymbols().getAmPmStrings();
+            // TODO: Get localized. Or get the same am/pm strings as the framework.
+            altText1 = amPm[0].length() > 2 ? "AM" : amPm[0];
+            altText2 = amPm[1].length() > 2 ? "PM" : amPm[1];
+        }
+        // TODO: Apply a smaller text size.
+        view.setLeftAltKeyText(altText1);
+        // TODO: Apply a smaller text size.
+        view.setRightAltKeyText(altText2);
     }
 
     private void updateViewEnabledStates() {
