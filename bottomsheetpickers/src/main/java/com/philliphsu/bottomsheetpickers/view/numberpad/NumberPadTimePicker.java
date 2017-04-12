@@ -2,13 +2,14 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
+import com.philliphsu.bottomsheetpickers.Utils;
 
 class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
 
@@ -18,6 +19,9 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     private final TextView mAmPmDisplay;
     private final View mBackspace;
     private final View mDivider;
+
+    private final @ColorInt int mAccentColor;
+    private final @ColorInt int mSecondaryTextColor;
 
     public NumberPadTimePicker(Context context) {
         this(context, null);
@@ -37,6 +41,9 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         mAmPmDisplay = (TextView) findViewById(R.id.bsp_input_ampm);
         mBackspace = findViewById(R.id.bsp_backspace);
         mDivider = findViewById(R.id.bsp_input_time_divider);
+
+        mAccentColor = colorAccent(context);
+        mSecondaryTextColor = textColorSecondary(context);
     }
 
     @TargetApi(21)
@@ -50,6 +57,9 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         mAmPmDisplay = (TextView) findViewById(R.id.bsp_input_ampm);
         mBackspace = findViewById(R.id.bsp_backspace);
         mDivider = findViewById(R.id.bsp_input_time_divider);
+
+        mAccentColor = colorAccent(context);
+        mSecondaryTextColor = textColorSecondary(context);
     }
 
     @Override
@@ -115,9 +125,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     @Override
     public void setHeaderDisplayFocused(boolean focused) {
         // Add or remove the highlight from the divider.
-        // TODO: Retrieve theme accent color.
-        // TODO: Retrieve theme secondary text color.
-        mDivider.setBackgroundColor(focused ? Color.GREEN : Color.DKGRAY);
+        mDivider.setBackgroundColor(focused ? mAccentColor: mSecondaryTextColor);
     }
 
     void setOnBackspaceClickListener(OnClickListener l) {
@@ -134,5 +142,19 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
     void setOnAltKeyClickListener(OnClickListener l) {
         mNumberPad.setOnAltKeyClickListener(l);
+    }
+
+    @ColorInt
+    private static int colorAccent(Context context) {
+        // TODO: A standalone NumberPadTimePicker library will
+        // need its own copy of this utility method.
+        return Utils.getThemeAccentColor(context);
+    }
+
+    @ColorInt
+    private static int textColorSecondary(Context context) {
+        // TODO: A standalone NumberPadTimePicker library will
+        // need its own copy of this utility method.
+        return Utils.getColorFromThemeAttr(context, android.R.attr.textColorSecondary);
     }
 }
