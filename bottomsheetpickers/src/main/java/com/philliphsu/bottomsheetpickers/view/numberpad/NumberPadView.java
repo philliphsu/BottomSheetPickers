@@ -6,28 +6,23 @@ import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.view.GridPickerView;
 
-/**
- * Created by Phillip Hsu on 4/4/2017.
- */
-
-class NumberPadTimePickerView extends GridPickerView {
+class NumberPadView extends GridPickerView {
     /**
      * Indices map to buttons that represent those numbers.
      * E.g. index 0 -> zero button (located at position 10 in the grid).
      */
     private final TextView[] mNumberButtons = new TextView[10];
-
     private final TextView[] mAltButtons = new TextView[2];
 
-    public NumberPadTimePickerView(Context context) {
+    public NumberPadView(Context context) {
         this(context, null);
     }
 
-    public NumberPadTimePickerView(Context context, AttributeSet attrs) {
+    public NumberPadView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public NumberPadTimePickerView(Context context, AttributeSet attrs, int defStyle) {
+    public NumberPadView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         // Store our own references to the grid's buttons by
         // mapping an index to the button that represents that
