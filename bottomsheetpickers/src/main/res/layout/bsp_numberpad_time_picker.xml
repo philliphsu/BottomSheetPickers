@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="96dp"
         android:layout_gravity="center" />
-    <com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadTimePickerView
+    <com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadView
         android:id="@+id/bsp_numberpad_time_picker_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
