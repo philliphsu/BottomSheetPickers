@@ -10,7 +10,7 @@ final class NumberPadTimePickerState implements INumberPadTimePicker.State {
     private final int mCount;
 
     public NumberPadTimePickerState(int[] digits, int count) {
-        mDigits = Arrays.copyOf(digits, digits.length);
+        mDigits = digits;
         mCount = count;
     }
 

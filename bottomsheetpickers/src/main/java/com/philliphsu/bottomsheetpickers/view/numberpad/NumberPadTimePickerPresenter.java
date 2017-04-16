@@ -129,6 +129,12 @@ final class NumberPadTimePickerPresenter implements
     }
 
     @Override
+    public INumberPadTimePicker.State getState() {
+        // The model returns the digits defensively copied.
+        return new NumberPadTimePickerState(timeModel.getDigits(), timeModel.count());
+    }
+
+    @Override
     public void onDigitStored(int digit) {
         // Append the new digit(s) to the formatter
         updateFormattedInputOnDigitInserted(digit);
