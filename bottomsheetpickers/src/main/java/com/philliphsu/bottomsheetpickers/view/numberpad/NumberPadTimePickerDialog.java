@@ -2,6 +2,7 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
@@ -12,6 +13,8 @@ import com.philliphsu.bottomsheetpickers.view.LocaleModel;
  * Dialog to type in a time.
  */
 public class NumberPadTimePickerDialog extends AlertDialog implements INumberPadTimePicker.View {
+    private static final String KEY_DIGITS = "digits";
+    private static final String KEY_COUNT = "count";
 
     private final NumberPadTimePicker mTimePicker;
     private final INumberPadTimePicker.Presenter mPresenter;
@@ -112,5 +115,20 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
     @Override
     public void setHeaderDisplayFocused(boolean focused) {
         mTimePicker.setHeaderDisplayFocused(focused);
+    }
+
+    @NonNull
+    @Override
+    public Bundle onSaveInstanceState() {
+        final Bundle bundle = super.onSaveInstanceState();
+        final INumberPadTimePicker.State state = mPresenter.getState();
+        bundle.putIntArray(KEY_DIGITS, state.getDigits());
+        bundle.putInt(KEY_COUNT, state.getCount());
+        return bundle;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 }
