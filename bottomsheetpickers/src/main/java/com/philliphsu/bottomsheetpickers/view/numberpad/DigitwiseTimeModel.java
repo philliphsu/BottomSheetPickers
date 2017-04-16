@@ -1,9 +1,6 @@
 package com.philliphsu.bottomsheetpickers.view.numberpad;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.view.View;
 
 import java.util.Arrays;
 
@@ -126,47 +123,5 @@ final class DigitwiseTimeModel {
                 break;
             storeDigit(d);
         }
-    }
-
-    static class SavedState extends View.BaseSavedState {
-        private final int[] mDigits;
-        private final int mCount;
-
-        public SavedState(Parcelable superState, int[] digits, int count) {
-            super(superState);
-            mDigits = Arrays.copyOf(digits, digits.length);
-            mCount = count;
-        }
-
-        private SavedState(Parcel in) {
-            super(in);
-            mDigits = in.createIntArray();
-            mCount = in.readInt();
-        }
-
-        int[] getDigits() {
-            return Arrays.copyOf(mDigits, mDigits.length);
-        }
-
-        int getCount() {
-            return mCount;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            super.writeToParcel(dest, flags);
-            dest.writeIntArray(mDigits);
-            dest.writeInt(mCount);
-        }
-
-        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-            public SavedState createFromParcel(Parcel in) {
-                return new SavedState(in);
-            }
-
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-        };
     }
 }
