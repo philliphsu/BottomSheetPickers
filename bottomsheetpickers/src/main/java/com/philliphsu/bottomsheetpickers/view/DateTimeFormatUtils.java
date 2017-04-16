@@ -23,7 +23,10 @@ public final class DateTimeFormatUtils {
      */
     @TargetApi(18)
     public static String getTimeSeparator(@NonNull Context context, boolean is24Hour) {
-        // TODO: Figure out what to do for API < 18.
+        // TODO: Figure out what to do for API < 18. You may consider formatting a
+        // dummy time string in 24-hour time using Android's DateFormat, then
+        // iterating through the string until you find a non-digit character.
+        // This should be the separator.
         final String bestDateTimePattern = DateFormat.getBestDateTimePattern(
                 getPrimaryLocale(context), (is24Hour) ? "Hm" : "hm");
         final String separatorText;
@@ -45,7 +48,10 @@ public final class DateTimeFormatUtils {
      */
     @TargetApi(18)
     public static boolean isAmPmWrittenBeforeTime(@NonNull Context context) {
-        // TODO: Figure out what to do for API < 18.
+        // TODO: Figure out what to do for API < 18. You may consider formatting a
+        // dummy time string in 12-hour time using Android's DateFormat, then
+        // checking if the string starts with a non-digit character. This should
+        // be the AM/PM label.
         final String dateTimePattern = DateFormat.getBestDateTimePattern(
                 getPrimaryLocale(context), "hm");
         return dateTimePattern.startsWith("a");
