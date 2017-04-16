@@ -22,4 +22,8 @@ interface INumberPadTimePicker {
         boolean onBackspaceLongClick();
         void onShowTimePicker();
     }
+    interface State {
+        int[] getDigits();
+        int getCount();
+    }
 }
