@@ -162,8 +162,8 @@ final class NumberPadTimePickerPresenter implements
         return mIs24HourMode;
     }
     
-    private int getInput() {
-        return timeModel.getInput();
+    private int getDigitsAsInteger() {
+        return timeModel.getDigitsAsInteger();
     }
 
     private void enable(int start, int end) {
@@ -231,7 +231,7 @@ final class NumberPadTimePickerPresenter implements
             enabled = true;
         } else if (count() == 2) {
             // Any 2 digits that make a valid hour for either clock are eligible for access
-            final int time = getInput();
+            final int time = getDigitsAsInteger();
             enabled = is24HourFormat() ? time <= 23 : time >= 10 && time <= 12;
         } else if (count() == 3 || count() == MAX_DIGITS) {
             // For the 24-hour clock, no access at all because
@@ -259,7 +259,7 @@ final class NumberPadTimePickerPresenter implements
             return;
         }
 
-        int time = getInput();
+        int time = getDigitsAsInteger();
         if (is24hours) {
             if (count() == 1) {
                 enable(0, time < 2 ? cap : 6);
@@ -299,7 +299,7 @@ final class NumberPadTimePickerPresenter implements
         // Add time separator if necessary, depending on how many digits entered so far
         if (count() == 3) {
             // Insert a time separator
-            int digits = getInput();
+            int digits = getDigitsAsInteger();
             if (digits >= 60 && digits < 100 || digits >= 160 && digits < 200) {
                 // From 060-099 (really only to 095, but might as well go up to 100)
                 // From 160-199 (really only to 195, but might as well go up to 200),
@@ -340,7 +340,7 @@ final class NumberPadTimePickerPresenter implements
         int len = mFormattedInput.length();
         mFormattedInput.delete(len - 1, len);
         if (count() == 3) {
-            int value = getInput();
+            int value = getDigitsAsInteger();
             // Move the time separator from its 4-digit position to its 3-digit position, unless doing
             // so would give an invalid time (e.g. 17:55 becomes 1:75, which is invalid).
             // This could possibly be an issue only when using 24-hour time.

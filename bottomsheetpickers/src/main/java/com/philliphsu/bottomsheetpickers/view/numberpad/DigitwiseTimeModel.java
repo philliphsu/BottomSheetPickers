@@ -101,7 +101,7 @@ final class DigitwiseTimeModel {
     /**
      * @return the integer represented by the inputted digits
      */
-    int getInput() {
+    int getDigitsAsInteger() {
         if (mCount <= 0) return UNMODIFIED;
 
         int result = 0;
