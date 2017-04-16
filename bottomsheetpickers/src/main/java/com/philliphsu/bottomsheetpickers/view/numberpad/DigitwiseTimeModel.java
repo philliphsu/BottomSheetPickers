@@ -5,15 +5,14 @@ import android.support.annotation.Nullable;
 import java.util.Arrays;
 
 /**
- * Model that encapsulates data pertaining to the inputted time
- * in a number pad time picker.
+ * Model that encapsulates data pertaining to the inputted time in a number pad time picker.
  */
 final class DigitwiseTimeModel {
     private static final int UNMODIFIED = -1;
 
     static final int MAX_DIGITS = 4;
 
-    private final int[] mInput = new int[MAX_DIGITS];
+    private final int[] mDigits = new int[MAX_DIGITS];
 
     private final @Nullable OnInputChangeListener mListener;
 
@@ -48,13 +47,13 @@ final class DigitwiseTimeModel {
         // TOneverDO: Call clearDigits() to do this, otherwise we'll
         // end up calling back to the listener with an unintended
         // onDigitsCleared() event.
-        Arrays.fill(mInput, UNMODIFIED);
+        Arrays.fill(mDigits, UNMODIFIED);
         mCount = 0;
     }
 
     void storeDigit(int digit) {
         if (mCount < MAX_DIGITS) {
-            mInput[mCount] = digit;
+            mDigits[mCount] = digit;
             mCount++;
             if (mListener != null) {
                 mListener.onDigitStored(digit);
@@ -63,23 +62,23 @@ final class DigitwiseTimeModel {
     }
 
     int getDigit(int at) {
-        return mInput[at];
+        return mDigits[at];
     }
 
     /**
      * @return a defensive copy of the internal array of inputted digits
      */
     int[] getDigits() {
-        int[] digits = new int[mInput.length];
-        System.arraycopy(mInput, 0, digits, 0, mInput.length);
+        int[] digits = new int[mDigits.length];
+        System.arraycopy(mDigits, 0, digits, 0, mDigits.length);
         return digits;
     }
 
     void removeDigit() {
         if (mCount > 0) {
             mCount--; // move the cursor back
-            int digit = mInput[mCount];
-            mInput[mCount] = UNMODIFIED;
+            int digit = mDigits[mCount];
+            mDigits[mCount] = UNMODIFIED;
             if (mListener != null) {
                 mListener.onDigitRemoved(digit);
             }
@@ -87,7 +86,7 @@ final class DigitwiseTimeModel {
     }
 
     boolean clearDigits() {
-        Arrays.fill(mInput, UNMODIFIED);
+        Arrays.fill(mDigits, UNMODIFIED);
         mCount = 0;
         if (mListener != null) {
             mListener.onDigitsCleared();
@@ -107,7 +106,7 @@ final class DigitwiseTimeModel {
 
         int result = 0;
         for (int i = 0; i < mCount; i++) {
-            result = result * 10 + mInput[i];
+            result = result * 10 + mDigits[i];
         }
         return result;
     }
