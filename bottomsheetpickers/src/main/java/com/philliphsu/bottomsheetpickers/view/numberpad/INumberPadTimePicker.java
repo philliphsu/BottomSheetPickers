@@ -21,10 +21,15 @@ interface INumberPadTimePicker {
         void onBackspaceClick();
         boolean onBackspaceLongClick();
         void onShowTimePicker();
+        // TODO: If we don't need the State interface, just change the return type to int[].
         State getState();
+        // TODO: If we don't need the State interface, just change the parameter type to int[].
+        void onRestoreInstanceState(State savedInstanceState);
     }
+    // TODO: If we don't need the count, why do we need this interface?
     interface State {
         int[] getDigits();
+        // TODO: Why do we need the count?
         int getCount();
     }
 }

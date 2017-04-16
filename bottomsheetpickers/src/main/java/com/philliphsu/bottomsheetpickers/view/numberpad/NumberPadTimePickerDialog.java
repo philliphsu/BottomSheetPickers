@@ -14,6 +14,7 @@ import com.philliphsu.bottomsheetpickers.view.LocaleModel;
  */
 public class NumberPadTimePickerDialog extends AlertDialog implements INumberPadTimePicker.View {
     private static final String KEY_DIGITS = "digits";
+    // TODO: Why do we need the count?
     private static final String KEY_COUNT = "count";
 
     private final NumberPadTimePicker mTimePicker;
@@ -123,6 +124,7 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
         final Bundle bundle = super.onSaveInstanceState();
         final INumberPadTimePicker.State state = mPresenter.getState();
         bundle.putIntArray(KEY_DIGITS, state.getDigits());
+        // TODO: Why do we need the count?
         bundle.putInt(KEY_COUNT, state.getCount());
         return bundle;
     }
@@ -130,5 +132,9 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        final int[] digits = savedInstanceState.getIntArray(KEY_DIGITS);
+        // TODO: Why do we need the count?
+        final int count = savedInstanceState.getInt(KEY_COUNT);
+        mPresenter.onRestoreInstanceState(new NumberPadTimePickerState(digits, count));
     }
 }
