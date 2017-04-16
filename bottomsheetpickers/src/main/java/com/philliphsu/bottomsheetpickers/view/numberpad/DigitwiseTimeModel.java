@@ -117,6 +117,8 @@ final class DigitwiseTimeModel {
         if (digits == null)
             return;
         for (int d : digits) {
+            if (d == UNMODIFIED)
+                continue;
             if (d < 0 || d > 9)
                 throw new IllegalArgumentException("Not a digit " + d);
             if (mCount == MAX_DIGITS)
