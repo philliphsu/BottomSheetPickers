@@ -137,6 +137,17 @@ final class NumberPadTimePickerPresenter implements
     }
 
     @Override
+    public void onCancelClick() {
+        view.cancel();
+    }
+
+    @Override
+    public void onOkButtonClick() {
+        view.setResult(timeParser.getHour(mAmPmState), timeParser.getMinute(mAmPmState));
+        view.cancel();
+    }
+
+    @Override
     public void onCreate(@NonNull INumberPadTimePicker.State state) {
         Log.d(TAG, "onCreate()");
         // If any digits are inserted, onDigitStored() will be called

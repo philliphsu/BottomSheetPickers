@@ -16,6 +16,8 @@ interface INumberPadTimePicker {
         void setLeftAltKeyEnabled(boolean enabled);
         void setRightAltKeyEnabled(boolean enabled);
         void setHeaderDisplayFocused(boolean focused);
+        void setResult(int hour, int minute);
+        void cancel();
     }
 
     interface Presenter {
@@ -23,6 +25,8 @@ interface INumberPadTimePicker {
         void onAltKeyClick(CharSequence altKeyText);
         void onBackspaceClick();
         boolean onBackspaceLongClick();
+        void onCancelClick();
+        void onOkButtonClick();
         /**
          * @param state The state to initialize the time picker with.
          */

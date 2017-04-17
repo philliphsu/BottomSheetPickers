@@ -1,7 +1,6 @@
 package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -47,18 +46,13 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
         mTimePicker.setOnAltKeyClickListener(new OnAltKeyClickListener(mPresenter));
 
         setView(mTimePicker);
-        setButton(BUTTON_POSITIVE, context.getString(android.R.string.ok), new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        setButton(BUTTON_NEGATIVE, context.getString(android.R.string.cancel), new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+
+        final OnDialogButtonClickListener onDialogButtonClickListener
+                = new OnDialogButtonClickListener(mPresenter);
+        setButton(BUTTON_POSITIVE, context.getString(android.R.string.ok),
+                onDialogButtonClickListener);
+        setButton(BUTTON_NEGATIVE, context.getString(android.R.string.cancel),
+                onDialogButtonClickListener);
     }
 
     @Override
@@ -146,6 +140,11 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
     @Override
     public void setHeaderDisplayFocused(boolean focused) {
         mTimePicker.setHeaderDisplayFocused(focused);
+    }
+
+    @Override
+    public void setResult(int hour, int minute) {
+        // TODO: Call back to our listener.
     }
 
     @NonNull
