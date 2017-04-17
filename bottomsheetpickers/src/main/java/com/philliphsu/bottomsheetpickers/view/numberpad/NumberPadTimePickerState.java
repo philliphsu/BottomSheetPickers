@@ -8,10 +8,13 @@ import java.util.Arrays;
 final class NumberPadTimePickerState implements INumberPadTimePicker.State {
     private final int[] mDigits;
     private final int mCount;
+    // TODO: If annotation is renamed HalfDay, rename field to mHalfDay.
+    private final @AmPmStates.AmPmState int mAmPmState;
 
-    public NumberPadTimePickerState(int[] digits, int count) {
+    public NumberPadTimePickerState(int[] digits, int count, @AmPmStates.AmPmState int amPmState) {
         mDigits = digits;
         mCount = count;
+        mAmPmState = amPmState;
     }
 
     @Override
@@ -22,5 +25,11 @@ final class NumberPadTimePickerState implements INumberPadTimePicker.State {
     @Override
     public int getCount() {
         return mCount;
+    }
+
+    @AmPmStates.AmPmState
+    @Override
+    public int getAmPmState() {
+        return mAmPmState;
     }
 }

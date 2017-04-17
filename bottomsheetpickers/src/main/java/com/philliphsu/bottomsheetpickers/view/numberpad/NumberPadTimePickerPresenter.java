@@ -1,6 +1,7 @@
 package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 
@@ -16,6 +17,7 @@ import static com.philliphsu.bottomsheetpickers.view.numberpad.DigitwiseTimeMode
 final class NumberPadTimePickerPresenter implements
         INumberPadTimePicker.Presenter,
         DigitwiseTimeModel.OnInputChangeListener {
+    public static final String TAG = NumberPadTimePickerPresenter.class.getSimpleName();
     // TODO: Delete this if we're not setting a capacity.
     // Formatted time string has a maximum of 8 characters
     // in the 12-hour clock, e.g 12:59 AM. Although the 24-hour
@@ -118,6 +120,7 @@ final class NumberPadTimePickerPresenter implements
 
     @Override
     public void onShowTimePicker() {
+        Log.d(TAG, "onShowTimePicker()");
         view.updateTimeDisplay(null);
         view.updateAmPmDisplay(null);
         view.setAmPmDisplayVisible(!mIs24HourMode);
@@ -131,12 +134,21 @@ final class NumberPadTimePickerPresenter implements
     @Override
     public INumberPadTimePicker.State getState() {
         // The model returns the digits defensively copied.
-        return new NumberPadTimePickerState(timeModel.getDigits(), timeModel.count());
+        return new NumberPadTimePickerState(timeModel.getDigits(), timeModel.count(), mAmPmState);
     }
 
     @Override
     public void onRestoreInstanceState(INumberPadTimePicker.State savedInstanceState) {
         insertDigits(savedInstanceState.getDigits());
+        mAmPmState = savedInstanceState.getAmPmState();
+        // TODO: When we're finalizing the code, we probably don't need to
+        // format this in anymore; just tell the view to update its am/pm
+        // display directly.
+        // However, we currently need to leave this in for the backspace
+        // logic to work correctly.
+        if (mAmPmState != UNSPECIFIED) {
+            mFormattedInput.append(' ').append(mAmPmState == AM ? "AM" : "PM");
+        }
     }
 
     @Override
