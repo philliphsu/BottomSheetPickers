@@ -142,9 +142,6 @@ final class NumberPadTimePickerPresenter implements
         // If any digits are inserted, onDigitStored() will be called
         // for each digit and the time display will be updated automatically.
         initialize(state);
-        if (state.equals(NumberPadTimePickerState.EMPTY)) {
-            view.updateTimeDisplay(null);
-        }
         if (!mIs24HourMode) {
             view.setAmPmDisplayIndex(localeModel.isAmPmWrittenBeforeTime() ? 0 : 1);
             final CharSequence amPmDisplayText;
