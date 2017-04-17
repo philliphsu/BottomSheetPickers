@@ -27,6 +27,7 @@ interface INumberPadTimePicker {
          * @param state The state to initialize the time picker with.
          */
         void onCreate(@NonNull State state);
+        void onStop();
         State getState();
     }
 

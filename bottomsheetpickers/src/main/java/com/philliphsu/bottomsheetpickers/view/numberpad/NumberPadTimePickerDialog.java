@@ -62,6 +62,33 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate()");
+        mPresenter.onCreate(readStateFromBundle(savedInstanceState));
+    }
+
+    @NonNull
+    @Override
+    public Bundle onSaveInstanceState() {
+        Log.d(TAG, "onSaveInstanceState()");
+        final Bundle bundle = super.onSaveInstanceState();
+        final INumberPadTimePicker.State state = mPresenter.getState();
+        bundle.putIntArray(KEY_DIGITS, state.getDigits());
+        // TODO: Why do we need the count?
+        bundle.putInt(KEY_COUNT, state.getCount());
+        bundle.putInt(KEY_AM_PM_STATE, state.getAmPmState());
+        return bundle;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop()");
+        mPresenter.onStop();
+    }
+
+    @Override
     public void setNumberKeysEnabled(int start, int end) {
         mTimePicker.setNumberKeysEnabled(start, end);
     }
@@ -119,38 +146,6 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
     @Override
     public void setHeaderDisplayFocused(boolean focused) {
         mTimePicker.setHeaderDisplayFocused(focused);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop()");
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate()");
-        mPresenter.onCreate(readStateFromBundle(savedInstanceState));
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart()");
-    }
-
-    @NonNull
-    @Override
-    public Bundle onSaveInstanceState() {
-        Log.d(TAG, "onSaveInstanceState()");
-        final Bundle bundle = super.onSaveInstanceState();
-        final INumberPadTimePicker.State state = mPresenter.getState();
-        bundle.putIntArray(KEY_DIGITS, state.getDigits());
-        // TODO: Why do we need the count?
-        bundle.putInt(KEY_COUNT, state.getCount());
-        bundle.putInt(KEY_AM_PM_STATE, state.getAmPmState());
-        return bundle;
     }
 
     @NonNull

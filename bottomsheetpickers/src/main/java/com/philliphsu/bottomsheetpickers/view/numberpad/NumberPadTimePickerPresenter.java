@@ -37,12 +37,12 @@ final class NumberPadTimePickerPresenter implements
 
     private final String[] mAltTexts = new String[2];
 
-    private final @NonNull INumberPadTimePicker.View view;
     private final @NonNull LocaleModel localeModel;
-
     private final String timeSeparator;
     private final boolean mIs24HourMode;
-    
+
+    private INumberPadTimePicker.View view;
+
     private @AmPmStates.AmPmState int mAmPmState = UNSPECIFIED;
     private boolean mAltKeysDisabled;
     private boolean mAllNumberKeysDisabled;
@@ -164,6 +164,14 @@ final class NumberPadTimePickerPresenter implements
         view.setAmPmDisplayVisible(!mIs24HourMode);
         setAltKeysTexts();
         updateViewEnabledStates();
+    }
+
+    @Override
+    public void onStop() {
+        // Release our hold on the view so that it may be GCed.
+        // This presenter will be GCed with its view, so there
+        // is no need for us to dereference any other members.
+        view = null;
     }
 
     @Override
