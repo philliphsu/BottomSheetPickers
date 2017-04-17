@@ -35,6 +35,8 @@ final class NumberPadTimePickerPresenter implements
     // TODO: Delete setting of capacity.
     private final StringBuilder mFormattedInput = new StringBuilder(MAX_CHARS);
 
+    private final String[] mAltTexts = new String[2];
+
     private final @NonNull INumberPadTimePicker.View view;
     private final @NonNull LocaleModel localeModel;
 
@@ -58,6 +60,23 @@ final class NumberPadTimePickerPresenter implements
         this.localeModel = checkNotNull(localeModel);
         timeSeparator = localeModel.getTimeSeparator(is24HourMode);
         mIs24HourMode = is24HourMode;
+
+        String leftAltText, rightAltText;
+        if (is24HourMode) {
+            leftAltText = String.format("%02d", 0);
+            rightAltText = String.format("%02d", 30);
+            leftAltText = localeModel.isLayoutRtl() ?
+                    (leftAltText + timeSeparator) : (timeSeparator + leftAltText);
+            rightAltText = localeModel.isLayoutRtl() ?
+                    (rightAltText + timeSeparator) : (timeSeparator + rightAltText);
+        } else {
+            String[] amPm = new DateFormatSymbols().getAmPmStrings();
+            // TODO: Get localized. Or get the same am/pm strings as the framework.
+            leftAltText = amPm[0].length() > 2 ? "AM" : amPm[0];
+            rightAltText = amPm[1].length() > 2 ? "PM" : amPm[1];
+        }
+        mAltTexts[0] = leftAltText;
+        mAltTexts[1] = rightAltText;
     }
 
     @Override
@@ -73,7 +92,6 @@ final class NumberPadTimePickerPresenter implements
                 // The time separator is inserted for you
                 insertDigits(0, 0);
             }
-            // text is AM or PM, so include space before
             String ampm = altKeyText.toString();
             // TODO: When we're finalizing the code, we probably don't need to
             // format this in anymore; just tell the view to update its am/pm
@@ -81,7 +99,7 @@ final class NumberPadTimePickerPresenter implements
             // However, we currently need to leave this in for the backspace
             // logic to work correctly.
             mFormattedInput.append(' ').append(ampm);
-            String am = new DateFormatSymbols().getAmPmStrings()[0];
+            String am = mAltTexts[0];
             mAmPmState = ampm.equalsIgnoreCase(am) ? AM : PM;
             // Digits will be shown for you on insert, but not AM/PM
             view.updateAmPmDisplay(ampm);
@@ -119,15 +137,32 @@ final class NumberPadTimePickerPresenter implements
     }
 
     @Override
-    public void onShowTimePicker() {
-        Log.d(TAG, "onShowTimePicker()");
-        view.updateTimeDisplay(null);
-        view.updateAmPmDisplay(null);
-        view.setAmPmDisplayVisible(!mIs24HourMode);
-        setAltKeysTexts(mIs24HourMode);
+    public void onCreate(@NonNull INumberPadTimePicker.State state) {
+        Log.d(TAG, "onCreate()");
+        // If any digits are inserted, onDigitStored() will be called
+        // for each digit and the time display will be updated automatically.
+        initialize(state);
+        if (state.equals(NumberPadTimePickerState.EMPTY)) {
+            view.updateTimeDisplay(null);
+        }
         if (!mIs24HourMode) {
             view.setAmPmDisplayIndex(localeModel.isAmPmWrittenBeforeTime() ? 0 : 1);
+            final CharSequence amPmDisplayText;
+            switch (state.getAmPmState()) {
+                case AM:
+                    amPmDisplayText = mAltTexts[0];
+                    break;
+                case PM:
+                    amPmDisplayText = mAltTexts[1];
+                    break;
+                default:
+                    amPmDisplayText = null;
+                    break;
+            }
+            view.updateAmPmDisplay(amPmDisplayText);
         }
+        view.setAmPmDisplayVisible(!mIs24HourMode);
+        setAltKeysTexts();
         updateViewEnabledStates();
     }
 
@@ -135,20 +170,6 @@ final class NumberPadTimePickerPresenter implements
     public INumberPadTimePicker.State getState() {
         // The model returns the digits defensively copied.
         return new NumberPadTimePickerState(timeModel.getDigits(), timeModel.count(), mAmPmState);
-    }
-
-    @Override
-    public void onRestoreInstanceState(INumberPadTimePicker.State savedInstanceState) {
-        insertDigits(savedInstanceState.getDigits());
-        mAmPmState = savedInstanceState.getAmPmState();
-        // TODO: When we're finalizing the code, we probably don't need to
-        // format this in anymore; just tell the view to update its am/pm
-        // display directly.
-        // However, we currently need to leave this in for the backspace
-        // logic to work correctly.
-        if (mAmPmState != UNSPECIFIED) {
-            mFormattedInput.append(' ').append(mAmPmState == AM ? "AM" : "PM");
-        }
     }
 
     @Override
@@ -177,6 +198,19 @@ final class NumberPadTimePickerPresenter implements
         }
     }
 
+    private void initialize(@NonNull INumberPadTimePicker.State savedInstanceState) {
+        insertDigits(savedInstanceState.getDigits());
+        mAmPmState = savedInstanceState.getAmPmState();
+        // TODO: When we're finalizing the code, we probably don't need to
+        // format this in anymore; just tell the view to update its am/pm
+        // display directly.
+        // However, we currently need to leave this in for the backspace
+        // logic to work correctly.
+        if (mAmPmState != HRS_24 && mAmPmState != UNSPECIFIED) {
+            mFormattedInput.append(' ').append(mAmPmState == AM ? mAltTexts[0] : mAltTexts[1]);
+        }
+    }
+
     private int count() {
         return timeModel.count();
     }
@@ -198,25 +232,11 @@ final class NumberPadTimePickerPresenter implements
         timeModel.storeDigits(digits);
     }
 
-    private void setAltKeysTexts(boolean is24HourMode) {
-        String altText1, altText2;
-        if (is24HourMode) {
-            altText1 = String.format("%02d", 0);
-            altText2 = String.format("%02d", 30);
-            altText1 = localeModel.isLayoutRtl() ?
-                    (altText1 + timeSeparator) : (timeSeparator + altText1);
-            altText2 = localeModel.isLayoutRtl() ?
-                    (altText2 + timeSeparator) : (timeSeparator + altText2);
-        } else {
-            String[] amPm = new DateFormatSymbols().getAmPmStrings();
-            // TODO: Get localized. Or get the same am/pm strings as the framework.
-            altText1 = amPm[0].length() > 2 ? "AM" : amPm[0];
-            altText2 = amPm[1].length() > 2 ? "PM" : amPm[1];
-        }
+    private void setAltKeysTexts() {
         // TODO: Apply a smaller text size.
-        view.setLeftAltKeyText(altText1);
+        view.setLeftAltKeyText(mAltTexts[0]);
         // TODO: Apply a smaller text size.
-        view.setRightAltKeyText(altText2);
+        view.setRightAltKeyText(mAltTexts[1]);
     }
 
     private void updateViewEnabledStates() {

@@ -1,5 +1,7 @@
 package com.philliphsu.bottomsheetpickers.view.numberpad;
 
+import android.support.annotation.NonNull;
+
 interface INumberPadTimePicker {
     interface View {
         void setNumberKeysEnabled(int start, int end);
@@ -15,18 +17,19 @@ interface INumberPadTimePicker {
         void setRightAltKeyEnabled(boolean enabled);
         void setHeaderDisplayFocused(boolean focused);
     }
+
     interface Presenter {
         void onNumberKeyClick(CharSequence numberKeyText);
         void onAltKeyClick(CharSequence altKeyText);
         void onBackspaceClick();
         boolean onBackspaceLongClick();
-        void onShowTimePicker();
-        // TODO: If we don't need the State interface, just change the return type to int[].
+        /**
+         * @param state The state to initialize the time picker with.
+         */
+        void onCreate(@NonNull State state);
         State getState();
-        // TODO: If we don't need the State interface, just change the parameter type to int[].
-        void onRestoreInstanceState(State savedInstanceState);
     }
-    // TODO: If we don't need the count, why do we need this interface?
+
     interface State {
         int[] getDigits();
         // TODO: Why do we need the count?

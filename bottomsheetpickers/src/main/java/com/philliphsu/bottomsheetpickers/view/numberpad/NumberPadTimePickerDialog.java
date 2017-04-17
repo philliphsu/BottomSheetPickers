@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -58,8 +59,6 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
                 dialog.cancel();
             }
         });
-
-        setOnShowListener(new OnShowTimePickerListener(mPresenter));
     }
 
     @Override
@@ -132,6 +131,7 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate()");
+        mPresenter.onCreate(readStateFromBundle(savedInstanceState));
     }
 
     @Override
@@ -153,14 +153,16 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
         return bundle;
     }
 
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        Log.d(TAG, "onRestoreInstanceState()");
-        super.onRestoreInstanceState(savedInstanceState);
-        final int[] digits = savedInstanceState.getIntArray(KEY_DIGITS);
-        // TODO: Why do we need the count?
-        final int count = savedInstanceState.getInt(KEY_COUNT);
-        final @AmPmStates.AmPmState int amPmState = savedInstanceState.getInt(KEY_AM_PM_STATE);
-        mPresenter.onRestoreInstanceState(new NumberPadTimePickerState(digits, count, amPmState));
+    @NonNull
+    private static INumberPadTimePicker.State readStateFromBundle(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            final int[] digits = savedInstanceState.getIntArray(KEY_DIGITS);
+            // TODO: Why do we need the count?
+            final int count = savedInstanceState.getInt(KEY_COUNT);
+            final @AmPmStates.AmPmState int amPmState = savedInstanceState.getInt(KEY_AM_PM_STATE);
+            return new NumberPadTimePickerState(digits, count, amPmState);
+        } else {
+            return NumberPadTimePickerState.EMPTY;
+        }
     }
 }
