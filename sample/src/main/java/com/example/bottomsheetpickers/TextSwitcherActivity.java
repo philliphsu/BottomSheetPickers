@@ -11,8 +11,6 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadTimePickerDialog;
-
 public class TextSwitcherActivity extends AppCompatActivity {
 
     private int count = 0;
@@ -66,9 +64,8 @@ public class TextSwitcherActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NumberPadTimePickerDialog dialog = new NumberPadTimePickerDialog(
-                        TextSwitcherActivity.this);
-                dialog.show();
+                NumberPadTimePickerDialogFragment dialog = new NumberPadTimePickerDialogFragment();
+                dialog.show(getSupportFragmentManager(), "TAG");
             }
         });
     }
