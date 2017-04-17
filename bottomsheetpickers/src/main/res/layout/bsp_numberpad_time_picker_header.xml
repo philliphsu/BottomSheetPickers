@@ -17,8 +17,7 @@
             android:id="@+id/bsp_input_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="45sp"
-            android:text="12:59"/>
+            android:textSize="45sp" />
 
         <!-- The index of this view will switch between
              0 and 1 depending on the locale. -->
@@ -28,8 +27,7 @@
             android:layout_height="wrap_content"
             android:textSize="17sp"
             android:layout_marginStart="6dp"
-            android:layout_marginEnd="6dp"
-            android:text="PM"/>
+            android:layout_marginEnd="6dp" />
 
     </LinearLayout>
 
