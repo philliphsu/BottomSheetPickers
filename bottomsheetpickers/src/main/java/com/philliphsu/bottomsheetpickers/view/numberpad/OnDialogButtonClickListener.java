@@ -6,9 +6,9 @@ import android.content.DialogInterface;
  * Handles clicks on the dialog's positive and negative buttons.
  */
 class OnDialogButtonClickListener implements DialogInterface.OnClickListener {
-    private final INumberPadTimePicker.Presenter mPresenter;
+    private final INumberPadTimePicker.DialogPresenter mPresenter;
 
-    OnDialogButtonClickListener(INumberPadTimePicker.Presenter presenter) {
+    OnDialogButtonClickListener(INumberPadTimePicker.DialogPresenter presenter) {
         mPresenter = presenter;
     }
 

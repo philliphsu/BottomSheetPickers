@@ -83,11 +83,6 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     }
 
     @Override
-    public void setOkButtonEnabled(boolean enabled) {
-        // There is no 'ok' button.
-    }
-
-    @Override
     public void setAmPmDisplayVisible(boolean visible) {
         mAmPmDisplay.setVisibility(visible ? VISIBLE : GONE);
     }

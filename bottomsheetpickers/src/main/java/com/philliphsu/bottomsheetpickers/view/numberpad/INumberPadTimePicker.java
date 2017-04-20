@@ -8,7 +8,6 @@ interface INumberPadTimePicker {
         void setBackspaceEnabled(boolean enabled);
         void updateTimeDisplay(CharSequence time);
         void updateAmPmDisplay(CharSequence ampm);
-        void setOkButtonEnabled(boolean enabled);
         void setAmPmDisplayVisible(boolean visible);
         void setAmPmDisplayIndex(int index);
         void setLeftAltKeyText(CharSequence text);
@@ -16,6 +15,10 @@ interface INumberPadTimePicker {
         void setLeftAltKeyEnabled(boolean enabled);
         void setRightAltKeyEnabled(boolean enabled);
         void setHeaderDisplayFocused(boolean focused);
+    }
+
+    interface DialogView extends View {
+        void setOkButtonEnabled(boolean enabled);
         void setResult(int hour, int minute);
         void cancel();
     }
@@ -25,14 +28,17 @@ interface INumberPadTimePicker {
         void onAltKeyClick(CharSequence altKeyText);
         void onBackspaceClick();
         boolean onBackspaceLongClick();
-        void onCancelClick();
-        void onOkButtonClick();
         /**
          * @param state The state to initialize the time picker with.
          */
         void onCreate(@NonNull State state);
         void onStop();
         State getState();
+    }
+
+    interface DialogPresenter extends Presenter {
+        void onCancelClick();
+        void onOkButtonClick();
     }
 
     interface State {

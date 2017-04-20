@@ -13,7 +13,8 @@ import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 /**
  * Dialog to type in a time.
  */
-public class NumberPadTimePickerDialog extends AlertDialog implements INumberPadTimePicker.View {
+public class NumberPadTimePickerDialog extends AlertDialog
+        implements INumberPadTimePicker.DialogView {
     public static final String TAG = NumberPadTimePickerDialog.class.getSimpleName();
     private static final String KEY_DIGITS = "digits";
     // TODO: Why do we need the count?
@@ -22,7 +23,7 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
     private static final String KEY_AM_PM_STATE = "am_pm_state";
 
     private final NumberPadTimePicker mTimePicker;
-    private final INumberPadTimePicker.Presenter mPresenter;
+    private final INumberPadTimePicker.DialogPresenter mPresenter;
 
     @Deprecated // TODO: Delete this when we're done testing! This should not make it into release.
     public NumberPadTimePickerDialog(@NonNull Context context) {
@@ -35,7 +36,7 @@ public class NumberPadTimePickerDialog extends AlertDialog implements INumberPad
 
         // TODO: If this model is needed by other classes, make it a singleton.
         final LocaleModel localeModel = new LocaleModel(context);
-        mPresenter = new NumberPadTimePickerPresenter(this, localeModel, is24HourMode);
+        mPresenter = new NumberPadTimePickerDialogPresenter(this, localeModel, is24HourMode);
 
         final OnBackspaceClickHandler onBackspaceClickHandler
                 = new OnBackspaceClickHandler(mPresenter);

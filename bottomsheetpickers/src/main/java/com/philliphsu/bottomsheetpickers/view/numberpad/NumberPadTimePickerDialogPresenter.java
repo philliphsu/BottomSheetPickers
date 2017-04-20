@@ -14,10 +14,10 @@ import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.PM;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.UNSPECIFIED;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.DigitwiseTimeModel.MAX_DIGITS;
 
-final class NumberPadTimePickerPresenter implements
-        INumberPadTimePicker.Presenter,
+final class NumberPadTimePickerDialogPresenter implements
+        INumberPadTimePicker.DialogPresenter,
         DigitwiseTimeModel.OnInputChangeListener {
-    public static final String TAG = NumberPadTimePickerPresenter.class.getSimpleName();
+    public static final String TAG = NumberPadTimePickerDialogPresenter.class.getSimpleName();
     // TODO: Delete this if we're not setting a capacity.
     // Formatted time string has a maximum of 8 characters
     // in the 12-hour clock, e.g 12:59 AM. Although the 24-hour
@@ -41,7 +41,7 @@ final class NumberPadTimePickerPresenter implements
     private final String timeSeparator;
     private final boolean mIs24HourMode;
 
-    private INumberPadTimePicker.View view;
+    private INumberPadTimePicker.DialogView view;
 
     private @AmPmStates.AmPmState int mAmPmState = UNSPECIFIED;
     private boolean mAltKeysDisabled;
@@ -49,13 +49,13 @@ final class NumberPadTimePickerPresenter implements
     private boolean mHeaderDisplayFocused;
 
     @Deprecated // TODO: Delete this! THis should not make it into release.
-    NumberPadTimePickerPresenter(INumberPadTimePicker.View view) {
+    NumberPadTimePickerDialogPresenter(INumberPadTimePicker.DialogView view) {
         this(view, null, false);
     }
 
-    NumberPadTimePickerPresenter(@NonNull INumberPadTimePicker.View view,
-                                 @NonNull LocaleModel localeModel,
-                                 boolean is24HourMode) {
+    NumberPadTimePickerDialogPresenter(@NonNull INumberPadTimePicker.DialogView view,
+                                       @NonNull LocaleModel localeModel,
+                                       boolean is24HourMode) {
         this.view = checkNotNull(view);
         this.localeModel = checkNotNull(localeModel);
         timeSeparator = localeModel.getTimeSeparator(is24HourMode);
