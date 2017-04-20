@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.text.format.DateFormat;
 import android.util.Log;
 
 import com.philliphsu.bottomsheetpickers.view.LocaleModel;
@@ -27,17 +26,9 @@ public class NumberPadTimePickerDialog extends AlertDialog
     private final INumberPadTimePicker.DialogPresenter mPresenter;
     private final @Nullable OnTimeSetListener mTimeSetListener;
 
-    @Deprecated // TODO: Delete this when we're done testing! This should not make it into release.
-    public NumberPadTimePickerDialog(@NonNull Context context) {
-        this(context, DateFormat.is24HourFormat(context));
-    }
-
-    public NumberPadTimePickerDialog(@NonNull Context context, boolean is24HourMode) {
-        this(context, is24HourMode, null);
-    }
-
-    public NumberPadTimePickerDialog(@NonNull Context context, boolean is24HourMode,
-                                     @Nullable OnTimeSetListener listener) {
+    public NumberPadTimePickerDialog(@NonNull Context context,
+                                     @Nullable OnTimeSetListener listener,
+                                     boolean is24HourMode) {
         super(context);
         mTimeSetListener = listener;
         mTimePicker = new NumberPadTimePicker(context);
