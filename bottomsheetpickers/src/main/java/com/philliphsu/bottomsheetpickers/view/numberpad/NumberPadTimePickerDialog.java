@@ -1,5 +1,6 @@
 package com.philliphsu.bottomsheetpickers.view.numberpad;
 
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,6 +25,7 @@ public class NumberPadTimePickerDialog extends AlertDialog
 
     private final NumberPadTimePicker mTimePicker;
     private final INumberPadTimePicker.DialogPresenter mPresenter;
+    private final @Nullable OnTimeSetListener mTimeSetListener;
 
     @Deprecated // TODO: Delete this when we're done testing! This should not make it into release.
     public NumberPadTimePickerDialog(@NonNull Context context) {
@@ -31,7 +33,13 @@ public class NumberPadTimePickerDialog extends AlertDialog
     }
 
     public NumberPadTimePickerDialog(@NonNull Context context, boolean is24HourMode) {
+        this(context, is24HourMode, null);
+    }
+
+    public NumberPadTimePickerDialog(@NonNull Context context, boolean is24HourMode,
+                                     @Nullable OnTimeSetListener listener) {
         super(context);
+        mTimeSetListener = listener;
         mTimePicker = new NumberPadTimePicker(context);
 
         // TODO: If this model is needed by other classes, make it a singleton.
@@ -145,7 +153,9 @@ public class NumberPadTimePickerDialog extends AlertDialog
 
     @Override
     public void setResult(int hour, int minute) {
-        // TODO: Call back to our listener.
+        if (mTimeSetListener != null) {
+            mTimeSetListener.onTimeSet(mTimePicker, hour, minute);
+        }
     }
 
     @NonNull
