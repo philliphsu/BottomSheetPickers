@@ -41,4 +41,6 @@ ext {
 
     // Library dependencies
     supportLibraryVersion = '25.3.1'
+    junitVersion = '4.12'
+    mockitoVersion = '1.10.19'
 }
