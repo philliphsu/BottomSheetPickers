@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.widget.TimePicker;
 
 import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 
@@ -26,12 +27,16 @@ public class NumberPadTimePickerDialog extends AlertDialog
     private final INumberPadTimePicker.DialogPresenter mPresenter;
     private final @Nullable OnTimeSetListener mTimeSetListener;
 
+    // Dummy TimePicker passed to onTimeSet() callback.
+    private final TimePicker mDummy;
+
     public NumberPadTimePickerDialog(@NonNull Context context,
                                      @Nullable OnTimeSetListener listener,
                                      boolean is24HourMode) {
         super(context);
         mTimeSetListener = listener;
         mTimePicker = new NumberPadTimePicker(context);
+        mDummy = new TimePicker(context);
 
         // TODO: If this model is needed by other classes, make it a singleton.
         final LocaleModel localeModel = new LocaleModel(context);
@@ -145,7 +150,7 @@ public class NumberPadTimePickerDialog extends AlertDialog
     @Override
     public void setResult(int hour, int minute) {
         if (mTimeSetListener != null) {
-            mTimeSetListener.onTimeSet(mTimePicker, hour, minute);
+            mTimeSetListener.onTimeSet(mDummy, hour, minute);
         }
     }
 
