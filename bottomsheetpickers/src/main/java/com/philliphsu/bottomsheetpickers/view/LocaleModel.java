@@ -7,7 +7,7 @@ import android.view.View;
 /**
  * Model that encapsulates the formatting conventions of the user's locale.
  */
-public final class LocaleModel {
+public class LocaleModel {
     // TODO: The current utility APIs use this Context only to retrieve
     // the user's locale. Consider holding a reference to the Locale
     // instead of the Context, and passing the former to the utility class.
