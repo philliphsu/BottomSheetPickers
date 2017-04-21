@@ -1,7 +1,6 @@
 package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 
@@ -17,7 +16,6 @@ import static com.philliphsu.bottomsheetpickers.view.numberpad.DigitwiseTimeMode
 class NumberPadTimePickerPresenter implements
         INumberPadTimePicker.Presenter,
         DigitwiseTimeModel.OnInputChangeListener {
-    public static final String TAG = NumberPadTimePickerPresenter.class.getSimpleName();
     // TODO: Delete this if we're not setting a capacity.
     // Formatted time string has a maximum of 8 characters
     // in the 12-hour clock, e.g 12:59 AM. Although the 24-hour
@@ -132,7 +130,6 @@ class NumberPadTimePickerPresenter implements
 
     @Override
     public void onCreate(@NonNull INumberPadTimePicker.State state) {
-        Log.d(TAG, "onCreate()");
         // If any digits are inserted, onDigitStored() will be called
         // for each digit and the time display will be updated automatically.
         initialize(state);
