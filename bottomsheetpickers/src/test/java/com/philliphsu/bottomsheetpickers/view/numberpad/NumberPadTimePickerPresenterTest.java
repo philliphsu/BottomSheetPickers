@@ -11,8 +11,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class NumberPadTimePickerPresenterTest {
-    private static final int MODE_12HR = 0;
-    private static final int MODE_24HR = 1;
+    static final int MODE_12HR = 0;
+    static final int MODE_24HR = 1;
 
     private final INumberPadTimePicker.View[] mViews = new INumberPadTimePicker.View[2];
     private final INumberPadTimePicker.Presenter[] mPresenters = new INumberPadTimePicker.Presenter[2];
@@ -21,7 +21,7 @@ public class NumberPadTimePickerPresenterTest {
     private LocaleModel mLocaleModel;
 
     @Before
-    public void setup() {
+    public final void setup() {
         // Inject mocks annotated with the @Mock annotation.
         MockitoAnnotations.initMocks(this);
         setupMockViews();
@@ -55,6 +55,14 @@ public class NumberPadTimePickerPresenterTest {
     public void clickOnNumberKey_UpdatesTimeDisplay() {
         mPresenters[MODE_12HR].onNumberKeyClick("1");
         verify(mViews[MODE_12HR]).updateTimeDisplay("1");
+    }
+
+    INumberPadTimePicker.View getView(int mode) {
+        return mViews[mode];
+    }
+
+    INumberPadTimePicker.Presenter getPresenter(int mode) {
+        return mPresenters[mode];
     }
 
     Class<? extends INumberPadTimePicker.View> getViewClass() {
