@@ -17,11 +17,6 @@ public class NumberPadTimePickerPresenterTest {
     private final INumberPadTimePicker.View[] mViews = new INumberPadTimePicker.View[2];
     private final INumberPadTimePicker.Presenter[] mPresenters = new INumberPadTimePicker.Presenter[2];
 
-    {
-        mViews[MODE_12HR] = mock(INumberPadTimePicker.View.class);
-        mViews[MODE_24HR] = mock(INumberPadTimePicker.View.class);
-    }
-
     @Mock
     private LocaleModel mLocaleModel;
 
@@ -29,6 +24,7 @@ public class NumberPadTimePickerPresenterTest {
     public void setup() {
         // Inject mocks annotated with the @Mock annotation.
         MockitoAnnotations.initMocks(this);
+        setupMockViews();
         setupPresenters();
     }
 
@@ -61,15 +57,35 @@ public class NumberPadTimePickerPresenterTest {
         verify(mViews[MODE_12HR]).updateTimeDisplay("1");
     }
 
-    void setupPresenters() {
+    Class<? extends INumberPadTimePicker.View> getViewClass() {
+        return INumberPadTimePicker.View.class;
+    }
+
+    INumberPadTimePicker.Presenter createPresenter(INumberPadTimePicker.View view,
+                                                   LocaleModel localeModel,
+                                                   boolean is24HourMode) {
+        return new NumberPadTimePickerPresenter(view, localeModel, is24HourMode);
+    }
+
+    private void setupMockViews() {
+        initMockView(MODE_12HR);
+        initMockView(MODE_24HR);
+    }
+
+    private void setupPresenters() {
         initPresenter(MODE_12HR);
         initPresenter(MODE_24HR);
     }
 
+    private void initMockView(int mode) {
+        if (mViews[mode] == null) {
+            mViews[mode] = mock(getViewClass());
+        }
+    }
+
     private void initPresenter(int mode) {
         if (mPresenters[mode] == null) {
-            mPresenters[mode] = new NumberPadTimePickerPresenter(
-                    mViews[mode], mLocaleModel, mode == MODE_24HR);
+            mPresenters[mode] = createPresenter(mViews[mode], mLocaleModel, mode == MODE_24HR);
         }
     }
 }
