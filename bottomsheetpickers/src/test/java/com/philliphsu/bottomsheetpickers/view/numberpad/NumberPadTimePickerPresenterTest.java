@@ -67,14 +67,32 @@ public class NumberPadTimePickerPresenterTest {
     }
 
     @Test
-    public void clickOnNumberKey_UpdatesTimeDisplay() {
-        // Number texts are the same for both 12-hour and 24-hour modes.
-        
+    public void verifyViewEnabledStatesForOneDigitInput() {
         mPresenters[MODE_12HR].onNumberKeyClick(text(1));
+        verify(mViews[MODE_12HR]).setNumberKeysEnabled(0, 6 /* 1[0-2]:... or 1:[0-5]... */);
+        verify(mViews[MODE_12HR]).setBackspaceEnabled(true);
         verify(mViews[MODE_12HR]).updateTimeDisplay(text(1));
+        verify(mViews[MODE_12HR], never()).updateAmPmDisplay(null);
+        verify(mViews[MODE_12HR], never()).setAmPmDisplayVisible(false);
+        verify(mViews[MODE_12HR], never()).setAmPmDisplayIndex(0);
+        verify(mViews[MODE_12HR], never()).setLeftAltKeyText(null);
+        verify(mViews[MODE_12HR], never()).setRightAltKeyText(null);
+        verify(mViews[MODE_12HR]).setLeftAltKeyEnabled(true);
+        verify(mViews[MODE_12HR]).setRightAltKeyEnabled(true);
+        verify(mViews[MODE_12HR]).setHeaderDisplayFocused(true);
 
         mPresenters[MODE_24HR].onNumberKeyClick(text(1));
+        verify(mViews[MODE_24HR]).setNumberKeysEnabled(0, 10 /* 1[0-9]:... or 1:[0-5]... */);
+        verify(mViews[MODE_24HR]).setBackspaceEnabled(true);
         verify(mViews[MODE_24HR]).updateTimeDisplay(text(1));
+        verify(mViews[MODE_24HR], never()).updateAmPmDisplay(null);
+        verify(mViews[MODE_24HR], never()).setAmPmDisplayVisible(false);
+        verify(mViews[MODE_24HR], never()).setAmPmDisplayIndex(0);
+        verify(mViews[MODE_24HR], never()).setLeftAltKeyText(null);
+        verify(mViews[MODE_24HR], never()).setRightAltKeyText(null);
+        verify(mViews[MODE_24HR]).setLeftAltKeyEnabled(true);
+        verify(mViews[MODE_24HR]).setRightAltKeyEnabled(true);
+        verify(mViews[MODE_24HR]).setHeaderDisplayFocused(true);
     }
 
     INumberPadTimePicker.View getView(int mode) {
