@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class NumberPadTimePickerPresenterTest {
@@ -33,6 +34,9 @@ public class NumberPadTimePickerPresenterTest {
         mPresenters[MODE_12HR].onCreate(NumberPadTimePickerState.EMPTY);
         verify(mViews[MODE_12HR]).setNumberKeysEnabled(1, 10);
         verify(mViews[MODE_12HR]).setBackspaceEnabled(false);
+        // Assuming no initial text for the time display, there is no need to have to call this.
+        verify(mViews[MODE_12HR], times(0)).updateTimeDisplay(null /* value doesn't matter */);
+        verify(mViews[MODE_12HR]).updateAmPmDisplay(null);
         verify(mViews[MODE_12HR]).setAmPmDisplayVisible(true);
         verify(mViews[MODE_12HR]).setAmPmDisplayIndex(mLocaleModel.isAmPmWrittenBeforeTime() ? 0 : 1);
         /* Verify setLeftAltKeyText() and setRightAltKeyText() manually. */
@@ -43,8 +47,10 @@ public class NumberPadTimePickerPresenterTest {
         mPresenters[MODE_24HR].onCreate(NumberPadTimePickerState.EMPTY);
         verify(mViews[MODE_24HR]).setNumberKeysEnabled(0, 10);
         verify(mViews[MODE_24HR]).setBackspaceEnabled(false);
+        verify(mViews[MODE_24HR], times(0)).updateTimeDisplay(null /* value doesn't matter */);
+        verify(mViews[MODE_24HR], times(0)).updateAmPmDisplay(null /* value doesn't matter */);
         verify(mViews[MODE_24HR]).setAmPmDisplayVisible(false);
-        /* Notice setAmPmDisplayIndex() is not called. */
+        verify(mViews[MODE_24HR], times(0)).setAmPmDisplayIndex(0 /* value doesn't matter */);
         /* Verify setLeftAltKeyText() and setRightAltKeyText() manually. */
         verify(mViews[MODE_24HR]).setLeftAltKeyEnabled(false);
         verify(mViews[MODE_24HR]).setRightAltKeyEnabled(false);
