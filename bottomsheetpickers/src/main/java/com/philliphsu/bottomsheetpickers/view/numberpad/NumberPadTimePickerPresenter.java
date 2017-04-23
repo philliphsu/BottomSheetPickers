@@ -4,8 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 
-import java.text.DateFormatSymbols;
-
 import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.AM;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.HRS_24;
@@ -53,22 +51,9 @@ class NumberPadTimePickerPresenter implements
         timeSeparator = localeModel.getTimeSeparator(is24HourMode);
         mIs24HourMode = is24HourMode;
 
-        String leftAltText, rightAltText;
-        if (is24HourMode) {
-            leftAltText = String.format("%02d", 0);
-            rightAltText = String.format("%02d", 30);
-            leftAltText = localeModel.isLayoutRtl() ?
-                    (leftAltText + timeSeparator) : (timeSeparator + leftAltText);
-            rightAltText = localeModel.isLayoutRtl() ?
-                    (rightAltText + timeSeparator) : (timeSeparator + rightAltText);
-        } else {
-            String[] amPm = new DateFormatSymbols().getAmPmStrings();
-            // TODO: Get localized. Or get the same am/pm strings as the framework.
-            leftAltText = amPm[0].length() > 2 ? "AM" : amPm[0];
-            rightAltText = amPm[1].length() > 2 ? "PM" : amPm[1];
-        }
-        mAltTexts[0] = leftAltText;
-        mAltTexts[1] = rightAltText;
+        final ButtonTextModel textModel = new ButtonTextModel(localeModel, is24HourMode);
+        mAltTexts[0] = textModel.altText(0);
+        mAltTexts[1] = textModel.altText(1);
     }
 
     @Override

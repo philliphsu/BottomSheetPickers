@@ -28,10 +28,10 @@ class NumberPadView extends GridPickerView {
         // mapping an index to the button that represents that
         // number.
         mNumberButtons[0] = getButton(10);
-        mNumberButtons[0].setText(String.format("%d", 0));
+        mNumberButtons[0].setText(ButtonTextModel.text(0));
         for (int i = 0; i < mNumberButtons.length - 1; i++) {
             final TextView button = getButton(i);
-            button.setText(String.format("%d", i + 1));
+            button.setText(ButtonTextModel.text(i + 1));
             mNumberButtons[i + 1] = button;
         }
 
