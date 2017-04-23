@@ -17,6 +17,7 @@ public class NumberPadTimePickerPresenterTest {
 
     private final INumberPadTimePicker.View[] mViews = new INumberPadTimePicker.View[2];
     private final INumberPadTimePicker.Presenter[] mPresenters = new INumberPadTimePicker.Presenter[2];
+    private final ButtonTextModel[] mButtonTextModels = new ButtonTextModel[2];
 
     @Mock
     private LocaleModel mLocaleModel;
@@ -27,6 +28,7 @@ public class NumberPadTimePickerPresenterTest {
         MockitoAnnotations.initMocks(this);
         setupMockViews();
         setupPresenters();
+        setupButtonTextModels();
     }
 
     @Test
@@ -91,6 +93,11 @@ public class NumberPadTimePickerPresenterTest {
         initPresenter(MODE_24HR);
     }
 
+    private void setupButtonTextModels() {
+        initButtonTextModel(MODE_12HR);
+        initButtonTextModel(MODE_24HR);
+    }
+
     private void initMockView(int mode) {
         if (mViews[mode] == null) {
             mViews[mode] = mock(getViewClass());
@@ -100,6 +107,12 @@ public class NumberPadTimePickerPresenterTest {
     private void initPresenter(int mode) {
         if (mPresenters[mode] == null) {
             mPresenters[mode] = createPresenter(mViews[mode], mLocaleModel, mode == MODE_24HR);
+        }
+    }
+
+    private void initButtonTextModel(int mode) {
+        if (mButtonTextModels[mode] == null) {
+            mButtonTextModels[mode] = new ButtonTextModel(mLocaleModel, mode == MODE_24HR);
         }
     }
 }
