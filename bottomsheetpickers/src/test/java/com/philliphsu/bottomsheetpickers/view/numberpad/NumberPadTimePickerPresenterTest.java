@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static android.R.attr.mode;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -26,9 +27,13 @@ public class NumberPadTimePickerPresenterTest {
     public final void setup() {
         // Inject mocks annotated with the @Mock annotation.
         MockitoAnnotations.initMocks(this);
-        setupMockViews();
-        setupPresenters();
-        setupButtonTextModels();
+        mViews[MODE_12HR] = mock(getViewClass());
+        mPresenters[MODE_12HR] = createPresenter(mViews[MODE_12HR], mLocaleModel, false);
+        mButtonTextModels[MODE_12HR] = new ButtonTextModel(mLocaleModel, false);
+
+        mViews[MODE_24HR] = mock(getViewClass());
+        mPresenters[MODE_24HR] = createPresenter(mViews[MODE_24HR], mLocaleModel, true);
+        mButtonTextModels[MODE_24HR] = new ButtonTextModel(mLocaleModel, true);
     }
 
     @Test
@@ -81,38 +86,5 @@ public class NumberPadTimePickerPresenterTest {
                                                    LocaleModel localeModel,
                                                    boolean is24HourMode) {
         return new NumberPadTimePickerPresenter(view, localeModel, is24HourMode);
-    }
-
-    private void setupMockViews() {
-        initMockView(MODE_12HR);
-        initMockView(MODE_24HR);
-    }
-
-    private void setupPresenters() {
-        initPresenter(MODE_12HR);
-        initPresenter(MODE_24HR);
-    }
-
-    private void setupButtonTextModels() {
-        initButtonTextModel(MODE_12HR);
-        initButtonTextModel(MODE_24HR);
-    }
-
-    private void initMockView(int mode) {
-        if (mViews[mode] == null) {
-            mViews[mode] = mock(getViewClass());
-        }
-    }
-
-    private void initPresenter(int mode) {
-        if (mPresenters[mode] == null) {
-            mPresenters[mode] = createPresenter(mViews[mode], mLocaleModel, mode == MODE_24HR);
-        }
-    }
-
-    private void initButtonTextModel(int mode) {
-        if (mButtonTextModels[mode] == null) {
-            mButtonTextModels[mode] = new ButtonTextModel(mLocaleModel, mode == MODE_24HR);
-        }
     }
 }
