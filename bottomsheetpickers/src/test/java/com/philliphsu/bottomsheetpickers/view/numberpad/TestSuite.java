@@ -25,9 +25,11 @@ final class TestSuite {
     static final List<TestCase> MODE_24HR_TESTS_0_TO_9 = new ArrayList<>(10);
 
     static {
-        // ####################################################################
-        //                     MODE_12HR: Input '1' - '9'
-        // ####################################################################
+        build_Mode12Hr_Tests_1_to_9();
+        build_Mode24Hr_Tests_0_to_9();
+    }
+
+    private static void build_Mode12Hr_Tests_1_to_9() {
         for (int i = 1; i <= 9; i++) {
             MODE_12HR_TESTS_1_TO_9.add(new TestCase.Builder(array(i), UNSPECIFIED)
                     .numberKeysEnabled(0, 6 /* 1[0-2]:... or i:[0-5]... */)
@@ -38,10 +40,9 @@ final class TestSuite {
                     .timeDisplay(text(i))
                     .build());
         }
+    }
 
-        // ####################################################################
-        //                     MODE_24HR: Input '0' - '9'
-        // ####################################################################
+    private static void build_Mode24Hr_Tests_0_to_9() {
         for (int i = 0; i <= 9; i++) {
             TestCase.Builder builder = new TestCase.Builder(array(i), UNSPECIFIED)
                     .backspaceEnabled(true)
