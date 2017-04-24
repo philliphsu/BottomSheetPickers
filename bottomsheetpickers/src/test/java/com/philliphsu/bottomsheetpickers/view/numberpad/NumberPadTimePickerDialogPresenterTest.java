@@ -14,6 +14,12 @@ public class NumberPadTimePickerDialogPresenterTest extends NumberPadTimePickerP
     }
 
     @Override
+    void verifyViewEnabledStates(TestCase test, int mode) {
+        super.verifyViewEnabledStates(test, mode);
+        verify(getView(mode)).setOkButtonEnabled(test.okButtonEnabled);
+    }
+
+    @Override
     INumberPadTimePicker.DialogView getView(int mode) {
         return (INumberPadTimePicker.DialogView) super.getView(mode);
     }
