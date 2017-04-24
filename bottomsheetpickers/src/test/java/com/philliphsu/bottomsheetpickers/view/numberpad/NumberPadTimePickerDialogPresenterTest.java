@@ -2,6 +2,7 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
 public class NumberPadTimePickerDialogPresenterTest extends NumberPadTimePickerPresenterTest {
@@ -16,7 +17,7 @@ public class NumberPadTimePickerDialogPresenterTest extends NumberPadTimePickerP
     @Override
     void verifyViewEnabledStates(TestCase test, int mode) {
         super.verifyViewEnabledStates(test, mode);
-        verify(getView(mode)).setOkButtonEnabled(test.okButtonEnabled);
+        verify(getView(mode), atLeastOnce()).setOkButtonEnabled(test.okButtonEnabled);
     }
 
     @Override
