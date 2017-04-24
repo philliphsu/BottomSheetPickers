@@ -85,8 +85,8 @@ final class TestCase {
 
         public TestCase build() {
             return new TestCase(sequence, ampmState, numberKeysEnabledStart, numberKeysEnabledEnd,
-                    backspaceEnabled, leftAltKeyEnabled,
-                    rightAltKeyEnabled, headerDisplayFocused, okButtonEnabled, timeDisplay, ampmDisplay);
+                    backspaceEnabled, headerDisplayFocused, leftAltKeyEnabled,
+                    rightAltKeyEnabled, okButtonEnabled, timeDisplay, ampmDisplay);
         }
     }
 }
