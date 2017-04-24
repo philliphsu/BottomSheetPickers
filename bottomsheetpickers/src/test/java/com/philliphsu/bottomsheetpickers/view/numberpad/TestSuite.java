@@ -23,10 +23,12 @@ import static com.philliphsu.bottomsheetpickers.view.numberpad.ButtonTextModel.t
 final class TestSuite {
     static final List<TestCase> MODE_12HR_TESTS_1_TO_9 = new ArrayList<>(9);
     static final List<TestCase> MODE_24HR_TESTS_0_TO_9 = new ArrayList<>(10);
+    static final List<TestCase> MODE_12HR_TESTS_10_TO_95 = new ArrayList<>(54);
 
     static {
         build_Mode12Hr_Tests_1_to_9();
         build_Mode24Hr_Tests_0_to_9();
+        build_Mode12Hr_Tests_10_to_95();
     }
 
     private static void build_Mode12Hr_Tests_1_to_9() {
@@ -56,6 +58,23 @@ final class TestSuite {
                 builder.numberKeysEnabled(0, 6 /* 2[0-3]:... or i:[0-5]... */);
             }
             MODE_24HR_TESTS_0_TO_9.add(builder.build());
+        }
+    }
+
+    private static void build_Mode12Hr_Tests_10_to_95() {
+        for (int i = 10; i <= 95; i++) {
+            if (i % 10 > 5) continue;
+            TestCase test = new TestCase.Builder(array(i / 10, i % 10), UNSPECIFIED)
+                    .numberKeysEnabled(0, 10)
+                    .backspaceEnabled(true)
+                    .headerDisplayFocused(true)
+                    .altKeysEnabled(i >= 10 && i <= 12)
+                    .okButtonEnabled(false)
+                    .timeDisplay(String.format("%d", i) /* TODO: Pull formatting logic from
+                    Presenter impl. into its own class. Then format the current sequence of
+                    digits. */)
+                    .build();
+            MODE_12HR_TESTS_10_TO_95.add(test);
         }
     }
 
