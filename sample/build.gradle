@@ -27,4 +27,27 @@ dependencies {
     }
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
+
+    // Excluding support libraries from these test frameworks is
+    // necessary if your app targets Marshmallow (since Espresso
+    // hasn't moved to Marshmallow yet).
+    // See:
+    // https://github.com/codepath/android_guides/wiki/UI-Testing-with-Espresso
+    // http://stackoverflow.com/a/36897759/5055032
+
+    // Android Testing Support Library's runner and rules
+    androidTestCompile("com.android.support.test:runner:$rootProject.ext.runnerVersion") {
+        exclude group: 'com.android.support'
+    }
+    androidTestCompile("com.android.support.test:rules:$rootProject.ext.rulesVersion") {
+        exclude group: 'com.android.support'
+    }
+
+    // Espresso UI Testing dependencies.
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion") {
+        exclude group: 'com.android.support'
+    }
+    androidTestCompile("com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion") {
+        exclude group: 'com.android.support'
+    }
 }

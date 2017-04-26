@@ -43,4 +43,7 @@ ext {
     supportLibraryVersion = '25.3.1'
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
+    runnerVersion = '0.5'
+    rulesVersion = '0.5'
+    espressoVersion = '2.2.2'
 }
