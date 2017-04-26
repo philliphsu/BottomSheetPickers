@@ -8,11 +8,14 @@ import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.text.format.DateFormat;
+import android.view.View;
 
 import com.example.bottomsheetpickers.R;
 import com.example.bottomsheetpickers.TextSwitcherActivity;
 
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.core.StringContains;
 import org.junit.After;
 import org.junit.Before;
@@ -40,6 +43,13 @@ public class NumberPadTimePickerDialogTest {
     public ActivityTestRule<TextSwitcherActivity> mActivityTestRule =
             new ActivityTestRule<>(TextSwitcherActivity.class);
 
+    private boolean mIs24HourMode;
+
+    @Before
+    public void setup() {
+        mIs24HourMode = DateFormat.is24HourFormat(mActivityTestRule.getActivity());
+    }
+
     @Test
     public void clickButton_opensTimePickerDialog() {
         // Specifies a view with the given id that we want to interact with.
@@ -58,5 +68,64 @@ public class NumberPadTimePickerDialogTest {
         ViewAssertion assertion = ViewAssertions.matches(ViewMatchers.isDisplayed());
         // Interact with the view by checking the assertion.
         viewInteraction.check(assertion);
+    }
+
+    @Test
+    public void verifyInitialViewEnabledStates() {
+        openTimePicker();
+        Espresso.onView(ViewMatchers.withId(R.id.bsp_input_time)).check(
+                ViewAssertions.matches(ViewMatchers.withText("")));
+        Espresso.onView(ViewMatchers.withId(R.id.bsp_backspace)).check(
+                matchesIsEnabled(false));
+        // We can easily manually verify whether the divider is focused, so it's not worth the
+        // trouble of writing a test.
+        for (int i = 0; i < 10; i++) {
+            Espresso.onView(withDigit(i)).check(matchesIsEnabled(mIs24HourMode || i > 0));
+        }
+        Espresso.onView(ViewMatchers.withId(R.id.bsp_text9)).check(matchesIsEnabled(false));
+        Espresso.onView(ViewMatchers.withId(R.id.bsp_text11)).check(matchesIsEnabled(false));
+        Espresso.onView(ViewMatchers.withText(android.R.string.ok)).check(matchesIsEnabled(false));
+    }
+
+    @Test
+    public void clickNumberKey() {
+        openTimePicker();
+        Espresso.onView(withDigit(1)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.bsp_input_time)).check(
+                ViewAssertions.matches(withDigit(1)));
+    }
+
+    private static void openTimePicker() {
+        Espresso.onView(ViewMatchers.withId(R.id.button3)).perform(ViewActions.click());
+    }
+
+    /**
+     * Helper method that wraps {@link ViewMatchers#withText(String) withText(String)}.
+     *
+     * @return A Matcher that matches a number key button by its text representation
+     *         of {@code digit}.
+     */
+    private static Matcher<View> withDigit(int digit) {
+        // TODO: When we're comfortable with the APIs, we can statically import them and
+        // make direct calls to these methods and cut down on the verbosity, instead of
+        // writing helper methods that wrap these APIs.
+        return ViewMatchers.withText(text(digit));
+    }
+
+    // TODO: See if we can use ButtonTextModel#text() instead. Currently, it is package private.
+    private static String text(int digit) {
+        return String.format("%d", digit);
+    }
+
+    /**
+     * @param enabled Whether the view should be matched to be enabled or not.
+     * @return A {@link ViewAssertion} that asserts that a view should be matched
+     *         to be enabled or disabled.
+     */
+    private static ViewAssertion matchesIsEnabled(boolean enabled) {
+        // TODO: When we're comfortable with the APIs, we can statically import them and
+        // make direct calls to these methods and cut down on the verbosity, instead of
+        // writing helper methods that wrap these APIs.
+        return ViewAssertions.matches(enabled ? ViewMatchers.isEnabled() : Matchers.not(ViewMatchers.isEnabled()));
     }
 }
