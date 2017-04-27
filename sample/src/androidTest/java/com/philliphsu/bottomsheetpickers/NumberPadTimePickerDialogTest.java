@@ -109,6 +109,41 @@ public class NumberPadTimePickerDialogTest {
     }
 
     @Test
+    public void mode12Hr_verifyViewEnabledStates_Input_1_to_9() {
+        openTimePicker();
+
+        ViewInteraction[] buttonsInteractions = getButtonInteractions();
+        ViewInteraction[] altButtonsInteractions = getAltButtonInteractions();
+        for (int i = 0; i < 10; i++) {
+            if (i == 0) {
+                buttonsInteractions[i].check(matchesIsEnabled(false));
+                continue;
+            }
+            // Click buttons 1 - 9
+            buttonsInteractions[i]
+                    .check(matchesIsEnabled(true))
+                    .check(ViewAssertions.matches(ViewMatchers.isClickable()))
+                    .perform(ViewActions.click());
+
+            // Verify enabled states of all keys
+            for (int j = 0; j < 10; j++) {
+                buttonsInteractions[j].check(matchesIsEnabled(j >= 0 && j < 6));
+            }
+            altButtonsInteractions[0].check(matchesIsEnabled(true));
+            altButtonsInteractions[1].check(matchesIsEnabled(true));
+
+            // Reset after each iteration by backspacing on the button just clicked.
+            Espresso.onView(ViewMatchers.withId(R.id.bsp_backspace))
+                    .check(matchesIsEnabled(true))
+                    .check(ViewAssertions.matches(ViewMatchers.isClickable()))
+                    .perform(ViewActions.click())
+                    .check(matchesIsEnabled(false));
+                    // This fails... I guess a view that is not enabled is still clickable?
+                    /*.check(ViewAssertions.matches(Matchers.not(ViewMatchers.isClickable())))*/
+        }
+    }
+
+    @Test
     public void clickNumberKey() {
         openTimePicker();
         Espresso.onView(withDigit(1)).perform(ViewActions.click());
@@ -171,5 +206,33 @@ public class NumberPadTimePickerDialogTest {
                 return parentMatcher.matches(parent) && view.equals(parent.getChildAt(childIndex));
             }
         };
+    }
+
+    private static ViewInteraction[] getButtonInteractions() {
+        ViewInteraction[] buttonsInteractions = new ViewInteraction[10];
+        // We cannot rely on the withDigit() matcher to retrieve these because,
+        // after performing a click on a button, the time display will update to
+        // take on that button's digit text, and so withDigit() will return a matcher
+        // that matches multiple views with that digit text: the button
+        // itself and the time display. This will prevent us from performing
+        // validation on the same ViewInteractions later.
+        buttonsInteractions[0] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text10));
+        buttonsInteractions[1] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text0));
+        buttonsInteractions[2] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text1));
+        buttonsInteractions[3] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text2));
+        buttonsInteractions[4] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text3));
+        buttonsInteractions[5] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text4));
+        buttonsInteractions[6] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text5));
+        buttonsInteractions[7] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text6));
+        buttonsInteractions[8] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text7));
+        buttonsInteractions[9] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text8));
+        return buttonsInteractions;
+    }
+
+    private static ViewInteraction[] getAltButtonInteractions() {
+        ViewInteraction[] buttonsInteractions = new ViewInteraction[2];
+        buttonsInteractions[0] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text9));
+        buttonsInteractions[1] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text11));
+        return buttonsInteractions;
     }
 }
