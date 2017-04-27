@@ -1,5 +1,6 @@
 package com.philliphsu.bottomsheetpickers;
 
+import android.provider.Settings;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.ViewInteraction;
@@ -49,12 +50,13 @@ public class NumberPadTimePickerDialogTest {
 
     private LocaleModel mLocaleModel;
 
-    private boolean mIs24HourMode;
+    // Used to restore the device's time format at the end of testing.
+    private boolean mInitiallyIn24HourMode;
 
     @Before
     public void setup() {
         mLocaleModel = new LocaleModel(mActivityTestRule.getActivity());
-        mIs24HourMode = DateFormat.is24HourFormat(mActivityTestRule.getActivity());
+        mInitiallyIn24HourMode = DateFormat.is24HourFormat(mActivityTestRule.getActivity());
     }
 
     @Test
@@ -88,9 +90,9 @@ public class NumberPadTimePickerDialogTest {
         // View.VISIBLE state, matches the view to being drawn with visible bounds, we use
         // the withEffectiveVisibility() matcher to match only the former criterion.
         Espresso.onView(ViewMatchers.withId(R.id.bsp_input_ampm)).check(
-                ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(mIs24HourMode ?
+                ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(mInitiallyIn24HourMode ?
                         ViewMatchers.Visibility.GONE : ViewMatchers.Visibility.VISIBLE)));
-        if (!mIs24HourMode) {
+        if (!mInitiallyIn24HourMode) {
             Espresso.onView(ViewMatchers.withId(R.id.bsp_input_ampm)).check(
                     ViewAssertions.matches(isNthChildOf(
                             ViewMatchers.withId(R.id.bsp_input_time_container),
@@ -101,7 +103,7 @@ public class NumberPadTimePickerDialogTest {
         // We can easily manually verify whether the divider is focused, so it's not worth the
         // trouble of writing a test.
         for (int i = 0; i < 10; i++) {
-            Espresso.onView(withDigit(i)).check(matchesIsEnabled(mIs24HourMode || i > 0));
+            Espresso.onView(withDigit(i)).check(matchesIsEnabled(mInitiallyIn24HourMode || i > 0));
         }
         Espresso.onView(ViewMatchers.withId(R.id.bsp_text9)).check(matchesIsEnabled(false));
         Espresso.onView(ViewMatchers.withId(R.id.bsp_text11)).check(matchesIsEnabled(false));
@@ -110,6 +112,7 @@ public class NumberPadTimePickerDialogTest {
 
     @Test
     public void mode12Hr_verifyViewEnabledStates_Input_1_to_9() {
+        setDeviceTo24HourMode(false);
         openTimePicker();
 
         ViewInteraction[] buttonsInteractions = getButtonInteractions();
@@ -144,11 +147,49 @@ public class NumberPadTimePickerDialogTest {
     }
 
     @Test
+    public void mode24Hr_verifyViewEnabledStates_Input_0_to_9() {
+        setDeviceTo24HourMode(true);
+        openTimePicker();
+        ViewInteraction[] buttonsInteractions = getButtonInteractions();
+        ViewInteraction[] altButtonsInteractions = getAltButtonInteractions();
+        for (int i = 0; i < 10; i++) {
+            buttonsInteractions[i]
+                    .check(ViewAssertions.matches(ViewMatchers.isEnabled()))
+                    .perform(ViewActions.click());
+            for (int j = 0; j < 10; j++) {
+                if (i <= 1) {
+                    buttonsInteractions[j].check(matchesIsEnabled(true));
+                } else {
+                    buttonsInteractions[j].check(matchesIsEnabled(j >= 0 && j < 6));
+                }
+                altButtonsInteractions[0].check(matchesIsEnabled(true));
+                altButtonsInteractions[1].check(matchesIsEnabled(true));
+            }
+            // Reset after each iteration by backspacing on the button just clicked.
+            Espresso.onView(ViewMatchers.withId(R.id.bsp_backspace))
+                    .check(matchesIsEnabled(true))
+                    .check(ViewAssertions.matches(ViewMatchers.isClickable()))
+                    .perform(ViewActions.click())
+                    .check(matchesIsEnabled(false));
+        }
+    }
+
+    @Test
     public void clickNumberKey() {
         openTimePicker();
         Espresso.onView(withDigit(1)).perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withId(R.id.bsp_input_time)).check(
                 ViewAssertions.matches(withDigit(1)));
+    }
+
+    @After
+    public void resetDeviceTimeFormat() {
+        setDeviceTo24HourMode(mInitiallyIn24HourMode);
+    }
+
+    private void setDeviceTo24HourMode(boolean use24HourMode) {
+        Settings.System.putString(mActivityTestRule.getActivity().getContentResolver(),
+                Settings.System.TIME_12_24, use24HourMode ? "24" : "12");
     }
 
     private static void openTimePicker() {
