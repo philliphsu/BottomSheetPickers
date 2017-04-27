@@ -10,12 +10,16 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.bottomsheetpickers.R;
 import com.example.bottomsheetpickers.TextSwitcherActivity;
+import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
+import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.StringContains;
 import org.junit.After;
 import org.junit.Before;
@@ -43,10 +47,13 @@ public class NumberPadTimePickerDialogTest {
     public ActivityTestRule<TextSwitcherActivity> mActivityTestRule =
             new ActivityTestRule<>(TextSwitcherActivity.class);
 
+    private LocaleModel mLocaleModel;
+
     private boolean mIs24HourMode;
 
     @Before
     public void setup() {
+        mLocaleModel = new LocaleModel(mActivityTestRule.getActivity());
         mIs24HourMode = DateFormat.is24HourFormat(mActivityTestRule.getActivity());
     }
 
@@ -75,6 +82,20 @@ public class NumberPadTimePickerDialogTest {
         openTimePicker();
         Espresso.onView(ViewMatchers.withId(R.id.bsp_input_time)).check(
                 ViewAssertions.matches(ViewMatchers.withText("")));
+        // Check that the am/pm view is set to the correct visibility.
+        //
+        // Rather than use the isDisplayed() matcher, which, on top of matching the view to a
+        // View.VISIBLE state, matches the view to being drawn with visible bounds, we use
+        // the withEffectiveVisibility() matcher to match only the former criterion.
+        Espresso.onView(ViewMatchers.withId(R.id.bsp_input_ampm)).check(
+                ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(mIs24HourMode ?
+                        ViewMatchers.Visibility.GONE : ViewMatchers.Visibility.VISIBLE)));
+        if (!mIs24HourMode) {
+            Espresso.onView(ViewMatchers.withId(R.id.bsp_input_ampm)).check(
+                    ViewAssertions.matches(isNthChildOf(
+                            ViewMatchers.withId(R.id.bsp_input_time_container),
+                            mLocaleModel.isAmPmWrittenBeforeTime() ? 0 : 1)));
+        }
         Espresso.onView(ViewMatchers.withId(R.id.bsp_backspace)).check(
                 matchesIsEnabled(false));
         // We can easily manually verify whether the divider is focused, so it's not worth the
@@ -127,5 +148,27 @@ public class NumberPadTimePickerDialogTest {
         // make direct calls to these methods and cut down on the verbosity, instead of
         // writing helper methods that wrap these APIs.
         return ViewAssertions.matches(enabled ? ViewMatchers.isEnabled() : Matchers.not(ViewMatchers.isEnabled()));
+    }
+
+    /**
+     * @param parentMatcher A matcher that describes the view's parent.
+     * @param childIndex The index of the view at which it is a child of the described parent.
+     * @return {@code true} if the view is indeed a child of the described parent at the specified
+     *         {@code childIndex}.
+     */
+    private static Matcher<View> isNthChildOf(final Matcher<View> parentMatcher, final int childIndex) {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("is child at index "+childIndex+" of view matched by parentMatcher: ");
+                parentMatcher.describeTo(description);
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                ViewGroup parent = (ViewGroup) view.getParent();
+                return parentMatcher.matches(parent) && view.equals(parent.getChildAt(childIndex));
+            }
+        };
     }
 }
