@@ -21,16 +21,78 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.StringContains;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RunWith(AndroidJUnit4.class)
 public class NumberPadTimePickerDialogTest {
     private static final String TIME_PICKER_VIEW_CLASS_NAME = "NumberPadTimePicker";
+    private static final List<TestCase> MODE_12HR_TESTS_1_TO_9 = new ArrayList<>(9);
+    private static final List<TestCase> MODE_24HR_TESTS_0_TO_9 = new ArrayList<>(10);
+    private static final List<TestCase> MODE_12HR_TESTS_10_TO_95 = new ArrayList<>(54);
+
+    static {
+        build_Mode12Hr_Tests_1_to_9();
+        build_Mode24Hr_Tests_0_to_9();
+        build_Mode12Hr_Tests_10_to_95();
+    }
+
+    private static void build_Mode12Hr_Tests_1_to_9() {
+        for (int i = 1; i <= 9; i++) {
+            MODE_12HR_TESTS_1_TO_9.add(new TestCase.Builder(array(i), false)
+                    .numberKeysEnabled(0, 6 /* 1[0-2]:... or i:[0-5]... */)
+                    .backspaceEnabled(true)
+                    .headerDisplayFocused(true)
+                    .altKeysEnabled(true)
+                    .okButtonEnabled(false)
+                    .timeDisplay(text(i))
+                    .build());
+        }
+    }
+
+    private static void build_Mode24Hr_Tests_0_to_9() {
+        for (int i = 0; i <= 9; i++) {
+            TestCase.Builder builder = new TestCase.Builder(array(i), true)
+                    .backspaceEnabled(true)
+                    .headerDisplayFocused(true)
+                    .altKeysEnabled(true)
+                    .okButtonEnabled(false)
+                    .timeDisplay(text(i));
+            if (i <= 1) {
+                builder.numberKeysEnabled(0, 10 /* i[0-9]:... or i:[0-5]... */);
+            } else {
+                builder.numberKeysEnabled(0, 6 /* 2[0-3]:... or i:[0-5]... */);
+            }
+            MODE_24HR_TESTS_0_TO_9.add(builder.build());
+        }
+    }
+
+    private static void build_Mode12Hr_Tests_10_to_95() {
+        for (int i = 10; i <= 95; i++) {
+            if (i % 10 > 5) continue;
+            TestCase test = new TestCase.Builder(array(i / 10, i % 10), false)
+                    .numberKeysEnabled(0, 10)
+                    .backspaceEnabled(true)
+                    .headerDisplayFocused(true)
+                    .altKeysEnabled(i >= 10 && i <= 12)
+                    .okButtonEnabled(false)
+                    .timeDisplay(String.format("%d", i) /* TODO: Pull formatting logic from
+                    Presenter impl. into its own class. Then format the current sequence of
+                    digits. */)
+                    .build();
+            MODE_12HR_TESTS_10_TO_95.add(test);
+        }
+    }
+
+    private static int[] array(int... a) {
+        return a == null ? new int[0] : a;
+    }
 
     /**
      * {@link ActivityTestRule} is a JUnit {@link Rule @Rule} to launch your activity under test.
@@ -57,26 +119,6 @@ public class NumberPadTimePickerDialogTest {
     public void setup() {
         mLocaleModel = new LocaleModel(mActivityTestRule.getActivity());
         mInitiallyIn24HourMode = DateFormat.is24HourFormat(mActivityTestRule.getActivity());
-    }
-
-    @Test
-    public void clickButton_opensTimePickerDialog() {
-        // Specifies a view with the given id that we want to interact with.
-        ViewInteraction viewInteraction = Espresso.onView(ViewMatchers.withId(R.id.button3));
-        // Interact with the view by performing a ViewAction.
-        viewInteraction.perform(ViewActions.click());
-
-        // Obtain a Matcher that will allow us to determine if a string being examined contains
-        // the specified string. Where does the string being examined come from? Espresso handles
-        // that for us when we intend to search for this specified string.
-        Matcher<String> classNameMatcher = StringContains.containsString(TIME_PICKER_VIEW_CLASS_NAME);
-        // Specifies a view with the given class name that we want to interact with.
-        viewInteraction = Espresso.onView(ViewMatchers.withClassName(classNameMatcher));
-        // Specifies an assertion we want to test. Here, we convert a ViewMatcher that determines if
-        // a view is displayed into a ViewAssertion.
-        ViewAssertion assertion = ViewAssertions.matches(ViewMatchers.isDisplayed());
-        // Interact with the view by checking the assertion.
-        viewInteraction.check(assertion);
     }
 
     @Test
@@ -114,72 +156,16 @@ public class NumberPadTimePickerDialogTest {
     public void mode12Hr_verifyViewEnabledStates_Input_1_to_9() {
         setDeviceTo24HourMode(false);
         openTimePicker();
-
-        ViewInteraction[] buttonsInteractions = getButtonInteractions();
-        ViewInteraction[] altButtonsInteractions = getAltButtonInteractions();
-        for (int i = 0; i < 10; i++) {
-            if (i == 0) {
-                buttonsInteractions[i].check(matchesIsEnabled(false));
-                continue;
-            }
-            // Click buttons 1 - 9
-            buttonsInteractions[i]
-                    .check(matchesIsEnabled(true))
-                    .check(ViewAssertions.matches(ViewMatchers.isClickable()))
-                    .perform(ViewActions.click());
-
-            // Verify enabled states of all keys
-            for (int j = 0; j < 10; j++) {
-                buttonsInteractions[j].check(matchesIsEnabled(j >= 0 && j < 6));
-            }
-            altButtonsInteractions[0].check(matchesIsEnabled(true));
-            altButtonsInteractions[1].check(matchesIsEnabled(true));
-
-            // Reset after each iteration by backspacing on the button just clicked.
-            Espresso.onView(ViewMatchers.withId(R.id.bsp_backspace))
-                    .check(matchesIsEnabled(true))
-                    .check(ViewAssertions.matches(ViewMatchers.isClickable()))
-                    .perform(ViewActions.click())
-                    .check(matchesIsEnabled(false));
-                    // This fails... I guess a view that is not enabled is still clickable?
-                    /*.check(ViewAssertions.matches(Matchers.not(ViewMatchers.isClickable())))*/
-        }
+        // Check that '0' button is disabled.
+        Espresso.onView(ViewMatchers.withId(R.id.bsp_text10)).check(matchesIsEnabled(false));
+        verifyViewEnabledStates(MODE_12HR_TESTS_1_TO_9);
     }
 
     @Test
     public void mode24Hr_verifyViewEnabledStates_Input_0_to_9() {
         setDeviceTo24HourMode(true);
         openTimePicker();
-        ViewInteraction[] buttonsInteractions = getButtonInteractions();
-        ViewInteraction[] altButtonsInteractions = getAltButtonInteractions();
-        for (int i = 0; i < 10; i++) {
-            buttonsInteractions[i]
-                    .check(ViewAssertions.matches(ViewMatchers.isEnabled()))
-                    .perform(ViewActions.click());
-            for (int j = 0; j < 10; j++) {
-                if (i <= 1) {
-                    buttonsInteractions[j].check(matchesIsEnabled(true));
-                } else {
-                    buttonsInteractions[j].check(matchesIsEnabled(j >= 0 && j < 6));
-                }
-                altButtonsInteractions[0].check(matchesIsEnabled(true));
-                altButtonsInteractions[1].check(matchesIsEnabled(true));
-            }
-            // Reset after each iteration by backspacing on the button just clicked.
-            Espresso.onView(ViewMatchers.withId(R.id.bsp_backspace))
-                    .check(matchesIsEnabled(true))
-                    .check(ViewAssertions.matches(ViewMatchers.isClickable()))
-                    .perform(ViewActions.click())
-                    .check(matchesIsEnabled(false));
-        }
-    }
-
-    @Test
-    public void clickNumberKey() {
-        openTimePicker();
-        Espresso.onView(withDigit(1)).perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withId(R.id.bsp_input_time)).check(
-                ViewAssertions.matches(withDigit(1)));
+        verifyViewEnabledStates(MODE_24HR_TESTS_0_TO_9);
     }
 
     @After
@@ -275,5 +261,126 @@ public class NumberPadTimePickerDialogTest {
         buttonsInteractions[0] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text9));
         buttonsInteractions[1] = Espresso.onView(ViewMatchers.withId(R.id.bsp_text11));
         return buttonsInteractions;
+    }
+
+    private static void verifyViewEnabledStates(List<TestCase> testSuite) {
+        for (TestCase test : testSuite) {
+            verifyViewEnabledStates(test);
+        }
+    }
+
+    private static void verifyViewEnabledStates(TestCase test) {
+        ViewInteraction[] buttonsInteractions = getButtonInteractions();
+        ViewInteraction[] altButtonsInteractions = getAltButtonInteractions();
+        for (int digit : test.sequence) {
+            buttonsInteractions[digit]
+                    .check(ViewAssertions.matches(ViewMatchers.isEnabled()))
+                    .perform(ViewActions.click());
+        }
+        for (int i = 0; i < 10; i++) {
+            buttonsInteractions[i].check(matchesIsEnabled(
+                    i >= test.numberKeysEnabledStart && i < test.numberKeysEnabledEnd));
+            altButtonsInteractions[0].check(matchesIsEnabled(test.leftAltKeyEnabled));
+            altButtonsInteractions[1].check(matchesIsEnabled(test.rightAltKeyEnabled));
+        }
+
+        ViewInteraction backspaceInteraction = Espresso.onView(
+                ViewMatchers.withId(R.id.bsp_backspace));
+        // Reset after each iteration by backspacing on the button just clicked.
+        for (int digit : test.sequence) {
+            backspaceInteraction.check(matchesIsEnabled(true)).perform(ViewActions.click());
+        }
+        backspaceInteraction.check(matchesIsEnabled(false));
+    }
+
+    private static final class TestCase {
+        final int[] sequence;
+        final boolean ampmState;
+
+        final int numberKeysEnabledStart;
+        final int numberKeysEnabledEnd;
+        final boolean backspaceEnabled;
+        final boolean headerDisplayFocused;
+        final boolean leftAltKeyEnabled;
+        final boolean rightAltKeyEnabled;
+        final boolean okButtonEnabled;
+        final CharSequence timeDisplay;
+        final CharSequence ampmDisplay;
+
+        TestCase(int[] sequence, boolean ampmState, int numberKeysEnabledStart, int numberKeysEnabledEnd, boolean backspaceEnabled, boolean headerDisplayFocused, boolean leftAltKeyEnabled, boolean rightAltKeyEnabled, boolean okButtonEnabled, CharSequence timeDisplay, CharSequence ampmDisplay) {
+            this.sequence = sequence;
+            this.ampmState = ampmState;
+            this.numberKeysEnabledStart = numberKeysEnabledStart;
+            this.numberKeysEnabledEnd = numberKeysEnabledEnd;
+            this.backspaceEnabled = backspaceEnabled;
+            this.headerDisplayFocused = headerDisplayFocused;
+            this.leftAltKeyEnabled = leftAltKeyEnabled;
+            this.rightAltKeyEnabled = rightAltKeyEnabled;
+            this.okButtonEnabled = okButtonEnabled;
+            this.timeDisplay = timeDisplay;
+            this.ampmDisplay = ampmDisplay;
+        }
+
+        static class Builder {
+            private final int[] sequence;
+            private final boolean ampmState;
+
+            private int numberKeysEnabledStart;
+            private int numberKeysEnabledEnd;
+            private boolean backspaceEnabled;
+            private boolean headerDisplayFocused;
+            private boolean leftAltKeyEnabled;
+            private boolean rightAltKeyEnabled;
+            private boolean okButtonEnabled;
+            private CharSequence timeDisplay;
+            private CharSequence ampmDisplay;
+
+            public Builder(int[] sequence, boolean ampmState) {
+                this.sequence = sequence;
+                this.ampmState = ampmState;
+            }
+
+            public Builder numberKeysEnabled(int numberKeysEnabledStart, int numberKeysEnabledEnd) {
+                this.numberKeysEnabledStart = numberKeysEnabledStart;
+                this.numberKeysEnabledEnd = numberKeysEnabledEnd;
+                return this;
+            }
+
+            public Builder backspaceEnabled(boolean backspaceEnabled) {
+                this.backspaceEnabled = backspaceEnabled;
+                return this;
+            }
+
+            public Builder altKeysEnabled(boolean enabled) {
+                leftAltKeyEnabled = rightAltKeyEnabled = enabled;
+                return this;
+            }
+
+            public Builder headerDisplayFocused(boolean headerDisplayFocused) {
+                this.headerDisplayFocused = headerDisplayFocused;
+                return this;
+            }
+
+            public Builder timeDisplay(CharSequence timeDisplay) {
+                this.timeDisplay = timeDisplay;
+                return this;
+            }
+
+            public Builder ampmDisplay(CharSequence ampmDisplay) {
+                this.ampmDisplay = ampmDisplay;
+                return this;
+            }
+
+            public Builder okButtonEnabled(boolean okButtonEnabled) {
+                this.okButtonEnabled = okButtonEnabled;
+                return this;
+            }
+
+            public TestCase build() {
+                return new TestCase(sequence, ampmState, numberKeysEnabledStart, numberKeysEnabledEnd,
+                        backspaceEnabled, headerDisplayFocused, leftAltKeyEnabled,
+                        rightAltKeyEnabled, okButtonEnabled, timeDisplay, ampmDisplay);
+            }
+        }
     }
 }
