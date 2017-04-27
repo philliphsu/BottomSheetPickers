@@ -151,10 +151,11 @@ public class NumberPadTimePickerDialogTest {
     }
 
     /**
+     * Returns a matcher that matches a {@link View} that is a child of the described parent
+     * at the specified index.
+     *
      * @param parentMatcher A matcher that describes the view's parent.
      * @param childIndex The index of the view at which it is a child of the described parent.
-     * @return {@code true} if the view is indeed a child of the described parent at the specified
-     *         {@code childIndex}.
      */
     private static Matcher<View> isNthChildOf(final Matcher<View> parentMatcher, final int childIndex) {
         return new TypeSafeMatcher<View>() {
