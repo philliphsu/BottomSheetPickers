@@ -35,11 +35,18 @@ public class NumberPadTimePickerDialogTest {
     private static final List<TestCase> MODE_12HR_TESTS_1_TO_9 = new ArrayList<>(9);
     private static final List<TestCase> MODE_24HR_TESTS_0_TO_9 = new ArrayList<>(10);
     private static final List<TestCase> MODE_12HR_TESTS_10_TO_95 = new ArrayList<>(54);
+    private static final List<TestCase> MODE_24HR_TESTS_00_TO_95 = new ArrayList<>(65);
+
+//    // TODO
+//    private static final List<TestCase> MODE_24HR_TESTS_000_TO_959 = new ArrayList<>();
+//    // TODO
+//    private static final List<TestCase> MODE_24HR_TESTS_0000_TO_2359 = new ArrayList<>();
 
     static {
         build_Mode12Hr_Tests_1_to_9();
         build_Mode24Hr_Tests_0_to_9();
         build_Mode12Hr_Tests_10_to_95();
+        build_Mode24Hr_Tests_00_to_95();
     }
 
     private static void build_Mode12Hr_Tests_1_to_9() {
@@ -86,6 +93,23 @@ public class NumberPadTimePickerDialogTest {
                     digits. */)
                     .build();
             MODE_12HR_TESTS_10_TO_95.add(test);
+        }
+    }
+
+    private static void build_Mode24Hr_Tests_00_to_95() {
+        for (int i = 0; i <= 95; i++) {
+            if (i % 10 > 5 && i > 25) continue;
+            TestCase test = new TestCase.Builder(array(i / 10, i % 10), true)
+                    .numberKeysEnabled(0, (i % 10 > 5) ? 6 : 10 /* (0-1)(6-9):[0-5] or (i_1):(i_2)[0-9]*/)
+                    .backspaceEnabled(true)
+                    .headerDisplayFocused(true)
+                    .altKeysEnabled(i >= 0 && i <= 23)
+                    .okButtonEnabled(false)
+                    .timeDisplay(String.format("%02d", i) /* TODO: Pull formatting logic from
+                    Presenter impl. into its own class. Then format the current sequence of
+                    digits. */)
+                    .build();
+            MODE_24HR_TESTS_00_TO_95.add(test);
         }
     }
 
@@ -153,21 +177,26 @@ public class NumberPadTimePickerDialogTest {
 
     @Test
     public void mode12Hr_verifyViewEnabledStates_Input_1_to_9() {
-        mode12Hr_initializeTimePicker();
+        initializeTimePicker(false);
         verifyViewEnabledStates(MODE_12HR_TESTS_1_TO_9);
     }
 
     @Test
     public void mode24Hr_verifyViewEnabledStates_Input_0_to_9() {
-        setDeviceTo24HourMode(true);
-        openTimePicker();
+        initializeTimePicker(true);
         verifyViewEnabledStates(MODE_24HR_TESTS_0_TO_9);
     }
 
     @Test
     public void mode12Hr_verifyViewEnabledStates_Input_10_to_95() {
-        mode12Hr_initializeTimePicker();
+        initializeTimePicker(false);
         verifyViewEnabledStates(MODE_12HR_TESTS_10_TO_95);
+    }
+
+    @Test
+    public void mode24Hr_verifyViewEnabledStates_Input_00_to_95() {
+        initializeTimePicker(true);
+        verifyViewEnabledStates(MODE_24HR_TESTS_00_TO_95);
     }
 
     @After
@@ -180,11 +209,13 @@ public class NumberPadTimePickerDialogTest {
                 Settings.System.TIME_12_24, use24HourMode ? "24" : "12");
     }
 
-    private void mode12Hr_initializeTimePicker() {
-        setDeviceTo24HourMode(false);
+    private void initializeTimePicker(boolean use24HourMode) {
+        setDeviceTo24HourMode(use24HourMode);
         openTimePicker();
-        // Check that '0' button is disabled.
-        Espresso.onView(ViewMatchers.withId(R.id.bsp_text10)).check(matchesIsEnabled(false));
+        if (!use24HourMode) {
+            // Check that '0' button is disabled.
+            Espresso.onView(ViewMatchers.withId(R.id.bsp_text10)).check(matchesIsEnabled(false));
+        }
     }
 
     private static void openTimePicker() {
