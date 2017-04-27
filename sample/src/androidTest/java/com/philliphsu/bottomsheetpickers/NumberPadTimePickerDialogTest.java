@@ -32,7 +32,6 @@ import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 public class NumberPadTimePickerDialogTest {
-    private static final String TIME_PICKER_VIEW_CLASS_NAME = "NumberPadTimePicker";
     private static final List<TestCase> MODE_12HR_TESTS_1_TO_9 = new ArrayList<>(9);
     private static final List<TestCase> MODE_24HR_TESTS_0_TO_9 = new ArrayList<>(10);
     private static final List<TestCase> MODE_12HR_TESTS_10_TO_95 = new ArrayList<>(54);
@@ -154,10 +153,7 @@ public class NumberPadTimePickerDialogTest {
 
     @Test
     public void mode12Hr_verifyViewEnabledStates_Input_1_to_9() {
-        setDeviceTo24HourMode(false);
-        openTimePicker();
-        // Check that '0' button is disabled.
-        Espresso.onView(ViewMatchers.withId(R.id.bsp_text10)).check(matchesIsEnabled(false));
+        mode12Hr_initializeTimePicker();
         verifyViewEnabledStates(MODE_12HR_TESTS_1_TO_9);
     }
 
@@ -168,6 +164,12 @@ public class NumberPadTimePickerDialogTest {
         verifyViewEnabledStates(MODE_24HR_TESTS_0_TO_9);
     }
 
+    @Test
+    public void mode12Hr_verifyViewEnabledStates_Input_10_to_95() {
+        mode12Hr_initializeTimePicker();
+        verifyViewEnabledStates(MODE_12HR_TESTS_10_TO_95);
+    }
+
     @After
     public void resetDeviceTimeFormat() {
         setDeviceTo24HourMode(mInitiallyIn24HourMode);
@@ -176,6 +178,13 @@ public class NumberPadTimePickerDialogTest {
     private void setDeviceTo24HourMode(boolean use24HourMode) {
         Settings.System.putString(mActivityTestRule.getActivity().getContentResolver(),
                 Settings.System.TIME_12_24, use24HourMode ? "24" : "12");
+    }
+
+    private void mode12Hr_initializeTimePicker() {
+        setDeviceTo24HourMode(false);
+        openTimePicker();
+        // Check that '0' button is disabled.
+        Espresso.onView(ViewMatchers.withId(R.id.bsp_text10)).check(matchesIsEnabled(false));
     }
 
     private static void openTimePicker() {
