@@ -38,6 +38,7 @@ public class NumberPadTimePickerDialogTest {
     private static final List<TestCase> MODE_24HR_TESTS_00_TO_95 = new ArrayList<>(65);
     private static final List<TestCase> MODE_12HR_TESTS_100_TO_959 = new ArrayList<>();
     private static final List<TestCase> MODE_24HR_TESTS_000_TO_959 = new ArrayList<>();
+    private static final List<TestCase> MODE_12HR_TESTS_1000_TO_1259 = new ArrayList();
 
 //    // TODO
 //    private static final List<TestCase> MODE_24HR_TESTS_0000_TO_2359 = new ArrayList<>();
@@ -49,6 +50,7 @@ public class NumberPadTimePickerDialogTest {
         build_Mode24Hr_Tests_00_to_95();
         build_Mode12Hr_Tests_100_to_959();
         build_Mode24Hr_Tests_000_to_959();
+        build_Mode12Hr_Tests_1000_to_1259();
     }
 
     private static void build_Mode12Hr_Tests_1_to_9() {
@@ -157,6 +159,20 @@ public class NumberPadTimePickerDialogTest {
         }
     }
 
+    private static void build_Mode12Hr_Tests_1000_to_1259() {
+        for (int i = 1000; i <= 1259; i++) {
+            if (i % 100 > 59) continue;
+            TestCase test = new TestCase.Builder(
+                    array(i / 1000, (i % 1000) / 100, (i % 100) / 10, i % 10), false)
+                    .numberKeysEnabled(0, 0)
+                    .backspaceEnabled(true)
+                    .headerDisplayFocused(true)
+                    .altKeysEnabled(true)
+                    .build();
+            MODE_12HR_TESTS_1000_TO_1259.add(test);
+        }
+    }
+
     private static int[] array(int... a) {
         return a == null ? new int[0] : a;
     }
@@ -253,6 +269,12 @@ public class NumberPadTimePickerDialogTest {
     public void mode24Hr_verifyViewEnabledStates_Input_000_to_959() {
         initializeTimePicker(true);
         verifyViewEnabledStates(MODE_24HR_TESTS_000_TO_959);
+    }
+
+    @Test
+    public void mode12Hr_verifyViewEnabledStates_Input_1000_to_1259() {
+        initializeTimePicker(false);
+        verifyViewEnabledStates(MODE_12HR_TESTS_1000_TO_1259);
     }
 
     @After
