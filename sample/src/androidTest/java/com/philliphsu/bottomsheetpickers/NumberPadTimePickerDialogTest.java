@@ -36,6 +36,7 @@ public class NumberPadTimePickerDialogTest {
     private static final List<TestCase> MODE_24HR_TESTS_0_TO_9 = new ArrayList<>(10);
     private static final List<TestCase> MODE_12HR_TESTS_10_TO_95 = new ArrayList<>(54);
     private static final List<TestCase> MODE_24HR_TESTS_00_TO_95 = new ArrayList<>(65);
+    private static final List<TestCase> MODE_12HR_TESTS_100_TO_959 = new ArrayList<>();
 
 //    // TODO
 //    private static final List<TestCase> MODE_24HR_TESTS_000_TO_959 = new ArrayList<>();
@@ -47,6 +48,7 @@ public class NumberPadTimePickerDialogTest {
         build_Mode24Hr_Tests_0_to_9();
         build_Mode12Hr_Tests_10_to_95();
         build_Mode24Hr_Tests_00_to_95();
+        build_Mode12Hr_Tests_100_to_959();
     }
 
     private static void build_Mode12Hr_Tests_1_to_9() {
@@ -110,6 +112,20 @@ public class NumberPadTimePickerDialogTest {
                     digits. */)
                     .build();
             MODE_24HR_TESTS_00_TO_95.add(test);
+        }
+    }
+
+    private static void build_Mode12Hr_Tests_100_to_959() {
+        for (int i = 100; i <= 959; i++) {
+            if (i % 100 > 59) continue;
+            TestCase test = new TestCase.Builder(
+                    array(i / 100, (i % 100) / 10, i % 10), false)
+                    .numberKeysEnabled(0, (i > 125 || i % 10 > 5) ? 0 : 10)
+                    .backspaceEnabled(true)
+                    .headerDisplayFocused(true)
+                    .altKeysEnabled(true)
+                    .build();
+            MODE_12HR_TESTS_100_TO_959.add(test);
         }
     }
 
@@ -197,6 +213,12 @@ public class NumberPadTimePickerDialogTest {
     public void mode24Hr_verifyViewEnabledStates_Input_00_to_95() {
         initializeTimePicker(true);
         verifyViewEnabledStates(MODE_24HR_TESTS_00_TO_95);
+    }
+
+    @Test
+    public void mode12Hr_verifyViewEnabledStates_Input_100_to_959() {
+        initializeTimePicker(false);
+        verifyViewEnabledStates(MODE_12HR_TESTS_100_TO_959);
     }
 
     @After
@@ -327,10 +349,9 @@ public class NumberPadTimePickerDialogTest {
         ViewInteraction backspaceInteraction = Espresso.onView(
                 ViewMatchers.withId(R.id.bsp_backspace));
         // Reset after each iteration by backspacing on the button just clicked.
-        for (int digit : test.sequence) {
-            backspaceInteraction.check(matchesIsEnabled(true)).perform(ViewActions.click());
-        }
-        backspaceInteraction.check(matchesIsEnabled(false));
+        backspaceInteraction.check(matchesIsEnabled(true))
+                .perform(ViewActions.longClick())
+                .check(matchesIsEnabled(false));
     }
 
     private static final class TestCase {
