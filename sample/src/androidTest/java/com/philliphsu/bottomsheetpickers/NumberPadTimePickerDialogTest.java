@@ -37,9 +37,8 @@ public class NumberPadTimePickerDialogTest {
     private static final List<TestCase> MODE_12HR_TESTS_10_TO_95 = new ArrayList<>(54);
     private static final List<TestCase> MODE_24HR_TESTS_00_TO_95 = new ArrayList<>(65);
     private static final List<TestCase> MODE_12HR_TESTS_100_TO_959 = new ArrayList<>();
+    private static final List<TestCase> MODE_24HR_TESTS_000_TO_959 = new ArrayList<>();
 
-//    // TODO
-//    private static final List<TestCase> MODE_24HR_TESTS_000_TO_959 = new ArrayList<>();
 //    // TODO
 //    private static final List<TestCase> MODE_24HR_TESTS_0000_TO_2359 = new ArrayList<>();
 
@@ -49,6 +48,7 @@ public class NumberPadTimePickerDialogTest {
         build_Mode12Hr_Tests_10_to_95();
         build_Mode24Hr_Tests_00_to_95();
         build_Mode12Hr_Tests_100_to_959();
+        build_Mode24Hr_Tests_000_to_959();
     }
 
     private static void build_Mode12Hr_Tests_1_to_9() {
@@ -126,6 +126,34 @@ public class NumberPadTimePickerDialogTest {
                     .altKeysEnabled(true)
                     .build();
             MODE_12HR_TESTS_100_TO_959.add(test);
+        }
+    }
+
+    private static void build_Mode24Hr_Tests_000_to_959() {
+        for (int i = 0; i <= 959; i++) {
+            boolean skipEndingIn6Through9From60To100 = i % 10 > 5 && i > 60 && i < 100;
+            boolean skipEndingIn6Through9From160To200 = i % 10 > 5 && i > 160 && i < 200;
+            if (skipEndingIn6Through9From60To100
+                    || skipEndingIn6Through9From160To200
+                    || i > 259 && i % 100 > 59) {
+                continue;
+            }
+            boolean canBeValidTimeNow = i < 60 || (i >= 100 && i < 160) || i >= 200;
+            int cap;
+            if ((i % 10 > 5 && (i < 160 || i > 200)) || i >= 236) {
+                cap = 0;
+            } else {
+                cap = 10;
+            }
+            TestCase test = new TestCase.Builder(
+                    array(i / 100, (i % 100) / 10, i % 10), true)
+                    .numberKeysEnabled(0, cap)
+                    .backspaceEnabled(true)
+                    .okButtonEnabled(canBeValidTimeNow)
+                    .headerDisplayFocused(true)
+                    .altKeysEnabled(false)
+                    .build();
+            MODE_24HR_TESTS_000_TO_959.add(test);
         }
     }
 
@@ -219,6 +247,12 @@ public class NumberPadTimePickerDialogTest {
     public void mode12Hr_verifyViewEnabledStates_Input_100_to_959() {
         initializeTimePicker(false);
         verifyViewEnabledStates(MODE_12HR_TESTS_100_TO_959);
+    }
+
+    @Test
+    public void mode24Hr_verifyViewEnabledStates_Input_000_to_959() {
+        initializeTimePicker(true);
+        verifyViewEnabledStates(MODE_24HR_TESTS_000_TO_959);
     }
 
     @After
@@ -345,6 +379,9 @@ public class NumberPadTimePickerDialogTest {
             altButtonsInteractions[0].check(matchesIsEnabled(test.leftAltKeyEnabled));
             altButtonsInteractions[1].check(matchesIsEnabled(test.rightAltKeyEnabled));
         }
+
+        Espresso.onView(ViewMatchers.withText(android.R.string.ok))
+                .check(matchesIsEnabled(test.okButtonEnabled));
 
         ViewInteraction backspaceInteraction = Espresso.onView(
                 ViewMatchers.withId(R.id.bsp_backspace));
