@@ -35,7 +35,7 @@ public class NumberPadTimePickerDialogTest {
     private static final List<TestCase> MODE_12HR_TESTS_1_TO_9 = new ArrayList<>(9);
     private static final List<TestCase> MODE_12HR_TESTS_10_TO_95 = new ArrayList<>(54);
     private static final List<TestCase> MODE_12HR_TESTS_100_TO_959 = new ArrayList<>();
-    private static final List<TestCase> MODE_12HR_TESTS_1000_TO_1259 = new ArrayList();
+    private static final List<TestCase> MODE_12HR_TESTS_1000_TO_1259 = new ArrayList<>();
 
     private static final List<TestCase> MODE_24HR_TESTS_0_TO_9 = new ArrayList<>(10);
     private static final List<TestCase> MODE_24HR_TESTS_00_TO_95 = new ArrayList<>(65);
