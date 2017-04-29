@@ -1,6 +1,9 @@
 package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import com.philliphsu.bottomsheetpickers.view.LocaleModel;
+import com.philliphsu.bottomsheetpickers.view.numberpad.INumberPadTimePicker.Presenter;
+
+import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +26,7 @@ public class NumberPadTimePickerPresenterTest {
     static final int MODE_24HR = 1;
 
     private final INumberPadTimePicker.View[] mViews = new INumberPadTimePicker.View[2];
-    private final INumberPadTimePicker.Presenter[] mPresenters = new INumberPadTimePicker.Presenter[2];
+    private final Presenter[] mPresenters = new Presenter[2];
     private final ButtonTextModel[] mButtonTextModels = new ButtonTextModel[2];
 
     @Mock
@@ -98,14 +101,9 @@ public class NumberPadTimePickerPresenterTest {
             for (int amOrPm = 0; amOrPm < 2; amOrPm++) {
                 createNewViewAndPresenter(MODE_12HR);
                 if (time <= 959) {
-                    mPresenters[MODE_12HR].onNumberKeyClick(text(time / 100));
-                    mPresenters[MODE_12HR].onNumberKeyClick(text((time % 100) / 10));
-                    mPresenters[MODE_12HR].onNumberKeyClick(text(time % 10));
+                    inputThreeDigitTime(time, MODE_12HR);
                 } else {
-                    mPresenters[MODE_12HR].onNumberKeyClick(text(time / 1000));
-                    mPresenters[MODE_12HR].onNumberKeyClick(text((time % 1000) / 100));
-                    mPresenters[MODE_12HR].onNumberKeyClick(text((time % 100) / 10));
-                    mPresenters[MODE_12HR].onNumberKeyClick(text(time % 10));
+                    inputFourDigitTime(time, MODE_12HR);
                 }
                 mPresenters[MODE_12HR].onAltKeyClick(altText(amOrPm, MODE_12HR));
                 final int hour = (time >= 1200 ? 0 : time / 100) + (amOrPm == 1 ? 12 : 0);
@@ -115,16 +113,44 @@ public class NumberPadTimePickerPresenterTest {
         }
     }
 
+    // We probably don't want this test to run in this class, so leave off the @Test annotation.
+    // Override this method in subclasses and add the @Test annotation, then call up to super.
+    public void mode24Hr_VerifyOnTimeSetCallback() {
+        for (int time = 0; time <= 2359; time++) {
+            if (time % 100 > 59) {
+                System.out.println("Skipping invalid time " + String.format("%04d", time));
+                continue;
+            }
+            if (time <= 959) {
+                // These times can be inputted both as 3-digits or as 4-digits, so test both.
+                System.out.println("Testing time as 3-digits: " + String.format("%03d", time));
+                createNewViewAndPresenter(MODE_24HR);
+                inputThreeDigitTime(time, MODE_24HR);
+                confirmTimeSelection(mPresenters[MODE_24HR], MODE_24HR, time / 100, time % 100);
+
+                System.out.println("Testing time as 4-digits: " + String.format("%04d", time));
+                createNewViewAndPresenter(MODE_24HR);
+                inputFourDigitTime(time, MODE_24HR);
+                confirmTimeSelection(mPresenters[MODE_24HR], MODE_24HR, time / 100, time % 100);
+            } else {
+                System.out.println("Testing time: " + String.format("%04d", time));
+                createNewViewAndPresenter(MODE_24HR);
+                inputFourDigitTime(time, MODE_24HR);
+                confirmTimeSelection(mPresenters[MODE_24HR], MODE_24HR, time / 100, time % 100);
+            }
+        }
+    }
+
     @Test
     public void rotateDevice_savesAndRestoresInstanceState() {
-
+        Assert.fail("Not implemented!");
     }
 
     INumberPadTimePicker.View getView(int mode) {
         return mViews[mode];
     }
 
-    INumberPadTimePicker.Presenter getPresenter(int mode) {
+    Presenter getPresenter(int mode) {
         return mPresenters[mode];
     }
 
@@ -132,7 +158,7 @@ public class NumberPadTimePickerPresenterTest {
         return INumberPadTimePicker.View.class;
     }
 
-    INumberPadTimePicker.Presenter createPresenter(INumberPadTimePicker.View view,
+    Presenter createPresenter(INumberPadTimePicker.View view,
                                                    LocaleModel localeModel,
                                                    boolean is24HourMode) {
         return new NumberPadTimePickerPresenter(view, localeModel, is24HourMode);
@@ -141,10 +167,9 @@ public class NumberPadTimePickerPresenterTest {
     /**
      * Subclasses should perform their logic to confirm the selected time.
      * This class is not responsible for this behavior because there is no
-     * 'ok' button the {@link com.philliphsu.bottomsheetpickers.view.numberpad.INumberPadTimePicker.Presenter
-     * base presenter} is aware of.
+     * 'ok' button the {@link Presenter base presenter} is aware of.
      */
-    void confirmTimeSelection(INumberPadTimePicker.Presenter presenter, int mode, int hour, int minute) {
+    void confirmTimeSelection(Presenter presenter, int mode, int hour, int minute) {
         throw new UnsupportedOperationException();
     }
 
@@ -187,5 +212,26 @@ public class NumberPadTimePickerPresenterTest {
     private void createNewViewAndPresenter(int mode) {
         mViews[mode] = mock(getViewClass());
         mPresenters[mode] = createPresenter(mViews[mode], mLocaleModel, mode == MODE_24HR);
+    }
+
+    /**
+     * Calls {@link Presenter#onNumberKeyClick(CharSequence) onNumberKeyClick()} for each digit
+     * of a 3-digit time.
+     */
+    private void inputThreeDigitTime(int time, int mode) {
+        mPresenters[mode].onNumberKeyClick(text(time / 100));
+        mPresenters[mode].onNumberKeyClick(text((time % 100) / 10));
+        mPresenters[mode].onNumberKeyClick(text(time % 10));
+    }
+
+    /**
+     * Calls {@link Presenter#onNumberKeyClick(CharSequence) onNumberKeyClick()} for each digit
+     * of a 4-digit time.
+     */
+    private void inputFourDigitTime(int time, int mode) {
+        mPresenters[mode].onNumberKeyClick(text(time / 1000));
+        mPresenters[mode].onNumberKeyClick(text((time % 1000) / 100));
+        mPresenters[mode].onNumberKeyClick(text((time % 100) / 10));
+        mPresenters[mode].onNumberKeyClick(text(time % 10));
     }
 }
