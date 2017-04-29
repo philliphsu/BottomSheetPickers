@@ -28,6 +28,12 @@ public class NumberPadTimePickerDialogPresenterTest extends NumberPadTimePickerP
         super.mode24Hr_VerifyOnTimeSetCallback();
     }
 
+    @Test
+    @Override
+    public void mode24Hr_VerifyOnTimeSetCallback_UsingAltButtons() {
+        super.mode24Hr_VerifyOnTimeSetCallback_UsingAltButtons();
+    }
+
     @Override
     void verifyViewEnabledStates(TestCase test, int mode) {
         super.verifyViewEnabledStates(test, mode);

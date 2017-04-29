@@ -141,6 +141,38 @@ public class NumberPadTimePickerPresenterTest {
         }
     }
 
+    // We probably don't want this test to run in this class, so leave off the @Test annotation.
+    // Override this method in subclasses and add the @Test annotation, then call up to super.
+    public void mode24Hr_VerifyOnTimeSetCallback_UsingAltButtons() {
+        for (int hour = 0; hour <= 23; hour++) {
+            for (int leftOrRight = 0; leftOrRight < 2; leftOrRight++) {
+                final int minute = leftOrRight == 0 ? 0 : 30;
+                if (hour <= 9) {
+                    // These times can be inputted both as 3-digits or as 4-digits, so test both.
+                    System.out.println("Testing time as 3-digits: " + String.format("%d:%02d", hour, minute));
+                    createNewViewAndPresenter(MODE_24HR);
+                    mPresenters[MODE_24HR].onNumberKeyClick(text(hour));
+                    mPresenters[MODE_24HR].onAltKeyClick(altText(leftOrRight, MODE_24HR));
+                    confirmTimeSelection(mPresenters[MODE_24HR], MODE_24HR, hour, minute);
+
+                    System.out.println("Testing time as 4-digits: " + String.format("%02d:%02d", hour, minute));
+                    createNewViewAndPresenter(MODE_24HR);
+                    mPresenters[MODE_24HR].onNumberKeyClick(text(hour / 10));
+                    mPresenters[MODE_24HR].onNumberKeyClick(text(hour % 10));
+                    mPresenters[MODE_24HR].onAltKeyClick(altText(leftOrRight, MODE_24HR));
+                    confirmTimeSelection(mPresenters[MODE_24HR], MODE_24HR, hour, minute);
+                } else {
+                    System.out.println("Testing time: " + String.format("%02d:%02d", hour, minute));
+                    createNewViewAndPresenter(MODE_24HR);
+                    mPresenters[MODE_24HR].onNumberKeyClick(text(hour / 10));
+                    mPresenters[MODE_24HR].onNumberKeyClick(text(hour % 10));
+                    mPresenters[MODE_24HR].onAltKeyClick(altText(leftOrRight, MODE_24HR));
+                    confirmTimeSelection(mPresenters[MODE_24HR], MODE_24HR, hour, minute);
+                }
+            }
+        }
+    }
+
     @Test
     public void rotateDevice_savesAndRestoresInstanceState() {
         Assert.fail("Not implemented!");
