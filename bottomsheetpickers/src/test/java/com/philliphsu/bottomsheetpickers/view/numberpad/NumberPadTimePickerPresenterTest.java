@@ -11,10 +11,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.philliphsu.bottomsheetpickers.view.numberpad.ButtonTextModel.text;
+import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class NumberPadTimePickerPresenterTest {
     static final int MODE_12HR = 0;
@@ -31,6 +33,8 @@ public class NumberPadTimePickerPresenterTest {
     public final void setup() {
         // Inject mocks annotated with the @Mock annotation.
         MockitoAnnotations.initMocks(this);
+        when(mLocaleModel.getTimeSeparator(anyBoolean())).thenReturn(":");
+
         mButtonTextModels[MODE_12HR] = new ButtonTextModel(mLocaleModel, false);
         mButtonTextModels[MODE_24HR] = new ButtonTextModel(mLocaleModel, true);
     }
@@ -82,6 +86,40 @@ public class NumberPadTimePickerPresenterTest {
         verifyViewEnabledStates(TestSuite.MODE_12HR_TESTS_10_TO_95, MODE_12HR);
     }
 
+    // We probably don't want this test to run in this class, so leave off the @Test annotation.
+    // Override this method in subclasses and add the @Test annotation, then call up to super.
+    public void mode12Hr_VerifyOnTimeSetCallback() {
+        for (int time = 100; time <= 1259; time++) {
+            if (time % 100 > 59) {
+                System.out.println("Skipping invalid time " + time);
+                continue;
+            }
+            System.out.println("Testing time " + time);
+            for (int amOrPm = 0; amOrPm < 2; amOrPm++) {
+                createNewViewAndPresenter(MODE_12HR);
+                if (time <= 959) {
+                    mPresenters[MODE_12HR].onNumberKeyClick(text(time / 100));
+                    mPresenters[MODE_12HR].onNumberKeyClick(text((time % 100) / 10));
+                    mPresenters[MODE_12HR].onNumberKeyClick(text(time % 10));
+                } else {
+                    mPresenters[MODE_12HR].onNumberKeyClick(text(time / 1000));
+                    mPresenters[MODE_12HR].onNumberKeyClick(text((time % 1000) / 100));
+                    mPresenters[MODE_12HR].onNumberKeyClick(text((time % 100) / 10));
+                    mPresenters[MODE_12HR].onNumberKeyClick(text(time % 10));
+                }
+                mPresenters[MODE_12HR].onAltKeyClick(altText(amOrPm, MODE_12HR));
+                final int hour = (time >= 1200 ? 0 : time / 100) + (amOrPm == 1 ? 12 : 0);
+                final int minute = time % 100;
+                confirmTimeSelection(mPresenters[MODE_12HR], MODE_12HR, hour, minute);
+            }
+        }
+    }
+
+    @Test
+    public void rotateDevice_savesAndRestoresInstanceState() {
+
+    }
+
     INumberPadTimePicker.View getView(int mode) {
         return mViews[mode];
     }
@@ -98,6 +136,16 @@ public class NumberPadTimePickerPresenterTest {
                                                    LocaleModel localeModel,
                                                    boolean is24HourMode) {
         return new NumberPadTimePickerPresenter(view, localeModel, is24HourMode);
+    }
+
+    /**
+     * Subclasses should perform their logic to confirm the selected time.
+     * This class is not responsible for this behavior because there is no
+     * 'ok' button the {@link com.philliphsu.bottomsheetpickers.view.numberpad.INumberPadTimePicker.Presenter
+     * base presenter} is aware of.
+     */
+    void confirmTimeSelection(INumberPadTimePicker.Presenter presenter, int mode, int hour, int minute) {
+        throw new UnsupportedOperationException();
     }
 
     private void verifyViewEnabledStates(List<TestCase> testSuite, int mode) {
