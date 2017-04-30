@@ -164,6 +164,28 @@ public class NumberPadTimePickerPresenterTest {
         }
     }
 
+    @Test
+    public void inputDigits_rotateDevice_savesAndRestoresInstanceState() {
+        verifySaveAndRestoreInstanceState(TestSuite.MODE_12HR_TESTS_1_TO_9, MODE_12HR);
+        verifySaveAndRestoreInstanceState(TestSuite.MODE_24HR_TESTS_0_TO_9, MODE_24HR);
+        verifySaveAndRestoreInstanceState(TestSuite.MODE_12HR_TESTS_10_TO_95, MODE_12HR);
+    }
+    
+    private void verifySaveAndRestoreInstanceState(List<TestCase> tests, int mode) {
+        for (TestCase test : tests) {
+            createNewViewAndPresenter(mode);
+            for (int digit : test.sequence) {
+                mPresenters[mode].onNumberKeyClick(text(digit));
+            }
+            runTestCase(test, mode);
+            INumberPadTimePicker.State state = mPresenters[mode].getState();
+            // Simulates rotation.
+            createNewViewAndPresenter(mode);
+            mPresenters[mode].onCreate(state);
+            runTestCase(test, mode);
+        }
+    }
+
     private void verifyInitialization(int mode) {
         if (mode == MODE_12HR) {
             verify(mViews[MODE_12HR]).setNumberKeysEnabled(1, 10);
@@ -229,13 +251,13 @@ public class NumberPadTimePickerPresenterTest {
 
     void verifyViewEnabledStates(TestCase test, int mode) {
         createNewViewAndPresenter(mode);
+        for (int digit : test.sequence) {
+            mPresenters[mode].onNumberKeyClick(text(digit));
+        }
         runTestCase(test, mode);
     }
 
     private void runTestCase(TestCase test, int mode) {
-        for (int digit : test.sequence) {
-            mPresenters[mode].onNumberKeyClick(text(digit));
-        }
         // There could legitimately be multiple calls to these methods with the same arguments.
         // E.g. in MODE_12HR, inputting a sequence of [1, 0, 0] will result in two calls of
         // setNumberKeysEnabled(0, 10). This is fine because we're just interested in verifying
