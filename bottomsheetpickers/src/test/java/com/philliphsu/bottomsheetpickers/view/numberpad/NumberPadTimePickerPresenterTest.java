@@ -3,8 +3,6 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 import com.philliphsu.bottomsheetpickers.view.numberpad.INumberPadTimePicker.Presenter;
 
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -46,32 +44,11 @@ public class NumberPadTimePickerPresenterTest {
     public void verifyViewEnabledStatesForEmptyState() {
         createNewViewAndPresenter(MODE_12HR);
         mPresenters[MODE_12HR].onCreate(NumberPadTimePickerState.EMPTY);
-        verify(mViews[MODE_12HR]).setNumberKeysEnabled(1, 10);
-        verify(mViews[MODE_12HR]).setBackspaceEnabled(false);
-        // Assuming no initial text for the time display, there is no need to have to call this.
-        verify(mViews[MODE_12HR], never()).updateTimeDisplay(null /* value doesn't matter */);
-        verify(mViews[MODE_12HR]).updateAmPmDisplay(null);
-        verify(mViews[MODE_12HR]).setAmPmDisplayVisible(true);
-        verify(mViews[MODE_12HR]).setAmPmDisplayIndex(mLocaleModel.isAmPmWrittenBeforeTime() ? 0 : 1);
-        verify(mViews[MODE_12HR]).setLeftAltKeyText(altText(0, MODE_12HR));
-        verify(mViews[MODE_12HR]).setRightAltKeyText(altText(1, MODE_12HR));
-        verify(mViews[MODE_12HR]).setLeftAltKeyEnabled(false);
-        verify(mViews[MODE_12HR]).setRightAltKeyEnabled(false);
-        verify(mViews[MODE_12HR]).setHeaderDisplayFocused(true);
+        verifyInitialization(MODE_12HR);
 
         createNewViewAndPresenter(MODE_24HR);
         mPresenters[MODE_24HR].onCreate(NumberPadTimePickerState.EMPTY);
-        verify(mViews[MODE_24HR]).setNumberKeysEnabled(0, 10);
-        verify(mViews[MODE_24HR]).setBackspaceEnabled(false);
-        verify(mViews[MODE_24HR], never()).updateTimeDisplay(null /* value doesn't matter */);
-        verify(mViews[MODE_24HR], never()).updateAmPmDisplay(null /* value doesn't matter */);
-        verify(mViews[MODE_24HR]).setAmPmDisplayVisible(false);
-        verify(mViews[MODE_24HR], never()).setAmPmDisplayIndex(0 /* value doesn't matter */);
-        verify(mViews[MODE_24HR]).setLeftAltKeyText(altText(0, MODE_24HR));
-        verify(mViews[MODE_24HR]).setRightAltKeyText(altText(1, MODE_24HR));
-        verify(mViews[MODE_24HR]).setLeftAltKeyEnabled(false);
-        verify(mViews[MODE_24HR]).setRightAltKeyEnabled(false);
-        verify(mViews[MODE_24HR]).setHeaderDisplayFocused(true);
+        verifyInitialization(MODE_24HR);
     }
 
     @Test
@@ -175,7 +152,45 @@ public class NumberPadTimePickerPresenterTest {
 
     @Test
     public void rotateDevice_savesAndRestoresInstanceState() {
-        Assert.fail("Not implemented!");
+        for (int mode = MODE_12HR; mode <= MODE_24HR; mode++) {
+            createNewViewAndPresenter(mode);
+            mPresenters[mode].onCreate(NumberPadTimePickerState.EMPTY);
+            verifyInitialization(mode);
+            INumberPadTimePicker.State state = mPresenters[mode].getState();
+            // Simulates rotation.
+            createNewViewAndPresenter(mode);
+            mPresenters[mode].onCreate(state);
+            verifyInitialization(mode);
+        }
+    }
+
+    private void verifyInitialization(int mode) {
+        if (mode == MODE_12HR) {
+            verify(mViews[MODE_12HR]).setNumberKeysEnabled(1, 10);
+            verify(mViews[MODE_12HR]).setBackspaceEnabled(false);
+            // Assuming no initial text for the time display, there is no need to have to call this.
+            verify(mViews[MODE_12HR], never()).updateTimeDisplay(null /* value doesn't matter */);
+            verify(mViews[MODE_12HR]).updateAmPmDisplay(null);
+            verify(mViews[MODE_12HR]).setAmPmDisplayVisible(true);
+            verify(mViews[MODE_12HR]).setAmPmDisplayIndex(mLocaleModel.isAmPmWrittenBeforeTime() ? 0 : 1);
+            verify(mViews[MODE_12HR]).setLeftAltKeyText(altText(0, MODE_12HR));
+            verify(mViews[MODE_12HR]).setRightAltKeyText(altText(1, MODE_12HR));
+            verify(mViews[MODE_12HR]).setLeftAltKeyEnabled(false);
+            verify(mViews[MODE_12HR]).setRightAltKeyEnabled(false);
+            verify(mViews[MODE_12HR]).setHeaderDisplayFocused(true);
+        } else if (mode == MODE_24HR) {
+            verify(mViews[MODE_24HR]).setNumberKeysEnabled(0, 10);
+            verify(mViews[MODE_24HR]).setBackspaceEnabled(false);
+            verify(mViews[MODE_24HR], never()).updateTimeDisplay(null /* value doesn't matter */);
+            verify(mViews[MODE_24HR], never()).updateAmPmDisplay(null /* value doesn't matter */);
+            verify(mViews[MODE_24HR]).setAmPmDisplayVisible(false);
+            verify(mViews[MODE_24HR], never()).setAmPmDisplayIndex(0 /* value doesn't matter */);
+            verify(mViews[MODE_24HR]).setLeftAltKeyText(altText(0, MODE_24HR));
+            verify(mViews[MODE_24HR]).setRightAltKeyText(altText(1, MODE_24HR));
+            verify(mViews[MODE_24HR]).setLeftAltKeyEnabled(false);
+            verify(mViews[MODE_24HR]).setRightAltKeyEnabled(false);
+            verify(mViews[MODE_24HR]).setHeaderDisplayFocused(true);
+        }
     }
 
     INumberPadTimePicker.View getView(int mode) {
@@ -214,6 +229,10 @@ public class NumberPadTimePickerPresenterTest {
 
     void verifyViewEnabledStates(TestCase test, int mode) {
         createNewViewAndPresenter(mode);
+        runTestCase(test, mode);
+    }
+
+    private void runTestCase(TestCase test, int mode) {
         for (int digit : test.sequence) {
             mPresenters[mode].onNumberKeyClick(text(digit));
         }
