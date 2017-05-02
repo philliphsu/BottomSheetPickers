@@ -36,20 +36,39 @@
         <item name="layout_columnWeight">3</item>
     </style>
 
-    <style name="BSP_GridPickerButtonStyle">
+    <style name="BSP_ButtonBackgroundStyle">
+        <item name="android:background">?selectableItemBackground</item>
+    </style>
+
+    <style name="BSP_GridPickerButtonStyle" parent="BSP_ButtonBackgroundStyle">
         <item name="android:soundEffectsEnabled">false</item>
         <item name="android:clickable">true</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <!-- TODO: If you do change the gutters to use an exact width, determine if this needs to adapt. -->
-        <item name="layout_columnWeight">13</item>
         <item name="android:minHeight">@dimen/bsp_gridpicker_button_height</item>
-        <item name="android:background">?selectableItemBackground</item>
         <item name="android:focusable">true</item>
+        <item name="layout_columnWeight">1</item>
     </style>
 
     <style name="BSP_GridPickerTextButtonStyle" parent="BSP_GridPickerButtonStyle">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/bsp_gridpicker_button_text_size</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:gravity">center</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="BSP_NumberPadTimePicker_InputTimeStyle" parent="TextAppearance.AppCompat.Display3">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="BSP_NumberPadTimePicker_InputAmPmStyle" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:layout_marginLeft">@dimen/bsp_numberpad_time_picker_ampm_header_margin_start</item>
+        <item name="android:layout_marginStart">@dimen/bsp_numberpad_time_picker_ampm_header_margin_start</item>
+        <item name="android:layout_marginRight">@dimen/bsp_numberpad_time_picker_ampm_header_margin_end</item>
+        <item name="android:layout_marginEnd">@dimen/bsp_numberpad_time_picker_ampm_header_margin_end</item>
+    </style>
+
+    <style name="BSP_NumberPadTimePicker_BackspaceStyle" parent="BSP_ButtonBackgroundStyle">
     </style>
 </resources>
