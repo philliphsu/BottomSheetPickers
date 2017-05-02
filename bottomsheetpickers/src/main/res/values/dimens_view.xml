@@ -17,4 +17,5 @@
     <dimen name="bsp_numberpad_time_picker_ampm_header_margin_end">6dp</dimen>
 
     <dimen name="bsp_numberpad_time_picker_backspace_button_width">48dp</dimen>
+    <dimen name="bsp_numberpad_time_picker_alt_button_text_size">24sp</dimen>
 </resources>

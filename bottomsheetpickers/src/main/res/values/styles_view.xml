@@ -57,6 +57,14 @@
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
+    <!-- TODO: Apply this style to Buttons with ids bsp_text9 and bsp_text11. Since this number pad
+         time picker is most likely going to its own library, we can apply the style directly in
+         the picker's content layout file. Otherwise, you can apply this style to those views
+         programmatically. -->
+    <style name="BSP_NumberPadTimePicker_AltTextButtonStyle" parent="BSP_GridPickerTextButtonStyle">
+        <item name="android:textSize">@dimen/bsp_numberpad_time_picker_alt_button_text_size</item>
+    </style>
+
     <style name="BSP_NumberPadTimePicker_InputTimeStyle" parent="TextAppearance.AppCompat.Display3">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:fontFamily">sans-serif-light</item>
