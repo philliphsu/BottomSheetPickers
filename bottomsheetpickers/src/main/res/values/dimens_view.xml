@@ -9,6 +9,8 @@
     <!-- Text size of button texts in a grid-based picker. -->
     <dimen name="bsp_gridpicker_button_text_size">34sp</dimen>
 
+    <dimen name="bsp_numberpad_time_picker_alt_button_text_size">24sp</dimen>
+
     <dimen name="bsp_numberpad_time_picker_header_height">80dp</dimen>
     <dimen name="bsp_numberpad_time_picker_header_padding_start">16dp</dimen>
     <dimen name="bsp_numberpad_time_picker_header_padding_end">16dp</dimen>
@@ -17,5 +19,7 @@
     <dimen name="bsp_numberpad_time_picker_ampm_header_margin_end">6dp</dimen>
 
     <dimen name="bsp_numberpad_time_picker_backspace_button_width">48dp</dimen>
-    <dimen name="bsp_numberpad_time_picker_alt_button_text_size">24sp</dimen>
+
+    <dimen name="bsp_numberpad_time_picker_input_time_text_size">56sp</dimen>
+    <dimen name="bsp_numberpad_time_picker_input_ampm_text_size">16sp</dimen>
 </resources>

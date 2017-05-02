@@ -65,12 +65,13 @@
         <item name="android:textSize">@dimen/bsp_numberpad_time_picker_alt_button_text_size</item>
     </style>
 
-    <style name="BSP_NumberPadTimePicker_InputTimeStyle" parent="TextAppearance.AppCompat.Display3">
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    <style name="BSP_NumberPadTimePicker_InputTimeStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/bsp_numberpad_time_picker_input_time_text_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
-    <style name="BSP_NumberPadTimePicker_InputAmPmStyle" parent="TextAppearance.AppCompat.Subhead">
+    <style name="BSP_NumberPadTimePicker_InputAmPmStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/bsp_numberpad_time_picker_input_ampm_text_size</item>
         <item name="android:layout_marginLeft">@dimen/bsp_numberpad_time_picker_ampm_header_margin_start</item>
         <item name="android:layout_marginStart">@dimen/bsp_numberpad_time_picker_ampm_header_margin_start</item>
         <item name="android:layout_marginRight">@dimen/bsp_numberpad_time_picker_ampm_header_margin_end</item>
