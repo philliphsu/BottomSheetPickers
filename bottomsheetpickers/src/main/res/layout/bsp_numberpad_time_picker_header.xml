@@ -37,10 +37,9 @@
         style="@style/BSP_NumberPadTimePicker_BackspaceStyle" />
 
     <View
-        android:id="@+id/bsp_input_time_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="?attr/colorAccent"
+        android:background="?android:attr/listDivider"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
