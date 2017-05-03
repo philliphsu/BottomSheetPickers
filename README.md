@@ -39,22 +39,25 @@ supporting API level 14 and up.
 4. [License](#license)
 
 ## Installation
-Add the following dependency to your module's `build.gradle`:
+This library depends on the `appcompat-v7`, `design`, and `gridlayout-v7` support libraries.
+It is recommended that you exclude them from the library and add those dependencies on your own.
+This will ensure both your project and this library are using the same versions of the support
+libraries.
+
 ```groovy
 dependencies {
+    // Recommended
+    compile('com.philliphsu:bottomsheetpickers:2.3.2') {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'gridlayout-v7'
+    }
+    compile 'com.android.support:appcompat-v7:[LATEST_VERSION]'
+    compile 'com.android.support:design:[LATEST_VERSION]'
+    compile 'com.android.support:gridlayout-v7:[LATEST_VERSION]'
+
+    // Standard -- not recommended!
     compile 'com.philliphsu:bottomsheetpickers:2.3.2'
-}
-```
-
-If you are using any of the `appcompat-v7`, `design`, or `gridlayout-v7` support libraries,
-you should exclude them from the library and keep those dependencies in your own `build.gradle`
-file.
-
-```groovy
-compile('com.philliphsu:bottomsheetpickers:2.3.2') {
-    exclude group: 'com.android.support', module: 'appcompat-v7'
-    exclude group: 'com.android.support', module: 'design'
-    exclude group: 'com.android.support', module: 'gridlayout-v7'
 }
 ```
 
