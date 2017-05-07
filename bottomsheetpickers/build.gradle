@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/philliphsu/BottomSheetPickers'
     gitUrl = 'https://github.com/philliphsu/BottomSheetPickers.git'
 
-    libraryVersion = '2.3.2'
+    libraryVersion = rootProject.ext.versionName
 
     developerId = 'philliphsu'
     developerName = 'Phillip Hsu'
@@ -25,14 +25,14 @@ ext {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 25
-        versionCode 7
-        versionName "2.3.2"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -45,9 +45,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:gridlayout-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:gridlayout-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
 }
 
 apply from: '../install.gradle'
