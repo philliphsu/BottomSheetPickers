@@ -12,7 +12,7 @@ import com.philliphsu.bottomsheetpickers.R;
  * Created by Phillip Hsu on 4/4/2017.
  */
 
-public class TwentyFourHourPickerDialog extends AlertDialog {
+class TwentyFourHourPickerDialog extends AlertDialog {
     public TwentyFourHourPickerDialog(Context context) {
         super(context);
         final Context themeContext = getContext();

@@ -12,7 +12,7 @@ import java.util.Locale;
 /**
  * Utilities for text formatting of dates and times.
  */
-public final class DateTimeFormatUtils {
+final class DateTimeFormatUtils {
     /**
      * The time separator is defined in the Unicode CLDR and cannot be supposed to be ":".
      *
@@ -22,7 +22,7 @@ public final class DateTimeFormatUtils {
      * separator as the character which is just after the hour marker in the returned pattern.
      */
     @TargetApi(18)
-    public static String getTimeSeparator(@NonNull Context context, boolean is24Hour) {
+    static String getTimeSeparator(@NonNull Context context, boolean is24Hour) {
         // TODO: Figure out what to do for API < 18. You may consider formatting a
         // dummy time string in 24-hour time using Android's DateFormat, then
         // iterating through the string until you find a non-digit character.
@@ -47,7 +47,7 @@ public final class DateTimeFormatUtils {
      *         in the user's locale.
      */
     @TargetApi(18)
-    public static boolean isAmPmWrittenBeforeTime(@NonNull Context context) {
+    static boolean isAmPmWrittenBeforeTime(@NonNull Context context) {
         // TODO: Figure out what to do for API < 18. You may consider formatting a
         // dummy time string in 12-hour time using Android's DateFormat, then
         // checking if the string starts with a non-digit character. This should
