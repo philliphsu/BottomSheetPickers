@@ -13,8 +13,8 @@
     <TextView android:id="@+id/bsp_text7" style="@style/BSP_GridPickerTextButtonStyle" />
     <TextView android:id="@+id/bsp_text8" style="@style/BSP_GridPickerTextButtonStyle" />
 
-    <TextView android:id="@+id/bsp_text9" style="@style/BSP_GridPickerTextButtonStyle" />
+    <TextView android:id="@+id/bsp_text9" style="@style/BSP_NumberPadTimePicker_AltTextButtonStyle" />
     <TextView android:id="@+id/bsp_text10" style="@style/BSP_GridPickerTextButtonStyle" />
-    <TextView android:id="@+id/bsp_text11" style="@style/BSP_GridPickerTextButtonStyle" />
+    <TextView android:id="@+id/bsp_text11" style="@style/BSP_NumberPadTimePicker_AltTextButtonStyle" />
 
 </merge>
