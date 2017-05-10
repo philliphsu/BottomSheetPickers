@@ -21,6 +21,7 @@ final class ButtonTextModel {
     }
 
     private final String[] mAltButtonsTexts = new String[2];
+    private final boolean mIs24HourMode;
 
     ButtonTextModel(@NonNull LocaleModel localeModel, boolean is24HourMode) {
         final String timeSeparator = localeModel.getTimeSeparator(is24HourMode);
@@ -40,6 +41,7 @@ final class ButtonTextModel {
         }
         mAltButtonsTexts[0] = leftAltText;
         mAltButtonsTexts[1] = rightAltText;
+        mIs24HourMode = is24HourMode;
     }
 
     /**
@@ -73,7 +75,7 @@ final class ButtonTextModel {
      * @return The sequence of digits represented by the given alt key's text.
      */
     int[] altDigits(String altText) {
-        if (mAltButtonsTexts[0].equals(altText)) {
+        if (!mIs24HourMode || mAltButtonsTexts[0].equals(altText)) {
             return ALT_DIGITS_00;
         } else if (mAltButtonsTexts[1].equals(altText)) {
             return ALT_DIGITS_30;
