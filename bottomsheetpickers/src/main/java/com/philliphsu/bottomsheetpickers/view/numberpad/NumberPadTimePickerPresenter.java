@@ -79,10 +79,8 @@ class NumberPadTimePickerPresenter implements
 
     @Override
     public void onBackspaceClick() {
-        final int len = mFormattedInput.length();
         if (!mIs24HourMode && mAmPmState != UNSPECIFIED) {
             mAmPmState = UNSPECIFIED;
-            mFormattedInput.delete(mFormattedInput.indexOf(" "), len);
             mView.updateAmPmDisplay(null);
             /* No digit was actually deleted, so there is no need to 
              * update the time display. */
