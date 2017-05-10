@@ -1,4 +1,4 @@
-package com.philliphsu.bottomsheetpickers;
+package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.provider.Settings;
 import android.support.test.espresso.Espresso;
