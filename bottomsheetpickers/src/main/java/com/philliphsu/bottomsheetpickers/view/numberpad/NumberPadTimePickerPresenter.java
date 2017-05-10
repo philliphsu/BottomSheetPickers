@@ -19,11 +19,11 @@ class NumberPadTimePickerPresenter implements
     private final StringBuilder mFormattedInput = new StringBuilder(MAX_CHARS);
     private final String[] mAltTexts = new String[2];
 
-    private final @NonNull LocaleModel localeModel;
-    private final String timeSeparator;
+    private final @NonNull LocaleModel mLocaleModel;
+    private final String mTimeSeparator;
     private final boolean mIs24HourMode;
 
-    private INumberPadTimePicker.View view;
+    private INumberPadTimePicker.View mView;
 
     private boolean mAltKeysDisabled;
     private boolean mAllNumberKeysDisabled;
@@ -37,9 +37,9 @@ class NumberPadTimePickerPresenter implements
     NumberPadTimePickerPresenter(@NonNull INumberPadTimePicker.View view,
                                  @NonNull LocaleModel localeModel,
                                  boolean is24HourMode) {
-        this.view = checkNotNull(view);
-        this.localeModel = checkNotNull(localeModel);
-        timeSeparator = localeModel.getTimeSeparator(is24HourMode);
+        mView = checkNotNull(view);
+        mLocaleModel = checkNotNull(localeModel);
+        mTimeSeparator = localeModel.getTimeSeparator(is24HourMode);
         mIs24HourMode = is24HourMode;
 
         final ButtonTextModel textModel = new ButtonTextModel(localeModel, is24HourMode);
@@ -63,7 +63,7 @@ class NumberPadTimePickerPresenter implements
             final String ampm = altKeyText.toString();
             mAmPmState = ampm.equalsIgnoreCase(mAltTexts[0]) ? AM : PM;
             // Digits will be shown for you on insert, but not AM/PM
-            view.updateAmPmDisplay(ampm);
+            mView.updateAmPmDisplay(ampm);
         } else {
             for (int i = 0; i < altKeyText.length(); i++) {
                 final char c = altKeyText.charAt(i);
@@ -83,7 +83,7 @@ class NumberPadTimePickerPresenter implements
         if (!mIs24HourMode && mAmPmState != UNSPECIFIED) {
             mAmPmState = UNSPECIFIED;
             mFormattedInput.delete(mFormattedInput.indexOf(" "), len);
-            view.updateAmPmDisplay(null);
+            mView.updateAmPmDisplay(null);
             /* No digit was actually deleted, so there is no need to 
              * update the time display. */
             updateViewEnabledStates();
@@ -103,7 +103,7 @@ class NumberPadTimePickerPresenter implements
         // for each digit and the time display will be updated automatically.
         initialize(state);
         if (!mIs24HourMode) {
-            view.setAmPmDisplayIndex(localeModel.isAmPmWrittenBeforeTime() ? 0 : 1);
+            mView.setAmPmDisplayIndex(mLocaleModel.isAmPmWrittenBeforeTime() ? 0 : 1);
             final CharSequence amPmDisplayText;
             switch (state.getAmPmState()) {
                 case AM:
@@ -116,9 +116,9 @@ class NumberPadTimePickerPresenter implements
                     amPmDisplayText = null;
                     break;
             }
-            view.updateAmPmDisplay(amPmDisplayText);
+            mView.updateAmPmDisplay(amPmDisplayText);
         }
-        view.setAmPmDisplayVisible(!mIs24HourMode);
+        mView.setAmPmDisplayVisible(!mIs24HourMode);
         setAltKeysTexts();
         updateViewEnabledStates();
     }
@@ -128,7 +128,7 @@ class NumberPadTimePickerPresenter implements
         // Release our hold on the view so that it may be GCed.
         // This presenter will be GCed with its view, so there
         // is no need for us to dereference any other members.
-        view = null;
+        mView = null;
     }
 
     @Override
@@ -141,14 +141,14 @@ class NumberPadTimePickerPresenter implements
     public void onDigitStored(int digit) {
         // Append the new digit(s) to the formatter
         updateFormattedInputOnDigitInserted(digit);
-        view.updateTimeDisplay(mFormattedInput.toString());
+        mView.updateTimeDisplay(mFormattedInput.toString());
         updateViewEnabledStates();
     }
 
     @Override
     public void onDigitRemoved(int digit) {
         updateFormattedInputOnDigitDeleted();
-        view.updateTimeDisplay(mFormattedInput.toString());
+        mView.updateTimeDisplay(mFormattedInput.toString());
         updateViewEnabledStates();
     }
 
@@ -157,9 +157,9 @@ class NumberPadTimePickerPresenter implements
         mFormattedInput.delete(0, mFormattedInput.length());
         mAmPmState = UNSPECIFIED;
         updateViewEnabledStates(); // TOneverDO: before resetting mAmPmState to UNSPECIFIED
-        view.updateTimeDisplay(null);
+        mView.updateTimeDisplay(null);
         if (!mIs24HourMode) {
-            view.updateAmPmDisplay(null);
+            mView.updateAmPmDisplay(null);
         }
     }
 
@@ -181,7 +181,7 @@ class NumberPadTimePickerPresenter implements
     }
 
     private void enable(int start, int end) {
-        view.setNumberKeysEnabled(start, end);
+        mView.setNumberKeysEnabled(start, end);
         mAllNumberKeysDisabled = start == 0 && end == 0;
     }
 
@@ -190,8 +190,8 @@ class NumberPadTimePickerPresenter implements
     }
 
     private void setAltKeysTexts() {
-        view.setLeftAltKeyText(mAltTexts[0]);
-        view.setRightAltKeyText(mAltTexts[1]);
+        mView.setLeftAltKeyText(mAltTexts[0]);
+        mView.setRightAltKeyText(mAltTexts[1]);
     }
 
     void updateViewEnabledStates() {
@@ -205,13 +205,13 @@ class NumberPadTimePickerPresenter implements
     private void updateHeaderDisplayFocus() {
         final boolean showHeaderDisplayFocused = !(mAllNumberKeysDisabled && mAltKeysDisabled);
         if (mHeaderDisplayFocused != showHeaderDisplayFocused) {
-            view.setHeaderDisplayFocused(showHeaderDisplayFocused);
+            mView.setHeaderDisplayFocused(showHeaderDisplayFocused);
             mHeaderDisplayFocused = showHeaderDisplayFocused;
         }
     }
 
     private void updateBackspaceState() { 
-        view.setBackspaceEnabled(count() > 0);
+        mView.setBackspaceEnabled(count() > 0);
     }
 
     private void updateAltKeysStates() {
@@ -234,8 +234,8 @@ class NumberPadTimePickerPresenter implements
             // complete need of the alt buttons, if AM/PM not already entered.
             enabled = !is24HourFormat() && mAmPmState == UNSPECIFIED;
         }
-        view.setLeftAltKeyEnabled(enabled);
-        view.setRightAltKeyEnabled(enabled);
+        mView.setLeftAltKeyEnabled(enabled);
+        mView.setRightAltKeyEnabled(enabled);
 
         mAltKeysDisabled = !enabled;
     }
@@ -297,14 +297,14 @@ class NumberPadTimePickerPresenter implements
                 // From 060-099 (really only to 095, but might as well go up to 100)
                 // From 160-199 (really only to 195, but might as well go up to 200),
                 // time does not exist if time separator goes at pos. 1
-                mFormattedInput.insert(2, timeSeparator);
+                mFormattedInput.insert(2, mTimeSeparator);
                 // These times only apply to the 24-hour clock, and if we're here,
                 // the time is not legal yet. So we can't set mAmPmState here for
                 // either clock.
                 // The 12-hour clock can only have mAmPmState set when AM/PM are clicked.
             } else {
                 // A valid time exists if time separator is at pos. 1
-                mFormattedInput.insert(1, timeSeparator);
+                mFormattedInput.insert(1, mTimeSeparator);
                 // We can set mAmPmState here (and not in the above case) because
                 // the time here is legal in 24-hour clock
                 if (is24HourFormat()) {
@@ -312,7 +312,7 @@ class NumberPadTimePickerPresenter implements
                 }
             }
         } else if (count() == MAX_DIGITS) {
-            int timeSeparatorAt = mFormattedInput.indexOf(timeSeparator);
+            int timeSeparatorAt = mFormattedInput.indexOf(mTimeSeparator);
             // Since we now batch update the formatted input whenever
             // digits are inserted, the time separator may legitimately not be
             // present in the formatted input when this is initialized.
@@ -320,7 +320,7 @@ class NumberPadTimePickerPresenter implements
                 // Time separator needs to move, so remove the time separator previously added
                 mFormattedInput.deleteCharAt(timeSeparatorAt);
             }
-            mFormattedInput.insert(2, timeSeparator);
+            mFormattedInput.insert(2, mTimeSeparator);
 
             // Time is legal in 24-hour clock
             if (is24HourFormat()) {
@@ -350,15 +350,15 @@ class NumberPadTimePickerPresenter implements
             if (value >= 0 && value <= 55
                     || value >= 100 && value <= 155
                     || value >= 200 && value <= 235) {
-                mFormattedInput.deleteCharAt(mFormattedInput.indexOf(timeSeparator));
-                mFormattedInput.insert(1, timeSeparator);
+                mFormattedInput.deleteCharAt(mFormattedInput.indexOf(mTimeSeparator));
+                mFormattedInput.insert(1, mTimeSeparator);
             } else {
                 // previously [06:00, 09:59] or [16:00, 19:59]
                 mAmPmState = UNSPECIFIED;
             }
         } else if (count() == 2) {
             // Remove the time separator
-            mFormattedInput.deleteCharAt(mFormattedInput.indexOf(timeSeparator));
+            mFormattedInput.deleteCharAt(mFormattedInput.indexOf(mTimeSeparator));
             // No time can be valid with only 2 digits in either system.
             // I don't think we actually need this, but it can't hurt?
             mAmPmState = UNSPECIFIED;

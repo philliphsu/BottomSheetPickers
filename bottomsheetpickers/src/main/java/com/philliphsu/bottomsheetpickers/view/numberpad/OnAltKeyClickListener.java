@@ -8,14 +8,14 @@ import android.widget.TextView;
  */
 
 class OnAltKeyClickListener implements View.OnClickListener {
-    private final INumberPadTimePicker.Presenter presenter;
+    private final INumberPadTimePicker.Presenter mPresenter;
 
     OnAltKeyClickListener(INumberPadTimePicker.Presenter presenter) {
-        this.presenter = presenter;
+        mPresenter = presenter;
     }
 
     @Override
     public void onClick(View v) {
-        presenter.onAltKeyClick(((TextView) v).getText());
+        mPresenter.onAltKeyClick(((TextView) v).getText());
     }
 }

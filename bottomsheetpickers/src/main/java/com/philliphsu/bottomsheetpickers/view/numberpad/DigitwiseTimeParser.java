@@ -5,10 +5,10 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
  */
 final class DigitwiseTimeParser {
 
-    private final DigitwiseTimeModel model;
+    private final DigitwiseTimeModel mModel;
 
     DigitwiseTimeParser(DigitwiseTimeModel model) {
-        this.model = model;
+        mModel = model;
     }
 
     /** Returns the hour of day (0-23) regardless of clock system */
@@ -58,10 +58,10 @@ final class DigitwiseTimeParser {
     }
 
     private int valueAt(int i) {
-        return model.getDigit(i);
+        return mModel.getDigit(i);
     }
 
     private int count() {
-        return model.count();
+        return mModel.count();
     }
 }

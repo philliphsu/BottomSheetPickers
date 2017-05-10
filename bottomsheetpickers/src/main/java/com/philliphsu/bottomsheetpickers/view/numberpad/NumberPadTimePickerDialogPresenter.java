@@ -7,32 +7,32 @@ import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 final class NumberPadTimePickerDialogPresenter extends NumberPadTimePickerPresenter
         implements INumberPadTimePicker.DialogPresenter {
 
-    private final DigitwiseTimeParser timeParser = new DigitwiseTimeParser(timeModel);
+    private final DigitwiseTimeParser mTimeParser = new DigitwiseTimeParser(timeModel);
 
-    private INumberPadTimePicker.DialogView view;
+    private INumberPadTimePicker.DialogView mView;
 
     NumberPadTimePickerDialogPresenter(@NonNull INumberPadTimePicker.DialogView view,
                                        @NonNull LocaleModel localeModel,
                                        boolean is24HourMode) {
         super(view, localeModel, is24HourMode);
-        this.view = view;
+        mView = view;
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        view = null;
+        mView = null;
     }
 
     @Override
     public void onCancelClick() {
-        view.cancel();
+        mView.cancel();
     }
 
     @Override
     public void onOkButtonClick() {
-        view.setResult(timeParser.getHour(mAmPmState), timeParser.getMinute(mAmPmState));
-        view.cancel();
+        mView.setResult(mTimeParser.getHour(mAmPmState), mTimeParser.getMinute(mAmPmState));
+        mView.cancel();
     }
 
     @Override
@@ -42,6 +42,6 @@ final class NumberPadTimePickerDialogPresenter extends NumberPadTimePickerPresen
     }
 
     private void updateOkButtonState() {
-        view.setOkButtonEnabled(timeParser.checkTimeValid(mAmPmState));
+        mView.setOkButtonEnabled(mTimeParser.checkTimeValid(mAmPmState));
     }
 }
