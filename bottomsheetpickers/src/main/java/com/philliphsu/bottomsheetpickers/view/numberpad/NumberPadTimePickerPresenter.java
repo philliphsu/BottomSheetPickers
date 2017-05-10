@@ -14,17 +14,8 @@ import static com.philliphsu.bottomsheetpickers.view.numberpad.DigitwiseTimeMode
 class NumberPadTimePickerPresenter implements
         INumberPadTimePicker.Presenter,
         DigitwiseTimeModel.OnInputChangeListener {
-    // TODO: Delete this if we're not setting a capacity.
-    // Formatted time string has a maximum of 8 characters
-    // in the 12-hour clock, e.g 12:59 AM. Although the 24-hour
-    // clock should be capped at 5 characters, the difference
-    // is not significant enough to deal with the separate cases.
-    private static final int MAX_CHARS = 8;
+    private static final int MAX_CHARS = 5;  // 4 digits + time separator
 
-    // Constant for converting text digits to numeric digits in base-10.
-    private static final int BASE_10 = 10;
-
-    // TODO: Delete setting of capacity.
     private final StringBuilder mFormattedInput = new StringBuilder(MAX_CHARS);
     private final String[] mAltTexts = new String[2];
 
@@ -69,22 +60,15 @@ class NumberPadTimePickerPresenter implements
                 // The time separator is inserted for you
                 insertDigits(0, 0);
             }
-            String ampm = altKeyText.toString();
-            // TODO: When we're finalizing the code, we probably don't need to
-            // format this in anymore; just tell the view to update its am/pm
-            // display directly.
-            // However, we currently need to leave this in for the backspace
-            // logic to work correctly.
-            mFormattedInput.append(' ').append(ampm);
-            String am = mAltTexts[0];
-            mAmPmState = ampm.equalsIgnoreCase(am) ? AM : PM;
+            final String ampm = altKeyText.toString();
+            mAmPmState = ampm.equalsIgnoreCase(mAltTexts[0]) ? AM : PM;
             // Digits will be shown for you on insert, but not AM/PM
             view.updateAmPmDisplay(ampm);
         } else {
             for (int i = 0; i < altKeyText.length(); i++) {
                 final char c = altKeyText.charAt(i);
                 if (Character.isDigit(c)) {
-                    timeModel.storeDigit(Character.digit(c, BASE_10));
+                    timeModel.storeDigit(Character.digit(c, 10));
                 }
             }
             mAmPmState = HRS_24;
@@ -182,14 +166,6 @@ class NumberPadTimePickerPresenter implements
     private void initialize(@NonNull INumberPadTimePicker.State savedInstanceState) {
         insertDigits(savedInstanceState.getDigits());
         mAmPmState = savedInstanceState.getAmPmState();
-        // TODO: When we're finalizing the code, we probably don't need to
-        // format this in anymore; just tell the view to update its am/pm
-        // display directly.
-        // However, we currently need to leave this in for the backspace
-        // logic to work correctly.
-        if (mAmPmState != HRS_24 && mAmPmState != UNSPECIFIED) {
-            mFormattedInput.append(' ').append(mAmPmState == AM ? mAltTexts[0] : mAltTexts[1]);
-        }
     }
 
     private int count() {
