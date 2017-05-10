@@ -56,21 +56,15 @@ class NumberPadTimePickerPresenter implements
 
     @Override
     public void onAltKeyClick(CharSequence altKeyText) {
-        // Manually insert special characters for 12-hour clock
+        final String altKeyString = altKeyText.toString();
+        final int[] altDigits = mTextModel.altDigits(altKeyString);
+        if (count() <= 2) {
+            insertDigits(altDigits);
+        }
         if (!is24HourFormat()) {
-            if (count() <= 2) {
-                // The time separator is inserted for you
-                insertDigits(0, 0);
-            }
-            final String ampm = altKeyText.toString();
-            mAmPmState = ampm.equalsIgnoreCase(mAltTexts[0]) ? AM : PM;
-            // Digits will be shown for you on insert, but not AM/PM
-            mView.updateAmPmDisplay(ampm);
+            mAmPmState = altKeyString.equalsIgnoreCase(mAltTexts[0]) ? AM : PM;
+            mView.updateAmPmDisplay(altKeyString);
         } else {
-            final int[] digits = mTextModel.altDigits(altKeyText.toString());
-            for (int digit : digits) {
-                mTimeModel.storeDigit(digit);
-            }
             mAmPmState = HRS_24;
         }
 

@@ -72,6 +72,7 @@ final class ButtonTextModel {
     }
 
     /**
+     * @param altText Only necessary if this model is configured for 24-hour time.
      * @return The sequence of digits represented by the given alt key's text.
      */
     int[] altDigits(String altText) {
