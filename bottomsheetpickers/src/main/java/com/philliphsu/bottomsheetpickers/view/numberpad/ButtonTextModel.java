@@ -11,6 +11,8 @@ import java.text.DateFormatSymbols;
  */
 final class ButtonTextModel {
     private static final String[] NUMBERS_TEXTS = new String[10];
+    private static final int[] ALT_DIGITS_00 = {0,0};
+    private static final int[] ALT_DIGITS_30 = {3,0};
 
     static {
         for (int i = 0; i < 10; i++) {
@@ -48,10 +50,34 @@ final class ButtonTextModel {
     }
 
     /**
+     * @return The integer value of the given key's text.
+     */
+    static int digit(String text) {
+        for (int i = 0; i < NUMBERS_TEXTS.length; i++) {
+            if (NUMBERS_TEXTS[i].equals(text)) {
+                return i;
+            }
+        }
+        throw new IllegalArgumentException("Cannot convert \""+text+"\" to digit");
+    }
+
+    /**
      * @param leftOrRight left (0) or right (1)
      * @return A string for the left or right alt button.
      */
     String altText(int leftOrRight) {
         return mAltButtonsTexts[leftOrRight];
+    }
+
+    /**
+     * @return The sequence of digits represented by the given alt key's text.
+     */
+    int[] altDigits(String altText) {
+        if (mAltButtonsTexts[0].equals(altText)) {
+            return ALT_DIGITS_00;
+        } else if (mAltButtonsTexts[1].equals(altText)) {
+            return ALT_DIGITS_30;
+        }
+        throw new IllegalArgumentException("Cannot convert \""+altText+"\" to alt digits");
     }
 }

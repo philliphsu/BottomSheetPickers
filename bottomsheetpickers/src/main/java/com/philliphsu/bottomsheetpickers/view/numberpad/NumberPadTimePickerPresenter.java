@@ -20,6 +20,7 @@ class NumberPadTimePickerPresenter implements
     private final String[] mAltTexts = new String[2];
 
     private final @NonNull LocaleModel mLocaleModel;
+    private final ButtonTextModel mTextModel;
     private final String mTimeSeparator;
     private final boolean mIs24HourMode;
 
@@ -45,11 +46,12 @@ class NumberPadTimePickerPresenter implements
         final ButtonTextModel textModel = new ButtonTextModel(localeModel, is24HourMode);
         mAltTexts[0] = textModel.altText(0);
         mAltTexts[1] = textModel.altText(1);
+        mTextModel = textModel;
     }
 
     @Override
     public void onNumberKeyClick(CharSequence numberKeyText) {
-        mTimeModel.storeDigit(Integer.parseInt(numberKeyText.toString()));
+        mTimeModel.storeDigit(ButtonTextModel.digit(numberKeyText.toString()));
     }
 
     @Override
@@ -65,11 +67,9 @@ class NumberPadTimePickerPresenter implements
             // Digits will be shown for you on insert, but not AM/PM
             mView.updateAmPmDisplay(ampm);
         } else {
-            for (int i = 0; i < altKeyText.length(); i++) {
-                final char c = altKeyText.charAt(i);
-                if (Character.isDigit(c)) {
-                    mTimeModel.storeDigit(Character.digit(c, 10));
-                }
+            final int[] digits = mTextModel.altDigits(altKeyText.toString());
+            for (int digit : digits) {
+                mTimeModel.storeDigit(digit);
             }
             mAmPmState = HRS_24;
         }
