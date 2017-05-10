@@ -2,14 +2,12 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
-import com.philliphsu.bottomsheetpickers.Utils;
 
 class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
 
@@ -125,19 +123,5 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
     void setOnAltKeyClickListener(OnClickListener l) {
         mNumberPad.setOnAltKeyClickListener(l);
-    }
-
-    @ColorInt
-    private static int colorAccent(Context context) {
-        // TODO: A standalone NumberPadTimePicker library will
-        // need its own copy of this utility method.
-        return Utils.getThemeAccentColor(context);
-    }
-
-    @ColorInt
-    private static int textColorSecondary(Context context) {
-        // TODO: A standalone NumberPadTimePicker library will
-        // need its own copy of this utility method.
-        return Utils.getColorFromThemeAttr(context, android.R.attr.textColorSecondary);
     }
 }
