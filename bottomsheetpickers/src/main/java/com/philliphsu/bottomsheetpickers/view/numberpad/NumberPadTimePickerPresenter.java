@@ -214,9 +214,7 @@ class NumberPadTimePickerPresenter implements
     }
 
     private void setAltKeysTexts() {
-        // TODO: Apply a smaller text size.
         view.setLeftAltKeyText(mAltTexts[0]);
-        // TODO: Apply a smaller text size.
         view.setRightAltKeyText(mAltTexts[1]);
     }
 
