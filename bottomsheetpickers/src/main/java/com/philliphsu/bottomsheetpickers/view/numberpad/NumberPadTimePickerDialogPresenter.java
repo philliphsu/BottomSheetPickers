@@ -7,7 +7,7 @@ import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 final class NumberPadTimePickerDialogPresenter extends NumberPadTimePickerPresenter
         implements INumberPadTimePicker.DialogPresenter {
 
-    private final DigitwiseTimeParser mTimeParser = new DigitwiseTimeParser(timeModel);
+    private final DigitwiseTimeParser mTimeParser = new DigitwiseTimeParser(mTimeModel);
 
     private INumberPadTimePicker.DialogView mView;
 

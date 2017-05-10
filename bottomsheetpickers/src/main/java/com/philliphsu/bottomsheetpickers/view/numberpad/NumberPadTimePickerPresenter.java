@@ -29,7 +29,7 @@ class NumberPadTimePickerPresenter implements
     private boolean mAllNumberKeysDisabled;
     private boolean mHeaderDisplayFocused;
 
-    final DigitwiseTimeModel timeModel = new DigitwiseTimeModel(this);
+    final DigitwiseTimeModel mTimeModel = new DigitwiseTimeModel(this);
 
     @AmPmStates.AmPmState
     int mAmPmState = UNSPECIFIED;
@@ -49,7 +49,7 @@ class NumberPadTimePickerPresenter implements
 
     @Override
     public void onNumberKeyClick(CharSequence numberKeyText) {
-        timeModel.storeDigit(Integer.parseInt(numberKeyText.toString()));
+        mTimeModel.storeDigit(Integer.parseInt(numberKeyText.toString()));
     }
 
     @Override
@@ -68,7 +68,7 @@ class NumberPadTimePickerPresenter implements
             for (int i = 0; i < altKeyText.length(); i++) {
                 final char c = altKeyText.charAt(i);
                 if (Character.isDigit(c)) {
-                    timeModel.storeDigit(Character.digit(c, 10));
+                    mTimeModel.storeDigit(Character.digit(c, 10));
                 }
             }
             mAmPmState = HRS_24;
@@ -86,13 +86,13 @@ class NumberPadTimePickerPresenter implements
              * update the time display. */
             updateViewEnabledStates();
         } else {
-            timeModel.removeDigit();
+            mTimeModel.removeDigit();
         }
     }
 
     @Override
     public boolean onBackspaceLongClick() {
-        return timeModel.clearDigits();
+        return mTimeModel.clearDigits();
     }
 
     @Override
@@ -132,7 +132,7 @@ class NumberPadTimePickerPresenter implements
     @Override
     public INumberPadTimePicker.State getState() {
         // The model returns the digits defensively copied.
-        return new NumberPadTimePickerState(timeModel.getDigits(), timeModel.count(), mAmPmState);
+        return new NumberPadTimePickerState(mTimeModel.getDigits(), mTimeModel.count(), mAmPmState);
     }
 
     @Override
@@ -167,7 +167,7 @@ class NumberPadTimePickerPresenter implements
     }
 
     private int count() {
-        return timeModel.count();
+        return mTimeModel.count();
     }
 
     private boolean is24HourFormat() {
@@ -175,7 +175,7 @@ class NumberPadTimePickerPresenter implements
     }
     
     private int getDigitsAsInteger() {
-        return timeModel.getDigitsAsInteger();
+        return mTimeModel.getDigitsAsInteger();
     }
 
     private void enable(int start, int end) {
@@ -184,7 +184,7 @@ class NumberPadTimePickerPresenter implements
     }
 
     private void insertDigits(int... digits) {
-        timeModel.storeDigits(digits);
+        mTimeModel.storeDigits(digits);
     }
 
     private void setAltKeysTexts() {
