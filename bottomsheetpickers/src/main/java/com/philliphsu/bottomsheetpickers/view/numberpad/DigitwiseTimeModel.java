@@ -35,12 +35,6 @@ final class DigitwiseTimeModel {
         void onDigitsCleared();
     }
 
-    // TODO: Delete this!
-    @Deprecated
-    DigitwiseTimeModel() {
-        this(null);
-    }
-
     DigitwiseTimeModel(OnInputChangeListener listener) {
         mListener = listener;
 
