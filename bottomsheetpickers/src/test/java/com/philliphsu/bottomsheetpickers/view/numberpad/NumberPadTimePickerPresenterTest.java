@@ -92,6 +92,26 @@ public class NumberPadTimePickerPresenterTest {
 
     // We probably don't want this test to run in this class, so leave off the @Test annotation.
     // Override this method in subclasses and add the @Test annotation, then call up to super.
+    public void mode12Hr_VerifyOnTimeSetCallback_UsingAltButtons() {
+        for (int hour = 1; hour <= 12; hour++) {
+            System.out.println("Testing time " + String.format("%d:00", hour));
+            for (int amOrPm = 0; amOrPm < 2; amOrPm++) {
+                createNewViewAndPresenter(MODE_12HR);
+                if (hour <= 9) {
+                    mPresenters[MODE_12HR].onNumberKeyClick(text(hour));
+                } else {
+                    mPresenters[MODE_12HR].onNumberKeyClick(text(hour / 10));
+                    mPresenters[MODE_12HR].onNumberKeyClick(text(hour % 10));
+                }
+                mPresenters[MODE_12HR].onAltKeyClick(altText(amOrPm, MODE_12HR));
+                final int expectedHour = (hour % 12) + (amOrPm == 1 ? 12 : 0);
+                confirmTimeSelection(mPresenters[MODE_12HR], MODE_12HR, expectedHour, 0);
+            }
+        }
+    }
+
+    // We probably don't want this test to run in this class, so leave off the @Test annotation.
+    // Override this method in subclasses and add the @Test annotation, then call up to super.
     public void mode24Hr_VerifyOnTimeSetCallback() {
         for (int time = 0; time <= 2359; time++) {
             if (time % 100 > 59) {
