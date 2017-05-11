@@ -10,6 +10,7 @@
     <dimen name="bsp_gridpicker_padding_end">0dp</dimen>
 
     <dimen name="bsp_numberpad_time_picker_header_height">80dp</dimen>
+    <dimen name="bsp_numberpad_time_picker_backspace_icon_size">24dp</dimen>
     <dimen name="bsp_numberpad_time_picker_backspace_button_width">56dp</dimen>
     <dimen name="bsp_numberpad_time_picker_ampm_header_margin_start">6dp</dimen>
     <dimen name="bsp_numberpad_time_picker_ampm_header_margin_end">6dp</dimen>

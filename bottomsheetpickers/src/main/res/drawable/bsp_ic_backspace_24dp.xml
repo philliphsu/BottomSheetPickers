@@ -14,9 +14,10 @@
   ~ limitations under the License.
   -->
 
+<!-- TODO: Delete the "_24dp" from the file name. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="24dp"
-        android:height="24dp"
+        android:width="@dimen/bsp_numberpad_time_picker_backspace_icon_size"
+        android:height="@dimen/bsp_numberpad_time_picker_backspace_icon_size"
         android:viewportWidth="24.0"
         android:viewportHeight="24.0"
         android:tint="?attr/colorControlNormal">
