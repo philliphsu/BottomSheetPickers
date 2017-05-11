@@ -41,8 +41,6 @@
     </style>
 
     <style name="BSP_GridPickerButtonStyle" parent="BSP_ButtonBackgroundStyle">
-        <item name="android:soundEffectsEnabled">false</item>
-        <item name="android:clickable">true</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">@dimen/bsp_gridpicker_button_height</item>
@@ -50,11 +48,14 @@
         <item name="layout_columnWeight">1</item>
     </style>
 
-    <style name="BSP_GridPickerTextButtonStyle" parent="BSP_GridPickerButtonStyle">
+    <style name="BSP_Base_GridPickerTextButtonStyle" parent="BSP_GridPickerButtonStyle">
         <item name="android:textSize">@dimen/bsp_gridpicker_button_text_size</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:gravity">center</item>
         <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="BSP_GridPickerTextButtonStyle" parent="BSP_Base_GridPickerTextButtonStyle">
     </style>
 
     <style name="BSP_NumberPadTimePicker_AltTextButtonStyle" parent="BSP_GridPickerTextButtonStyle">
@@ -62,8 +63,12 @@
         <item name="layout_gravity">fill_vertical</item>
     </style>
 
-    <style name="BSP_NumberPadTimePicker_InputTimeStyle" parent="TextAppearance.AppCompat">
+    <style name="BSP_NumberPadTimePicker_Base_InputTimeStyle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/bsp_numberpad_time_picker_input_time_text_size</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="BSP_NumberPadTimePicker_InputTimeStyle" parent="BSP_NumberPadTimePicker_Base_InputTimeStyle">
     </style>
 
     <style name="BSP_NumberPadTimePicker_InputAmPmStyle" parent="TextAppearance.AppCompat">

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BSP_GridPickerTextButtonStyle" parent="BSP_Base_GridPickerTextButtonStyle">
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="BSP_NumberPadTimePicker_InputTimeStyle" parent="BSP_NumberPadTimePicker_Base_InputTimeStyle">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+</resources>

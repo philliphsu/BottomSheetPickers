@@ -5,6 +5,7 @@
     <dimen name="bsp_gridpicker_button_height">48dp</dimen>
     <!-- Text size of button texts in a grid-based picker. -->
     <dimen name="bsp_gridpicker_button_text_size">24sp</dimen>
+
     <dimen name="bsp_numberpad_time_picker_header_height">64dp</dimen>
     <dimen name="bsp_numberpad_time_picker_alt_button_text_size">24sp</dimen>
     <dimen name="bsp_numberpad_time_picker_input_time_text_size">45sp</dimen>
