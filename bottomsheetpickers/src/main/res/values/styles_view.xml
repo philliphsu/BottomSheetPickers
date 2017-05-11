@@ -64,7 +64,6 @@
 
     <style name="BSP_NumberPadTimePicker_InputTimeStyle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/bsp_numberpad_time_picker_input_time_text_size</item>
-        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="BSP_NumberPadTimePicker_InputAmPmStyle" parent="TextAppearance.AppCompat">
