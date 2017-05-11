@@ -8,5 +8,9 @@
     <com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadView
         android:id="@+id/bsp_numberpad_time_picker_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/bsp_gridpicker_padding_start"
+        android:paddingRight="@dimen/bsp_gridpicker_padding_end"
+        android:paddingStart="@dimen/bsp_gridpicker_padding_start"
+        android:paddingEnd="@dimen/bsp_gridpicker_padding_end" />
 </merge>
