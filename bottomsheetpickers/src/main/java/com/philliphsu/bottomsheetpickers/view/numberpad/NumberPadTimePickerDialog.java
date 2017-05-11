@@ -6,164 +6,56 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
-import android.widget.TimePicker;
-
-import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 
 /**
  * Dialog to type in a time.
  */
-public class NumberPadTimePickerDialog extends AlertDialog
-        implements INumberPadTimePicker.DialogView {
-    public static final String TAG = NumberPadTimePickerDialog.class.getSimpleName();
-    private static final String KEY_DIGITS = "digits";
-    // TODO: Why do we need the count?
-    private static final String KEY_COUNT = "count";
-    // TODO: Rename to KEY_HALF_DAY = "half_day" if the AmPmState annotation is renamed to HalfDay.
-    private static final String KEY_AM_PM_STATE = "am_pm_state";
+public class NumberPadTimePickerDialog extends AlertDialog {
 
-    private final NumberPadTimePicker mTimePicker;
-    private final INumberPadTimePicker.DialogPresenter mPresenter;
-    private final @Nullable OnTimeSetListener mTimeSetListener;
+    private final NumberPadTimePickerDialogView mView;
 
-    // Dummy TimePicker passed to onTimeSet() callback.
-    private final TimePicker mDummy;
-
-    public NumberPadTimePickerDialog(@NonNull Context context,
-                                     @Nullable OnTimeSetListener listener,
+    public NumberPadTimePickerDialog(@NonNull Context context, @Nullable OnTimeSetListener listener,
                                      boolean is24HourMode) {
         super(context);
-        mTimeSetListener = listener;
-        mTimePicker = new NumberPadTimePicker(context);
-        mDummy = new TimePicker(context);
-
-        // TODO: If this model is needed by other classes, make it a singleton.
-        final LocaleModel localeModel = new LocaleModel(context);
-        mPresenter = new NumberPadTimePickerDialogPresenter(this, localeModel, is24HourMode);
-
-        final OnBackspaceClickHandler onBackspaceClickHandler
-                = new OnBackspaceClickHandler(mPresenter);
-        mTimePicker.setOnBackspaceClickListener(onBackspaceClickHandler);
-        mTimePicker.setOnBackspaceLongClickListener(onBackspaceClickHandler);
-
-        mTimePicker.setOnNumberKeyClickListener(new OnNumberKeyClickListener(mPresenter));
-        mTimePicker.setOnAltKeyClickListener(new OnAltKeyClickListener(mPresenter));
-
-        setView(mTimePicker);
+        final NumberPadTimePicker timePicker = new NumberPadTimePicker(context);
+        mView = new NumberPadTimePickerDialogView(getContext(), timePicker,
+                null, /* At this point, the AlertDialog has not installed its action buttons yet.
+                It does not do so until super.onCreate() returns. */
+                listener, is24HourMode);
+        setView(timePicker);
 
         final OnDialogButtonClickListener onDialogButtonClickListener
-                = new OnDialogButtonClickListener(mPresenter);
-        setButton(BUTTON_POSITIVE, context.getString(android.R.string.ok),
+                = new OnDialogButtonClickListener(mView.getPresenter());
+        // If we haven't set these by the time super.onCreate() returns, then the area
+        // where the action buttons would normally be is set to GONE visibility.
+        setButton(BUTTON_POSITIVE, getContext().getString(android.R.string.ok),
                 onDialogButtonClickListener);
-        setButton(BUTTON_NEGATIVE, context.getString(android.R.string.cancel),
+        setButton(BUTTON_NEGATIVE, getContext().getString(android.R.string.cancel),
                 onDialogButtonClickListener);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate()");
-        mPresenter.onCreate(readStateFromBundle(savedInstanceState));
+        mView.setOkButton(getButton(BUTTON_POSITIVE));
+        mView.onCreate(savedInstanceState);
     }
 
     @NonNull
     @Override
     public Bundle onSaveInstanceState() {
-        Log.d(TAG, "onSaveInstanceState()");
-        final Bundle bundle = super.onSaveInstanceState();
-        final INumberPadTimePicker.State state = mPresenter.getState();
-        bundle.putIntArray(KEY_DIGITS, state.getDigits());
-        // TODO: Why do we need the count?
-        bundle.putInt(KEY_COUNT, state.getCount());
-        bundle.putInt(KEY_AM_PM_STATE, state.getAmPmState());
-        return bundle;
+        return mView.onSaveInstanceState(super.onSaveInstanceState());
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop()");
-        mPresenter.onStop();
+        mView.onStop();
     }
 
     @Override
-    public void setNumberKeysEnabled(int start, int end) {
-        mTimePicker.setNumberKeysEnabled(start, end);
-    }
-
-    @Override
-    public void setBackspaceEnabled(boolean enabled) {
-        mTimePicker.setBackspaceEnabled(enabled);
-    }
-
-    @Override
-    public void updateTimeDisplay(CharSequence time) {
-        mTimePicker.updateTimeDisplay(time);
-    }
-
-    @Override
-    public void updateAmPmDisplay(CharSequence ampm) {
-        mTimePicker.updateAmPmDisplay(ampm);
-    }
-
-    @Override
-    public void setOkButtonEnabled(boolean enabled) {
-        getButton(BUTTON_POSITIVE).setEnabled(enabled);
-    }
-
-    @Override
-    public void setAmPmDisplayVisible(boolean visible) {
-        mTimePicker.setAmPmDisplayVisible(visible);
-    }
-
-    @Override
-    public void setAmPmDisplayIndex(int index) {
-        mTimePicker.setAmPmDisplayIndex(index);
-    }
-
-    @Override
-    public void setLeftAltKeyText(CharSequence text) {
-        mTimePicker.setLeftAltKeyText(text);
-    }
-
-    @Override
-    public void setRightAltKeyText(CharSequence text) {
-        mTimePicker.setRightAltKeyText(text);
-    }
-
-    @Override
-    public void setLeftAltKeyEnabled(boolean enabled) {
-        mTimePicker.setLeftAltKeyEnabled(enabled);
-    }
-
-    @Override
-    public void setRightAltKeyEnabled(boolean enabled) {
-        mTimePicker.setRightAltKeyEnabled(enabled);
-    }
-
-    @Override
-    public void setHeaderDisplayFocused(boolean focused) {
-        mTimePicker.setHeaderDisplayFocused(focused);
-    }
-
-    @Override
-    public void setResult(int hour, int minute) {
-        if (mTimeSetListener != null) {
-            mTimeSetListener.onTimeSet(mDummy, hour, minute);
-        }
-    }
-
-    @NonNull
-    private static INumberPadTimePicker.State readStateFromBundle(@Nullable Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            final int[] digits = savedInstanceState.getIntArray(KEY_DIGITS);
-            // TODO: Why do we need the count?
-            final int count = savedInstanceState.getInt(KEY_COUNT);
-            final @AmPmStates.AmPmState int amPmState = savedInstanceState.getInt(KEY_AM_PM_STATE);
-            return new NumberPadTimePickerState(digits, count, amPmState);
-        } else {
-            return NumberPadTimePickerState.EMPTY;
-        }
+    public void cancel() {
+        super.cancel();
+        mView.cancel();
     }
 }
