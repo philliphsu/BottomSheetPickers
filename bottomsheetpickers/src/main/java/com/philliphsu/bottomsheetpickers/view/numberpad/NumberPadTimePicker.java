@@ -2,6 +2,8 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -9,43 +11,59 @@ import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
 
+// TODO: Declare an attribute with format="reference" to allow a style resource to be specified.
+// TODO: Declare a styleable for this view with attributes that you allow to be styled.
 class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
+    /**
+     * Option to layout this view for use in an alert dialog.
+     */
+    static final int LAYOUT_ALERT = 1;
+    /**
+     * Option to layout this view for use in a bottom sheet dialog.
+     */
+    static final int LAYOUT_BOTTOM_SHEET = 2;
 
-    private final NumberPadView mNumberPad;
-    private final LinearLayout mHeaderLayout;
-    private final TextView mTimeDisplay;
-    private final TextView mAmPmDisplay;
-    private final View mBackspace;
+    private NumberPadView mNumberPad;
+    private LinearLayout mHeaderLayout;
+    private TextView mTimeDisplay;
+    private TextView mAmPmDisplay;
+    private View mBackspace;
+    private @Nullable View mOkButton;
 
     public NumberPadTimePicker(Context context) {
         this(context, null);
     }
 
     public NumberPadTimePicker(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context, attrs, 0 /*TODO: Pass our attribute here. This contains a reference to a style resource.*/);
     }
 
     public NumberPadTimePicker(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setOrientation(VERTICAL);
-        inflate(context, R.layout.bsp_numberpad_time_picker, this);
-        mNumberPad = (NumberPadView) findViewById(R.id.bsp_numberpad_time_picker_view);
-        mHeaderLayout = (LinearLayout) findViewById(R.id.bsp_input_time_container);
-        mTimeDisplay = (TextView) findViewById(R.id.bsp_input_time);
-        mAmPmDisplay = (TextView) findViewById(R.id.bsp_input_ampm);
-        mBackspace = findViewById(R.id.bsp_backspace);
+        init(context, attrs, defStyleAttr, 0);
     }
 
     @TargetApi(21)
     public NumberPadTimePicker(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        init(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    // TODO: Apply the style resource, either the one contained in defStyleAttr or defStyleRes itself.
+    private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         setOrientation(VERTICAL);
-        inflate(context, R.layout.bsp_numberpad_time_picker, this);
+        // TODO: Set this appropriately, i.e. read it from the attribute.
+        final int layout = LAYOUT_ALERT;
+        final @LayoutRes int layoutRes = layout == LAYOUT_BOTTOM_SHEET
+                ? R.layout.bsp_bottomsheet_numberpad_time_picker
+                : R.layout.bsp_numberpad_time_picker;
+        inflate(context, layoutRes, this);
         mNumberPad = (NumberPadView) findViewById(R.id.bsp_numberpad_time_picker_view);
         mHeaderLayout = (LinearLayout) findViewById(R.id.bsp_input_time_container);
         mTimeDisplay = (TextView) findViewById(R.id.bsp_input_time);
         mAmPmDisplay = (TextView) findViewById(R.id.bsp_input_ampm);
         mBackspace = findViewById(R.id.bsp_backspace);
+        mOkButton = findViewById(R.id.bsp_ok_button);
     }
 
     @Override
@@ -107,6 +125,11 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     @Override
     public void setHeaderDisplayFocused(boolean focused) {
         // Do nothing.
+    }
+
+    @Nullable
+    View getOkButton() {
+        return mOkButton;
     }
 
     void setOnBackspaceClickListener(OnClickListener l) {

@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadTimePicker
-        android:id="@+id/bsp_numberpad_time_picker"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <include layout="@layout/bsp_numberpad_time_picker" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/bsp_ok_button"
@@ -17,4 +11,4 @@
         android:layout_gravity="center_horizontal"
         app:srcCompat="@drawable/bsp_ic_done_24dp" />
 
-</LinearLayout>
+</merge>
