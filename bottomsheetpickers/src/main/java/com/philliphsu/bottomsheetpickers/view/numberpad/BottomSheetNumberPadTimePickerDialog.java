@@ -26,6 +26,13 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
         mViewDelegate = new NumberPadTimePickerDialogViewDelegate(this,
                 context, timePicker, okButton, listener, is24HourMode);
         setContentView(root);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewDelegate.getPresenter().onOkButtonClick();
+            }
+        });
     }
 
     @Override
