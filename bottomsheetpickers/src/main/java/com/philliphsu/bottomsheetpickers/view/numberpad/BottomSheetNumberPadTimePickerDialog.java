@@ -23,7 +23,7 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
         final NumberPadTimePicker timePicker = (NumberPadTimePicker)
                 root.findViewById(R.id.bsp_numberpad_time_picker);
         final View okButton = root.findViewById(R.id.bsp_ok_button);
-        mView = new NumberPadTimePickerDialogView(context, timePicker,
+        mView = new NumberPadTimePickerDialogView(this, context, timePicker,
                 okButton, listener, is24HourMode);
         setContentView(root);
     }

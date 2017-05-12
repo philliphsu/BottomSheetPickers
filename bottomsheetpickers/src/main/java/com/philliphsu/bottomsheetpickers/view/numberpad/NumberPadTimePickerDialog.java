@@ -18,7 +18,7 @@ public class NumberPadTimePickerDialog extends AlertDialog {
                                      boolean is24HourMode) {
         super(context);
         final NumberPadTimePicker timePicker = new NumberPadTimePicker(context);
-        mView = new NumberPadTimePickerDialogView(getContext(), timePicker,
+        mView = new NumberPadTimePickerDialogView(this, getContext(), timePicker,
                 null, /* At this point, the AlertDialog has not installed its action buttons yet.
                 It does not do so until super.onCreate() returns. */
                 listener, is24HourMode);

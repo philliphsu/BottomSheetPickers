@@ -2,6 +2,7 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ final class NumberPadTimePickerDialogView implements INumberPadTimePicker.Dialog
     // TODO: Rename to KEY_HALF_DAY = "half_day" if the AmPmState annotation is renamed to HalfDay.
     private static final String KEY_AM_PM_STATE = "am_pm_state";
 
+    private final @NonNull DialogInterface mDialogInterface;
     private final @NonNull NumberPadTimePicker mTimePicker;
     private final @Nullable OnTimeSetListener mTimeSetListener;
     private final INumberPadTimePicker.DialogPresenter mPresenter;
@@ -27,9 +29,10 @@ final class NumberPadTimePickerDialogView implements INumberPadTimePicker.Dialog
 
     private View mOkButton;
 
-    NumberPadTimePickerDialogView(@NonNull Context context, @NonNull NumberPadTimePicker timePicker,
-                                  @Nullable View okButton, @Nullable OnTimeSetListener listener,
-                                  boolean is24HourMode) {
+    NumberPadTimePickerDialogView(@NonNull DialogInterface dialogInterface, @NonNull Context context,
+                                  @NonNull NumberPadTimePicker timePicker, @Nullable View okButton,
+                                  @Nullable OnTimeSetListener listener, boolean is24HourMode) {
+        mDialogInterface = checkNotNull(dialogInterface);
         mTimePicker = checkNotNull(timePicker);
         mOkButton = okButton;
         mTimeSetListener = listener;
@@ -115,7 +118,7 @@ final class NumberPadTimePickerDialogView implements INumberPadTimePicker.Dialog
 
     @Override
     public void cancel() {
-        // Do nothing.
+        mDialogInterface.cancel();
     }
 
     void onCreate(@Nullable Bundle savedInstanceState) {
