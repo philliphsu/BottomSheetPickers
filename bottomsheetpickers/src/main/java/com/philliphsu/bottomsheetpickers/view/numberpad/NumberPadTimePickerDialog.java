@@ -52,10 +52,4 @@ public class NumberPadTimePickerDialog extends AlertDialog {
         super.onStop();
         mViewDelegate.onStop();
     }
-
-    @Override
-    public void cancel() {
-        super.cancel();
-        mViewDelegate.cancel();
-    }
 }

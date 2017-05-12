@@ -52,10 +52,4 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
         super.onStop();
         mViewDelegate.onStop();
     }
-
-    @Override
-    public void cancel() {
-        super.cancel();
-        mViewDelegate.cancel();
-    }
 }
