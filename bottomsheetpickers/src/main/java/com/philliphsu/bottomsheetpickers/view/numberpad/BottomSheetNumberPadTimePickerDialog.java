@@ -12,7 +12,7 @@ import com.philliphsu.bottomsheetpickers.R;
 
 public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
 
-    private final NumberPadTimePickerDialogView mView;
+    private final NumberPadTimePickerDialogViewDelegate mViewDelegate;
 
     public BottomSheetNumberPadTimePickerDialog(@NonNull Context context,
                                                 @Nullable OnTimeSetListener listener,
@@ -23,32 +23,32 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
         final NumberPadTimePicker timePicker = (NumberPadTimePicker)
                 root.findViewById(R.id.bsp_numberpad_time_picker);
         final View okButton = root.findViewById(R.id.bsp_ok_button);
-        mView = new NumberPadTimePickerDialogView(this, context, timePicker,
-                okButton, listener, is24HourMode);
+        mViewDelegate = new NumberPadTimePickerDialogViewDelegate(this,
+                context, timePicker, okButton, listener, is24HourMode);
         setContentView(root);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mView.onCreate(savedInstanceState);
+        mViewDelegate.onCreate(savedInstanceState);
     }
 
     @NonNull
     @Override
     public Bundle onSaveInstanceState() {
-        return mView.onSaveInstanceState(super.onSaveInstanceState());
+        return mViewDelegate.onSaveInstanceState(super.onSaveInstanceState());
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mView.onStop();
+        mViewDelegate.onStop();
     }
 
     @Override
     public void cancel() {
         super.cancel();
-        mView.cancel();
+        mViewDelegate.cancel();
     }
 }

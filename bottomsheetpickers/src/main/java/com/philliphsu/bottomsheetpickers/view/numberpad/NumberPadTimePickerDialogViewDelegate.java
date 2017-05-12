@@ -10,17 +10,21 @@ import android.view.View;
 import android.widget.TimePicker;
 
 import com.philliphsu.bottomsheetpickers.view.LocaleModel;
+import com.philliphsu.bottomsheetpickers.view.numberpad.INumberPadTimePicker.DialogView;
 
 import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
 
-final class NumberPadTimePickerDialogView implements INumberPadTimePicker.DialogView {
+/**
+ * Handles the {@link DialogView DialogView} responsibilities of a number pad time picker dialog.
+ */
+final class NumberPadTimePickerDialogViewDelegate implements DialogView {
     private static final String KEY_DIGITS = "digits";
     // TODO: Why do we need the count?
     private static final String KEY_COUNT = "count";
     // TODO: Rename to KEY_HALF_DAY = "half_day" if the AmPmState annotation is renamed to HalfDay.
     private static final String KEY_AM_PM_STATE = "am_pm_state";
 
-    private final @NonNull DialogInterface mDialogInterface;
+    private final @NonNull DialogInterface mDelegator;
     private final @NonNull NumberPadTimePicker mTimePicker;
     private final @Nullable OnTimeSetListener mTimeSetListener;
     private final INumberPadTimePicker.DialogPresenter mPresenter;
@@ -29,10 +33,13 @@ final class NumberPadTimePickerDialogView implements INumberPadTimePicker.Dialog
 
     private View mOkButton;
 
-    NumberPadTimePickerDialogView(@NonNull DialogInterface dialogInterface, @NonNull Context context,
-                                  @NonNull NumberPadTimePicker timePicker, @Nullable View okButton,
-                                  @Nullable OnTimeSetListener listener, boolean is24HourMode) {
-        mDialogInterface = checkNotNull(dialogInterface);
+    NumberPadTimePickerDialogViewDelegate(@NonNull DialogInterface delegator,
+                                          @NonNull Context context,
+                                          @NonNull NumberPadTimePicker timePicker,
+                                          @Nullable View okButton,
+                                          @Nullable OnTimeSetListener listener,
+                                          boolean is24HourMode) {
+        mDelegator = checkNotNull(delegator);
         mTimePicker = checkNotNull(timePicker);
         mOkButton = okButton;
         mTimeSetListener = listener;
@@ -118,7 +125,7 @@ final class NumberPadTimePickerDialogView implements INumberPadTimePicker.Dialog
 
     @Override
     public void cancel() {
-        mDialogInterface.cancel();
+        mDelegator.cancel();
     }
 
     void onCreate(@Nullable Bundle savedInstanceState) {
