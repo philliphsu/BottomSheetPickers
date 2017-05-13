@@ -59,15 +59,6 @@ public class TextSwitcherActivity extends AppCompatActivity {
                 countGroup++;
             }
         });
-
-        Button button3 = (Button) findViewById(R.id.button3);
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NumberPadTimePickerDialogFragment dialog = new NumberPadTimePickerDialogFragment();
-                dialog.show(getSupportFragmentManager(), "TAG");
-            }
-        });
     }
 
     private void setupTextSwitcher(TextSwitcher switcher) {
