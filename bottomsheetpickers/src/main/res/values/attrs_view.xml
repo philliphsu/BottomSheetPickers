@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BSP_NumberPadTimePicker">
+        <!-- Indicates how the NumberPadTimePicker should be laid out. -->
+        <attr name="bsp_numberPadTimePickerLayout" format="enum">
+            <enum name="alert" value="1" />
+            <enum name="bottomSheet" value="2" />
+        </attr>
+    </declare-styleable>
+</resources>
