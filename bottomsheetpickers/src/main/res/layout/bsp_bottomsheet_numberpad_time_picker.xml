@@ -2,13 +2,28 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include layout="@layout/bsp_numberpad_time_picker" />
+    <include
+        layout="@layout/bsp_numberpad_time_picker_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bsp_numberpad_time_picker_header_height" />
+
+    <com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadView
+        android:id="@+id/bsp_numberpad_time_picker_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/bsp_bottom_sheet_grid_picker_padding_start"
+        android:paddingRight="@dimen/bsp_bottom_sheet_grid_picker_padding_end"
+        android:paddingStart="@dimen/bsp_bottom_sheet_grid_picker_padding_start"
+        android:paddingEnd="@dimen/bsp_bottom_sheet_grid_picker_padding_end"
+        android:paddingTop="@dimen/bsp_bottom_sheet_grid_picker_padding_top"
+        android:paddingBottom="@dimen/bsp_bottom_sheet_grid_picker_padding_bottom" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/bsp_ok_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/bsp_bottom_sheet_grid_picker_fab_margin_bottom"
         app:srcCompat="@drawable/bsp_ic_done_24dp" />
 
 </merge>

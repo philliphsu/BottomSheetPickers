@@ -9,6 +9,17 @@
     <!-- Right padding for a grid-based picker. -->
     <dimen name="bsp_gridpicker_padding_end">0dp</dimen>
 
+    <!-- Left padding for a bottom sheet grid-based picker. -->
+    <dimen name="bsp_bottom_sheet_grid_picker_padding_start">24dp</dimen>
+    <!-- Right padding for a bottom sheet grid-based picker. -->
+    <dimen name="bsp_bottom_sheet_grid_picker_padding_end">24dp</dimen>
+    <!-- Top padding for a bottom sheet grid-based picker. -->
+    <dimen name="bsp_bottom_sheet_grid_picker_padding_top">16dp</dimen>
+    <!-- Bottom padding for a bottom sheet grid-based picker. -->
+    <dimen name="bsp_bottom_sheet_grid_picker_padding_bottom">16dp</dimen>
+    <!-- Bottom margin of the FAB in a bottom sheet grid-based picker. -->
+    <dimen name="bsp_bottom_sheet_grid_picker_fab_margin_bottom">16dp</dimen>
+
     <dimen name="bsp_numberpad_time_picker_header_height">80dp</dimen>
     <dimen name="bsp_numberpad_time_picker_backspace_icon_size">24dp</dimen>
     <dimen name="bsp_numberpad_time_picker_backspace_button_width">56dp</dimen>
