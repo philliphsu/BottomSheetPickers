@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="bsp_fab_size">88dp</dimen>
+    <!-- Size of the FAB container in a bottom sheet grid-based picker.
+         This is the normal FAB size (56dp) + 16dp margins on all sides.
+         Margins are included so that the FAB's elevation shadow is not cut off. -->
+    <dimen name="bsp_bottom_sheet_grid_picker_fab_container_size">88dp</dimen>
 </resources>

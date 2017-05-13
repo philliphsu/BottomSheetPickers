@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.TimePicker;
 
@@ -78,7 +79,16 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
 
     @Override
     public void setOkButtonEnabled(boolean enabled) {
-        mOkButton.setEnabled(enabled);
+        if (mTimePicker.getLayout() == NumberPadTimePicker.LAYOUT_BOTTOM_SHEET
+                && mOkButton instanceof FloatingActionButton) {
+            if (enabled) {
+                ((FloatingActionButton) mOkButton).show();
+            } else {
+                ((FloatingActionButton) mOkButton).hide();
+            }
+        } else {
+            mOkButton.setEnabled(enabled);
+        }
     }
 
     @Override
