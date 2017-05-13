@@ -4,4 +4,6 @@
     <dimen name="bsp_bottom_sheet_grid_picker_padding_bottom">16dp</dimen>
     <!-- Bottom margin of the FAB in a bottom sheet grid-based picker. -->
     <dimen name="bsp_bottom_sheet_grid_picker_fab_margin_bottom">16dp</dimen>
+
+    <dimen name="bsp_fab_size">40dp</dimen>
 </resources>
