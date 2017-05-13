@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bottom padding for a bottom sheet grid-based picker. -->
+    <dimen name="bsp_bottom_sheet_grid_picker_padding_bottom">16dp</dimen>
+    <!-- Bottom margin of the FAB in a bottom sheet grid-based picker. -->
+    <dimen name="bsp_bottom_sheet_grid_picker_fab_margin_bottom">16dp</dimen>
+</resources>
