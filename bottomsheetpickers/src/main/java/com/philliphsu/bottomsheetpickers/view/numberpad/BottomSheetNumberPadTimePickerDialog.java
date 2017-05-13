@@ -10,6 +10,8 @@ import android.view.View;
 
 import com.philliphsu.bottomsheetpickers.R;
 
+import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
+
 public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
 
     private final NumberPadTimePickerDialogViewDelegate mViewDelegate;
@@ -19,10 +21,10 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
                                                 boolean is24HourMode) {
         super(context);
         final View root = getLayoutInflater().inflate(
-                R.layout.bsp_bottomsheet_numberpad_time_picker, null);
+                R.layout.bsp_bottomsheet_numberpad_time_picker_dialog, null);
         final NumberPadTimePicker timePicker = (NumberPadTimePicker)
-                root.findViewById(R.id.bsp_numberpad_time_picker);
-        final View okButton = root.findViewById(R.id.bsp_ok_button);
+                root.findViewById(R.id.bsp_time_picker);
+        final View okButton = checkNotNull(timePicker.getOkButton());
         mViewDelegate = new NumberPadTimePickerDialogViewDelegate(this,
                 context, timePicker, okButton, listener, is24HourMode);
         setContentView(root);
