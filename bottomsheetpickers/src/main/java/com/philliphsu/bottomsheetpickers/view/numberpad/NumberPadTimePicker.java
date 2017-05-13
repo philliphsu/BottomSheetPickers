@@ -2,6 +2,7 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 import com.philliphsu.bottomsheetpickers.R;
 
 // TODO: Declare an attribute with format="reference" to allow a style resource to be specified.
-// TODO: Declare a styleable for this view with attributes that you allow to be styled.
 class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
     /**
      * Option to layout this view for use in an alert dialog.
@@ -52,12 +52,18 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     // TODO: Apply the style resource, either the one contained in defStyleAttr or defStyleRes itself.
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         setOrientation(VERTICAL);
-        // TODO: Set this appropriately, i.e. read it from the attribute.
-        final int layout = LAYOUT_ALERT;
+
+        final TypedArray a = context.obtainStyledAttributes(attrs,
+                R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
+        final int layout = a.getInt(
+                R.styleable.BSP_NumberPadTimePicker_bsp_numberPadTimePickerLayout, LAYOUT_ALERT);
+        a.recycle();
+
         final @LayoutRes int layoutRes = layout == LAYOUT_BOTTOM_SHEET
                 ? R.layout.bsp_bottomsheet_numberpad_time_picker
                 : R.layout.bsp_numberpad_time_picker;
         inflate(context, layoutRes, this);
+
         mNumberPad = (NumberPadView) findViewById(R.id.bsp_numberpad_time_picker_view);
         mHeaderLayout = (LinearLayout) findViewById(R.id.bsp_input_time_container);
         mTimeDisplay = (TextView) findViewById(R.id.bsp_input_time);
