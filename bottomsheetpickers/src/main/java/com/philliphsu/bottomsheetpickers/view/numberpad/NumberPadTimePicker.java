@@ -3,6 +3,7 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -11,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.philliphsu.bottomsheetpickers.R;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 // TODO: Declare an attribute with format="reference" to allow a style resource to be specified.
 class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
@@ -23,12 +27,19 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
      */
     static final int LAYOUT_BOTTOM_SHEET = 2;
 
+    @IntDef({LAYOUT_ALERT, LAYOUT_BOTTOM_SHEET})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface NumberPadTimePickerLayout {}
+
     private NumberPadView mNumberPad;
     private LinearLayout mHeaderLayout;
     private TextView mTimeDisplay;
     private TextView mAmPmDisplay;
     private View mBackspace;
     private @Nullable View mOkButton;
+
+    @NumberPadTimePickerLayout
+    private int mLayout;
 
     public NumberPadTimePicker(Context context) {
         this(context, null);
@@ -55,7 +66,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
         final TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
-        final int layout = a.getInt(
+        final @NumberPadTimePickerLayout int layout = a.getInt(
                 R.styleable.BSP_NumberPadTimePicker_bsp_numberPadTimePickerLayout, LAYOUT_ALERT);
         a.recycle();
 
@@ -64,6 +75,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                 : R.layout.bsp_numberpad_time_picker;
         inflate(context, layoutRes, this);
 
+        mLayout = layout;
         mNumberPad = (NumberPadView) findViewById(R.id.bsp_numberpad_time_picker_view);
         mHeaderLayout = (LinearLayout) findViewById(R.id.bsp_input_time_container);
         mTimeDisplay = (TextView) findViewById(R.id.bsp_input_time);
@@ -136,6 +148,11 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     @Nullable
     View getOkButton() {
         return mOkButton;
+    }
+
+    @NumberPadTimePickerLayout
+    int getLayout() {
+        return mLayout;
     }
 
     void setOnBackspaceClickListener(OnClickListener l) {
