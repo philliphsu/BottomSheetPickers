@@ -82,8 +82,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
         final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
                 R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
-        final @NumberPadTimePickerLayout int layout = timePickerAttrs.getInt(
-                R.styleable.BSP_NumberPadTimePicker_bsp_numberPadTimePickerLayout, LAYOUT_ALERT);
+        final @NumberPadTimePickerLayout int layout = retrieveLayout(timePickerAttrs);
 
         final @LayoutRes int layoutRes = layout == LAYOUT_BOTTOM_SHEET
                 ? R.layout.bsp_bottomsheet_numberpad_time_picker
@@ -251,6 +250,12 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
     private static boolean retrieveAnimateFabIn(TypedArray timePickerAttrs) {
         return timePickerAttrs.getBoolean(R.styleable.BSP_NumberPadTimePicker_bsp_animateFabIn, false);
+    }
+
+    @NumberPadTimePickerLayout
+    private static int retrieveLayout(TypedArray timePickerAttrs) {
+        return timePickerAttrs.getInt(
+                R.styleable.BSP_NumberPadTimePicker_bsp_numberPadTimePickerLayout, LAYOUT_ALERT);
     }
 
     @ShowFabPolicy
