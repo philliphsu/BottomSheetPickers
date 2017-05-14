@@ -29,6 +29,14 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
      */
     static final int LAYOUT_BOTTOM_SHEET = 2;
 
+    /**
+     * Color attributes defined in our {@code Context}'s theme.
+     *
+     * Used only in {@link #LAYOUT_BOTTOM_SHEET} to set the default colors for the FAB in code,
+     * rather than in XML because themed colors can only be resolved in code below API 23.
+     */
+    private static final int[] ATTRS_FAB_COLORS = { R.attr.colorButtonNormal, R.attr.colorAccent };
+
     @IntDef({LAYOUT_ALERT, LAYOUT_BOTTOM_SHEET})
     @Retention(RetentionPolicy.SOURCE)
     @interface NumberPadTimePickerLayout {}
@@ -66,9 +74,9 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         setOrientation(VERTICAL);
 
-        final TypedArray a = context.obtainStyledAttributes(attrs,
+        final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
                 R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
-        final @NumberPadTimePickerLayout int layout = a.getInt(
+        final @NumberPadTimePickerLayout int layout = timePickerAttrs.getInt(
                 R.styleable.BSP_NumberPadTimePicker_bsp_numberPadTimePickerLayout, LAYOUT_ALERT);
 
         final @LayoutRes int layoutRes = layout == LAYOUT_BOTTOM_SHEET
@@ -84,25 +92,41 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         mBackspace = findViewById(R.id.bsp_backspace);
         mOkButton = findViewById(R.id.bsp_ok_button);
 
-        if (layout == NumberPadTimePicker.LAYOUT_BOTTOM_SHEET
-                && mOkButton instanceof FloatingActionButton) {
-            ColorStateList fabBackgroundColor = a.getColorStateList(
+        if (mLayout == LAYOUT_BOTTOM_SHEET && mOkButton instanceof FloatingActionButton) {
+            ColorStateList fabBackgroundColor = timePickerAttrs.getColorStateList(
                     R.styleable.BSP_NumberPadTimePicker_bsp_fabBackgroundColor);
             if (fabBackgroundColor == null) {
                 // Set default ColorStateList.
                 // Themed color attributes in a ColorStateList defined in XML cannot be resolved
                 // correctly below API 23, so we can only do this in code.
-                final int[][] states = {{-android.R.attr.state_enabled}, { /* default */}};
-                // TODO: Get the colors colorButtonNormal and colorAccent, respectively.
-                final int[] colors = {0xFFFFFFFF, 0xFF000000};
-                fabBackgroundColor = new ColorStateList(states, colors);
+
+                // We must create a different TypedArray here rather than use the previous instance
+                // because it was configured to only retrieve values for NumberPadTimePicker
+                // attributes.
+                final TypedArray themedColors = context.obtainStyledAttributes(ATTRS_FAB_COLORS);
+                // The first argument in this set of calls is the index of the attribute in the
+                // attributes array for which we would like to get the resolved value.
+                // The second argument is the default value to return if a value for the attribute
+                // could not be found.
+                final int disabledColor = themedColors.getColor(0, 0);
+                final int defaultColor = themedColors.getColor(1, 0);
+                themedColors.recycle();
+                if (disabledColor != 0 && defaultColor != 0) {
+                    final int[][] states = {{-android.R.attr.state_enabled}, { /* default */}};
+                    final int[] colors = { disabledColor, defaultColor };
+                    fabBackgroundColor = new ColorStateList(states, colors);
+                }
             }
-            // If we don't make this cast, this would call the base method in View,
-            // which requires API 21.
-            ((FloatingActionButton) mOkButton).setBackgroundTintList(fabBackgroundColor);
+            // If we could not create a default ColorStateList, then just leave the current
+            // color as is.
+            if (fabBackgroundColor != null) {
+                // If we don't make this cast, this would call the base method in View,
+                // which requires API 21.
+                ((FloatingActionButton) mOkButton).setBackgroundTintList(fabBackgroundColor);
+            }
         }
 
-        a.recycle();
+        timePickerAttrs.recycle();
     }
 
     @Override
