@@ -22,8 +22,8 @@
              be honored. If set to "validTime", a value of "true" for 'bsp_animateFabIn'
              will not be honored. -->
         <attr name="bsp_showFab" format="enum">
-            <enum name="always" value="1" />
-            <enum name="validTime" value="2" />
+            <enum name="always" value="0" />
+            <enum name="validTime" value="1" />
         </attr>
 
         <!-- Indicates whether the floating action button should animate onto the

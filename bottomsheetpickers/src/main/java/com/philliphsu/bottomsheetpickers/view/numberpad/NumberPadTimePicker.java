@@ -38,9 +38,9 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     @interface NumberPadTimePickerLayout {}
 
     /** Option to always show the FAB. */
-    static final int SHOW_FAB_ALWAYS = 1;
+    static final int SHOW_FAB_ALWAYS = 0;
     /** Option to only show the FAB when the inputted sequence makes a valid time. */
-    static final int SHOW_FAB_VALID_TIME = 2;
+    static final int SHOW_FAB_VALID_TIME = 1;
 
     @IntDef({SHOW_FAB_ALWAYS, SHOW_FAB_VALID_TIME})
     @Retention(RetentionPolicy.SOURCE)
