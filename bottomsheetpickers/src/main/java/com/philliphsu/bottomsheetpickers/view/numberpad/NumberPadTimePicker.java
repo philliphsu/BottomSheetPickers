@@ -93,30 +93,8 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         mOkButton = findViewById(R.id.bsp_ok_button);
 
         if (mLayout == LAYOUT_BOTTOM_SHEET && mOkButton instanceof FloatingActionButton) {
-            ColorStateList fabBackgroundColor = timePickerAttrs.getColorStateList(
-                    R.styleable.BSP_NumberPadTimePicker_bsp_fabBackgroundColor);
-            if (fabBackgroundColor == null) {
-                // Set default ColorStateList.
-                // Themed color attributes in a ColorStateList defined in XML cannot be resolved
-                // correctly below API 23, so we can only do this in code.
-
-                // We must create a different TypedArray here rather than use the previous instance
-                // because it was configured to only retrieve values for NumberPadTimePicker
-                // attributes.
-                final TypedArray themedColors = context.obtainStyledAttributes(ATTRS_FAB_COLORS);
-                // The first argument in this set of calls is the index of the attribute in the
-                // attributes array for which we would like to get the resolved value.
-                // The second argument is the default value to return if a value for the attribute
-                // could not be found.
-                final int disabledColor = themedColors.getColor(0, 0);
-                final int defaultColor = themedColors.getColor(1, 0);
-                themedColors.recycle();
-                if (disabledColor != 0 && defaultColor != 0) {
-                    final int[][] states = {{-android.R.attr.state_enabled}, { /* default */}};
-                    final int[] colors = { disabledColor, defaultColor };
-                    fabBackgroundColor = new ColorStateList(states, colors);
-                }
-            }
+            final ColorStateList fabBackgroundColor = retrieveFabBackgroundColor(
+                    timePickerAttrs, context);
             // If we could not create a default ColorStateList, then just leave the current
             // color as is.
             if (fabBackgroundColor != null) {
@@ -214,5 +192,35 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
     void setOnAltKeyClickListener(OnClickListener l) {
         mNumberPad.setOnAltKeyClickListener(l);
+    }
+
+    @Nullable
+    private static ColorStateList retrieveFabBackgroundColor(
+            TypedArray timePickerAttrs, Context context) {
+        ColorStateList fabBackgroundColor = timePickerAttrs.getColorStateList(
+                R.styleable.BSP_NumberPadTimePicker_bsp_fabBackgroundColor);
+        if (fabBackgroundColor == null) {
+            // Set default ColorStateList.
+            // Themed color attributes in a ColorStateList defined in XML cannot be resolved
+            // correctly below API 23, so we can only do this in code.
+
+            // We must create a different TypedArray here rather than use the previous instance
+            // because it was configured to only retrieve values for NumberPadTimePicker
+            // attributes.
+            final TypedArray themedColors = context.obtainStyledAttributes(ATTRS_FAB_COLORS);
+            // The first argument in this set of calls is the index of the attribute in the
+            // attributes array for which we would like to get the resolved value.
+            // The second argument is the default value to return if a value for the attribute
+            // could not be found.
+            final int disabledColor = themedColors.getColor(0, 0);
+            final int defaultColor = themedColors.getColor(1, 0);
+            themedColors.recycle();
+            if (disabledColor != 0 && defaultColor != 0) {
+                final int[][] states = {{-android.R.attr.state_enabled}, { /* default */}};
+                final int[] colors = { disabledColor, defaultColor };
+                fabBackgroundColor = new ColorStateList(states, colors);
+            }
+        }
+        return fabBackgroundColor;
     }
 }
