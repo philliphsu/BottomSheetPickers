@@ -254,12 +254,27 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
     @NumberPadTimePickerLayout
     private static int retrieveLayout(TypedArray timePickerAttrs) {
-        return timePickerAttrs.getInt(
+        final int layout = timePickerAttrs.getInt(
                 R.styleable.BSP_NumberPadTimePicker_bsp_numberPadTimePickerLayout, LAYOUT_ALERT);
+        switch (layout) {
+            case LAYOUT_ALERT:
+            case LAYOUT_BOTTOM_SHEET:
+                return layout;
+            default:
+                return LAYOUT_ALERT;
+        }
     }
 
     @ShowFabPolicy
     private static int retrieveShowFab(TypedArray timePickerAttrs) {
-        return timePickerAttrs.getInt(R.styleable.BSP_NumberPadTimePicker_bsp_showFab, SHOW_FAB_ALWAYS);
+        final int policy = timePickerAttrs.getInt(
+                R.styleable.BSP_NumberPadTimePicker_bsp_showFab, SHOW_FAB_ALWAYS);
+        switch (policy) {
+            case SHOW_FAB_ALWAYS:
+            case SHOW_FAB_VALID_TIME:
+                return policy;
+            default:
+                return SHOW_FAB_ALWAYS;
+        }
     }
 }
