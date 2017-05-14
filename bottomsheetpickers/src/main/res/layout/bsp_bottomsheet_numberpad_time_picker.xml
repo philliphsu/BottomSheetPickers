@@ -25,14 +25,11 @@
         android:layout_height="@dimen/bsp_bottom_sheet_grid_picker_fab_container_size"
         android:layout_gravity="center_horizontal">
 
-        <!-- Initially invisible so that on the first time show() is called, the animation plays.
-             This would not be the case if we manually call hide() on initialization. -->
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/bsp_ok_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="invisible"
             app:fabSize="auto"
             app:srcCompat="@drawable/bsp_ic_done_24dp" />
 
