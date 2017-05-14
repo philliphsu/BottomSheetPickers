@@ -15,6 +15,17 @@
              when the button is enabled. -->
         <attr name="bsp_fabBackgroundColor" format="color" />
 
+        <!-- Indicates when the floating action button should be shown. This attribute is
+             only applied if the time picker is using the bottom sheet layout.
+
+             If set to "always", then either value for attribute 'bsp_animateFabIn' will
+             be honored. If set to "validTime", a value of "true" for 'bsp_animateFabIn'
+             will not be honored. -->
+        <attr name="bsp_showFab" format="enum">
+            <enum name="always" value="1" />
+            <enum name="validTime" value="2" />
+        </attr>
+
         <!-- Indicates whether the floating action button should animate onto the
              screen when the time picker is shown. This attribute is only applied
              if the time picker is using the bottom sheet layout. -->
