@@ -2,10 +2,12 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -68,7 +70,6 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                 R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
         final @NumberPadTimePickerLayout int layout = a.getInt(
                 R.styleable.BSP_NumberPadTimePicker_bsp_numberPadTimePickerLayout, LAYOUT_ALERT);
-        a.recycle();
 
         final @LayoutRes int layoutRes = layout == LAYOUT_BOTTOM_SHEET
                 ? R.layout.bsp_bottomsheet_numberpad_time_picker
@@ -82,6 +83,26 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         mAmPmDisplay = (TextView) findViewById(R.id.bsp_input_ampm);
         mBackspace = findViewById(R.id.bsp_backspace);
         mOkButton = findViewById(R.id.bsp_ok_button);
+
+        if (layout == NumberPadTimePicker.LAYOUT_BOTTOM_SHEET
+                && mOkButton instanceof FloatingActionButton) {
+            ColorStateList fabBackgroundColor = a.getColorStateList(
+                    R.styleable.BSP_NumberPadTimePicker_bsp_fabBackgroundColor);
+            if (fabBackgroundColor == null) {
+                // Set default ColorStateList.
+                // Themed color attributes in a ColorStateList defined in XML cannot be resolved
+                // correctly below API 23, so we can only do this in code.
+                final int[][] states = {{-android.R.attr.state_enabled}, { /* default */}};
+                // TODO: Get the colors colorButtonNormal and colorAccent, respectively.
+                final int[] colors = {0xFFFFFFFF, 0xFF000000};
+                fabBackgroundColor = new ColorStateList(states, colors);
+            }
+            // If we don't make this cast, this would call the base method in View,
+            // which requires API 21.
+            ((FloatingActionButton) mOkButton).setBackgroundTintList(fabBackgroundColor);
+        }
+
+        a.recycle();
     }
 
     @Override

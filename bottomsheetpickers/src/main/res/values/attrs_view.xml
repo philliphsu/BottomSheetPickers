@@ -6,5 +6,13 @@
             <enum name="alert" value="1" />
             <enum name="bottomSheet" value="2" />
         </attr>
+
+        <!-- The background color of the floating action button in the time picker.
+             This attribute is only applied if the time picker is using the bottom
+             sheet layout.
+
+             This should be a color state list where the enabled state will be used
+             when the button is enabled. -->
+        <attr name="bsp_fabBackgroundColor" format="color" />
     </declare-styleable>
 </resources>
