@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 
 import com.philliphsu.bottomsheetpickers.R;
@@ -43,7 +45,8 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
                 R.layout.bsp_bottomsheet_numberpad_time_picker_dialog, null);
         final NumberPadTimePicker timePicker = (NumberPadTimePicker)
                 root.findViewById(R.id.bsp_time_picker);
-        final View okButton = checkNotNull(timePicker.getOkButton());
+        final FloatingActionButton okButton = (FloatingActionButton)
+                checkNotNull(timePicker.getOkButton());
         mViewDelegate = new NumberPadTimePickerDialogViewDelegate(this,
                 // Prefer getContext() over the provided Context because the Context
                 // that the Dialog runs in may not be the same as the provided Context.
@@ -64,6 +67,25 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
                 mViewDelegate.getPresenter().onOkButtonClick();
             }
         });
+
+        // Overrides the default callback, but we kept the default behavior.
+        BottomSheetBehavior.from((View) root.getParent()).setBottomSheetCallback(
+                new BottomSheetBehavior.BottomSheetCallback() {
+                    @Override
+                    public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                        switch (newState) {
+                            case BottomSheetBehavior.STATE_HIDDEN:
+                                cancel();
+                                break;
+                            case BottomSheetBehavior.STATE_EXPANDED:
+                                okButton.show();
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
+                });
     }
 
     @Override
