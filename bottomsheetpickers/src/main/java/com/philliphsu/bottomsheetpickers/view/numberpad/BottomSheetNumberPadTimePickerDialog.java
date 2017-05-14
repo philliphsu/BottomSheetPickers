@@ -68,24 +68,26 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
             }
         });
 
-        // Overrides the default callback, but we kept the default behavior.
-        BottomSheetBehavior.from((View) root.getParent()).setBottomSheetCallback(
-                new BottomSheetBehavior.BottomSheetCallback() {
-                    @Override
-                    public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                        switch (newState) {
-                            case BottomSheetBehavior.STATE_HIDDEN:
-                                cancel();
-                                break;
-                            case BottomSheetBehavior.STATE_EXPANDED:
-                                okButton.show();
-                                break;
+        if (timePicker.isAnimateFabIn()) {
+            // Overrides the default callback, but we kept the default behavior.
+            BottomSheetBehavior.from((View) root.getParent()).setBottomSheetCallback(
+                    new BottomSheetBehavior.BottomSheetCallback() {
+                        @Override
+                        public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                            switch (newState) {
+                                case BottomSheetBehavior.STATE_HIDDEN:
+                                    cancel();
+                                    break;
+                                case BottomSheetBehavior.STATE_EXPANDED:
+                                    okButton.show();
+                                    break;
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
-                });
+                        @Override
+                        public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
+                    });
+        }
     }
 
     @Override

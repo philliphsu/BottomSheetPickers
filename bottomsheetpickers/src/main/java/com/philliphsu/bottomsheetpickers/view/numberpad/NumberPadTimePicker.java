@@ -48,9 +48,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     private View mBackspace;
     private @Nullable View mOkButton;
 
-    @NumberPadTimePickerLayout
-    private int mLayout;
-
+    private @NumberPadTimePickerLayout int mLayout;
     private boolean mAnimateFabIn;
 
     public NumberPadTimePicker(Context context) {

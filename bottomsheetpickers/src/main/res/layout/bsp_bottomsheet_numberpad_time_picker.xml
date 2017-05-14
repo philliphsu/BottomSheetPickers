@@ -24,7 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/bsp_bottom_sheet_grid_picker_fab_margin_bottom"
-        android:visibility="invisible"
         app:srcCompat="@drawable/bsp_ic_done_24dp" />
 
 </merge>
