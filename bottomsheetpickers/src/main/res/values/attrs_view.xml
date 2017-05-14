@@ -3,7 +3,15 @@
     <declare-styleable name="BSP_NumberPadTimePicker">
         <!-- Indicates how the NumberPadTimePicker should be laid out. -->
         <attr name="bsp_numberPadTimePickerLayout" format="enum">
+            <!-- Layout the time picker for use in an alert dialog. The time picker will not
+                 contain an "ok" button in its view hierarchy to confirm the time selection.
+                 Instead, the "ok" button comes from
+                 {@link android.content.DialogInterface#BUTTON_POSITIVE} of the alert dialog
+                 that contains this time picker. -->
             <enum name="alert" value="1" />
+            <!-- Layout the time picker for use in a bottom sheet dialog. The time picker
+                 will contain a floating action button in its view hierarchy to confirm
+                 the time selection. -->
             <enum name="bottomSheet" value="2" />
         </attr>
 
@@ -22,7 +30,10 @@
              be honored. If set to "validTime", a value of "true" for 'bsp_animateFabIn'
              will not be honored. -->
         <attr name="bsp_showFab" format="enum">
+            <!-- Option to always show the floating action button. -->
             <enum name="always" value="0" />
+            <!-- Option to only show the floating action button when the inputted sequence
+                 makes a valid time. -->
             <enum name="validTime" value="1" />
         </attr>
 
