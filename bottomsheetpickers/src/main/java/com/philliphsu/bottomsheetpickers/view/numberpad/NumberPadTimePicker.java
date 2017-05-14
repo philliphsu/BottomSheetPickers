@@ -194,11 +194,13 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     }
 
     boolean isAnimateFabIn() {
+        checkLayoutIsBottomSheet(mLayout);
         return mAnimateFabIn;
     }
 
     @ShowFabPolicy
     int getShowFabPolicy() {
+        checkLayoutIsBottomSheet(mLayout);
         return mShowFabPolicy;
     }
 
@@ -216,6 +218,12 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
     void setOnAltKeyClickListener(OnClickListener l) {
         mNumberPad.setOnAltKeyClickListener(l);
+    }
+
+    private static void checkLayoutIsBottomSheet(int layout) {
+        if (layout != LAYOUT_BOTTOM_SHEET) {
+            throw new UnsupportedOperationException("Layout must be LAYOUT_BOTTOM_SHEET to call this method");
+        }
     }
 
     @Nullable
