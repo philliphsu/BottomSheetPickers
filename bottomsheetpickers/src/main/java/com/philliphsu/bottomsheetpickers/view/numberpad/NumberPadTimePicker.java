@@ -21,15 +21,6 @@ import java.lang.annotation.RetentionPolicy;
 // TODO: Declare an attribute with format="reference" to allow a style resource to be specified.
 class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
     /**
-     * Option to layout this view for use in an alert dialog.
-     */
-    static final int LAYOUT_ALERT = 1;
-    /**
-     * Option to layout this view for use in a bottom sheet dialog.
-     */
-    static final int LAYOUT_BOTTOM_SHEET = 2;
-
-    /**
      * Color attributes defined in our {@code Context}'s theme.
      *
      * Used only in {@link #LAYOUT_BOTTOM_SHEET} to set the default colors for the FAB in code,
@@ -37,9 +28,23 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
      */
     private static final int[] ATTRS_FAB_COLORS = { R.attr.colorButtonNormal, R.attr.colorAccent };
 
+    /** Option to layout this view for use in an alert dialog. */
+    static final int LAYOUT_ALERT = 1;
+    /** Option to layout this view for use in a bottom sheet dialog. */
+    static final int LAYOUT_BOTTOM_SHEET = 2;
+
     @IntDef({LAYOUT_ALERT, LAYOUT_BOTTOM_SHEET})
     @Retention(RetentionPolicy.SOURCE)
     @interface NumberPadTimePickerLayout {}
+
+    /** Option to always show the FAB. */
+    static final int SHOW_FAB_ALWAYS = 1;
+    /** Option to only show the FAB when the inputted sequence makes a valid time. */
+    static final int SHOW_FAB_VALID_TIME = 2;
+
+    @IntDef({SHOW_FAB_ALWAYS, SHOW_FAB_VALID_TIME})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface ShowFabPolicy {}
 
     private NumberPadView mNumberPad;
     private LinearLayout mHeaderLayout;
@@ -49,6 +54,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     private @Nullable View mOkButton;
 
     private @NumberPadTimePickerLayout int mLayout;
+    private @ShowFabPolicy int mShowFabPolicy;
     private boolean mAnimateFabIn;
 
     public NumberPadTimePicker(Context context) {
@@ -104,9 +110,14 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
             }
 
             final boolean animateFabIn = retrieveAnimateFabIn(timePickerAttrs);
+            final @ShowFabPolicy int showFabPolicy = retrieveShowFab(timePickerAttrs);
             // For the FAB to actually animate in, it cannot be visible initially.
-            mOkButton.setVisibility(animateFabIn ? INVISIBLE : VISIBLE);
+            mOkButton.setVisibility(animateFabIn || showFabPolicy == SHOW_FAB_VALID_TIME
+                    ? INVISIBLE : VISIBLE);
+
             mAnimateFabIn = animateFabIn;
+            mShowFabPolicy = showFabPolicy;
+
         }
 
         timePickerAttrs.recycle();
@@ -187,6 +198,11 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         return mAnimateFabIn;
     }
 
+    @ShowFabPolicy
+    int getShowFabPolicy() {
+        return mShowFabPolicy;
+    }
+
     void setOnBackspaceClickListener(OnClickListener l) {
         mBackspace.setOnClickListener(l);
     }
@@ -235,5 +251,10 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
     private static boolean retrieveAnimateFabIn(TypedArray timePickerAttrs) {
         return timePickerAttrs.getBoolean(R.styleable.BSP_NumberPadTimePicker_bsp_animateFabIn, false);
+    }
+
+    @ShowFabPolicy
+    private static int retrieveShowFab(TypedArray timePickerAttrs) {
+        return timePickerAttrs.getInt(R.styleable.BSP_NumberPadTimePicker_bsp_showFab, SHOW_FAB_ALWAYS);
     }
 }
