@@ -51,6 +51,8 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     @NumberPadTimePickerLayout
     private int mLayout;
 
+    private boolean mAnimateFabIn;
+
     public NumberPadTimePicker(Context context) {
         this(context, null);
     }
@@ -102,6 +104,8 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                 // which requires API 21.
                 ((FloatingActionButton) mOkButton).setBackgroundTintList(fabBackgroundColor);
             }
+
+            mAnimateFabIn = retrieveAnimateFabIn(timePickerAttrs);
         }
 
         timePickerAttrs.recycle();
@@ -178,6 +182,10 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         return mLayout;
     }
 
+    boolean isAnimateFabIn() {
+        return mAnimateFabIn;
+    }
+
     void setOnBackspaceClickListener(OnClickListener l) {
         mBackspace.setOnClickListener(l);
     }
@@ -222,5 +230,9 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
             }
         }
         return fabBackgroundColor;
+    }
+
+    private static boolean retrieveAnimateFabIn(TypedArray timePickerAttrs) {
+        return timePickerAttrs.getBoolean(R.styleable.BSP_NumberPadTimePicker_bsp_animateFabIn, false);
     }
 }
