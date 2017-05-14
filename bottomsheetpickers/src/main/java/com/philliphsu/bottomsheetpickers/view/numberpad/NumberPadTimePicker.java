@@ -103,7 +103,10 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                 ((FloatingActionButton) mOkButton).setBackgroundTintList(fabBackgroundColor);
             }
 
-            mAnimateFabIn = retrieveAnimateFabIn(timePickerAttrs);
+            final boolean animateFabIn = retrieveAnimateFabIn(timePickerAttrs);
+            // For the FAB to actually animate in, it cannot be visible initially.
+            mOkButton.setVisibility(animateFabIn ? INVISIBLE : VISIBLE);
+            mAnimateFabIn = animateFabIn;
         }
 
         timePickerAttrs.recycle();
