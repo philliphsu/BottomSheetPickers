@@ -319,7 +319,7 @@ public class NumberPadTimePickerDialogTest {
     }
 
     private static void openTimePicker() {
-        Espresso.onView(ViewMatchers.withId(R.id.button3)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.button1)).perform(ViewActions.click());
     }
 
     /**
