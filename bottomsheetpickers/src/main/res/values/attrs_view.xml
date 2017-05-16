@@ -45,6 +45,11 @@
         <!-- The text color for the number keys. This should be a color
              state list where the enabled state will be used when the number
              key is enabled. -->
-        <attr name="bsp_numberKeysTextColor" format="color"/>
+        <attr name="bsp_numberKeysTextColor" format="color" />
+
+        <!-- The text color for the alt keys, i.e. "AM" and "PM" for 12-hour mode.
+             This should be a color state list where the enabled state will be used
+             when the alt key is enabled. -->
+        <attr name="bsp_altKeysTextColor" format="color" />
     </declare-styleable>
 </resources>
