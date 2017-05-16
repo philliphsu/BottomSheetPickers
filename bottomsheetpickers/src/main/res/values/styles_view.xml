@@ -24,6 +24,7 @@
 
     <style name="BSP_NumberPadTimePicker_AltTextButtonStyle" parent="BSP_GridPickerTextButtonStyle">
         <item name="android:textSize">@dimen/bsp_numberpad_time_picker_alt_button_text_size</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
         <item name="layout_gravity">fill_vertical</item>
     </style>
 
