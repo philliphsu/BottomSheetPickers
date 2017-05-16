@@ -4,8 +4,10 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
@@ -27,6 +29,19 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
      * rather than in XML because themed colors can only be resolved in code below API 23.
      */
     private static final int[] ATTRS_FAB_COLORS = { R.attr.colorButtonNormal, R.attr.colorAccent };
+    /**
+     * Attributes defined in our {@code Context}'s theme. The same base color is used
+     * for both the disabled and enabled states, except the disabled state will apply
+     * the alpha value specified in the {@code disabledAlpha} attribute.
+     *
+     * Used to set the default text color of the number keys in code, rather than in XML
+     * because themed colors can only be resolved in code below API 23.
+     */
+    private static final int[] ATTRS_NUMBER_KEYS_TEXT_COLOR = { android.R.attr.disabledAlpha,
+            R.attr.colorPrimary };
+
+    /** States for making ColorStateLists. */
+    private static final int[][] ENABLED_STATES = {{-android.R.attr.state_enabled}, {}};
 
     /** Option to layout this view for use in an alert dialog. */
     static final int LAYOUT_ALERT = 1;
@@ -248,12 +263,50 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
             final int defaultColor = themedColors.getColor(1, 0);
             themedColors.recycle();
             if (disabledColor != 0 && defaultColor != 0) {
-                final int[][] states = {{-android.R.attr.state_enabled}, { /* default */}};
-                final int[] colors = { disabledColor, defaultColor };
-                fabBackgroundColor = new ColorStateList(states, colors);
+                fabBackgroundColor = makeColorStateList(disabledColor, defaultColor);
             }
         }
         return fabBackgroundColor;
+    }
+
+    @Nullable
+    private static ColorStateList retrieveNumberKeysTextColor(TypedArray timePickerAttrs, Context context) {
+        ColorStateList textColor = timePickerAttrs.getColorStateList(
+                R.styleable.BSP_NumberPadTimePicker_bsp_numberKeysTextColor);
+        if (textColor == null) {
+            // Set default ColorStateList.
+            // Themed color attributes in a ColorStateList defined in XML cannot be resolved
+            // correctly below API 23, so we can only do this in code.
+
+            // We must create a different TypedArray here rather than use the previous instance
+            // because it was configured to only retrieve values for NumberPadTimePicker
+            // attributes.
+            final TypedArray themedColors = context.obtainStyledAttributes(
+                    ATTRS_NUMBER_KEYS_TEXT_COLOR);
+            // The first argument in this set of calls is the index of the attribute in the
+            // attributes array for which we would like to get the resolved value.
+            // The second argument is the default value to return if a value for the attribute
+            // could not be found.
+            final float disabledAlpha = themedColors.getFloat(0, 0.5f);
+            final int defaultColor = themedColors.getColor(1, 0);
+            themedColors.recycle();
+            if (defaultColor != 0) {
+                // https://developer.android.com/reference/android/content/res/ColorStateList.html
+                // Items in a ColorStateList (defined in XML) can specify an 'android:alpha' attribute
+                // to modify the base color's opacity. The item's overall color is calculated by
+                // multiplying the base color's alpha channel by the alpha value.
+                // This is the equivalent in code.
+                final int disabledColor = Color.argb((int) (Color.alpha(defaultColor) * disabledAlpha),
+                        Color.red(defaultColor), Color.green(defaultColor), Color.blue(defaultColor));
+                textColor = makeColorStateList(disabledColor, defaultColor);
+            }
+        }
+        return textColor;
+    }
+
+    @NonNull
+    private static ColorStateList makeColorStateList(int disabledColor, int enabledColor) {
+        return new ColorStateList(ENABLED_STATES, new int[] { disabledColor, enabledColor });
     }
 
     private static boolean retrieveAnimateFabIn(TypedArray timePickerAttrs) {
