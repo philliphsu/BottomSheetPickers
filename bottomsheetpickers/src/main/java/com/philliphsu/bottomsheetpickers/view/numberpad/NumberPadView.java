@@ -1,6 +1,7 @@
 package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -73,5 +74,11 @@ class NumberPadView extends GridPickerView {
 
     void setRightAltKeyText(CharSequence text) {
         mAltButtons[1].setText(text);
+    }
+
+    void setNumberKeysTextColor(ColorStateList colors) {
+        for (TextView tv : mNumberButtons) {
+            tv.setTextColor(colors);
+        }
     }
 }

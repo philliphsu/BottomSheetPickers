@@ -118,6 +118,12 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
             mShowFabPolicy = showFabPolicy;
         }
 
+        final ColorStateList numberKeysTextColor = retrieveNumberKeysTextColor(
+                timePickerAttrs);
+        if (numberKeysTextColor != null) {
+            mNumberPad.setNumberKeysTextColor(numberKeysTextColor);
+        }
+
         timePickerAttrs.recycle();
     }
 
