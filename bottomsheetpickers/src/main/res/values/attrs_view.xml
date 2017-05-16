@@ -41,5 +41,10 @@
              screen when the time picker is shown. This attribute is only applied
              if the time picker is using the bottom sheet layout. -->
         <attr name="bsp_animateFabIn" format="boolean" />
+
+        <!-- The text color for the number keys. This should be a color
+             state list where the enabled state will be used when the number
+             key is enabled. -->
+        <attr name="bsp_numberKeysTextColor" format="color"/>
     </declare-styleable>
 </resources>
