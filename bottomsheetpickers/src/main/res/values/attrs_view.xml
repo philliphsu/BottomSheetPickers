@@ -61,5 +61,8 @@
         <!-- Tint to apply to the backspace icon. This should be a color state list
              where the enabled state will be used when the backspace key is enabled. -->
         <attr name="bsp_backspaceTint" format="color" />
+
+        <!-- The background for the header containing the inputted time and AM/PM. -->
+        <attr name="bsp_headerBackground" format="color|reference" />
     </declare-styleable>
 </resources>
