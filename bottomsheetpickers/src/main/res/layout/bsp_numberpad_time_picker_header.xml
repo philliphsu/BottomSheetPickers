@@ -38,6 +38,7 @@
         style="@style/BSP_NumberPadTimePicker_BackspaceStyle" />
 
     <View
+        android:id="@+id/bsp_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@drawable/bsp_list_divider_material"

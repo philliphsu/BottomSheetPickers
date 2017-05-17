@@ -64,5 +64,9 @@
 
         <!-- The background for the header containing the inputted time and AM/PM. -->
         <attr name="bsp_headerBackground" format="color|reference" />
+
+        <!-- Color or drawable to use as the divider. The drawable is constrained
+             to a 1dp height. -->
+        <attr name="bsp_divider" format="color|reference" />
     </declare-styleable>
 </resources>

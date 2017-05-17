@@ -130,6 +130,8 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                 R.styleable.BSP_NumberPadTimePicker_bsp_altKeysTextColor);
         final Drawable headerBackground = timePickerAttrs.getDrawable(
                 R.styleable.BSP_NumberPadTimePicker_bsp_headerBackground);
+        final Drawable divider = timePickerAttrs.getDrawable(
+                R.styleable.BSP_NumberPadTimePicker_bsp_divider);
         timePickerAttrs.recycle();
 
         if (inputTimeTextColor != 0) {
@@ -148,12 +150,10 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
             mNumberPad.setAltKeysTextColor(altKeysTextColor);
         }
         if (headerBackground != null) {
-            final View headerView = findViewById(R.id.bsp_header);
-            if (Build.VERSION.SDK_INT < 16) {
-                headerView.setBackgroundDrawable(headerBackground);
-            } else {
-                headerView.setBackground(headerBackground);
-            }
+            setBackground(findViewById(R.id.bsp_header), headerBackground);
+        }
+        if (divider != null) {
+            setBackground(findViewById(R.id.bsp_divider), divider);
         }
     }
 
@@ -314,6 +314,14 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                 return policy;
             default:
                 return SHOW_FAB_ALWAYS;
+        }
+    }
+
+    private static void setBackground(View view, Drawable background) {
+        if (Build.VERSION.SDK_INT < 16) {
+            view.setBackgroundDrawable(background);
+        } else {
+            view.setBackground(background);
         }
     }
 }
