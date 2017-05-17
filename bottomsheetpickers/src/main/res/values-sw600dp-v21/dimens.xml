@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bsp_fab_margin">24dp</dimen>
+    <dimen name="bsp_fab_margin_top">8dp</dimen>
+</resources>
