@@ -9,8 +9,10 @@ import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -51,7 +53,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     private LinearLayout mHeaderLayout;
     private TextView mTimeDisplay;
     private TextView mAmPmDisplay;
-    private View mBackspace;
+    private ImageButton mBackspace;
     private @Nullable View mOkButton;
 
     private @NumberPadTimePickerLayout int mLayout;
@@ -95,7 +97,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         mHeaderLayout = (LinearLayout) findViewById(R.id.bsp_input_time_container);
         mTimeDisplay = (TextView) findViewById(R.id.bsp_input_time);
         mAmPmDisplay = (TextView) findViewById(R.id.bsp_input_ampm);
-        mBackspace = findViewById(R.id.bsp_backspace);
+        mBackspace = (ImageButton) findViewById(R.id.bsp_backspace);
         mOkButton = findViewById(R.id.bsp_ok_button);
 
         if (mLayout == LAYOUT_BOTTOM_SHEET && mOkButton instanceof FloatingActionButton) {
@@ -121,6 +123,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
         final @ColorInt int inputTimeTextColor = retrieveInputTimeTextColor(timePickerAttrs);
         final @ColorInt int inputAmPmTextColor = retrieveInputAmPmTextColor(timePickerAttrs);
+        final ColorStateList backspaceTint = retrieveBackspaceTint(timePickerAttrs);
         final ColorStateList numberKeysTextColor = retrieveNumberKeysTextColor(
                 timePickerAttrs);
         final ColorStateList altKeysTextColor = retrieveAltKeysTextColor(
@@ -130,6 +133,9 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         }
         if (inputAmPmTextColor != 0) {
             mAmPmDisplay.setTextColor(inputAmPmTextColor);
+        }
+        if (backspaceTint != null) {
+            DrawableCompat.setTintList(mBackspace.getDrawable(), backspaceTint);
         }
         if (numberKeysTextColor != null) {
             mNumberPad.setNumberKeysTextColor(numberKeysTextColor);
@@ -289,6 +295,11 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         // ColorStateList.
         return timePickerAttrs.getColorStateList(
                 R.styleable.BSP_NumberPadTimePicker_bsp_altKeysTextColor);
+    }
+
+    @Nullable
+    private static ColorStateList retrieveBackspaceTint(TypedArray timePickerAttrs) {
+        return timePickerAttrs.getColorStateList(R.styleable.BSP_NumberPadTimePicker_bsp_backspaceTint);
     }
 
     private static boolean retrieveAnimateFabIn(TypedArray timePickerAttrs) {
