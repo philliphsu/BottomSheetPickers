@@ -81,4 +81,10 @@ class NumberPadView extends GridPickerView {
             tv.setTextColor(colors);
         }
     }
+
+    void setAltKeysTextColor(ColorStateList colors) {
+        for (TextView tv : mAltButtons) {
+            tv.setTextColor(colors);
+        }
+    }
 }

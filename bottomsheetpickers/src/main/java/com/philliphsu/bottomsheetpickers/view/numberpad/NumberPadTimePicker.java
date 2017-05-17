@@ -120,8 +120,13 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
         final ColorStateList numberKeysTextColor = retrieveNumberKeysTextColor(
                 timePickerAttrs);
+        final ColorStateList altKeysTextColor = retrieveAltKeysTextColor(
+                timePickerAttrs);
         if (numberKeysTextColor != null) {
             mNumberPad.setNumberKeysTextColor(numberKeysTextColor);
+        }
+        if (altKeysTextColor != null) {
+            mNumberPad.setAltKeysTextColor(altKeysTextColor);
         }
 
         timePickerAttrs.recycle();
@@ -267,6 +272,14 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         // ColorStateList.
         return timePickerAttrs.getColorStateList(
                 R.styleable.BSP_NumberPadTimePicker_bsp_numberKeysTextColor);
+    }
+
+    @Nullable
+    private static ColorStateList retrieveAltKeysTextColor(TypedArray timePickerAttrs) {
+        // Unlike retrieveFabBackgroundColor(), this does not attempt to create a default
+        // ColorStateList.
+        return timePickerAttrs.getColorStateList(
+                R.styleable.BSP_NumberPadTimePicker_bsp_altKeysTextColor);
     }
 
     private static boolean retrieveAnimateFabIn(TypedArray timePickerAttrs) {
