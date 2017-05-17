@@ -25,10 +25,6 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
         this(context, 0, listener, is24HourMode);
     }
 
-    // TODO: In your other Dialog subclasses, make sure to overload a constructor that
-    // takes a theme parameter, just like this class did. Also be sure to correct
-    // any usages of Context as it relates to theming, i.e. use getContext() instead
-    // of the provided Context.
     public BottomSheetNumberPadTimePickerDialog(@NonNull Context context, @StyleRes int theme,
                                                 @Nullable OnTimeSetListener listener,
                                                 boolean is24HourMode) {

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.support.v7.app.AlertDialog;
 
 /**
@@ -16,7 +17,17 @@ public class NumberPadTimePickerDialog extends AlertDialog {
 
     public NumberPadTimePickerDialog(@NonNull Context context, @Nullable OnTimeSetListener listener,
                                      boolean is24HourMode) {
-        super(context);
+        this(context, 0, listener, is24HourMode);
+    }
+
+    public NumberPadTimePickerDialog(@NonNull Context context, @StyleRes int themeResId,
+                                     @Nullable OnTimeSetListener listener, boolean is24HourMode) {
+        // TODO: Assuming you will create an attribute that would allow clients to provide
+        // a reference to a style resource in which it specifies how this Dialog should be
+        // styled, you should resolve the provided theme and pass that up to super. You can
+        // follow the chain of construction through any of our base classes to write an appropriate
+        // resolveDialogTheme() method.
+        super(context, themeResId);
         final NumberPadTimePicker timePicker = new NumberPadTimePicker(context);
         mViewDelegate = new NumberPadTimePickerDialogViewDelegate(this, getContext(), timePicker,
                 null, /* At this point, the AlertDialog has not installed its action buttons yet.
