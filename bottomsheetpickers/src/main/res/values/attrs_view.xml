@@ -51,5 +51,11 @@
              This should be a color state list where the enabled state will be used
              when the alt key is enabled. -->
         <attr name="bsp_altKeysTextColor" format="color" />
+
+        <!-- The text color for the inputted time in the header. -->
+        <attr name="bsp_inputTimeTextColor" format="color" />
+
+        <!-- The text color for the inputted AM/PM in the header. -->
+        <attr name="bsp_inputAmPmTextColor" format="color" />
     </declare-styleable>
 </resources>

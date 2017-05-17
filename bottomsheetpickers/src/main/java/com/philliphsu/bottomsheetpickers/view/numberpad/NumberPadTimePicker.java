@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -118,10 +119,18 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
             mShowFabPolicy = showFabPolicy;
         }
 
+        final @ColorInt int inputTimeTextColor = retrieveInputTimeTextColor(timePickerAttrs);
+        final @ColorInt int inputAmPmTextColor = retrieveInputAmPmTextColor(timePickerAttrs);
         final ColorStateList numberKeysTextColor = retrieveNumberKeysTextColor(
                 timePickerAttrs);
         final ColorStateList altKeysTextColor = retrieveAltKeysTextColor(
                 timePickerAttrs);
+        if (inputTimeTextColor != 0) {
+            mTimeDisplay.setTextColor(inputTimeTextColor);
+        }
+        if (inputAmPmTextColor != 0) {
+            mAmPmDisplay.setTextColor(inputAmPmTextColor);
+        }
         if (numberKeysTextColor != null) {
             mNumberPad.setNumberKeysTextColor(numberKeysTextColor);
         }
@@ -310,5 +319,15 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
             default:
                 return SHOW_FAB_ALWAYS;
         }
+    }
+
+    @ColorInt
+    private static int retrieveInputTimeTextColor(TypedArray timePickerAttrs) {
+        return timePickerAttrs.getColor(R.styleable.BSP_NumberPadTimePicker_bsp_inputTimeTextColor, 0);
+    }
+
+    @ColorInt
+    private static int retrieveInputAmPmTextColor(TypedArray timePickerAttrs) {
+        return timePickerAttrs.getColor(R.styleable.BSP_NumberPadTimePicker_bsp_inputAmPmTextColor, 0);
     }
 }
