@@ -6,7 +6,6 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -84,17 +83,15 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     // TODO: Apply the style resource, either the one contained in defStyleAttr or defStyleRes itself.
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         setOrientation(VERTICAL);
-
         final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
                 R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
-        final @NumberPadTimePickerLayout int layout = retrieveLayout(timePickerAttrs);
 
-        final @LayoutRes int layoutRes = layout == LAYOUT_BOTTOM_SHEET
+        mLayout = retrieveLayout(timePickerAttrs);
+        final @LayoutRes int layoutRes = mLayout == LAYOUT_BOTTOM_SHEET
                 ? R.layout.bsp_bottomsheet_numberpad_time_picker
                 : R.layout.bsp_numberpad_time_picker;
         inflate(context, layoutRes, this);
 
-        mLayout = layout;
         mNumberPad = (NumberPadView) findViewById(R.id.bsp_numberpad_time_picker_view);
         mInputTimeContainer = (LinearLayout) findViewById(R.id.bsp_input_time_container);
         mTimeDisplay = (TextView) findViewById(R.id.bsp_input_time);
@@ -113,22 +110,27 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                 ((FloatingActionButton) mOkButton).setBackgroundTintList(fabBackgroundColor);
             }
 
-            final boolean animateFabIn = retrieveAnimateFabIn(timePickerAttrs);
-            final @ShowFabPolicy int showFabPolicy = retrieveShowFab(timePickerAttrs);
+            mAnimateFabIn = timePickerAttrs.getBoolean(
+                    R.styleable.BSP_NumberPadTimePicker_bsp_animateFabIn, false);
+            mShowFabPolicy = retrieveShowFab(timePickerAttrs);
             // For the FAB to actually animate in, it cannot be visible initially.
-            mOkButton.setVisibility(animateFabIn || showFabPolicy == SHOW_FAB_VALID_TIME
+            mOkButton.setVisibility(mAnimateFabIn || mShowFabPolicy == SHOW_FAB_VALID_TIME
                     ? INVISIBLE : VISIBLE);
-
-            mAnimateFabIn = animateFabIn;
-            mShowFabPolicy = showFabPolicy;
         }
 
-        final @ColorInt int inputTimeTextColor = retrieveInputTimeTextColor(timePickerAttrs);
-        final @ColorInt int inputAmPmTextColor = retrieveInputAmPmTextColor(timePickerAttrs);
-        final ColorStateList backspaceTint = retrieveBackspaceTint(timePickerAttrs);
-        final ColorStateList numberKeysTextColor = retrieveNumberKeysTextColor(timePickerAttrs);
-        final ColorStateList altKeysTextColor = retrieveAltKeysTextColor(timePickerAttrs);
-        final Drawable headerBackground = retrieveHeaderBackground(timePickerAttrs);
+        final int inputTimeTextColor = timePickerAttrs.getColor(
+                R.styleable.BSP_NumberPadTimePicker_bsp_inputTimeTextColor, 0);
+        final int inputAmPmTextColor = timePickerAttrs.getColor(
+                R.styleable.BSP_NumberPadTimePicker_bsp_inputAmPmTextColor, 0);
+        final ColorStateList backspaceTint = timePickerAttrs.getColorStateList(
+                R.styleable.BSP_NumberPadTimePicker_bsp_backspaceTint);
+        final ColorStateList numberKeysTextColor = timePickerAttrs.getColorStateList(
+                R.styleable.BSP_NumberPadTimePicker_bsp_numberKeysTextColor);
+        final ColorStateList altKeysTextColor = timePickerAttrs.getColorStateList(
+                R.styleable.BSP_NumberPadTimePicker_bsp_altKeysTextColor);
+        final Drawable headerBackground = timePickerAttrs.getDrawable(
+                R.styleable.BSP_NumberPadTimePicker_bsp_headerBackground);
+        timePickerAttrs.recycle();
 
         if (inputTimeTextColor != 0) {
             mTimeDisplay.setTextColor(inputTimeTextColor);
@@ -153,9 +155,6 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                 headerView.setBackground(headerBackground);
             }
         }
-
-
-        timePickerAttrs.recycle();
     }
 
     @Override
@@ -292,31 +291,6 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         return fabBackgroundColor;
     }
 
-    @Nullable
-    private static ColorStateList retrieveNumberKeysTextColor(TypedArray timePickerAttrs) {
-        // Unlike retrieveFabBackgroundColor(), this does not attempt to create a default
-        // ColorStateList.
-        return timePickerAttrs.getColorStateList(
-                R.styleable.BSP_NumberPadTimePicker_bsp_numberKeysTextColor);
-    }
-
-    @Nullable
-    private static ColorStateList retrieveAltKeysTextColor(TypedArray timePickerAttrs) {
-        // Unlike retrieveFabBackgroundColor(), this does not attempt to create a default
-        // ColorStateList.
-        return timePickerAttrs.getColorStateList(
-                R.styleable.BSP_NumberPadTimePicker_bsp_altKeysTextColor);
-    }
-
-    @Nullable
-    private static ColorStateList retrieveBackspaceTint(TypedArray timePickerAttrs) {
-        return timePickerAttrs.getColorStateList(R.styleable.BSP_NumberPadTimePicker_bsp_backspaceTint);
-    }
-
-    private static boolean retrieveAnimateFabIn(TypedArray timePickerAttrs) {
-        return timePickerAttrs.getBoolean(R.styleable.BSP_NumberPadTimePicker_bsp_animateFabIn, false);
-    }
-
     @NumberPadTimePickerLayout
     private static int retrieveLayout(TypedArray timePickerAttrs) {
         final int layout = timePickerAttrs.getInt(
@@ -341,20 +315,5 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
             default:
                 return SHOW_FAB_ALWAYS;
         }
-    }
-
-    @ColorInt
-    private static int retrieveInputTimeTextColor(TypedArray timePickerAttrs) {
-        return timePickerAttrs.getColor(R.styleable.BSP_NumberPadTimePicker_bsp_inputTimeTextColor, 0);
-    }
-
-    @ColorInt
-    private static int retrieveInputAmPmTextColor(TypedArray timePickerAttrs) {
-        return timePickerAttrs.getColor(R.styleable.BSP_NumberPadTimePicker_bsp_inputAmPmTextColor, 0);
-    }
-
-    @Nullable
-    private static Drawable retrieveHeaderBackground(TypedArray timePickerAttrs) {
-        return timePickerAttrs.getDrawable(R.styleable.BSP_NumberPadTimePicker_bsp_headerBackground);
     }
 }
