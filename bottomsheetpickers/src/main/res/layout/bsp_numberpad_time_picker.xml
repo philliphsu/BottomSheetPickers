@@ -12,5 +12,7 @@
         android:paddingLeft="@dimen/bsp_gridpicker_padding_start"
         android:paddingRight="@dimen/bsp_gridpicker_padding_end"
         android:paddingStart="@dimen/bsp_gridpicker_padding_start"
-        android:paddingEnd="@dimen/bsp_gridpicker_padding_end" />
+        android:paddingEnd="@dimen/bsp_gridpicker_padding_end"
+        android:paddingTop="@dimen/bsp_gridpicker_padding_top"
+        android:paddingBottom="@dimen/bsp_gridpicker_padding_bottom" />
 </merge>

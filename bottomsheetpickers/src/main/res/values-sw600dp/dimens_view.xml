@@ -8,6 +8,10 @@
     <dimen name="bsp_gridpicker_padding_start">24dp</dimen>
     <!-- Right padding for a grid-based picker. -->
     <dimen name="bsp_gridpicker_padding_end">24dp</dimen>
+    <!-- Top padding for a grid-based picker. -->
+    <dimen name="bsp_gridpicker_padding_top">24dp</dimen>
+    <!-- Bottom padding for a grid-based picker. -->
+    <dimen name="bsp_gridpicker_padding_bottom">24dp</dimen>
 
     <dimen name="bsp_numberpad_time_picker_header_height">128dp</dimen>
     <dimen name="bsp_numberpad_time_picker_backspace_icon_size">48dp</dimen>
