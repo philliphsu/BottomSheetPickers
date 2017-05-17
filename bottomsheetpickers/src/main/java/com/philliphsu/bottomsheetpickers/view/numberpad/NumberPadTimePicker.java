@@ -132,6 +132,8 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                 R.styleable.BSP_NumberPadTimePicker_bsp_headerBackground);
         final Drawable divider = timePickerAttrs.getDrawable(
                 R.styleable.BSP_NumberPadTimePicker_bsp_divider);
+        final Drawable numberPadBackground = timePickerAttrs.getDrawable(
+                R.styleable.BSP_NumberPadTimePicker_bsp_numberPadBackground);
         timePickerAttrs.recycle();
 
         if (inputTimeTextColor != 0) {
@@ -154,6 +156,9 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         }
         if (divider != null) {
             setBackground(findViewById(R.id.bsp_divider), divider);
+        }
+        if (numberPadBackground != null) {
+            setBackground(findViewById(R.id.bsp_number_pad_container), numberPadBackground);
         }
     }
 

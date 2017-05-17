@@ -68,5 +68,8 @@
         <!-- Color or drawable to use as the divider. The drawable is constrained
              to a 1dp height. -->
         <attr name="bsp_divider" format="color|reference" />
+
+        <!-- The background color for the number pad. -->
+        <attr name="bsp_numberPadBackground" format="color|reference" />
     </declare-styleable>
 </resources>
