@@ -3,6 +3,7 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -82,7 +83,15 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
     // TODO: Apply the style resource, either the one contained in defStyleAttr or defStyleRes itself.
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        setOrientation(VERTICAL);
+        switch (context.getResources().getConfiguration().orientation) {
+            case Configuration.ORIENTATION_PORTRAIT:
+            default:
+                setOrientation(VERTICAL);
+                break;
+            case Configuration.ORIENTATION_LANDSCAPE:
+                setOrientation(HORIZONTAL);
+                break;
+        }
         final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
                 R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
 

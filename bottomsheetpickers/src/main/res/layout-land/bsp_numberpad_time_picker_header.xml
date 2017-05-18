@@ -9,7 +9,8 @@
         android:id="@+id/bsp_input_time_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:gravity="center"
         android:layout_centerInParent="true">
 
         <TextView
@@ -24,10 +25,8 @@
             android:id="@+id/bsp_input_ampm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/bsp_numberpad_time_picker_ampm_header_margin_start"
-            android:layout_marginStart="@dimen/bsp_numberpad_time_picker_ampm_header_margin_start"
-            android:layout_marginRight="@dimen/bsp_numberpad_time_picker_ampm_header_margin_end"
-            android:layout_marginEnd="@dimen/bsp_numberpad_time_picker_ampm_header_margin_end"
+            android:layout_marginTop="@dimen/bsp_numberpad_time_picker_ampm_header_margin_start"
+            android:layout_marginBottom="@dimen/bsp_numberpad_time_picker_ampm_header_margin_end"
             style="@style/BSP_NumberPadTimePicker_InputAmPmStyle" />
 
     </LinearLayout>
@@ -35,17 +34,19 @@
     <ImageButton
         android:id="@+id/bsp_backspace"
         android:layout_width="@dimen/bsp_numberpad_time_picker_backspace_button_width"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_height="@dimen/bsp_numberpad_time_picker_backspace_button_width"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/bsp_gridpicker_padding_bottom"
         app:srcCompat="@drawable/bsp_ic_backspace_24dp"
         style="@style/BSP_NumberPadTimePicker_BackspaceStyle" />
 
     <View
         android:id="@+id/bsp_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
         android:background="@drawable/bsp_list_divider_material"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>
