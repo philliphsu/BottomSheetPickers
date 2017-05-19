@@ -14,7 +14,7 @@
     <FrameLayout
         android:id="@+id/bsp_number_pad_container"
         android:layout_width="0dp"
-        android:layout_height="296dp"
+        android:layout_height="wrap_content"
         android:layout_weight="2" >
 
         <com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadView
