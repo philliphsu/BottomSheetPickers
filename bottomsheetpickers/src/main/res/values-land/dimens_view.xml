@@ -4,6 +4,10 @@
     <dimen name="bsp_gridpicker_button_height">48dp</dimen>
     <!-- Text size of button texts in a grid-based picker. -->
     <dimen name="bsp_gridpicker_button_text_size">24sp</dimen>
+    <!-- Top padding for a grid-based picker. -->
+    <dimen name="bsp_gridpicker_padding_top">0dp</dimen>
+    <!-- Bottom padding for a grid-based picker. -->
+    <dimen name="bsp_gridpicker_padding_bottom">0dp</dimen>
 
     <!-- Left padding for a bottom sheet grid-based picker. -->
     <dimen name="bsp_bottom_sheet_grid_picker_padding_start">36dp</dimen>
@@ -13,8 +17,11 @@
          layout of the number pad time picker. -->
     <dimen name="bsp_bottom_sheet_backspace_button_margin_bottom">16dp</dimen>
 
-    <dimen name="bsp_numberpad_time_picker_header_height">64dp</dimen>
+    <dimen name="bsp_numberpad_time_picker_header_height">48dp</dimen>
     <dimen name="bsp_numberpad_time_picker_alt_button_text_size">24sp</dimen>
-    <dimen name="bsp_numberpad_time_picker_input_time_text_size">45sp</dimen>
-    <dimen name="bsp_numberpad_time_picker_input_ampm_text_size">14sp</dimen>
+    <dimen name="bsp_numberpad_time_picker_input_time_text_size">34sp</dimen>
+    <dimen name="bsp_numberpad_time_picker_input_ampm_text_size">12sp</dimen>
+
+    <!-- Width of the alert dialog in landscape. -->
+    <dimen name="bsp_alert_dialog_width">300dp</dimen>
 </resources>

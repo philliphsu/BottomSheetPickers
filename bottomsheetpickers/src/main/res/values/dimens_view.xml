@@ -26,7 +26,7 @@
          Margins are included so that the FAB's elevation shadow is not cut off. -->
     <dimen name="bsp_bottom_sheet_grid_picker_fab_container_size">72dp</dimen>
 
-    <dimen name="bsp_numberpad_time_picker_header_height">80dp</dimen>
+    <dimen name="bsp_numberpad_time_picker_header_height">72dp</dimen>
     <dimen name="bsp_numberpad_time_picker_backspace_icon_size">24dp</dimen>
     <dimen name="bsp_numberpad_time_picker_backspace_button_width">56dp</dimen>
     <dimen name="bsp_numberpad_time_picker_ampm_header_margin_start">6dp</dimen>

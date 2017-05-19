@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copied over from land\bsp_numberpad_time_picker_header.xml, so any hierarchy
-     changes made over there should be copied here as well.
-
-     The only difference between these two files is their 'layout_marginBottom'
-     value on the backspace button. Here, the value should be the same as the
-     FAB's bottom margin. -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/bsp_header"
