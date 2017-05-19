@@ -86,27 +86,8 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
                 R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
 
+        setOrientation(VERTICAL);
         mLayout = retrieveLayout(timePickerAttrs);
-        // Set orientation depending on the requested layout.
-        switch (mLayout) {
-            case LAYOUT_BOTTOM_SHEET:
-                switch (context.getResources().getConfiguration().orientation) {
-                    case Configuration.ORIENTATION_LANDSCAPE:
-                        setOrientation(HORIZONTAL);
-                        break;
-                    case Configuration.ORIENTATION_PORTRAIT:
-                    default:
-                        setOrientation(VERTICAL);
-                        break;
-                }
-                break;
-            // The alert layout has no layout specialized for landscape mode.
-            case LAYOUT_ALERT:
-            default:
-                setOrientation(VERTICAL);
-                break;
-        }
-
         final @LayoutRes int layoutRes = mLayout == LAYOUT_BOTTOM_SHEET
                 ? R.layout.bsp_bottomsheet_numberpad_time_picker
                 : R.layout.bsp_numberpad_time_picker;
