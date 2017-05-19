@@ -36,7 +36,6 @@
         android:id="@+id/bsp_backspace"
         android:layout_width="@dimen/bsp_numberpad_time_picker_backspace_button_width"
         android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         app:srcCompat="@drawable/bsp_ic_backspace_24dp"
         style="@style/BSP_NumberPadTimePicker_BackspaceStyle" />
