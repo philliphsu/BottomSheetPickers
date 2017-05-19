@@ -71,5 +71,14 @@
 
         <!-- The background color for the number pad. -->
         <attr name="bsp_numberPadBackground" format="color|reference" />
+
+        <!-- The location of the backspace button. This attribute is only applied
+             if the time picker is using the bottom sheet layout. -->
+        <attr name="bsp_backspaceLocation" format="enum">
+            <!-- The header containing the inputted time and AM/PM. -->
+            <enum name="header" value="0" />
+            <!-- The bottom of the dialog where the floating action button is located. -->
+            <enum name="footer" value="1" />
+        </attr>
     </declare-styleable>
 </resources>
