@@ -10,7 +10,6 @@
         <item name="android:minHeight">@dimen/bsp_gridpicker_button_height</item>
         <item name="android:focusable">true</item>
         <item name="layout_columnWeight">1</item>
-        <item name="layout_rowWeight">1</item>
     </style>
 
     <style name="BSP_Base_GridPickerTextButtonStyle" parent="BSP_GridPickerButtonStyle">
