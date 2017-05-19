@@ -3,7 +3,7 @@
        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include
-        layout="@layout/bsp_numberpad_time_picker_header"
+        layout="@layout/bsp_bottomsheet_numberpad_time_picker_header"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1" />

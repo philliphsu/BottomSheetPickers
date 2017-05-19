@@ -9,6 +9,9 @@
     <dimen name="bsp_bottom_sheet_grid_picker_padding_start">36dp</dimen>
     <!-- Right padding for a bottom sheet grid-based picker. -->
     <dimen name="bsp_bottom_sheet_grid_picker_padding_end">36dp</dimen>
+    <!-- Bottom margin of the backspace button in the landscape bottom sheet
+         layout of the number pad time picker. -->
+    <dimen name="bsp_bottom_sheet_backspace_button_margin_bottom">16dp</dimen>
 
     <dimen name="bsp_numberpad_time_picker_header_height">64dp</dimen>
     <dimen name="bsp_numberpad_time_picker_alt_button_text_size">24sp</dimen>
