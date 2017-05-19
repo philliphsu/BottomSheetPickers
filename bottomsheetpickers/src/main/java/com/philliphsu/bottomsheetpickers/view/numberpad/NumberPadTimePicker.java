@@ -33,6 +33,15 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
      */
     private static final int[] ATTRS_FAB_COLORS = { R.attr.colorButtonNormal, R.attr.colorAccent };
 
+    /** Option to place the backspace button in the header. */
+    private static final int LOCATION_HEADER = 0;
+    /** Option to place the backspace button in the footer. */
+    private static final int LOCATION_FOOTER = 1;
+
+    @IntDef({LOCATION_HEADER, LOCATION_FOOTER})
+    @Retention(RetentionPolicy.SOURCE)
+    private @interface BackspaceLocation {}
+
     /** Option to layout this view for use in an alert dialog. */
     static final int LAYOUT_ALERT = 1;
     /** Option to layout this view for use in a bottom sheet dialog. */
@@ -100,7 +109,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         mBackspace = (ImageButton) findViewById(R.id.bsp_backspace);
         mOkButton = findViewById(R.id.bsp_ok_button);
 
-        if (mLayout == LAYOUT_BOTTOM_SHEET && mOkButton instanceof FloatingActionButton) {
+        if (mLayout == LAYOUT_BOTTOM_SHEET) {
             final ColorStateList fabBackgroundColor = retrieveFabBackgroundColor(
                     timePickerAttrs, context);
             // If we could not create a default ColorStateList, then just leave the current
@@ -117,6 +126,14 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
             // For the FAB to actually animate in, it cannot be visible initially.
             mOkButton.setVisibility(mAnimateFabIn || mShowFabPolicy == SHOW_FAB_VALID_TIME
                     ? INVISIBLE : VISIBLE);
+
+            // Set the backspace location.
+            switch (retrieveBackspaceLocation(timePickerAttrs)) {
+                case LOCATION_HEADER:
+                    break;
+                case LOCATION_FOOTER:
+                    break;
+            }
         }
 
         final int inputTimeTextColor = timePickerAttrs.getColor(
@@ -320,6 +337,19 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                 return policy;
             default:
                 return SHOW_FAB_ALWAYS;
+        }
+    }
+
+    @BackspaceLocation
+    private static int retrieveBackspaceLocation(TypedArray timePickerAttrs) {
+        final int location = timePickerAttrs.getInt(
+                R.styleable.BSP_NumberPadTimePicker_bsp_backspaceLocation, LOCATION_HEADER);
+        switch (location) {
+            case LOCATION_HEADER:
+            case LOCATION_FOOTER:
+                return location;
+            default:
+                return LOCATION_HEADER;
         }
     }
 
