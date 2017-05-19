@@ -31,9 +31,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginTop="@dimen/bsp_fab_margin"
-            android:layout_marginBottom="@dimen/bsp_fab_margin"
+            android:layout_marginBottom="@dimen/bsp_bottom_sheet_grid_picker_fab_bottom_margin"
             app:fabSize="auto"
+            app:elevation="@dimen/bsp_bottom_sheet_grid_picker_fab_elevation"
             app:srcCompat="@drawable/bsp_ic_done_24dp" />
 
     </FrameLayout>

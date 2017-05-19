@@ -11,6 +11,13 @@
 
     <!-- Top padding for a bottom sheet grid-based picker. -->
     <dimen name="bsp_bottom_sheet_grid_picker_padding_top">8dp</dimen>
+    <!-- Size of the FAB container in a bottom sheet grid-based picker.
+         This is the mini FAB size (40dp) + 8dp top margin + 16dp bottom margin.
+         Margins are included so that the FAB's elevation shadow is not cut off. -->
+    <dimen name="bsp_bottom_sheet_grid_picker_fab_container_size">64dp</dimen>
+    <!-- The bottom margin of the FAB in a bottom sheet grid-based picker. -->
+    <dimen name="bsp_bottom_sheet_grid_picker_fab_bottom_margin">8dp</dimen>
+    <dimen name="bsp_bottom_sheet_grid_picker_fab_elevation">0dp</dimen>
 
     <dimen name="bsp_numberpad_time_picker_header_height">48dp</dimen>
     <dimen name="bsp_numberpad_time_picker_alt_button_text_size">24sp</dimen>

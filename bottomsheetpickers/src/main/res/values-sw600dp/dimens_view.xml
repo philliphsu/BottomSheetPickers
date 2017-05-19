@@ -13,6 +13,13 @@
     <!-- Bottom padding for a grid-based picker. -->
     <dimen name="bsp_gridpicker_padding_bottom">24dp</dimen>
 
+    <!-- Size of the FAB container in a bottom sheet grid-based picker.
+         This is the normal FAB size (56dp) + 24dp margins on all sides.
+         Margins are included so that the FAB's elevation shadow is not cut off. -->
+    <dimen name="bsp_bottom_sheet_grid_picker_fab_container_size">104dp</dimen>
+    <!-- The bottom margin of the FAB in a bottom sheet grid-based picker. -->
+    <dimen name="bsp_bottom_sheet_grid_picker_fab_bottom_margin">24dp</dimen>
+
     <dimen name="bsp_numberpad_time_picker_header_height">128dp</dimen>
     <dimen name="bsp_numberpad_time_picker_backspace_icon_size">48dp</dimen>
     <dimen name="bsp_numberpad_time_picker_backspace_button_width">96dp</dimen>
