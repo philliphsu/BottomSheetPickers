@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        layout="@layout/bsp_numberpad_time_picker_header"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <!-- Container to set the background for both the number pad and FAB area
+         without the issues of setting the same background drawable on both
+         views individually. -->
+    <FrameLayout
+        android:id="@+id/bsp_number_pad_container"
+        android:layout_width="0dp"
+        android:layout_height="296dp"
+        android:layout_weight="2" >
+
+        <com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadView
+            android:id="@+id/bsp_numberpad_time_picker_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/bsp_bottom_sheet_grid_picker_padding_start"
+            android:paddingRight="@dimen/bsp_bottom_sheet_grid_picker_padding_end"
+            android:paddingStart="@dimen/bsp_bottom_sheet_grid_picker_padding_start"
+            android:paddingEnd="@dimen/bsp_bottom_sheet_grid_picker_padding_end"
+            android:paddingTop="@dimen/bsp_bottom_sheet_grid_picker_padding_top"
+            android:paddingBottom="@dimen/bsp_bottom_sheet_grid_picker_fab_container_size" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/bsp_ok_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="@dimen/bsp_fab_margin"
+            android:layout_marginBottom="@dimen/bsp_fab_margin"
+            app:fabSize="auto"
+            app:srcCompat="@drawable/bsp_ic_done_24dp" />
+
+    </FrameLayout>
+
+</merge>
