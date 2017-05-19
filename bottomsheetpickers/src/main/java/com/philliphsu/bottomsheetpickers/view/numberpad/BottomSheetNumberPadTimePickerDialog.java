@@ -2,6 +2,7 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.philliphsu.bottomsheetpickers.R;
 
@@ -90,6 +92,13 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Override the dialog's width if we're running in an eligible layout qualifier.
+        try {
+            getWindow().setLayout(getContext().getResources().getDimensionPixelSize(
+                    R.dimen.bsp_bottom_sheet_dialog_width), ViewGroup.LayoutParams.WRAP_CONTENT);
+        } catch (Resources.NotFoundException nfe) {
+            // Do nothing.
+        }
         mViewDelegate.onCreate(savedInstanceState);
     }
 
