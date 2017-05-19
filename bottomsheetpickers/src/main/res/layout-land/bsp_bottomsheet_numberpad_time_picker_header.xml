@@ -15,7 +15,7 @@
         android:id="@+id/bsp_input_time_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:gravity="center"
         android:layout_centerInParent="true">
 
@@ -31,8 +31,10 @@
             android:id="@+id/bsp_input_ampm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/bsp_numberpad_time_picker_ampm_header_margin_start"
-            android:layout_marginBottom="@dimen/bsp_numberpad_time_picker_ampm_header_margin_end"
+            android:layout_marginLeft="@dimen/bsp_numberpad_time_picker_ampm_header_margin_start"
+            android:layout_marginRight="@dimen/bsp_numberpad_time_picker_ampm_header_margin_end"
+            android:layout_marginStart="@dimen/bsp_numberpad_time_picker_ampm_header_margin_start"
+            android:layout_marginEnd="@dimen/bsp_numberpad_time_picker_ampm_header_margin_end"
             style="@style/BSP_NumberPadTimePicker_InputAmPmStyle" />
 
     </LinearLayout>
