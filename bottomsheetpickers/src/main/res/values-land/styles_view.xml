@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="BSP_NumberPadTimePicker_AltTextButtonStyle" parent="BSP_NumberPadTimePicker_Base_AltTextButtonStyle">
-        <item name="android:fontFamily">sans-serif-light</item>
-    </style>
-</resources>
