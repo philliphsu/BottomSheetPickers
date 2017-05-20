@@ -25,8 +25,8 @@
          This is the mini FAB size (40dp) + 16dp margins on all sides.
          Margins are included so that the FAB's elevation shadow is not cut off. -->
     <dimen name="bsp_bottom_sheet_grid_picker_fab_container_size">72dp</dimen>
-    <!-- The bottom margin of the FAB in a bottom sheet grid-based picker. -->
-    <dimen name="bsp_bottom_sheet_grid_picker_fab_bottom_margin">0dp</dimen>
+    <!-- FAB margin in a bottom sheet grid-based picker. -->
+    <dimen name="bsp_bottom_sheet_grid_picker_fab_margin">0dp</dimen>
     <dimen name="bsp_bottom_sheet_grid_picker_fab_elevation">6dp</dimen>
 
     <dimen name="bsp_numberpad_time_picker_header_height">72dp</dimen>
