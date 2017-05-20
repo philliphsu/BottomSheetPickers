@@ -15,13 +15,13 @@
     <dimen name="bsp_bottom_sheet_grid_picker_fab_margin">8dp</dimen>
     <dimen name="bsp_bottom_sheet_grid_picker_fab_elevation">0dp</dimen>
 
-    <dimen name="bsp_numberpad_time_picker_header_height">48dp</dimen>
+    <dimen name="bsp_numberpad_time_picker_header_height">56dp</dimen>
     <dimen name="bsp_numberpad_time_picker_alt_button_text_size">24sp</dimen>
-    <dimen name="bsp_numberpad_time_picker_input_time_text_size">34sp</dimen>
-    <dimen name="bsp_numberpad_time_picker_input_ampm_text_size">12sp</dimen>
+    <dimen name="bsp_numberpad_time_picker_input_time_text_size">45sp</dimen>
+    <dimen name="bsp_numberpad_time_picker_input_ampm_text_size">14sp</dimen>
 
     <!-- Width of the alert dialog in landscape. -->
     <dimen name="bsp_alert_dialog_width">300dp</dimen>
     <!-- Width of the bottom sheet dialog in landscape. -->
-    <dimen name="bsp_bottom_sheet_dialog_width">340dp</dimen>
+    <dimen name="bsp_bottom_sheet_dialog_width">300dp</dimen>
 </resources>
