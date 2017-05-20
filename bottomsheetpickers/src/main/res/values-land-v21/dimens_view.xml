@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="bsp_bottom_sheet_grid_picker_fab_margin">16dp</dimen>
     <dimen name="bsp_bottom_sheet_grid_picker_fab_elevation">6dp</dimen>
 </resources>
