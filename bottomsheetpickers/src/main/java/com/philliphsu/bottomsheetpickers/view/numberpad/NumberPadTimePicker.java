@@ -3,7 +3,6 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -12,8 +11,10 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.widget.GridLayout;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -108,6 +109,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         mAmPmDisplay = (TextView) findViewById(R.id.bsp_input_ampm);
         mBackspace = (ImageButton) findViewById(R.id.bsp_backspace);
         mOkButton = findViewById(R.id.bsp_ok_button);
+        final ViewGroup headerView = (ViewGroup) findViewById(R.id.bsp_header);
 
         if (mLayout == LAYOUT_BOTTOM_SHEET) {
             final ColorStateList fabBackgroundColor = retrieveFabBackgroundColor(
@@ -127,13 +129,40 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
             mOkButton.setVisibility(mAnimateFabIn || mShowFabPolicy == SHOW_FAB_VALID_TIME
                     ? INVISIBLE : VISIBLE);
 
-            // Set the backspace location.
-            switch (retrieveBackspaceLocation(timePickerAttrs)) {
-                case LOCATION_HEADER:
-                    break;
-                case LOCATION_FOOTER:
-                    break;
-            }
+            final int backspaceLocation = retrieveBackspaceLocation(timePickerAttrs);
+            // We can't set the backspace location immediately because the views have not finished
+            // drawing at this point. As such, setting {@code NumberPadView#getRowCount() - 1}
+            // as the row index at which the backspace button should be added will not give us the
+            // expected result. Note that {@code NumberPadView#getColumnCount() - 1} does return the
+            // correct column index; this is because we explicitly set a column count.
+            //
+            // Instead of hardcoding the row index, which will not scale if we ever add or remove
+            // rows to the number pad, we wait until everything is completely drawn to do our
+            // manipulation. Note that drawing is not completed even by the time of onFinishInflate().
+            mNumberPad.post(new Runnable() {
+                @Override
+                public void run() {
+                    switch (backspaceLocation) {
+                        case LOCATION_HEADER:
+                            break;
+                        case LOCATION_FOOTER:
+                            headerView.removeView(mBackspace);
+                            final GridLayout.LayoutParams lp = new GridLayout.LayoutParams(
+                                    // The row of the cell in which the backspace key should go.
+                                    // This specifies the row index, which spans one increment,
+                                    // and indicates the cell should be filled along the row
+                                    // (horizontal) axis.
+                                    GridLayout.spec(mNumberPad.getRowCount() - 1, GridLayout.FILL),
+                                    // The column of the cell in which the backspace key should go.
+                                    // This specifies the column index, which spans one increment,
+                                    // and indicates the cell should be filled along the column
+                                    // (vertical) axis.
+                                    GridLayout.spec(mNumberPad.getColumnCount() - 1, GridLayout.FILL));
+                            mNumberPad.addView(mBackspace, lp);
+                            break;
+                    }
+                }
+            });
         }
 
         final int inputTimeTextColor = timePickerAttrs.getColor(
@@ -170,13 +199,13 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
             mNumberPad.setAltKeysTextColor(altKeysTextColor);
         }
         if (headerBackground != null) {
-            setBackground(findViewById(R.id.bsp_header), headerBackground);
+            setBackground(headerView, headerBackground);
         }
         if (divider != null) {
             setBackground(findViewById(R.id.bsp_divider), divider);
         }
         if (numberPadBackground != null) {
-            setBackground(findViewById(R.id.bsp_number_pad_container), numberPadBackground);
+            setBackground(mNumberPad, numberPadBackground);
         }
     }
 
