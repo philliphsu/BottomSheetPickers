@@ -19,12 +19,6 @@
     <dimen name="bsp_bottom_sheet_grid_picker_padding_end">24dp</dimen>
     <!-- Top padding for a bottom sheet grid-based picker. -->
     <dimen name="bsp_bottom_sheet_grid_picker_padding_top">16dp</dimen>
-    <!-- Bottom padding for a bottom sheet grid-based picker. -->
-    <dimen name="bsp_bottom_sheet_grid_picker_padding_bottom">0dp</dimen>
-    <!-- Size of the FAB container in a bottom sheet grid-based picker.
-         This is the mini FAB size (40dp) + 16dp margins on all sides.
-         Margins are included so that the FAB's elevation shadow is not cut off. -->
-    <dimen name="bsp_bottom_sheet_grid_picker_fab_container_size">72dp</dimen>
     <!-- FAB margin in a bottom sheet grid-based picker. -->
     <dimen name="bsp_bottom_sheet_grid_picker_fab_margin">0dp</dimen>
     <dimen name="bsp_bottom_sheet_grid_picker_fab_elevation">6dp</dimen>

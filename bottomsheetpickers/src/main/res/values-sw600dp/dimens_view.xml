@@ -13,10 +13,6 @@
     <!-- Bottom padding for a grid-based picker. -->
     <dimen name="bsp_gridpicker_padding_bottom">24dp</dimen>
 
-    <!-- Size of the FAB container in a bottom sheet grid-based picker.
-         This is the normal FAB size (56dp) + 24dp margins on all sides.
-         Margins are included so that the FAB's elevation shadow is not cut off. -->
-    <dimen name="bsp_bottom_sheet_grid_picker_fab_container_size">104dp</dimen>
     <!-- FAB margin in a bottom sheet grid-based picker. -->
     <dimen name="bsp_bottom_sheet_grid_picker_fab_margin">24dp</dimen>
 
