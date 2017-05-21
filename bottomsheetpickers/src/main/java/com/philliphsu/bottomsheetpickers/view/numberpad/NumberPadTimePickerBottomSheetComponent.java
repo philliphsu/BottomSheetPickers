@@ -24,6 +24,7 @@ import java.lang.annotation.RetentionPolicy;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
 
 /**
  * Component that installs {@link NumberPadTimePicker#LAYOUT_BOTTOM_SHEET bottom sheet}
@@ -66,7 +67,7 @@ final class NumberPadTimePickerBottomSheetComponent
     @interface ShowFabPolicy {}
 
     private final FloatingActionButton mOkButton;
-    private final @Nullable ValueAnimator mFabBackgroundColorAnimator;
+    private final ValueAnimator mFabBackgroundColorAnimator;
 
     @ShowFabPolicy
     private final int mShowFabPolicy;
@@ -130,7 +131,8 @@ final class NumberPadTimePickerBottomSheetComponent
             }
             mOkButton.setBackgroundTintList(fabBackgroundColor);
         }
-        mFabBackgroundColorAnimator = fabBackgroundColorAnimator;
+        mFabBackgroundColorAnimator = mAnimateFabBackgroundColor
+                ? checkNotNull(fabBackgroundColorAnimator) : null;
 
         final int fabRippleColor = timePickerAttrs.getColor(
                 R.styleable.BSP_NumberPadTimePicker_bsp_fabRippleColor, 0);
@@ -211,17 +213,21 @@ final class NumberPadTimePickerBottomSheetComponent
     }
 
     void setOkButtonEnabled(boolean enabled) {
-        if (mOkButton.isEnabled() != enabled) {
-            if (mFabBackgroundColorAnimator != null) {
-                if (enabled) {
-                    // Animate from disabled color to enabled color.
-                    mFabBackgroundColorAnimator.start();
-                } else {
-                    // Animate from enabled color to disabled color.
-                    mFabBackgroundColorAnimator.reverse();
-                }
-                mAnimatingToEnabled = enabled;
+        if (mShowFabPolicy == SHOW_FAB_VALID_TIME) {
+            if (enabled) {
+                mOkButton.show();
+            } else {
+                mOkButton.hide();
             }
+        } else if (mAnimateFabBackgroundColor && mOkButton.isEnabled() != enabled) {
+            if (enabled) {
+                // Animate from disabled color to enabled color.
+                mFabBackgroundColorAnimator.start();
+            } else {
+                // Animate from enabled color to disabled color.
+                mFabBackgroundColorAnimator.reverse();
+            }
+            mAnimatingToEnabled = enabled;
         }
     }
 

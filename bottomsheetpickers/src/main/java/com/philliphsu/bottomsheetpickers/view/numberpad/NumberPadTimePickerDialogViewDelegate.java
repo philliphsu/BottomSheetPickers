@@ -13,7 +13,6 @@ import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 import com.philliphsu.bottomsheetpickers.view.numberpad.INumberPadTimePicker.DialogView;
 
 import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
-import static com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadTimePickerBottomSheetComponent.SHOW_FAB_VALID_TIME;
 
 /**
  * Handles the {@link DialogView DialogView} responsibilities of a number pad time picker dialog.
@@ -34,6 +33,9 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
 
     private View mOkButton;
 
+    // TODO: Consider removing the okButton param because (1) the alert layout does not have it ready
+    // at the time of construction and (2) the bottom sheet layout does not need this class anymore
+    // to control its FAB. Keep the setOkButton() instead.
     NumberPadTimePickerDialogViewDelegate(@NonNull DialogInterface delegator,
             @NonNull Context context, @NonNull NumberPadTimePicker timePicker,
             @Nullable View okButton, @Nullable OnTimeSetListener listener, boolean is24HourMode) {
@@ -77,20 +79,8 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
     @Override
     public void setOkButtonEnabled(boolean enabled) {
         if (mTimePicker.getLayout() == NumberPadTimePicker.LAYOUT_BOTTOM_SHEET) {
-            final NumberPadTimePickerBottomSheetComponent timePickerComponent =
-                    (NumberPadTimePickerBottomSheetComponent) mTimePicker.getComponent();
-            // TODO: Why don't we let the component itself handle all this logic?
-            // Then we can remove the okButton param from the constructor, because the bottom
-            // sheet dialog has no need to have its ok button controlled by this class.
-            if (timePickerComponent.getShowFabPolicy() == SHOW_FAB_VALID_TIME) {
-                if (enabled) {
-                    timePickerComponent.getOkButton().show();
-                } else {
-                    timePickerComponent.getOkButton().hide();
-                }
-            } else if (timePickerComponent.isAnimateFabBackgroundColor()) {
-                timePickerComponent.setOkButtonEnabled(enabled);
-            }
+            ((NumberPadTimePickerBottomSheetComponent) mTimePicker.getComponent())
+                    .setOkButtonEnabled(enabled);
         } else {
             mOkButton.setEnabled(enabled);
         }
