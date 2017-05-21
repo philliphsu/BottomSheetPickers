@@ -80,5 +80,9 @@
             <!-- The bottom of the dialog where the floating action button is located. -->
             <enum name="footer" value="1" />
         </attr>
+
+        <!-- The floating action button's ripple color. This attribute is only applied if
+             the time picker is using the bottom sheet layout. -->
+        <attr name="bsp_fabRippleColor" format="color" />
     </declare-styleable>
 </resources>

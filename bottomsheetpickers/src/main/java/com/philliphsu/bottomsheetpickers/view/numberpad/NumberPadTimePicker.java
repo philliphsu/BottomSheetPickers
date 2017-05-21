@@ -112,14 +112,20 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         final ViewGroup headerView = (ViewGroup) findViewById(R.id.bsp_header);
 
         if (mLayout == LAYOUT_BOTTOM_SHEET) {
+            final FloatingActionButton fab = (FloatingActionButton) mOkButton;
             final ColorStateList fabBackgroundColor = retrieveFabBackgroundColor(
                     timePickerAttrs, context);
+            final int fabRippleColor = timePickerAttrs.getColor(
+                    R.styleable.BSP_NumberPadTimePicker_bsp_fabRippleColor, 0);
             // If we could not create a default ColorStateList, then just leave the current
             // color as is.
             if (fabBackgroundColor != null) {
                 // If we don't make this cast, this would call the base method in View,
                 // which requires API 21.
-                ((FloatingActionButton) mOkButton).setBackgroundTintList(fabBackgroundColor);
+                fab.setBackgroundTintList(fabBackgroundColor);
+            }
+            if (fabRippleColor != 0) {
+                fab.setRippleColor(fabRippleColor);
             }
 
             mAnimateFabIn = timePickerAttrs.getBoolean(
