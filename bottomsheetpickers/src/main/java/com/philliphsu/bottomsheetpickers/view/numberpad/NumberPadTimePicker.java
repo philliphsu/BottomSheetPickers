@@ -1,5 +1,7 @@
 package com.philliphsu.bottomsheetpickers.view.numberpad;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
@@ -83,6 +85,8 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     private @NumberPadTimePickerLayout int mLayout;
     private @ShowFabPolicy int mShowFabPolicy;
     private boolean mAnimateFabIn;
+    private boolean mAnimateFabBackgroundColor;
+    private boolean mAnimatingToEnabled;
 
     public NumberPadTimePicker(Context context) {
         this(context, null);
@@ -128,22 +132,46 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
             final ColorStateList fabBackgroundColor = retrieveFabBackgroundColor(
                     timePickerAttrs, context);
-            final boolean animateFabBackgroundColor = timePickerAttrs.getBoolean(
+            mAnimateFabBackgroundColor = timePickerAttrs.getBoolean(
                     R.styleable.BSP_NumberPadTimePicker_bsp_animateFabBackgroundColor, true);
             // If we could not create a default ColorStateList, then just leave the current
             // stateless color as is. If the color is stateless, we ignore the value for
             // animateFabBackgroundColor because there is nothing to animate.
             if (fabBackgroundColor != null) {
-                if (animateFabBackgroundColor) {
+                if (mAnimateFabBackgroundColor) {
                     // Extract the colors from the ColorStateList.
                     int[] colors = new int[STATES_FAB_COLORS.length];
                     int idx = 0;
                     for (int[] stateSet : STATES_FAB_COLORS) {
-                        colors[idx++] = fabBackgroundColor.getColorForState(stateSet, 0);
+                        // The empty state is peculiar in that getColorForState() will not return
+                        // the default color, but rather any color defined in the ColorStateList
+                        // for any state.
+                        // https://developer.android.com/reference/android/content/res/ColorStateList.html
+                        // "Each item defines a set of state spec and color pairs, where the state
+                        // spec is a series of attributes set to either true or false to represent
+                        // inclusion or exclusion. If an attribute is not specified for an item,
+                        // it may be any value."
+                        // "An item with no state spec is considered to match any set of states
+                        // and is generally useful as a final item to be used as a default."
+                        colors[idx++] = stateSet.length == 0 ? fabBackgroundColor.getDefaultColor()
+                                : fabBackgroundColor.getColorForState(stateSet, 0);
                     }
                     // Equivalent to ValueAnimator.ofArgb() which is only for API 21+.
                     mFabBackgroundColorAnimator = ValueAnimator.ofInt(colors);
                     mFabBackgroundColorAnimator.setEvaluator(new ArgbEvaluator());
+                    mFabBackgroundColorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator animation) {
+                            fab.setBackgroundTintList(ColorStateList.valueOf(
+                                    (int) animation.getAnimatedValue()));
+                        }
+                    });
+                    mFabBackgroundColorAnimator.addListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            fab.setEnabled(mAnimatingToEnabled);
+                        }
+                    });
                 }
                 fab.setBackgroundTintList(fabBackgroundColor);
             }
@@ -325,6 +353,11 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         return mShowFabPolicy;
     }
 
+    boolean isAnimateFabBackgroundColor() {
+        checkLayoutIsBottomSheet(mLayout);
+        return mAnimateFabBackgroundColor;
+    }
+
     void setOnBackspaceClickListener(OnClickListener l) {
         mBackspace.setOnClickListener(l);
     }
@@ -339,6 +372,22 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
     void setOnAltKeyClickListener(OnClickListener l) {
         mNumberPad.setOnAltKeyClickListener(l);
+    }
+
+    void setOkButtonEnabled(boolean enabled) {
+        if (mOkButton != null && mOkButton.isEnabled() != enabled) {
+            checkLayoutIsBottomSheet(mLayout);
+            if (mFabBackgroundColorAnimator != null) {
+                if (enabled) {
+                    // Animate from disabled color to enabled color.
+                    mFabBackgroundColorAnimator.start();
+                } else {
+                    // Animate from enabled color to disabled color.
+                    mFabBackgroundColorAnimator.reverse();
+                }
+                mAnimatingToEnabled = enabled;
+            }
+        }
     }
 
     private static void checkLayoutIsBottomSheet(int layout) {
