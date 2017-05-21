@@ -22,9 +22,6 @@ import java.lang.annotation.RetentionPolicy;
 
 // TODO: Declare an attribute with format="reference" to allow a style resource to be specified.
 
-// TODO: Break up this class into BottomSheet and Alert subtypes. Consider using Delegates just
-// like in the framework's TimePicker.
-
 // TODO: Animate FAB elevation in BottomSheet subtype.
 
 // TODO: If you backspace repeatedly quick enough, you see that the FAB color animation plays
@@ -55,7 +52,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     private TextView mAmPmDisplay;
     private ImageButton mBackspace;
 
-    private NumberPadTimePickerBottomSheetComponent mBottomSheetComponent;
+    private NumberPadTimePickerBaseComponent mTimePickerComponent;
 
     private @NumberPadTimePickerLayout int mLayout;
 
@@ -87,13 +84,13 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         timePickerAttrs.recycle();
         switch (mLayout) {
             case LAYOUT_BOTTOM_SHEET:
-                mBottomSheetComponent = new NumberPadTimePickerBottomSheetComponent(
+                mTimePickerComponent = new NumberPadTimePickerBottomSheetComponent(
                         this, context, attrs, defStyleAttr, defStyleRes);
                 break;
             case LAYOUT_ALERT:
             default:
-                // TODO: Create AlertComponent.
-                inflate(context, R.layout.bsp_numberpad_time_picker, this);
+                mTimePickerComponent = new NumberPadTimePickerAlertComponent(
+                        this, context, attrs, defStyleAttr, defStyleRes);
                 break;
         }
 
@@ -188,24 +185,35 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
     @Nullable
     View getOkButton() {
-        return mBottomSheetComponent.getOkButton();
+        checkComponentIsBottomSheet(mTimePickerComponent);
+        return ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent).getOkButton();
     }
 
     boolean isAnimateFabIn() {
-        return mBottomSheetComponent.isAnimateFabIn();
+        checkComponentIsBottomSheet(mTimePickerComponent);
+        return ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent).isAnimateFabIn();
     }
 
     @NumberPadTimePickerBottomSheetComponent.ShowFabPolicy
     int getShowFabPolicy() {
-        return mBottomSheetComponent.getShowFabPolicy();
+        checkComponentIsBottomSheet(mTimePickerComponent);
+        return ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent).getShowFabPolicy();
     }
 
     boolean isAnimateFabBackgroundColor() {
-        return mBottomSheetComponent.isAnimateFabBackgroundColor();
+        checkComponentIsBottomSheet(mTimePickerComponent);
+        return ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent).isAnimateFabBackgroundColor();
     }
 
     void setOkButtonEnabled(boolean enabled) {
-        mBottomSheetComponent.setOkButtonEnabled(enabled);
+        checkComponentIsBottomSheet(mTimePickerComponent);
+        ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent).setOkButtonEnabled(enabled);
+    }
+
+    private static void checkComponentIsBottomSheet(NumberPadTimePickerBaseComponent component) {
+        if (!(component instanceof NumberPadTimePickerBottomSheetComponent)) {
+            throw new UnsupportedOperationException("Method can only be called for LAYOUT_BOTTOM_SHEET");
+        }
     }
 
     @NumberPadTimePickerLayout
