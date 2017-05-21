@@ -52,7 +52,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     private TextView mAmPmDisplay;
     private ImageButton mBackspace;
 
-    private NumberPadTimePickerBaseComponent mTimePickerComponent;
+    private NumberPadTimePickerComponent mTimePickerComponent;
 
     private @NumberPadTimePickerLayout int mLayout;
 
@@ -210,7 +210,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent).setOkButtonEnabled(enabled);
     }
 
-    private static void checkComponentIsBottomSheet(NumberPadTimePickerBaseComponent component) {
+    private static void checkComponentIsBottomSheet(NumberPadTimePickerComponent component) {
         if (!(component instanceof NumberPadTimePickerBottomSheetComponent)) {
             throw new UnsupportedOperationException("Method can only be called for LAYOUT_BOTTOM_SHEET");
         }
@@ -232,9 +232,9 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     /**
      * Component that installs the base functionality of a {@link NumberPadTimePicker}. 
      */
-    abstract static class NumberPadTimePickerBaseComponent {
-        NumberPadTimePickerBaseComponent(NumberPadTimePicker timePicker, Context context,
-                AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    abstract static class NumberPadTimePickerComponent {
+        NumberPadTimePickerComponent(NumberPadTimePicker timePicker, Context context,
+                                     AttributeSet attrs, int defStyleAttr, int defStyleRes) {
             final View root = inflate(context, timePicker);
             final NumberPadView numberPad = (NumberPadView) root.findViewById(R.id.bsp_numberpad_time_picker_view);
             final TextView timeDisplay = (TextView) root.findViewById(R.id.bsp_input_time);

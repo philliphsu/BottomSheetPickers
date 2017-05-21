@@ -11,7 +11,7 @@ import com.philliphsu.bottomsheetpickers.R;
  * to a {@link NumberPadTimePicker}.
  */
 final class NumberPadTimePickerAlertComponent extends
-        NumberPadTimePicker.NumberPadTimePickerBaseComponent {
+        NumberPadTimePicker.NumberPadTimePickerComponent {
 
     NumberPadTimePickerAlertComponent(NumberPadTimePicker timePicker, Context context,
             AttributeSet attrs, int defStyleAttr, int defStyleRes) {

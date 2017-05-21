@@ -30,7 +30,7 @@ import static android.view.View.VISIBLE;
  * functionality to a {@link NumberPadTimePicker}.
  */
 final class NumberPadTimePickerBottomSheetComponent 
-        extends NumberPadTimePicker.NumberPadTimePickerBaseComponent {
+        extends NumberPadTimePicker.NumberPadTimePickerComponent {
     /**
      * Color attributes defined in our {@code Context}'s theme.
      *
