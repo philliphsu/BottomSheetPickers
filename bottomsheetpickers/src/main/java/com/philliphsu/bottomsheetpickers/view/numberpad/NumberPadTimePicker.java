@@ -7,7 +7,6 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.IntDef;
-import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.view.View;
@@ -183,37 +182,8 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         mNumberPad.setOnAltKeyClickListener(l);
     }
 
-    @Nullable
-    View getOkButton() {
-        checkComponentIsBottomSheet(mTimePickerComponent);
-        return ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent).getOkButton();
-    }
-
-    boolean isAnimateFabIn() {
-        checkComponentIsBottomSheet(mTimePickerComponent);
-        return ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent).isAnimateFabIn();
-    }
-
-    @NumberPadTimePickerBottomSheetComponent.ShowFabPolicy
-    int getShowFabPolicy() {
-        checkComponentIsBottomSheet(mTimePickerComponent);
-        return ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent).getShowFabPolicy();
-    }
-
-    boolean isAnimateFabBackgroundColor() {
-        checkComponentIsBottomSheet(mTimePickerComponent);
-        return ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent).isAnimateFabBackgroundColor();
-    }
-
-    void setOkButtonEnabled(boolean enabled) {
-        checkComponentIsBottomSheet(mTimePickerComponent);
-        ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent).setOkButtonEnabled(enabled);
-    }
-
-    private static void checkComponentIsBottomSheet(NumberPadTimePickerComponent component) {
-        if (!(component instanceof NumberPadTimePickerBottomSheetComponent)) {
-            throw new UnsupportedOperationException("Method can only be called for LAYOUT_BOTTOM_SHEET");
-        }
+    NumberPadTimePickerComponent getComponent() {
+        return mTimePickerComponent;
     }
 
     @NumberPadTimePickerLayout

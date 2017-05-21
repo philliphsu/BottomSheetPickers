@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.philliphsu.bottomsheetpickers.R;
 
-import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadTimePickerBottomSheetComponent.SHOW_FAB_ALWAYS;
 
 public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
 
@@ -43,8 +43,9 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
                 R.layout.bsp_bottomsheet_numberpad_time_picker_dialog, null);
         final NumberPadTimePicker timePicker = (NumberPadTimePicker)
                 root.findViewById(R.id.bsp_time_picker);
-        final FloatingActionButton okButton = (FloatingActionButton)
-                checkNotNull(timePicker.getOkButton());
+        final NumberPadTimePickerBottomSheetComponent timePickerComponent =
+                (NumberPadTimePickerBottomSheetComponent) timePicker.getComponent();
+        final FloatingActionButton okButton = timePickerComponent.getOkButton();
         mViewDelegate = new NumberPadTimePickerDialogViewDelegate(this,
                 // Prefer getContext() over the provided Context because the Context
                 // that the Dialog runs in may not be the same as the provided Context.
@@ -66,8 +67,8 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
             }
         });
 
-        if (timePicker.getShowFabPolicy() == NumberPadTimePickerBottomSheetComponent.SHOW_FAB_ALWAYS
-                && timePicker.isAnimateFabIn()) {
+        if (timePickerComponent.getShowFabPolicy() == SHOW_FAB_ALWAYS
+                && timePickerComponent.isAnimateFabIn()) {
             // Overrides the default callback, but we kept the default behavior.
             BottomSheetBehavior.from((View) root.getParent()).setBottomSheetCallback(
                     new BottomSheetBehavior.BottomSheetCallback() {

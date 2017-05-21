@@ -193,8 +193,7 @@ final class NumberPadTimePickerBottomSheetComponent
         return View.inflate(context, R.layout.bsp_bottomsheet_numberpad_time_picker, root);
     }
 
-    @Nullable
-    View getOkButton() {
+    FloatingActionButton getOkButton() {
         return mOkButton;
     }
 
@@ -212,7 +211,7 @@ final class NumberPadTimePickerBottomSheetComponent
     }
 
     void setOkButtonEnabled(boolean enabled) {
-        if (mOkButton != null && mOkButton.isEnabled() != enabled) {
+        if (mOkButton.isEnabled() != enabled) {
             if (mFabBackgroundColorAnimator != null) {
                 if (enabled) {
                     // Animate from disabled color to enabled color.

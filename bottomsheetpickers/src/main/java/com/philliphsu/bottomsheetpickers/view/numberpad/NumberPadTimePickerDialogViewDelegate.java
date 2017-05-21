@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.TimePicker;
 
@@ -14,6 +13,7 @@ import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 import com.philliphsu.bottomsheetpickers.view.numberpad.INumberPadTimePicker.DialogView;
 
 import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadTimePickerBottomSheetComponent.SHOW_FAB_VALID_TIME;
 
 /**
  * Handles the {@link DialogView DialogView} responsibilities of a number pad time picker dialog.
@@ -35,11 +35,8 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
     private View mOkButton;
 
     NumberPadTimePickerDialogViewDelegate(@NonNull DialogInterface delegator,
-                                          @NonNull Context context,
-                                          @NonNull NumberPadTimePicker timePicker,
-                                          @Nullable View okButton,
-                                          @Nullable OnTimeSetListener listener,
-                                          boolean is24HourMode) {
+            @NonNull Context context, @NonNull NumberPadTimePicker timePicker,
+            @Nullable View okButton, @Nullable OnTimeSetListener listener, boolean is24HourMode) {
         mDelegator = checkNotNull(delegator);
         mTimePicker = checkNotNull(timePicker);
         mOkButton = okButton;
@@ -79,16 +76,20 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
 
     @Override
     public void setOkButtonEnabled(boolean enabled) {
-        if (mTimePicker.getLayout() == NumberPadTimePicker.LAYOUT_BOTTOM_SHEET
-                && mOkButton instanceof FloatingActionButton) {
-            if (mTimePicker.getShowFabPolicy() == NumberPadTimePickerBottomSheetComponent.SHOW_FAB_VALID_TIME) {
+        if (mTimePicker.getLayout() == NumberPadTimePicker.LAYOUT_BOTTOM_SHEET) {
+            final NumberPadTimePickerBottomSheetComponent timePickerComponent =
+                    (NumberPadTimePickerBottomSheetComponent) mTimePicker.getComponent();
+            // TODO: Why don't we let the component itself handle all this logic?
+            // Then we can remove the okButton param from the constructor, because the bottom
+            // sheet dialog has no need to have its ok button controlled by this class.
+            if (timePickerComponent.getShowFabPolicy() == SHOW_FAB_VALID_TIME) {
                 if (enabled) {
-                    ((FloatingActionButton) mOkButton).show();
+                    timePickerComponent.getOkButton().show();
                 } else {
-                    ((FloatingActionButton) mOkButton).hide();
+                    timePickerComponent.getOkButton().hide();
                 }
-            } else if (mTimePicker.isAnimateFabBackgroundColor()) {
-                mTimePicker.setOkButtonEnabled(enabled);
+            } else if (timePickerComponent.isAnimateFabBackgroundColor()) {
+                timePickerComponent.setOkButtonEnabled(enabled);
             }
         } else {
             mOkButton.setEnabled(enabled);
