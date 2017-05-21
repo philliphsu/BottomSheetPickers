@@ -47,6 +47,9 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
      */
     private static final int[][] STATES_FAB_COLORS = {{-android.R.attr.state_enabled}, {}};
 
+    /** Duration for all FAB animations. */
+    private static final int FAB_ANIM_DURATION = 100;
+
     /** Option to place the backspace button in the header. */
     private static final int LOCATION_HEADER = 0;
     /** Option to place the backspace button in the footer. */
@@ -159,6 +162,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                     // Equivalent to ValueAnimator.ofArgb() which is only for API 21+.
                     mFabBackgroundColorAnimator = ValueAnimator.ofInt(colors);
                     mFabBackgroundColorAnimator.setEvaluator(new ArgbEvaluator());
+                    mFabBackgroundColorAnimator.setDuration(FAB_ANIM_DURATION);
                     mFabBackgroundColorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animation) {
