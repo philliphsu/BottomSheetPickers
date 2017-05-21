@@ -66,7 +66,7 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
             }
         });
 
-        if (timePicker.getShowFabPolicy() == NumberPadTimePicker.SHOW_FAB_ALWAYS
+        if (timePicker.getShowFabPolicy() == NumberPadTimePickerBottomSheetComponent.SHOW_FAB_ALWAYS
                 && timePicker.isAnimateFabIn()) {
             // Overrides the default callback, but we kept the default behavior.
             BottomSheetBehavior.from((View) root.getParent()).setBottomSheetCallback(

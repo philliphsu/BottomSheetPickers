@@ -81,7 +81,7 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
     public void setOkButtonEnabled(boolean enabled) {
         if (mTimePicker.getLayout() == NumberPadTimePicker.LAYOUT_BOTTOM_SHEET
                 && mOkButton instanceof FloatingActionButton) {
-            if (mTimePicker.getShowFabPolicy() == NumberPadTimePicker.SHOW_FAB_VALID_TIME) {
+            if (mTimePicker.getShowFabPolicy() == NumberPadTimePickerBottomSheetComponent.SHOW_FAB_VALID_TIME) {
                 if (enabled) {
                     ((FloatingActionButton) mOkButton).show();
                 } else {
