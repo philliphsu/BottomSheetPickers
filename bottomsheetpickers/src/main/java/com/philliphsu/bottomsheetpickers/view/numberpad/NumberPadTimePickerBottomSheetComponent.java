@@ -24,14 +24,13 @@ import java.lang.annotation.RetentionPolicy;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static android.view.View.inflate;
-import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
 
 /**
  * Component that installs {@link NumberPadTimePicker#LAYOUT_BOTTOM_SHEET bottom sheet}
  * functionality to a {@link NumberPadTimePicker}.
  */
-final class NumberPadTimePickerBottomSheetComponent {
+final class NumberPadTimePickerBottomSheetComponent 
+        extends NumberPadTimePicker.NumberPadTimePickerBaseComponent {
     /**
      * Color attributes defined in our {@code Context}'s theme.
      *
@@ -78,9 +77,8 @@ final class NumberPadTimePickerBottomSheetComponent {
 
     NumberPadTimePickerBottomSheetComponent(NumberPadTimePicker timePicker, Context context,
             AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        final View root = View.inflate(context, R.layout.bsp_bottomsheet_numberpad_time_picker,
-                timePicker);
-        mOkButton = (FloatingActionButton) root.findViewById(R.id.bsp_ok_button);
+        super(timePicker, context, attrs, defStyleAttr, defStyleRes);
+        mOkButton = (FloatingActionButton) timePicker.findViewById(R.id.bsp_ok_button);
         
         final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
                 R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
@@ -157,9 +155,9 @@ final class NumberPadTimePickerBottomSheetComponent {
         // Instead of hardcoding the row index, which will not scale if we ever add or remove
         // rows to the number pad, we wait until everything is completely drawn to do our
         // manipulation. Note that drawing is not completed even by the time of onFinishInflate().
-        final GridLayout numberPad = (GridLayout) root.findViewById(R.id.bsp_numberpad_time_picker_view);
-        final View backspace = root.findViewById(R.id.bsp_backspace);
-        final ViewGroup headerView = (ViewGroup) root.findViewById(R.id.bsp_header);
+        final GridLayout numberPad = (GridLayout) timePicker.findViewById(R.id.bsp_numberpad_time_picker_view);
+        final View backspace = timePicker.findViewById(R.id.bsp_backspace);
+        final ViewGroup headerView = (ViewGroup) timePicker.findViewById(R.id.bsp_header);
         numberPad.post(new Runnable() {
             @Override
             public void run() {
@@ -189,7 +187,12 @@ final class NumberPadTimePickerBottomSheetComponent {
         
         timePickerAttrs.recycle();
     }
-    
+
+    @Override
+    View inflate(Context context, NumberPadTimePicker root) {
+        return View.inflate(context, R.layout.bsp_bottomsheet_numberpad_time_picker, root);
+    }
+
     @Nullable
     View getOkButton() {
         return mOkButton;

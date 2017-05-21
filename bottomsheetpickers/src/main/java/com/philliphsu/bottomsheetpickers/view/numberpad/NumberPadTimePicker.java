@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -81,11 +80,11 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
 
     // TODO: Apply the style resource, either the one contained in defStyleAttr or defStyleRes itself.
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        setOrientation(VERTICAL);
         final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
                 R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
-
-        setOrientation(VERTICAL);
         mLayout = retrieveLayout(timePickerAttrs);
+        timePickerAttrs.recycle();
         switch (mLayout) {
             case LAYOUT_BOTTOM_SHEET:
                 mBottomSheetComponent = new NumberPadTimePickerBottomSheetComponent(
@@ -103,50 +102,6 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         mTimeDisplay = (TextView) findViewById(R.id.bsp_input_time);
         mAmPmDisplay = (TextView) findViewById(R.id.bsp_input_ampm);
         mBackspace = (ImageButton) findViewById(R.id.bsp_backspace);
-        final ViewGroup headerView = (ViewGroup) findViewById(R.id.bsp_header);
-
-        final int inputTimeTextColor = timePickerAttrs.getColor(
-                R.styleable.BSP_NumberPadTimePicker_bsp_inputTimeTextColor, 0);
-        final int inputAmPmTextColor = timePickerAttrs.getColor(
-                R.styleable.BSP_NumberPadTimePicker_bsp_inputAmPmTextColor, 0);
-        final ColorStateList backspaceTint = timePickerAttrs.getColorStateList(
-                R.styleable.BSP_NumberPadTimePicker_bsp_backspaceTint);
-        final ColorStateList numberKeysTextColor = timePickerAttrs.getColorStateList(
-                R.styleable.BSP_NumberPadTimePicker_bsp_numberKeysTextColor);
-        final ColorStateList altKeysTextColor = timePickerAttrs.getColorStateList(
-                R.styleable.BSP_NumberPadTimePicker_bsp_altKeysTextColor);
-        final Drawable headerBackground = timePickerAttrs.getDrawable(
-                R.styleable.BSP_NumberPadTimePicker_bsp_headerBackground);
-        final Drawable divider = timePickerAttrs.getDrawable(
-                R.styleable.BSP_NumberPadTimePicker_bsp_divider);
-        final Drawable numberPadBackground = timePickerAttrs.getDrawable(
-                R.styleable.BSP_NumberPadTimePicker_bsp_numberPadBackground);
-        timePickerAttrs.recycle();
-
-        if (inputTimeTextColor != 0) {
-            mTimeDisplay.setTextColor(inputTimeTextColor);
-        }
-        if (inputAmPmTextColor != 0) {
-            mAmPmDisplay.setTextColor(inputAmPmTextColor);
-        }
-        if (backspaceTint != null) {
-            DrawableCompat.setTintList(mBackspace.getDrawable(), backspaceTint);
-        }
-        if (numberKeysTextColor != null) {
-            mNumberPad.setNumberKeysTextColor(numberKeysTextColor);
-        }
-        if (altKeysTextColor != null) {
-            mNumberPad.setAltKeysTextColor(altKeysTextColor);
-        }
-        if (headerBackground != null) {
-            setBackground(headerView, headerBackground);
-        }
-        if (divider != null) {
-            setBackground(findViewById(R.id.bsp_divider), divider);
-        }
-        if (numberPadBackground != null) {
-            setBackground(mNumberPad, numberPadBackground);
-        }
     }
 
     @Override
@@ -266,11 +221,72 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         }
     }
 
-    private static void setBackground(View view, Drawable background) {
-        if (Build.VERSION.SDK_INT < 16) {
-            view.setBackgroundDrawable(background);
-        } else {
-            view.setBackground(background);
+    /**
+     * Component that installs the base functionality of a {@link NumberPadTimePicker}. 
+     */
+    abstract static class NumberPadTimePickerBaseComponent {
+        NumberPadTimePickerBaseComponent(NumberPadTimePicker timePicker, Context context,
+                AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+            final View root = inflate(context, timePicker);
+            final NumberPadView numberPad = (NumberPadView) root.findViewById(R.id.bsp_numberpad_time_picker_view);
+            final TextView timeDisplay = (TextView) root.findViewById(R.id.bsp_input_time);
+            final TextView amPmDisplay = (TextView) root.findViewById(R.id.bsp_input_ampm);
+            final ImageButton backspace = (ImageButton) root.findViewById(R.id.bsp_backspace);
+
+            final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
+                    R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
+            final int inputTimeTextColor = timePickerAttrs.getColor(
+                    R.styleable.BSP_NumberPadTimePicker_bsp_inputTimeTextColor, 0);
+            final int inputAmPmTextColor = timePickerAttrs.getColor(
+                    R.styleable.BSP_NumberPadTimePicker_bsp_inputAmPmTextColor, 0);
+            final ColorStateList backspaceTint = timePickerAttrs.getColorStateList(
+                    R.styleable.BSP_NumberPadTimePicker_bsp_backspaceTint);
+            final ColorStateList numberKeysTextColor = timePickerAttrs.getColorStateList(
+                    R.styleable.BSP_NumberPadTimePicker_bsp_numberKeysTextColor);
+            final ColorStateList altKeysTextColor = timePickerAttrs.getColorStateList(
+                    R.styleable.BSP_NumberPadTimePicker_bsp_altKeysTextColor);
+            final Drawable headerBackground = timePickerAttrs.getDrawable(
+                    R.styleable.BSP_NumberPadTimePicker_bsp_headerBackground);
+            final Drawable divider = timePickerAttrs.getDrawable(
+                    R.styleable.BSP_NumberPadTimePicker_bsp_divider);
+            final Drawable numberPadBackground = timePickerAttrs.getDrawable(
+                    R.styleable.BSP_NumberPadTimePicker_bsp_numberPadBackground);
+            timePickerAttrs.recycle();
+
+            if (inputTimeTextColor != 0) {
+                timeDisplay.setTextColor(inputTimeTextColor);
+            }
+            if (inputAmPmTextColor != 0) {
+                amPmDisplay.setTextColor(inputAmPmTextColor);
+            }
+            if (backspaceTint != null) {
+                DrawableCompat.setTintList(backspace.getDrawable(), backspaceTint);
+            }
+            if (numberKeysTextColor != null) {
+                numberPad.setNumberKeysTextColor(numberKeysTextColor);
+            }
+            if (altKeysTextColor != null) {
+                numberPad.setAltKeysTextColor(altKeysTextColor);
+            }
+            if (headerBackground != null) {
+                setBackground(root.findViewById(R.id.bsp_header), headerBackground);
+            }
+            if (divider != null) {
+                setBackground(root.findViewById(R.id.bsp_divider), divider);
+            }
+            if (numberPadBackground != null) {
+                setBackground(numberPad, numberPadBackground);
+            }
+        }
+        
+        abstract View inflate(Context context, NumberPadTimePicker root);
+
+        private static void setBackground(View view, Drawable background) {
+            if (Build.VERSION.SDK_INT < 16) {
+                view.setBackgroundDrawable(background);
+            } else {
+                view.setBackground(background);
+            }
         }
     }
 }
