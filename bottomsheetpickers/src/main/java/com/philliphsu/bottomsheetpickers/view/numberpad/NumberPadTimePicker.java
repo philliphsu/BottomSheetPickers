@@ -1,5 +1,7 @@
 package com.philliphsu.bottomsheetpickers.view.numberpad;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -8,7 +10,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleableRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.GridLayout;
@@ -24,6 +28,8 @@ import com.philliphsu.bottomsheetpickers.R;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
+
 // TODO: Declare an attribute with format="reference" to allow a style resource to be specified.
 class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
     /**
@@ -33,6 +39,11 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
      * rather than in XML because themed colors can only be resolved in code below API 23.
      */
     private static final int[] ATTRS_FAB_COLORS = { R.attr.colorButtonNormal, R.attr.colorAccent };
+    /**
+     * The states associated with each color resolved from each of the attributes in
+     * {@link #ATTRS_FAB_COLORS}.
+     */
+    private static final int[][] STATES_FAB_COLORS = {{-android.R.attr.state_enabled}, {}};
 
     /** Option to place the backspace button in the header. */
     private static final int LOCATION_HEADER = 0;
@@ -67,6 +78,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     private TextView mAmPmDisplay;
     private ImageButton mBackspace;
     private @Nullable View mOkButton;
+    private @Nullable ValueAnimator mFabBackgroundColorAnimator;
 
     private @NumberPadTimePickerLayout int mLayout;
     private @ShowFabPolicy int mShowFabPolicy;
@@ -112,18 +124,33 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         final ViewGroup headerView = (ViewGroup) findViewById(R.id.bsp_header);
 
         if (mLayout == LAYOUT_BOTTOM_SHEET) {
-            final FloatingActionButton fab = (FloatingActionButton) mOkButton;
+            final FloatingActionButton fab = (FloatingActionButton) checkNotNull(mOkButton);
+
             final ColorStateList fabBackgroundColor = retrieveFabBackgroundColor(
                     timePickerAttrs, context);
+            final boolean animateFabBackgroundColor = timePickerAttrs.getBoolean(
+                    R.styleable.BSP_NumberPadTimePicker_bsp_animateFabBackgroundColor, true);
+            // If we could not create a default ColorStateList, then just leave the current
+            // stateless color as is. If the color is stateless, we ignore the value for
+            // animateFabBackgroundColor because there is nothing to animate.
+            if (fabBackgroundColor != null) {
+                if (animateFabBackgroundColor) {
+                    // Extract the colors from the ColorStateList.
+                    int[] colors = new int[STATES_FAB_COLORS.length];
+                    int idx = 0;
+                    for (int[] stateSet : STATES_FAB_COLORS) {
+                        colors[idx++] = fabBackgroundColor.getColorForState(stateSet, 0);
+                    }
+                    // Equivalent to ValueAnimator.ofArgb() which API 21.
+                    mFabBackgroundColorAnimator = ValueAnimator.ofInt(colors);
+                    mFabBackgroundColorAnimator.setEvaluator(new ArgbEvaluator());
+                } else {
+                    fab.setBackgroundTintList(fabBackgroundColor);
+                }
+            }
+
             final int fabRippleColor = timePickerAttrs.getColor(
                     R.styleable.BSP_NumberPadTimePicker_bsp_fabRippleColor, 0);
-            // If we could not create a default ColorStateList, then just leave the current
-            // color as is.
-            if (fabBackgroundColor != null) {
-                // If we don't make this cast, this would call the base method in View,
-                // which requires API 21.
-                fab.setBackgroundTintList(fabBackgroundColor);
-            }
             if (fabRippleColor != 0) {
                 fab.setRippleColor(fabRippleColor);
             }
@@ -328,25 +355,24 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
             // Set default ColorStateList.
             // Themed color attributes in a ColorStateList defined in XML cannot be resolved
             // correctly below API 23, so we can only do this in code.
-
-            // We must create a different TypedArray here rather than use the previous instance
-            // because it was configured to only retrieve values for NumberPadTimePicker
-            // attributes.
-            final TypedArray themedColors = context.obtainStyledAttributes(ATTRS_FAB_COLORS);
-            // The first argument in this set of calls is the index of the attribute in the
-            // attributes array for which we would like to get the resolved value.
-            // The second argument is the default value to return if a value for the attribute
-            // could not be found.
-            final int disabledColor = themedColors.getColor(0, 0);
-            final int defaultColor = themedColors.getColor(1, 0);
-            themedColors.recycle();
-            if (disabledColor != 0 && defaultColor != 0) {
-                int[][] states = {{-android.R.attr.state_enabled}, {}};
-                int[] colors = {disabledColor, defaultColor};
-                fabBackgroundColor = new ColorStateList(states, colors);
+            final int[] colors = resolveColorAttributesFromTheme(context, ATTRS_FAB_COLORS);
+            // Check if colors are valid.
+            if (isAllNonzero(colors)) {
+                fabBackgroundColor = new ColorStateList(STATES_FAB_COLORS, colors);
             }
         }
         return fabBackgroundColor;
+    }
+
+    @NonNull
+    private static int[] resolveColorAttributesFromTheme(Context context, @StyleableRes int[] attrs) {
+        final TypedArray ta = context.obtainStyledAttributes(attrs);
+        final int[] colors = new int[attrs.length];
+        for (int idxAttr = 0; idxAttr < colors.length; idxAttr++) {
+             colors[idxAttr] = ta.getColor(idxAttr, 0);
+        }
+        ta.recycle();
+        return colors;
     }
 
     @NumberPadTimePickerLayout
@@ -394,5 +420,14 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         } else {
             view.setBackground(background);
         }
+    }
+
+    private static boolean isAllNonzero(int[] a) {
+        for (int elem : a) {
+            if (elem == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }

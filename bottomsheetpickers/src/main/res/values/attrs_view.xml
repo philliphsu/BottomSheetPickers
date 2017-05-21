@@ -23,6 +23,11 @@
              when the button is enabled. -->
         <attr name="bsp_fabBackgroundColor" format="color" />
 
+        <!-- Whether the floating action button should animate between its background colors
+             that were set in {@code bsp_fabBackgroundColor}. This attribute is only applied
+             if the time picker is using the bottom sheet layout. -->
+        <attr name="bsp_animateFabBackgroundColor" format="boolean" />
+
         <!-- Indicates when the floating action button should be shown. This attribute is
              only applied if the time picker is using the bottom sheet layout.
 
