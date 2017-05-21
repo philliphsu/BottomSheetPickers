@@ -144,9 +144,8 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                     // Equivalent to ValueAnimator.ofArgb() which API 21.
                     mFabBackgroundColorAnimator = ValueAnimator.ofInt(colors);
                     mFabBackgroundColorAnimator.setEvaluator(new ArgbEvaluator());
-                } else {
-                    fab.setBackgroundTintList(fabBackgroundColor);
                 }
+                fab.setBackgroundTintList(fabBackgroundColor);
             }
 
             final int fabRippleColor = timePickerAttrs.getColor(
