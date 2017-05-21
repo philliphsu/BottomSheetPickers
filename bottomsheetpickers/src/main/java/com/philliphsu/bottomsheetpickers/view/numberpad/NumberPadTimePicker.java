@@ -141,7 +141,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                     for (int[] stateSet : STATES_FAB_COLORS) {
                         colors[idx++] = fabBackgroundColor.getColorForState(stateSet, 0);
                     }
-                    // Equivalent to ValueAnimator.ofArgb() which API 21.
+                    // Equivalent to ValueAnimator.ofArgb() which is only for API 21+.
                     mFabBackgroundColorAnimator = ValueAnimator.ofInt(colors);
                     mFabBackgroundColorAnimator.setEvaluator(new ArgbEvaluator());
                 }
@@ -179,18 +179,20 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                             break;
                         case LOCATION_FOOTER:
                             headerView.removeView(mBackspace);
-                            final GridLayout.LayoutParams lp = new GridLayout.LayoutParams(
-                                    // The row of the cell in which the backspace key should go.
-                                    // This specifies the row index, which spans one increment,
-                                    // and indicates the cell should be filled along the row
-                                    // (horizontal) axis.
-                                    GridLayout.spec(mNumberPad.getRowCount() - 1, GridLayout.FILL),
-                                    // The column of the cell in which the backspace key should go.
-                                    // This specifies the column index, which spans one increment,
-                                    // and indicates the cell should be filled along the column
-                                    // (vertical) axis.
-                                    GridLayout.spec(mNumberPad.getColumnCount() - 1, GridLayout.FILL));
-                            mNumberPad.addView(mBackspace, lp);
+                            // The row of the cell in which the backspace key should go.
+                            // This specifies the row index, which spans one increment,
+                            // and indicates the cell should be filled along the row
+                            // (horizontal) axis.
+                            final GridLayout.Spec rowSpec = GridLayout.spec(
+                                    mNumberPad.getRowCount() - 1, GridLayout.FILL);
+                            // The column of the cell in which the backspace key should go.
+                            // This specifies the column index, which spans one increment,
+                            // and indicates the cell should be filled along the column
+                            // (vertical) axis.
+                            final GridLayout.Spec columnSpec = GridLayout.spec(
+                                    mNumberPad.getColumnCount() - 1, GridLayout.FILL);
+                            mNumberPad.addView(mBackspace, new GridLayout.LayoutParams(
+                                    rowSpec, columnSpec));
                             break;
                     }
                 }
