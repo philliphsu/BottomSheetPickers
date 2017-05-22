@@ -46,7 +46,7 @@ final class NumberPadTimePickerBottomSheetComponent
     private static final int[][] STATES_FAB_COLORS = {{-android.R.attr.state_enabled}, {}};
 
     /** Duration for all FAB animations. */
-    private static final int FAB_ANIM_DURATION = 100;
+    private static final int FAB_ANIM_DURATION = 80;
 
     /** Option to place the backspace button in the header. */
     private static final int LOCATION_HEADER = 0;
