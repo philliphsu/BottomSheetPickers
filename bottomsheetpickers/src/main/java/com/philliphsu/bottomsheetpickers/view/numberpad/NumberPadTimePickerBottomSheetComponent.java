@@ -2,11 +2,14 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -46,7 +49,7 @@ final class NumberPadTimePickerBottomSheetComponent
     private static final int[][] STATES_FAB_COLORS = {{-android.R.attr.state_enabled}, {}};
 
     /** Duration for all FAB animations. */
-    private static final int FAB_ANIM_DURATION = 80;
+    private static final int FAB_ANIM_DURATION = 120;
 
     /** Option to place the backspace button in the header. */
     private static final int LOCATION_HEADER = 0;
@@ -68,11 +71,17 @@ final class NumberPadTimePickerBottomSheetComponent
 
     private final FloatingActionButton mOkButton;
     private final ValueAnimator mFabBackgroundColorAnimator;
+    private final ValueAnimator mFabElevationAnimator;
+    private final AnimatorSet mFabAnimatorSet;
 
     @ShowFabPolicy
     private final int mShowFabPolicy;
     private final boolean mAnimateFabIn;
     private final boolean mAnimateFabBackgroundColor;
+    private final float mFabElevation;
+    /** r == set r, c == color c in set r. Array lengths should be kept in sync with the lengths
+     * of the attrs and states arrays. */
+    private final int[][] mFabBackgroundColorsSet = new int[2][2];  // Two sets, each with two colors.
     
     private boolean mAnimatingToEnabled;
 
@@ -89,14 +98,19 @@ final class NumberPadTimePickerBottomSheetComponent
         mAnimateFabBackgroundColor = timePickerAttrs.getBoolean(
                 R.styleable.BSP_NumberPadTimePicker_bsp_animateFabBackgroundColor, true);
         ValueAnimator fabBackgroundColorAnimator = null;
+        ValueAnimator fabElevationAnimator = null;
+        AnimatorSet fabAnimatorSet = null;
+        mFabElevation = context.getResources().getDimension(R.dimen.bsp_bottom_sheet_grid_picker_fab_elevation);
         // If we could not create a default ColorStateList, then just leave the current
         // stateless color as is. If the color is stateless, we ignore the value for
         // animateFabBackgroundColor because there is nothing to animate.
         if (fabBackgroundColor != null) {
             if (mAnimateFabBackgroundColor) {
                 // Extract the colors from the ColorStateList.
-                int[] colors = new int[STATES_FAB_COLORS.length];
-                int idx = 0;
+                final int numStates = STATES_FAB_COLORS.length;
+                int[] colors = new int[numStates];
+                int[] revColors = new int[numStates];
+                int idx = 0, revIdx = numStates - 1;
                 for (int[] stateSet : STATES_FAB_COLORS) {
                     // The empty state is peculiar in that getColorForState() will not return
                     // the default color, but rather any color defined in the ColorStateList
@@ -108,13 +122,16 @@ final class NumberPadTimePickerBottomSheetComponent
                     // it may be any value."
                     // "An item with no state spec is considered to match any set of states
                     // and is generally useful as a final item to be used as a default."
-                    colors[idx++] = stateSet.length == 0 ? fabBackgroundColor.getDefaultColor()
+                    final int color = stateSet.length == 0 ? fabBackgroundColor.getDefaultColor()
                             : fabBackgroundColor.getColorForState(stateSet, 0);
+                    colors[idx++] = color;
+                    revColors[revIdx--] = color;
                 }
+                mFabBackgroundColorsSet[0] = colors;
+                mFabBackgroundColorsSet[1] = revColors;
                 // Equivalent to ValueAnimator.ofArgb() which is only for API 21+.
                 fabBackgroundColorAnimator = ValueAnimator.ofInt(colors);
                 fabBackgroundColorAnimator.setEvaluator(new ArgbEvaluator());
-                fabBackgroundColorAnimator.setDuration(FAB_ANIM_DURATION);
                 fabBackgroundColorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
@@ -122,7 +139,15 @@ final class NumberPadTimePickerBottomSheetComponent
                                 (int) animation.getAnimatedValue()));
                     }
                 });
-                fabBackgroundColorAnimator.addListener(new AnimatorListenerAdapter() {
+                final String elevationProperty = Build.VERSION.SDK_INT >= 21 ?
+                        "elevation" : "compatElevation";
+                fabElevationAnimator = ObjectAnimator.ofFloat(mOkButton,
+                        elevationProperty, mFabElevation);
+
+                fabAnimatorSet = new AnimatorSet();
+                fabAnimatorSet.setDuration(FAB_ANIM_DURATION).playTogether(
+                        fabBackgroundColorAnimator, fabElevationAnimator);
+                fabAnimatorSet.addListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         mOkButton.setEnabled(mAnimatingToEnabled);
@@ -131,8 +156,16 @@ final class NumberPadTimePickerBottomSheetComponent
             }
             mOkButton.setBackgroundTintList(fabBackgroundColor);
         }
-        mFabBackgroundColorAnimator = mAnimateFabBackgroundColor
-                ? checkNotNull(fabBackgroundColorAnimator) : null;
+
+        if (mAnimateFabBackgroundColor) {
+            mFabBackgroundColorAnimator = checkNotNull(fabBackgroundColorAnimator);
+            mFabElevationAnimator = checkNotNull(fabElevationAnimator);
+            mFabAnimatorSet = checkNotNull(fabAnimatorSet);
+        } else {
+            mFabBackgroundColorAnimator = null;
+            mFabElevationAnimator = null;
+            mFabAnimatorSet = null;
+        }
 
         final int fabRippleColor = timePickerAttrs.getColor(
                 R.styleable.BSP_NumberPadTimePicker_bsp_fabRippleColor, 0);
@@ -223,10 +256,14 @@ final class NumberPadTimePickerBottomSheetComponent
             if (mOkButton.isEnabled() != enabled) {
                 if (enabled) {
                     // Animate from disabled color to enabled color.
-                    mFabBackgroundColorAnimator.start();
+                    mFabBackgroundColorAnimator.setIntValues(mFabBackgroundColorsSet[0]);
+                    mFabElevationAnimator.setFloatValues(mFabElevation);
+                    mFabAnimatorSet.start();
                 } else {
                     // Animate from enabled color to disabled color.
-                    mFabBackgroundColorAnimator.reverse();
+                    mFabBackgroundColorAnimator.setIntValues(mFabBackgroundColorsSet[1]);
+                    mFabElevationAnimator.setFloatValues(0f);
+                    mFabAnimatorSet.start();
                 }
             }
             mAnimatingToEnabled = enabled;
