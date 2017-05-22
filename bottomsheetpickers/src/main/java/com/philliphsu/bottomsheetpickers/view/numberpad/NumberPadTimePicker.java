@@ -189,7 +189,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
      */
     abstract static class NumberPadTimePickerComponent {
         NumberPadTimePickerComponent(NumberPadTimePicker timePicker, Context context,
-                                     AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+                AttributeSet attrs, int defStyleAttr, int defStyleRes) {
             final View root = inflate(context, timePicker);
             final NumberPadView numberPad = (NumberPadView) root.findViewById(R.id.bsp_numberpad_time_picker_view);
             final TextView timeDisplay = (TextView) root.findViewById(R.id.bsp_input_time);
