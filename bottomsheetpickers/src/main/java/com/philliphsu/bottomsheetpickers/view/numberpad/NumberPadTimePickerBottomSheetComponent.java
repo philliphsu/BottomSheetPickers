@@ -219,15 +219,19 @@ final class NumberPadTimePickerBottomSheetComponent
             } else {
                 mOkButton.hide();
             }
-        } else if (mAnimateFabBackgroundColor && mOkButton.isEnabled() != enabled) {
-            if (enabled) {
-                // Animate from disabled color to enabled color.
-                mFabBackgroundColorAnimator.start();
-            } else {
-                // Animate from enabled color to disabled color.
-                mFabBackgroundColorAnimator.reverse();
+        } else if (mAnimateFabBackgroundColor) {
+            if (mOkButton.isEnabled() != enabled) {
+                if (enabled) {
+                    // Animate from disabled color to enabled color.
+                    mFabBackgroundColorAnimator.start();
+                } else {
+                    // Animate from enabled color to disabled color.
+                    mFabBackgroundColorAnimator.reverse();
+                }
             }
             mAnimatingToEnabled = enabled;
+        } else {
+            mOkButton.setEnabled(enabled);
         }
     }
 
