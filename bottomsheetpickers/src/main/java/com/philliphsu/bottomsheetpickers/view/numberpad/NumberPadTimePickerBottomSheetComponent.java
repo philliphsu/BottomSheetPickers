@@ -242,17 +242,28 @@ final class NumberPadTimePickerBottomSheetComponent
             }
         } else if (mAnimateFabBackgroundColor) {
             if (mOkButton.isEnabled() != enabled) {
-                if (enabled) {
-                    // Animate from disabled color to enabled color.
-                    mFabBackgroundColorAnimator.start();
-                    mFabElevationAnimator.start();
+                // Started animators are not necessarily running. They may have start delays, in
+                // which case they have not run yet, or they may have been paused during running.
+                // We do not need to be concerned with the latter case, because we don't pause.
+                // Therefore, we are filtering out animators that are running or are set to run
+                // after some set delay.
+                if (!mFabBackgroundColorAnimator.isStarted() && !mFabElevationAnimator.isStarted()) {
+                    if (enabled) {
+                        // Animate from disabled color to enabled color.
+                        mFabBackgroundColorAnimator.start();
+                        mFabElevationAnimator.start();
+                    } else {
+                        // Animate from enabled color to disabled color.
+                        mFabBackgroundColorAnimator.reverse();
+                        mFabElevationAnimator.reverse();
+                    }
+                    mAnimatingToEnabled = enabled;
                 } else {
-                    // Animate from enabled color to disabled color.
-                    mFabBackgroundColorAnimator.reverse();
-                    mFabElevationAnimator.reverse();
+                    mFabBackgroundColorAnimator.end();
+                    mFabElevationAnimator.end();
+                    mOkButton.setEnabled(enabled);
                 }
             }
-            mAnimatingToEnabled = enabled;
         } else {
             mOkButton.setEnabled(enabled);
         }

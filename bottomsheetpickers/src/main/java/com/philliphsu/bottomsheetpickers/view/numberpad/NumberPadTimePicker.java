@@ -20,21 +20,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 // TODO: Declare an attribute with format="reference" to allow a style resource to be specified.
-
-// TODO: Animate FAB elevation in BottomSheet subtype.
-
-// TODO: If you backspace repeatedly quick enough, you see that the FAB color animation plays
-// over and over again. E.g. enter a valid time then double tap on the backspace. This is happening
-// because you are waiting until the animation ends before setting the FAB's enabled state.
-// You can try (1) immediately setting the enabled state or (2) do some trickery to prevent the
-// animation from playing if it is already playing or (3) decrease the animation duration.
-// The problem with (1) could be the elevation shadow would immediately show up as well;
-// however, this could be mitigated when we also animate the elevation property--or would the
-// elevation be immediately set to 100% as a result and then the animation's calculations are
-// thrown off? The problem with (2) is it's going to require significant effort. Lastly, the problem
-// with (3) is people can no doubt successively click the backspace button faster than any reasonably
-// small duration for the animation, so the animation will end up being so short that it may as well
-// not be an animation.
 class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
     /** Option to layout this view for use in an alert dialog. */
     static final int LAYOUT_ALERT = 1;
