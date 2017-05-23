@@ -13,6 +13,7 @@
     <!-- Bottom padding for a grid-based picker. -->
     <dimen name="bsp_gridpicker_padding_bottom">24dp</dimen>
 
+    <dimen name="bsp_bottom_sheet_grid_picker_padding_top">16dp</dimen>
     <!-- FAB margin in a bottom sheet grid-based picker. -->
     <dimen name="bsp_bottom_sheet_grid_picker_fab_margin">8dp</dimen>
 
