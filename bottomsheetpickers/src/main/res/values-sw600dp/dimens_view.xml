@@ -25,5 +25,5 @@
     <dimen name="bsp_numberpad_time_picker_input_time_text_size">112sp</dimen>
     <dimen name="bsp_numberpad_time_picker_input_ampm_text_size">24sp</dimen>
 
-    <dimen name="bsp_bottom_sheet_dialog_width">560dp</dimen>
+    <dimen name="bsp_bottom_sheet_dialog_width">448dp</dimen>
 </resources>
