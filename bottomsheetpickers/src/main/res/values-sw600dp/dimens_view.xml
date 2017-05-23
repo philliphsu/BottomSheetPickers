@@ -14,7 +14,7 @@
     <dimen name="bsp_gridpicker_padding_bottom">24dp</dimen>
 
     <!-- FAB margin in a bottom sheet grid-based picker. -->
-    <dimen name="bsp_bottom_sheet_grid_picker_fab_margin">24dp</dimen>
+    <dimen name="bsp_bottom_sheet_grid_picker_fab_margin">8dp</dimen>
 
     <dimen name="bsp_numberpad_time_picker_header_height">128dp</dimen>
     <dimen name="bsp_numberpad_time_picker_backspace_icon_size">48dp</dimen>
@@ -24,4 +24,6 @@
     <dimen name="bsp_numberpad_time_picker_alt_button_text_size">34sp</dimen>
     <dimen name="bsp_numberpad_time_picker_input_time_text_size">112sp</dimen>
     <dimen name="bsp_numberpad_time_picker_input_ampm_text_size">24sp</dimen>
+
+    <dimen name="bsp_bottom_sheet_dialog_width">560dp</dimen>
 </resources>
