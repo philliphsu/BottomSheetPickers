@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="bsp_alert_dialog_width">560dp</dimen>
     <dimen name="bsp_bottom_sheet_dialog_width">560dp</dimen>
 </resources>
