@@ -30,13 +30,8 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     @Retention(RetentionPolicy.SOURCE)
     @interface NumberPadTimePickerLayout {}
 
-    private NumberPadView mNumberPad;
-    private LinearLayout mInputTimeContainer;
-    private TextView mTimeDisplay;
-    private TextView mAmPmDisplay;
-    private ImageButton mBackspace;
-
     private NumberPadTimePickerComponent mTimePickerComponent;
+    private LinearLayout mInputTimeContainer;
 
     private @NumberPadTimePickerLayout int mLayout;
 
@@ -62,10 +57,12 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     // TODO: Apply the style resource, either the one contained in defStyleAttr or defStyleRes itself.
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         setOrientation(VERTICAL);
+
         final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
                 R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
         mLayout = retrieveLayout(timePickerAttrs);
         timePickerAttrs.recycle();
+
         switch (mLayout) {
             case LAYOUT_BOTTOM_SHEET:
                 mTimePickerComponent = new NumberPadTimePickerBottomSheetComponent(
@@ -78,36 +75,32 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                 break;
         }
 
-        mNumberPad = (NumberPadView) findViewById(R.id.bsp_numberpad_time_picker_view);
         mInputTimeContainer = (LinearLayout) findViewById(R.id.bsp_input_time_container);
-        mTimeDisplay = (TextView) findViewById(R.id.bsp_input_time);
-        mAmPmDisplay = (TextView) findViewById(R.id.bsp_input_ampm);
-        mBackspace = (ImageButton) findViewById(R.id.bsp_backspace);
     }
 
     @Override
     public void setNumberKeysEnabled(int start, int end) {
-        mNumberPad.setNumberKeysEnabled(start, end);
+        mTimePickerComponent.mNumberPad.setNumberKeysEnabled(start, end);
     }
 
     @Override
     public void setBackspaceEnabled(boolean enabled) {
-        mBackspace.setEnabled(enabled);
+        mTimePickerComponent.mBackspace.setEnabled(enabled);
     }
 
     @Override
     public void updateTimeDisplay(CharSequence time) {
-        mTimeDisplay.setText(time);
+        mTimePickerComponent.mTimeDisplay.setText(time);
     }
 
     @Override
     public void updateAmPmDisplay(CharSequence ampm) {
-        mAmPmDisplay.setText(ampm);
+        mTimePickerComponent.mAmPmDisplay.setText(ampm);
     }
 
     @Override
     public void setAmPmDisplayVisible(boolean visible) {
-        mAmPmDisplay.setVisibility(visible ? VISIBLE : GONE);
+        mTimePickerComponent.mAmPmDisplay.setVisibility(visible ? VISIBLE : GONE);
     }
 
     @Override
@@ -117,27 +110,27 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         }
         if (index == 1) return;
         mInputTimeContainer.removeViewAt(1);
-        mInputTimeContainer.addView(mAmPmDisplay, 0);
+        mInputTimeContainer.addView(mTimePickerComponent.mAmPmDisplay, 0);
     }
 
     @Override
     public void setLeftAltKeyText(CharSequence text) {
-        mNumberPad.setLeftAltKeyText(text);
+        mTimePickerComponent.mNumberPad.setLeftAltKeyText(text);
     }
 
     @Override
     public void setRightAltKeyText(CharSequence text) {
-        mNumberPad.setRightAltKeyText(text);
+        mTimePickerComponent.mNumberPad.setRightAltKeyText(text);
     }
 
     @Override
     public void setLeftAltKeyEnabled(boolean enabled) {
-        mNumberPad.setLeftAltKeyEnabled(enabled);
+        mTimePickerComponent.mNumberPad.setLeftAltKeyEnabled(enabled);
     }
 
     @Override
     public void setRightAltKeyEnabled(boolean enabled) {
-        mNumberPad.setRightAltKeyEnabled(enabled);
+        mTimePickerComponent.mNumberPad.setRightAltKeyEnabled(enabled);
     }
 
     @Deprecated
@@ -152,19 +145,19 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     }
 
     void setOnBackspaceClickListener(OnClickListener l) {
-        mBackspace.setOnClickListener(l);
+        mTimePickerComponent.mBackspace.setOnClickListener(l);
     }
 
     void setOnBackspaceLongClickListener(OnLongClickListener l) {
-        mBackspace.setOnLongClickListener(l);
+        mTimePickerComponent.mBackspace.setOnLongClickListener(l);
     }
 
     void setOnNumberKeyClickListener(OnClickListener l) {
-        mNumberPad.setOnNumberKeyClickListener(l);
+        mTimePickerComponent.mNumberPad.setOnNumberKeyClickListener(l);
     }
 
     void setOnAltKeyClickListener(OnClickListener l) {
-        mNumberPad.setOnAltKeyClickListener(l);
+        mTimePickerComponent.mNumberPad.setOnAltKeyClickListener(l);
     }
 
     NumberPadTimePickerComponent getComponent() {
@@ -184,17 +177,34 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         }
     }
 
+    private static void setBackground(View view, Drawable background) {
+        if (Build.VERSION.SDK_INT < 16) {
+            view.setBackgroundDrawable(background);
+        } else {
+            view.setBackground(background);
+        }
+    }
+
     /**
      * Component that installs the base functionality of a {@link NumberPadTimePicker}. 
      */
     abstract static class NumberPadTimePickerComponent {
+        private final NumberPadView mNumberPad;
+        private final TextView mTimeDisplay;
+        private final TextView mAmPmDisplay;
+        private final ImageButton mBackspace;
+        private final View mHeader;
+        private final View mDivider;
+
         NumberPadTimePickerComponent(NumberPadTimePicker timePicker, Context context,
                 AttributeSet attrs, int defStyleAttr, int defStyleRes) {
             final View root = inflate(context, timePicker);
-            final NumberPadView numberPad = (NumberPadView) root.findViewById(R.id.bsp_numberpad_time_picker_view);
-            final TextView timeDisplay = (TextView) root.findViewById(R.id.bsp_input_time);
-            final TextView amPmDisplay = (TextView) root.findViewById(R.id.bsp_input_ampm);
-            final ImageButton backspace = (ImageButton) root.findViewById(R.id.bsp_backspace);
+            mNumberPad = (NumberPadView) root.findViewById(R.id.bsp_numberpad_time_picker_view);
+            mTimeDisplay = (TextView) root.findViewById(R.id.bsp_input_time);
+            mAmPmDisplay = (TextView) root.findViewById(R.id.bsp_input_ampm);
+            mBackspace = (ImageButton) root.findViewById(R.id.bsp_backspace);
+            mHeader = root.findViewById(R.id.bsp_header);
+            mDivider = root.findViewById(R.id.bsp_divider);
 
             final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
                     R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
@@ -217,39 +227,31 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
             timePickerAttrs.recycle();
 
             if (inputTimeTextColor != 0) {
-                timeDisplay.setTextColor(inputTimeTextColor);
+                mTimeDisplay.setTextColor(inputTimeTextColor);
             }
             if (inputAmPmTextColor != 0) {
-                amPmDisplay.setTextColor(inputAmPmTextColor);
+                mAmPmDisplay.setTextColor(inputAmPmTextColor);
             }
             if (backspaceTint != null) {
-                DrawableCompat.setTintList(backspace.getDrawable(), backspaceTint);
+                DrawableCompat.setTintList(mBackspace.getDrawable(), backspaceTint);
             }
             if (numberKeysTextColor != null) {
-                numberPad.setNumberKeysTextColor(numberKeysTextColor);
+                mNumberPad.setNumberKeysTextColor(numberKeysTextColor);
             }
             if (altKeysTextColor != null) {
-                numberPad.setAltKeysTextColor(altKeysTextColor);
+                mNumberPad.setAltKeysTextColor(altKeysTextColor);
             }
             if (headerBackground != null) {
-                setBackground(root.findViewById(R.id.bsp_header), headerBackground);
+                setBackground(mHeader, headerBackground);
             }
             if (divider != null) {
-                setBackground(root.findViewById(R.id.bsp_divider), divider);
+                setBackground(mDivider, divider);
             }
             if (numberPadBackground != null) {
-                setBackground(numberPad, numberPadBackground);
+                setBackground(mNumberPad, numberPadBackground);
             }
         }
         
         abstract View inflate(Context context, NumberPadTimePicker root);
-
-        private static void setBackground(View view, Drawable background) {
-            if (Build.VERSION.SDK_INT < 16) {
-                view.setBackgroundDrawable(background);
-            } else {
-                view.setBackground(background);
-            }
-        }
     }
 }
