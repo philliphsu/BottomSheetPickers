@@ -6,9 +6,11 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -21,6 +23,8 @@ import java.lang.annotation.RetentionPolicy;
 
 // TODO: Declare an attribute with format="reference" to allow a style resource to be specified.
 class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
+    private static final String TAG = NumberPadTimePicker.class.getSimpleName();
+
     /** Option to layout this view for use in an alert dialog. */
     static final int LAYOUT_ALERT = 1;
     /** Option to layout this view for use in a bottom sheet dialog. */
@@ -139,6 +143,48 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         // Do nothing.
     }
 
+    public void setHeaderBackground(Drawable background) {
+        mTimePickerComponent.setHeaderBackground(background);
+    }
+
+    public void setNumberPadBackground(Drawable background) {
+        mTimePickerComponent.setNumberPadBackground(background);
+    }
+
+    public void setDivider(Drawable divider) {
+        mTimePickerComponent.setDivider(divider);
+    }
+
+    public void setInputTimeTextColor(@ColorInt int color) {
+        mTimePickerComponent.setInputTimeTextColor(color);
+    }
+
+    public void setInputAmPmTextColor(@ColorInt int color) {
+        mTimePickerComponent.setInputAmPmTextColor(color);
+    }
+
+    public void setBackspaceTint(ColorStateList colors) {
+        mTimePickerComponent.setBackspaceTint(colors);
+    }
+
+    public void setNumberKeysTextColor(ColorStateList colors) {
+        mTimePickerComponent.setNumberKeysTextColor(colors);
+    }
+
+    public void setAltKeysTextColor(ColorStateList colors) {
+        mTimePickerComponent.setAltKeysTextColor(colors);
+    }
+
+    public void setFabBackgroundColor(ColorStateList colors) {
+        if (mLayout == LAYOUT_BOTTOM_SHEET && mTimePickerComponent
+                instanceof NumberPadTimePickerBottomSheetComponent) {
+            ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent)
+                    .setFabBackgroundColor(colors);
+        } else {
+            Log.w(TAG, "Calling setFabBackgroundColor() has no effect in LAYOUT_ALERT");
+        }
+    }
+
     @NumberPadTimePickerLayout
     int getLayout() {
         return mLayout;
@@ -174,14 +220,6 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
                 return layout;
             default:
                 return LAYOUT_ALERT;
-        }
-    }
-
-    private static void setBackground(View view, Drawable background) {
-        if (Build.VERSION.SDK_INT < 16) {
-            view.setBackgroundDrawable(background);
-        } else {
-            view.setBackground(background);
         }
     }
 
@@ -227,31 +265,71 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
             timePickerAttrs.recycle();
 
             if (inputTimeTextColor != 0) {
-                mTimeDisplay.setTextColor(inputTimeTextColor);
+                setInputTimeTextColor(inputTimeTextColor);
             }
             if (inputAmPmTextColor != 0) {
-                mAmPmDisplay.setTextColor(inputAmPmTextColor);
+                setInputAmPmTextColor(inputAmPmTextColor);
             }
             if (backspaceTint != null) {
-                DrawableCompat.setTintList(mBackspace.getDrawable(), backspaceTint);
+                setBackspaceTint(backspaceTint);
             }
             if (numberKeysTextColor != null) {
-                mNumberPad.setNumberKeysTextColor(numberKeysTextColor);
+                setNumberKeysTextColor(numberKeysTextColor);
             }
             if (altKeysTextColor != null) {
-                mNumberPad.setAltKeysTextColor(altKeysTextColor);
+                setAltKeysTextColor(altKeysTextColor);
             }
             if (headerBackground != null) {
-                setBackground(mHeader, headerBackground);
+                setHeaderBackground(headerBackground);
             }
             if (divider != null) {
-                setBackground(mDivider, divider);
+                setDivider(divider);
             }
             if (numberPadBackground != null) {
-                setBackground(mNumberPad, numberPadBackground);
+                setNumberPadBackground(numberPadBackground);
             }
         }
-        
+
         abstract View inflate(Context context, NumberPadTimePicker root);
+
+        private void setInputTimeTextColor(@ColorInt int color) {
+            mTimeDisplay.setTextColor(color);
+        }
+
+        private void setInputAmPmTextColor(@ColorInt int color) {
+            mAmPmDisplay.setTextColor(color);
+        }
+        
+        private void setBackspaceTint(ColorStateList colors) {
+            DrawableCompat.setTintList(mBackspace.getDrawable(), colors);
+        }
+
+        private void setNumberKeysTextColor(ColorStateList colors) {
+            mNumberPad.setNumberKeysTextColor(colors);
+        }
+
+        private void setAltKeysTextColor(ColorStateList colors) {
+            mNumberPad.setAltKeysTextColor(colors);
+        }
+        
+        private void setHeaderBackground(Drawable background) {
+            setBackground(mHeader, background);
+        }
+
+        private void setNumberPadBackground(Drawable background) {
+            setBackground(mNumberPad, background);
+        }
+
+        private void setDivider(Drawable divider) {
+            setBackground(mDivider, divider);
+        }
+
+        private static void setBackground(View view, Drawable background) {
+            if (Build.VERSION.SDK_INT < 16) {
+                view.setBackgroundDrawable(background);
+            } else {
+                view.setBackground(background);
+            }
+        }
     }
 }

@@ -187,6 +187,14 @@ final class NumberPadTimePickerBottomSheetComponent extends
         }
     }
 
+    void setFabBackgroundColor(ColorStateList fabBackgroundColor) {
+        if (mAnimateFabBackgroundColor) {
+            mFabBackgroundColorAnimator.setIntValues(extractColors(
+                    fabBackgroundColor, STATES_FAB_COLORS));
+        }
+        mOkButton.setBackgroundTintList(fabBackgroundColor);
+    }
+
     @NonNull
     private ValueAnimator createFabBackgroundColorAnimator(int[] colors) {
         // Equivalent to ValueAnimator.ofArgb() which is only for API 21+.
