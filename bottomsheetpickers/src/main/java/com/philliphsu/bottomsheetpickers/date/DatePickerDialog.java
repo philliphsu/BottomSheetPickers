@@ -479,18 +479,15 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
     }
 
     private String extractYearFromFormattedDate(String formattedDate, String monthAndDay) {
-        String[] parts = formattedDate.split(monthAndDay);
-        for (String part : parts) {
-            // If the locale's date format is (MD)Y, then split(MD) = {"", Y}.
-            // If it is Y(MD), then split(MD) = {Y}. "Trailing empty strings are
-            // [...] not included in the resulting array."
-            if (!part.isEmpty()) {
+        final String year = YEAR_FORMAT.format(mCalendar.getTime());
+        for (String part : formattedDate.split(monthAndDay)) {
+            if (part.contains(year)) {
                 return part;
             }
         }
         // We will NEVER reach here, as long as the parameters are valid strings.
         // We don't want this because it is not localized.
-        return YEAR_FORMAT.format(mCalendar.getTime());
+        return year;
     }
 
     private void updateDisplay(boolean announce) {
@@ -556,7 +553,6 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
             // The month-day is already formatted appropriately
             year = extractYearFromFormattedDate(fullDate, monthAndDay);
         }
-
 
         mFirstTextView.setText(mLocaleMonthDayIndex == 0 ? monthAndDay : year);
         mSecondTextView.setText(mLocaleMonthDayIndex == 0 ? year : monthAndDay);
