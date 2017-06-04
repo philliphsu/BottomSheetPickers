@@ -9,15 +9,23 @@ import android.support.annotation.NonNull;
  * Adds {@link NumberPadTimePicker#LAYOUT_BOTTOM_SHEET bottom sheet} theming APIs
  * to the {@link NumberPadTimePickerThemer base set of APIs}.
  */
+// TODO: Create setters for the remaining bottom sheet attributes?
 public class BottomSheetNumberPadTimePickerDialogThemer extends NumberPadTimePickerDialogThemer {
+
+    private final NumberPadTimePickerBottomSheetComponent mTimePickerComponent;
 
     BottomSheetNumberPadTimePickerDialogThemer(@NonNull NumberPadTimePicker timePicker) {
         super(timePicker);
+        mTimePickerComponent = (NumberPadTimePickerBottomSheetComponent) timePicker.getComponent();
     }
 
     public BottomSheetNumberPadTimePickerDialogThemer setFabBackgroundColor(ColorStateList colors) {
-        ((NumberPadTimePickerBottomSheetComponent) mTimePicker.getComponent())
-                .setFabBackgroundColor(colors);
+        mTimePickerComponent.setFabBackgroundColor(colors);
+        return this;
+    }
+
+    public BottomSheetNumberPadTimePickerDialogThemer setFabRippleColor(@ColorInt int color) {
+        mTimePickerComponent.setFabRippleColor(color);
         return this;
     }
 

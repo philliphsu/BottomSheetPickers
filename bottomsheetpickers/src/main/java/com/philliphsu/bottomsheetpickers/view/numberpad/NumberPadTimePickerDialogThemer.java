@@ -14,7 +14,7 @@ import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
  */
 public class NumberPadTimePickerDialogThemer implements NumberPadTimePickerThemer {
 
-    final NumberPadTimePicker mTimePicker;
+    private final NumberPadTimePicker mTimePicker;
 
     NumberPadTimePickerDialogThemer(@NonNull NumberPadTimePicker timePicker) {
         mTimePicker = checkNotNull(timePicker);

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -111,11 +112,8 @@ final class NumberPadTimePickerBottomSheetComponent extends
         mFabElevationAnimator = mAnimateFabBackgroundColor
                 ? checkNotNull(fabElevationAnimator) : null;
 
-        final int fabRippleColor = timePickerAttrs.getColor(
-                R.styleable.BSP_NumberPadTimePicker_bsp_fabRippleColor, 0);
-        if (fabRippleColor != 0) {
-            mOkButton.setRippleColor(fabRippleColor);
-        }
+        setFabRippleColor(timePickerAttrs.getColor(R.styleable.
+                BSP_NumberPadTimePicker_bsp_fabRippleColor, 0));
 
         mAnimateFabIn = timePickerAttrs.getBoolean(
                 R.styleable.BSP_NumberPadTimePicker_bsp_animateFabIn, false);
@@ -193,6 +191,12 @@ final class NumberPadTimePickerBottomSheetComponent extends
                     fabBackgroundColor, STATES_FAB_COLORS));
         }
         mOkButton.setBackgroundTintList(fabBackgroundColor);
+    }
+
+    void setFabRippleColor(@ColorInt int color) {
+        if (color != 0) {
+            mOkButton.setRippleColor(color);
+        }
     }
 
     @NonNull
