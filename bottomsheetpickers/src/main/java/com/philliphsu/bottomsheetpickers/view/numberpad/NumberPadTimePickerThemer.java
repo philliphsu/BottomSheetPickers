@@ -7,20 +7,20 @@ import android.support.annotation.ColorInt;
 /**
  * APIs to set the colors of a {@link NumberPadTimePicker}.
  */
-interface NumberPadTimePickerThemer {
-    void setInputTimeTextColor(@ColorInt int color);
+public interface NumberPadTimePickerThemer {
+    NumberPadTimePickerThemer setInputTimeTextColor(@ColorInt int color);
 
-    void setInputAmPmTextColor(@ColorInt int color);
+    NumberPadTimePickerThemer setInputAmPmTextColor(@ColorInt int color);
 
-    void setBackspaceTint(ColorStateList colors);
+    NumberPadTimePickerThemer setBackspaceTint(ColorStateList colors);
 
-    void setNumberKeysTextColor(ColorStateList colors);
+    NumberPadTimePickerThemer setNumberKeysTextColor(ColorStateList colors);
 
-    void setAltKeysTextColor(ColorStateList colors);
+    NumberPadTimePickerThemer setAltKeysTextColor(ColorStateList colors);
 
-    void setHeaderBackground(Drawable background);
+    NumberPadTimePickerThemer setHeaderBackground(Drawable background);
 
-    void setNumberPadBackground(Drawable background);
+    NumberPadTimePickerThemer setNumberPadBackground(Drawable background);
 
-    void setDivider(Drawable divider);
+    NumberPadTimePickerThemer setDivider(Drawable divider);
 }

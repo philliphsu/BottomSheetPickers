@@ -10,7 +10,6 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -145,43 +144,43 @@ class NumberPadTimePicker extends LinearLayout implements
     }
 
     @Override
-    public void setHeaderBackground(Drawable background) {
-        mTimePickerComponent.setHeaderBackground(background);
+    public NumberPadTimePickerThemer setHeaderBackground(Drawable background) {
+        return mTimePickerComponent.setHeaderBackground(background);
     }
 
     @Override
-    public void setNumberPadBackground(Drawable background) {
-        mTimePickerComponent.setNumberPadBackground(background);
+    public NumberPadTimePickerThemer setNumberPadBackground(Drawable background) {
+        return mTimePickerComponent.setNumberPadBackground(background);
     }
 
     @Override
-    public void setDivider(Drawable divider) {
-        mTimePickerComponent.setDivider(divider);
+    public NumberPadTimePickerThemer setDivider(Drawable divider) {
+        return mTimePickerComponent.setDivider(divider);
     }
 
     @Override
-    public void setInputTimeTextColor(@ColorInt int color) {
-        mTimePickerComponent.setInputTimeTextColor(color);
+    public NumberPadTimePickerThemer setInputTimeTextColor(@ColorInt int color) {
+        return mTimePickerComponent.setInputTimeTextColor(color);
     }
 
     @Override
-    public void setInputAmPmTextColor(@ColorInt int color) {
-        mTimePickerComponent.setInputAmPmTextColor(color);
+    public NumberPadTimePickerThemer setInputAmPmTextColor(@ColorInt int color) {
+        return mTimePickerComponent.setInputAmPmTextColor(color);
     }
 
     @Override
-    public void setBackspaceTint(ColorStateList colors) {
-        mTimePickerComponent.setBackspaceTint(colors);
+    public NumberPadTimePickerThemer setBackspaceTint(ColorStateList colors) {
+        return mTimePickerComponent.setBackspaceTint(colors);
     }
 
     @Override
-    public void setNumberKeysTextColor(ColorStateList colors) {
-        mTimePickerComponent.setNumberKeysTextColor(colors);
+    public NumberPadTimePickerThemer setNumberKeysTextColor(ColorStateList colors) {
+        return mTimePickerComponent.setNumberKeysTextColor(colors);
     }
 
     @Override
-    public void setAltKeysTextColor(ColorStateList colors) {
-        mTimePickerComponent.setAltKeysTextColor(colors);
+    public NumberPadTimePickerThemer setAltKeysTextColor(ColorStateList colors) {
+        return mTimePickerComponent.setAltKeysTextColor(colors);
     }
 
     @NumberPadTimePickerLayout
@@ -290,43 +289,51 @@ class NumberPadTimePicker extends LinearLayout implements
         }
 
         @Override
-        public final void setInputTimeTextColor(@ColorInt int color) {
+        public final NumberPadTimePickerThemer setInputTimeTextColor(@ColorInt int color) {
             mTimeDisplay.setTextColor(color);
+            return this;
         }
 
         @Override
-        public final void setInputAmPmTextColor(@ColorInt int color) {
+        public final NumberPadTimePickerThemer setInputAmPmTextColor(@ColorInt int color) {
             mAmPmDisplay.setTextColor(color);
+            return this;
         }
 
         @Override
-        public final void setBackspaceTint(ColorStateList colors) {
+        public final NumberPadTimePickerThemer setBackspaceTint(ColorStateList colors) {
             DrawableCompat.setTintList(mBackspace.getDrawable(), colors);
+            return this;
         }
 
         @Override
-        public final void setNumberKeysTextColor(ColorStateList colors) {
+        public final NumberPadTimePickerThemer setNumberKeysTextColor(ColorStateList colors) {
             mNumberPad.setNumberKeysTextColor(colors);
+            return this;
         }
 
         @Override
-        public final void setAltKeysTextColor(ColorStateList colors) {
+        public final NumberPadTimePickerThemer setAltKeysTextColor(ColorStateList colors) {
             mNumberPad.setAltKeysTextColor(colors);
+            return this;
         }
 
         @Override
-        public final void setHeaderBackground(Drawable background) {
+        public final NumberPadTimePickerThemer setHeaderBackground(Drawable background) {
             setBackground(mHeader, background);
+            return this;
         }
 
         @Override
-        public final void setNumberPadBackground(Drawable background) {
+        public final NumberPadTimePickerThemer setNumberPadBackground(Drawable background) {
             setBackground(mNumberPad, background);
+            return this;
         }
 
         @Override
-        public final void setDivider(Drawable divider) {
+        public final NumberPadTimePickerThemer setDivider(Drawable divider) {
             setBackground(mDivider, divider);
+            return this;
         }
 
         abstract View inflate(Context context, NumberPadTimePicker root);

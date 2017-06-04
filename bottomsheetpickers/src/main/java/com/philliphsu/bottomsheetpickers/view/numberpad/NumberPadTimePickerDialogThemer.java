@@ -21,42 +21,50 @@ public class NumberPadTimePickerDialogThemer implements NumberPadTimePickerTheme
     }
 
     @Override
-    public void setInputTimeTextColor(@ColorInt int color) {
+    public NumberPadTimePickerThemer setInputTimeTextColor(@ColorInt int color) {
         mTimePicker.setInputTimeTextColor(color);
+        return this;
     }
 
     @Override
-    public void setInputAmPmTextColor(@ColorInt int color) {
+    public NumberPadTimePickerThemer setInputAmPmTextColor(@ColorInt int color) {
         mTimePicker.setInputAmPmTextColor(color);
+        return this;
     }
 
     @Override
-    public void setBackspaceTint(ColorStateList colors) {
+    public NumberPadTimePickerThemer setBackspaceTint(ColorStateList colors) {
         mTimePicker.setBackspaceTint(colors);
+        return this;
     }
 
     @Override
-    public void setNumberKeysTextColor(ColorStateList colors) {
+    public NumberPadTimePickerThemer setNumberKeysTextColor(ColorStateList colors) {
         mTimePicker.setNumberKeysTextColor(colors);
+        return this;
     }
 
     @Override
-    public void setAltKeysTextColor(ColorStateList colors) {
+    public NumberPadTimePickerThemer setAltKeysTextColor(ColorStateList colors) {
         mTimePicker.setAltKeysTextColor(colors);
+        return this;
     }
 
     @Override
-    public void setHeaderBackground(Drawable background) {
+    public NumberPadTimePickerThemer setHeaderBackground(Drawable background) {
         mTimePicker.setHeaderBackground(background);
+        return this;
     }
 
     @Override
-    public void setNumberPadBackground(Drawable background) {
+    public NumberPadTimePickerThemer setNumberPadBackground(Drawable background) {
         mTimePicker.setNumberPadBackground(background);
+        return this;
     }
 
     @Override
-    public void setDivider(Drawable divider) {
+    public NumberPadTimePickerThemer setDivider(Drawable divider) {
         mTimePicker.setDivider(divider);
+        return this;
     }
 }
