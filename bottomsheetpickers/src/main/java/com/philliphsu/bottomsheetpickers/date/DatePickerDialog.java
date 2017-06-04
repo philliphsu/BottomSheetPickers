@@ -508,13 +508,13 @@ public class DatePickerDialog extends BottomSheetPickerDialog implements
         if (monthDayStart != -1 && yearStart != -1) {
             if (mLocaleMonthDayIndex < mLocaleYearIndex) {
                 if (yearStart - monthDayEnd <= 2) {
-                    monthAndDay = fullDate.substring(monthDayStart, yearStart);
+                    monthAndDay = fullDate.substring(0, yearStart);
                     year = fullDate.substring(yearStart, fullDate.length());
                     processed = true;
                 }
             } else {
                 if (monthDayStart - yearEnd <= 2) {
-                    year = fullDate.substring(yearStart, monthDayStart);
+                    year = fullDate.substring(0, monthDayStart);
                     monthAndDay = fullDate.substring(monthDayStart, fullDate.length());
                     processed = true;
                 }
