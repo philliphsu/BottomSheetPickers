@@ -22,8 +22,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 // TODO: Declare an attribute with format="reference" to allow a style resource to be specified.
-class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
-    private static final String TAG = NumberPadTimePicker.class.getSimpleName();
+class NumberPadTimePicker extends LinearLayout implements 
+        INumberPadTimePicker.View, 
+        NumberPadTimePickerThemer {
 
     /** Option to layout this view for use in an alert dialog. */
     static final int LAYOUT_ALERT = 1;
@@ -143,46 +144,44 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
         // Do nothing.
     }
 
+    @Override
     public void setHeaderBackground(Drawable background) {
         mTimePickerComponent.setHeaderBackground(background);
     }
 
+    @Override
     public void setNumberPadBackground(Drawable background) {
         mTimePickerComponent.setNumberPadBackground(background);
     }
 
+    @Override
     public void setDivider(Drawable divider) {
         mTimePickerComponent.setDivider(divider);
     }
 
+    @Override
     public void setInputTimeTextColor(@ColorInt int color) {
         mTimePickerComponent.setInputTimeTextColor(color);
     }
 
+    @Override
     public void setInputAmPmTextColor(@ColorInt int color) {
         mTimePickerComponent.setInputAmPmTextColor(color);
     }
 
+    @Override
     public void setBackspaceTint(ColorStateList colors) {
         mTimePickerComponent.setBackspaceTint(colors);
     }
 
+    @Override
     public void setNumberKeysTextColor(ColorStateList colors) {
         mTimePickerComponent.setNumberKeysTextColor(colors);
     }
 
+    @Override
     public void setAltKeysTextColor(ColorStateList colors) {
         mTimePickerComponent.setAltKeysTextColor(colors);
-    }
-
-    public void setFabBackgroundColor(ColorStateList colors) {
-        if (mLayout == LAYOUT_BOTTOM_SHEET && mTimePickerComponent
-                instanceof NumberPadTimePickerBottomSheetComponent) {
-            ((NumberPadTimePickerBottomSheetComponent) mTimePickerComponent)
-                    .setFabBackgroundColor(colors);
-        } else {
-            Log.w(TAG, "Calling setFabBackgroundColor() has no effect in LAYOUT_ALERT");
-        }
     }
 
     @NumberPadTimePickerLayout
@@ -226,7 +225,7 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
     /**
      * Component that installs the base functionality of a {@link NumberPadTimePicker}. 
      */
-    abstract static class NumberPadTimePickerComponent {
+    abstract static class NumberPadTimePickerComponent implements NumberPadTimePickerThemer {
         private final NumberPadView mNumberPad;
         private final TextView mTimeDisplay;
         private final TextView mAmPmDisplay;
@@ -290,39 +289,47 @@ class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.V
             }
         }
 
-        abstract View inflate(Context context, NumberPadTimePicker root);
-
-        private void setInputTimeTextColor(@ColorInt int color) {
+        @Override
+        public final void setInputTimeTextColor(@ColorInt int color) {
             mTimeDisplay.setTextColor(color);
         }
 
-        private void setInputAmPmTextColor(@ColorInt int color) {
+        @Override
+        public final void setInputAmPmTextColor(@ColorInt int color) {
             mAmPmDisplay.setTextColor(color);
         }
-        
-        private void setBackspaceTint(ColorStateList colors) {
+
+        @Override
+        public final void setBackspaceTint(ColorStateList colors) {
             DrawableCompat.setTintList(mBackspace.getDrawable(), colors);
         }
 
-        private void setNumberKeysTextColor(ColorStateList colors) {
+        @Override
+        public final void setNumberKeysTextColor(ColorStateList colors) {
             mNumberPad.setNumberKeysTextColor(colors);
         }
 
-        private void setAltKeysTextColor(ColorStateList colors) {
+        @Override
+        public final void setAltKeysTextColor(ColorStateList colors) {
             mNumberPad.setAltKeysTextColor(colors);
         }
-        
-        private void setHeaderBackground(Drawable background) {
+
+        @Override
+        public final void setHeaderBackground(Drawable background) {
             setBackground(mHeader, background);
         }
 
-        private void setNumberPadBackground(Drawable background) {
+        @Override
+        public final void setNumberPadBackground(Drawable background) {
             setBackground(mNumberPad, background);
         }
 
-        private void setDivider(Drawable divider) {
+        @Override
+        public final void setDivider(Drawable divider) {
             setBackground(mDivider, divider);
         }
+
+        abstract View inflate(Context context, NumberPadTimePicker root);
 
         private static void setBackground(View view, Drawable background) {
             if (Build.VERSION.SDK_INT < 16) {
