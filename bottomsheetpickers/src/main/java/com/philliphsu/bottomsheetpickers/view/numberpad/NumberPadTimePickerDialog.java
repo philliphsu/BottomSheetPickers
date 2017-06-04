@@ -18,6 +18,7 @@ import com.philliphsu.bottomsheetpickers.R;
 public class NumberPadTimePickerDialog extends AlertDialog {
 
     private final NumberPadTimePickerDialogViewDelegate mViewDelegate;
+    private final NumberPadTimePickerThemer mThemer;
 
     public NumberPadTimePickerDialog(@NonNull Context context, @Nullable OnTimeSetListener listener,
                                      boolean is24HourMode) {
@@ -37,6 +38,7 @@ public class NumberPadTimePickerDialog extends AlertDialog {
                 null, /* At this point, the AlertDialog has not installed its action buttons yet.
                 It does not do so until super.onCreate() returns. */
                 listener, is24HourMode);
+        mThemer = new NumberPadTimePickerDialogThemer(timePicker);
         setView(timePicker);
 
         final OnDialogButtonClickListener onDialogButtonClickListener
@@ -47,6 +49,10 @@ public class NumberPadTimePickerDialog extends AlertDialog {
                 onDialogButtonClickListener);
         setButton(BUTTON_NEGATIVE, getContext().getString(android.R.string.cancel),
                 onDialogButtonClickListener);
+    }
+
+    public NumberPadTimePickerThemer getThemer() {
+        return mThemer;
     }
 
     @Override

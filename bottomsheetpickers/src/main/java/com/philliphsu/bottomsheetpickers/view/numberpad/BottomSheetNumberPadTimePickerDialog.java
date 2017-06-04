@@ -20,6 +20,7 @@ import static com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadTimePick
 public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
 
     private final NumberPadTimePickerDialogViewDelegate mViewDelegate;
+    private final BottomSheetNumberPadTimePickerDialogThemer mThemer;
 
     public BottomSheetNumberPadTimePickerDialog(@NonNull Context context,
                                                 @Nullable OnTimeSetListener listener,
@@ -58,6 +59,7 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
                 // you to modify or replace the theme of the wrapped context", and it
                 // works by applying the specified theme on top of the base context's theme.
                 getContext(), timePicker, okButton, listener, is24HourMode);
+        mThemer = new BottomSheetNumberPadTimePickerDialogThemer(timePicker);
         setContentView(root);
 
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +90,10 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
                         public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
                     });
         }
+    }
+
+    public BottomSheetNumberPadTimePickerDialogThemer getThemer() {
+        return mThemer;
     }
 
     @Override
