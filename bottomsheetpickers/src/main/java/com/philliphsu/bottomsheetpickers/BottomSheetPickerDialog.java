@@ -84,17 +84,20 @@ public abstract class BottomSheetPickerDialog extends BottomSheetDialogFragment 
             mHeaderColor = mThemeDark ? mLightGray : mAccentColor;
         }
 
-        View view = inflater.inflate(contentLayout(), container, false);
-        // Set background color of entire view
-        // TODO: Remove setting of this in subclasses.
-        view.setBackgroundColor(mBackgroundColor);
+        if (contentLayout() != 0) {
+            View view = inflater.inflate(contentLayout(), container, false);
+            // Set background color of entire view
+            // TODO: Remove setting of this in subclasses.
+            view.setBackgroundColor(mBackgroundColor);
+            return view;
+        }
 
-        return view;
+        return null;
     }
 
     @NonNull
     @Override
-    public final Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         // TODO: Pass in a dark/light BottomSheetDialog theme depending on the theme set.
         // Verify this changes colors for text, selectableBackground, etc. appropriately.
         return new CustomWidthBottomSheetDialog(getContext(), R.style.BSP_BottomSheetDialogTheme);

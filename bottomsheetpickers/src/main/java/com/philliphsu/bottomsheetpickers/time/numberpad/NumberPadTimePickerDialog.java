@@ -16,52 +16,43 @@
 
 package com.philliphsu.bottomsheetpickers.time.numberpad;
 
+import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
-import com.philliphsu.bottomsheetpickers.time.TimeTextUtils;
+import com.philliphsu.bottomsheetpickers.view.Preconditions;
+import com.philliphsu.bottomsheetpickers.view.numberpad.BottomSheetNumberPadTimePickerDialog;
+import com.philliphsu.bottomsheetpickers.view.numberpad.BottomSheetNumberPadTimePickerDialogThemer;
 
 /**
  * Dialog to type in a time.
  */
 public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
-        implements NumberPadTimePicker.OnInputChangeListener {
-    private static final String TAG = "NumberPadTimePickerDialog";
+        implements TimePickerDialog.OnTimeSetListener {
 
-    private static final String KEY_IS_24_HOUR_VIEW = "is_24_hour_view";
-    private static final String KEY_DIGITS_INPUTTED = "digits_inputted";
-    private static final String KEY_AMPM_STATE = "ampm_state";
-    private static final String KEY_IS_24_HOUR_MODE_SET_AT_RUNTIME = "is_24_hour_mode_set_at_runtime";
-    private static final String KEY_HEADER_TEXT_COLOR = "header_text_color";
+    private BottomSheetNumberPadTimePickerDialog mDialog;
+    private OnTimeSetListener mTimeSetListener;
+    private TextView mInputField;
 
     private boolean mIs24HourMode;
-    private boolean mIs24HourModeSetAtRuntime;
-    /*
-     * The digits stored in the numpad from the last time onSaveInstanceState() was called.
-     *
-     * Why not have the NumberPadTimePicker class save state itself? Because it's a lot more
-     * code to do so, as you have to create your own SavedState subclass. Also, we modeled
-     * this dialog class on the RadialTimePickerDialog, where the RadialPickerLayout also
-     * depends on the dialog to save its state.
-     */
-    private int[] mInputtedDigits;
-    private int mAmPmState = NumberPadTimePicker.UNSPECIFIED;
     private String mHint;
     private int mTextSize;
     private int mHintResId;
     private int mHeaderTextColor;
-
-    private TextView            mInputField;
-    private NumberPadTimePicker mNumpad;
 
     /**
      * The number pad will be configured according to the user preference for 24-hour format.
@@ -82,53 +73,35 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
     }
 
     private void initialize(OnTimeSetListener callback, boolean set24HourModeAtRuntime, boolean is24HourMode) {
-        setOnTimeSetListener(callback);
+        mTimeSetListener = callback;
         mThemeDark = false;
         mThemeSetAtRuntime = false;
-        mIs24HourModeSetAtRuntime = set24HourModeAtRuntime;
         if (set24HourModeAtRuntime) {
             mIs24HourMode = is24HourMode;
         }
     }
 
+    @NonNull
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            mInputtedDigits = savedInstanceState.getIntArray(KEY_DIGITS_INPUTTED);
-            mIs24HourMode = savedInstanceState.getBoolean(KEY_IS_24_HOUR_VIEW);
-            mAmPmState = savedInstanceState.getInt(KEY_AMPM_STATE);
-            mIs24HourModeSetAtRuntime = savedInstanceState.getBoolean(KEY_IS_24_HOUR_MODE_SET_AT_RUNTIME);
-            mHeaderTextColor = savedInstanceState.getInt(KEY_HEADER_TEXT_COLOR);
-        }
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        mDialog = new BottomSheetNumberPadTimePickerDialog(getActivity(), this, mIs24HourMode);
+        return mDialog;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
+        // Initialize legacy colors.
+        super.onCreateView(inflater, container, savedInstanceState);
+        mInputField = (TextView) mDialog.findViewById(R.id.bsp_input_time);
+        Preconditions.checkNotNull(mInputField);
 
-        mInputField = (TextView) view.findViewById(R.id.bsp_input_time);
-        mNumpad = (NumberPadTimePicker) view.findViewById(R.id.bsp_number_grid);
-
-        final FloatingActionButton fab = (FloatingActionButton) mNumpad.findViewById(R.id.bsp_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!mNumpad.checkTimeValid())
-                    return;
-                onTimeSet(mNumpad, mNumpad.getHour(), mNumpad.getMinute());
-            }
-        });
-
-        if (mIs24HourModeSetAtRuntime) {
-            mNumpad.setIs24HourMode(mIs24HourMode);
-        }
-        mNumpad.setOnInputChangeListener(this);
-        mNumpad.insertDigits(mInputtedDigits); // TOneverDO: before mNumpad.setOnInputChangeListener(this);
-        mNumpad.setAmPmState(mAmPmState);
-
-        view.findViewById(R.id.bsp_input_time_container).setBackgroundColor(mHeaderColor);
+        final BottomSheetNumberPadTimePickerDialogThemer themer = mDialog.getThemer();
+        // We must create separate Drawables, even for the same color, or else only one
+        // of the views will have the drawable applied.
+        themer.setHeaderBackground(new ColorDrawable(mHeaderColor))
+                .setDivider(new ColorDrawable(mHeaderColor));
+        themer.setNumberPadBackground(new ColorDrawable(mBackgroundColor));
 
         if (mHint != null || mHintResId != 0) {
             if (mHint != null) {
@@ -142,28 +115,43 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
             mInputField.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
         }
 
-        mInputField.setTextColor(mHeaderTextColor != 0 ? mHeaderTextColor : getDefaultHeaderTextColor());
-        mNumpad.setAccentColor(mAccentColor);
-        mNumpad.setTheme(getContext()/*DO NOT GIVE THE APPLICATION CONTEXT, OR ELSE THE NUMPAD
-        CAN'T GET THE CORRECT ACCENT COLOR*/, mThemeDark);
+        final int headerTextColor = mHeaderTextColor != 0
+                ? mHeaderTextColor : getDefaultHeaderTextColor();
+        themer.setInputTimeTextColor(headerTextColor)
+                .setInputAmPmTextColor(headerTextColor);
 
-        return view;
+        // TODO: We still need to apply the accent color as the color control highlight
+        // for the number keys, alt keys, and backspace key.
+//        mNumpad.setAccentColor(mAccentColor);
+        final int disabledColor = ContextCompat.getColor(getActivity(), mThemeDark ?
+                R.color.bsp_fab_disabled_dark : R.color.bsp_fab_disabled_light);
+        final int[][] states = {{-android.R.attr.state_enabled}, {}};
+        final int[] colors = {disabledColor, mAccentColor};
+        themer.setFabBackgroundColor(new ColorStateList(states, colors));
+
+//        mNumpad.setTheme(getContext(), mThemeDark);
+        final ColorStateList textColors = ContextCompat.getColorStateList(getActivity(), mThemeDark
+                ? R.color.bsp_numeric_keypad_button_text_dark
+                : R.color.bsp_numeric_keypad_button_text);
+        themer.setNumberKeysTextColor(textColors)
+                .setAltKeysTextColor(textColors);
+
+        final ColorStateList colorBackspace = ContextCompat.getColorStateList(getActivity(),
+                mThemeDark ? R.color.bsp_icon_color_dark : R.color.bsp_icon_color);
+        themer.setBackspaceTint(colorBackspace);
+
+        return null;
     }
 
     @Override
     protected int contentLayout() {
-        return R.layout.bsp_dialog_time_picker_numpad;
+        return 0;
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (mNumpad != null) {
-            outState.putIntArray(KEY_DIGITS_INPUTTED, mNumpad.getDigits());
-            outState.putBoolean(KEY_IS_24_HOUR_VIEW, mIs24HourMode);
-            outState.putInt(KEY_AMPM_STATE, mNumpad.getAmPmState());
-            outState.putBoolean(KEY_IS_24_HOUR_MODE_SET_AT_RUNTIME, mIs24HourModeSetAtRuntime);
-            outState.putInt(KEY_HEADER_TEXT_COLOR, mHeaderTextColor);
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        if (mTimeSetListener != null) {
+            mTimeSetListener.onTimeSet(view, hourOfDay, minute);
         }
     }
 
@@ -211,30 +199,6 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
      */
     public final void setHeaderTextColor(@ColorInt int color) {
         mHeaderTextColor = color;
-    }
-
-    @Override
-    public void onDigitInserted(String newStr) {
-        updateInputText(newStr);
-    }
-
-    @Override
-    public void onDigitDeleted(String newStr) {
-        updateInputText(newStr);
-    }
-
-    @Override
-    public void onDigitsCleared() {
-        updateInputText("");
-    }
-
-    @Override
-    public void onInputDisabled() {
-        // No implementation.
-    }
-
-    private void updateInputText(String inputText) {
-        TimeTextUtils.setText(inputText, mInputField);
     }
 
     private @ColorInt int getDefaultHeaderTextColor() {
