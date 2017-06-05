@@ -225,12 +225,12 @@ class NumberPadTimePicker extends LinearLayout implements
      * Component that installs the base functionality of a {@link NumberPadTimePicker}. 
      */
     abstract static class NumberPadTimePickerComponent implements NumberPadTimePickerThemer {
-        private final NumberPadView mNumberPad;
-        private final TextView mTimeDisplay;
-        private final TextView mAmPmDisplay;
-        private final ImageButton mBackspace;
-        private final View mHeader;
-        private final View mDivider;
+        final NumberPadView mNumberPad;
+        final TextView mTimeDisplay;
+        final TextView mAmPmDisplay;
+        final ImageButton mBackspace;
+        final View mHeader;
+        final View mDivider;
 
         NumberPadTimePickerComponent(NumberPadTimePicker timePicker, Context context,
                 AttributeSet attrs, int defStyleAttr, int defStyleRes) {

@@ -27,7 +27,6 @@ import java.lang.annotation.RetentionPolicy;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
 
 /**
  * Component that installs {@link NumberPadTimePicker#LAYOUT_BOTTOM_SHEET bottom sheet}
@@ -52,9 +51,9 @@ final class NumberPadTimePickerBottomSheetComponent extends
     private static final int FAB_ANIM_DURATION = 120;
 
     /** Option to place the backspace button in the header. */
-    private static final int LOCATION_HEADER = 0;
+    static final int LOCATION_HEADER = 0;
     /** Option to place the backspace button in the footer. */
-    private static final int LOCATION_FOOTER = 1;
+    static final int LOCATION_FOOTER = 1;
 
     @IntDef({LOCATION_HEADER, LOCATION_FOOTER})
     @Retention(RetentionPolicy.SOURCE)
@@ -70,14 +69,14 @@ final class NumberPadTimePickerBottomSheetComponent extends
     @interface ShowFabPolicy {}
 
     private final FloatingActionButton mOkButton;
-    private final ValueAnimator mFabBackgroundColorAnimator;
-    private final ValueAnimator mFabElevationAnimator;
-
-    @ShowFabPolicy
-    private final int mShowFabPolicy;
-    private final boolean mAnimateFabIn;
-    private final boolean mAnimateFabBackgroundColor;
     
+    private ValueAnimator mFabBackgroundColorAnimator;
+    private ValueAnimator mFabElevationAnimator;
+    
+    private @BackspaceLocation int mBackspaceLocation;
+    private @ShowFabPolicy int mShowFabPolicy;
+    private boolean mAnimateFabIn;
+    private boolean mAnimateFabBackgroundColor;
     private boolean mAnimatingToEnabled;
 
     NumberPadTimePickerBottomSheetComponent(NumberPadTimePicker timePicker, Context context,
@@ -90,39 +89,26 @@ final class NumberPadTimePickerBottomSheetComponent extends
 
         final ColorStateList fabBackgroundColor = retrieveFabBackgroundColor(
                 timePickerAttrs, context);
-        mAnimateFabBackgroundColor = timePickerAttrs.getBoolean(
-                R.styleable.BSP_NumberPadTimePicker_bsp_animateFabBackgroundColor, true);
-
-        ValueAnimator fabBackgroundColorAnimator = null;
-        ValueAnimator fabElevationAnimator = null;
         // If we could not create a default ColorStateList, then just leave the current
         // stateless color as is. If the color is stateless, we ignore the value for
         // animateFabBackgroundColor because there is nothing to animate.
         if (fabBackgroundColor != null) {
-            if (mAnimateFabBackgroundColor) {
-                final int[] colors = extractColors(fabBackgroundColor, STATES_FAB_COLORS);
-                fabBackgroundColorAnimator = createFabBackgroundColorAnimator(colors);
-                fabElevationAnimator = createFabElevationAnimator(context);
-            }
+            final boolean animateFabBackgroundColor = timePickerAttrs.getBoolean(R.styleable.
+                    BSP_NumberPadTimePicker_bsp_animateFabBackgroundColor, true);
+            setAnimateFabBackgroundColor(animateFabBackgroundColor, fabBackgroundColor, context);
             mOkButton.setBackgroundTintList(fabBackgroundColor);
         }
-
-        mFabBackgroundColorAnimator = mAnimateFabBackgroundColor
-                ? checkNotNull(fabBackgroundColorAnimator) : null;
-        mFabElevationAnimator = mAnimateFabBackgroundColor
-                ? checkNotNull(fabElevationAnimator) : null;
 
         setFabRippleColor(timePickerAttrs.getColor(R.styleable.
                 BSP_NumberPadTimePicker_bsp_fabRippleColor, 0));
 
-        mAnimateFabIn = timePickerAttrs.getBoolean(
-                R.styleable.BSP_NumberPadTimePicker_bsp_animateFabIn, false);
+        mAnimateFabIn = timePickerAttrs.getBoolean(R.styleable.
+                BSP_NumberPadTimePicker_bsp_animateFabIn, false);
         mShowFabPolicy = retrieveShowFab(timePickerAttrs);
-        // For the FAB to actually animate in, it cannot be visible initially.
-        mOkButton.setVisibility(mAnimateFabIn || mShowFabPolicy == SHOW_FAB_VALID_TIME 
-                ? INVISIBLE : VISIBLE);
+        setInitialFabVisibility(mAnimateFabIn, mShowFabPolicy);
 
-        applyBackspaceLocation(retrieveBackspaceLocation(timePickerAttrs), timePicker);
+        mBackspaceLocation = retrieveBackspaceLocation(timePickerAttrs);
+        applyBackspaceLocation();
 
         timePickerAttrs.recycle();
     }
@@ -198,6 +184,74 @@ final class NumberPadTimePickerBottomSheetComponent extends
             mOkButton.setRippleColor(color);
         }
     }
+    
+    void setAnimateFabBackgroundColor(boolean animate) {
+        setAnimateFabBackgroundColor(animate, mOkButton.getBackgroundTintList(), 
+                mOkButton.getContext());
+    }
+    
+    void setShowFabPolicy(@ShowFabPolicy int policy) {
+        if (policy != mShowFabPolicy) {
+            // We're assuming the dialog has not been shown yet, so prepare the visibility state
+            // of the FAB for any animation requirements when the dialog is shown.
+            setInitialFabVisibility(false, policy);
+            mShowFabPolicy = policy;
+        }
+    }
+
+    void setBackspaceLocation(@BackspaceLocation int location) {
+        if (location != mBackspaceLocation) {
+            mBackspaceLocation = location;
+            applyBackspaceLocation();
+        }
+    }
+    
+    void setAnimateFabIn(boolean animateIn) {
+        mAnimateFabIn = animateIn;
+    }
+
+    /**
+     * Sets the initial visibility of the FAB when the dialog is shown, based on the animation
+     * requirements imposed on the FAB.
+     */
+    private void setInitialFabVisibility(boolean animateFabIn, @ShowFabPolicy int showFabPolicy) {
+        // For the FAB to actually animate in, it cannot be visible initially.
+        mOkButton.setVisibility(animateFabIn || showFabPolicy == SHOW_FAB_VALID_TIME 
+                ? INVISIBLE : VISIBLE);
+    }
+
+    private void setAnimateFabBackgroundColor(boolean animate,
+            ColorStateList fabBackgroundColor, Context context) {
+        if (animate != mAnimateFabBackgroundColor) {
+            if (animate) {
+                if (mFabBackgroundColorAnimator == null) {
+                    mFabBackgroundColorAnimator = createFabBackgroundColorAnimator(
+                            extractColors(fabBackgroundColor, STATES_FAB_COLORS));
+                }
+                if (mFabElevationAnimator == null) {
+                    mFabElevationAnimator = createFabElevationAnimator(context);
+                }
+            } else {
+                mFabBackgroundColorAnimator = null;
+                mFabElevationAnimator = null;
+            }
+            mAnimateFabBackgroundColor = animate;
+        }
+    }
+
+    private void applyBackspaceLocation() {
+        // Make sure we're not posting duplicates.
+        mNumberPad.removeCallbacks(mApplyBackspaceLocationRunnable);
+        // Wait until drawing has finished before manipulating our view tree.
+        // If the backspace key should move to LOCATION_FOOTER, then it goes
+        // to the final row of the GridLayout that backs the number pad. However,
+        // because drawing may not be finished at this point, and because
+        // an explicit row count was not set on the GridLayout, getRowCount()
+        // would return the number of rows that have been drawn so far.
+        // This caveat does not apply to getColumnCount(), because an explicit
+        // column count was set.
+        mNumberPad.post(mApplyBackspaceLocationRunnable);
+    }
 
     @NonNull
     private ValueAnimator createFabBackgroundColorAnimator(int[] colors) {
@@ -232,6 +286,33 @@ final class NumberPadTimePickerBottomSheetComponent extends
         return ObjectAnimator.ofFloat(mOkButton, elevationProperty, elevation).setDuration(
                 FAB_ANIM_DURATION);
     }
+
+    private final Runnable mApplyBackspaceLocationRunnable = new Runnable() {
+        @Override
+        public void run() {
+            switch (mBackspaceLocation) {
+                case LOCATION_HEADER:
+                    break;
+                case LOCATION_FOOTER:
+                    ((ViewGroup) mHeader).removeView(mBackspace);
+                    // The row of the cell in which the backspace key should go.
+                    // This specifies the row index, which spans one increment,
+                    // and indicates the cell should be filled along the row
+                    // (horizontal) axis.
+                    final GridLayout.Spec rowSpec = GridLayout.spec(
+                            mNumberPad.getRowCount() - 1, GridLayout.FILL);
+                    // The column of the cell in which the backspace key should go.
+                    // This specifies the column index, which spans one increment,
+                    // and indicates the cell should be filled along the column
+                    // (vertical) axis.
+                    final GridLayout.Spec columnSpec = GridLayout.spec(
+                            mNumberPad.getColumnCount() - 1, GridLayout.FILL);
+                    mNumberPad.addView(mBackspace, new GridLayout.LayoutParams(
+                            rowSpec, columnSpec));
+                    break;
+            }
+        }
+    };
 
     @Nullable
     private static ColorStateList retrieveFabBackgroundColor(
@@ -316,47 +397,5 @@ final class NumberPadTimePickerBottomSheetComponent extends
                     : colorStateList.getColorForState(stateSet, 0);
         }
         return colors;
-    }
-
-    private static void applyBackspaceLocation(@BackspaceLocation final int location,
-                                               NumberPadTimePicker timePicker) {
-        final GridLayout numberPad = (GridLayout) timePicker.findViewById(R.id.bsp_numberpad_time_picker_view);
-        final View backspace = timePicker.findViewById(R.id.bsp_backspace);
-        final ViewGroup headerView = (ViewGroup) timePicker.findViewById(R.id.bsp_header);
-        // We can't set the backspace location immediately because the views have not finished
-        // drawing at this point. As such, setting {@code NumberPadView#getRowCount() - 1}
-        // as the row index at which the backspace button should be added will not give us the
-        // expected result. Note that {@code NumberPadView#getColumnCount() - 1} does return the
-        // correct column index; this is because we explicitly set a column count.
-        //
-        // Instead of hardcoding the row index, which will not scale if we ever add or remove
-        // rows to the number pad, we wait until everything is completely drawn to do our
-        // manipulation. Note that drawing is not completed even by the time of onFinishInflate().
-        numberPad.post(new Runnable() {
-            @Override
-            public void run() {
-                switch (location) {
-                    case LOCATION_HEADER:
-                        break;
-                    case LOCATION_FOOTER:
-                        headerView.removeView(backspace);
-                        // The row of the cell in which the backspace key should go.
-                        // This specifies the row index, which spans one increment,
-                        // and indicates the cell should be filled along the row
-                        // (horizontal) axis.
-                        final GridLayout.Spec rowSpec = GridLayout.spec(
-                                numberPad.getRowCount() - 1, GridLayout.FILL);
-                        // The column of the cell in which the backspace key should go.
-                        // This specifies the column index, which spans one increment,
-                        // and indicates the cell should be filled along the column
-                        // (vertical) axis.
-                        final GridLayout.Spec columnSpec = GridLayout.spec(
-                                numberPad.getColumnCount() - 1, GridLayout.FILL);
-                        numberPad.addView(backspace, new GridLayout.LayoutParams(
-                                rowSpec, columnSpec));
-                        break;
-                }
-            }
-        });
     }
 }
