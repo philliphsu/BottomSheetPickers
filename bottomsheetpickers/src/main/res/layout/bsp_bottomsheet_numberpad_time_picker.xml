@@ -27,7 +27,7 @@
             app:layout_gravity="center"
             app:fabSize="auto"
             app:elevation="@dimen/bsp_bottom_sheet_grid_picker_fab_elevation"
-            app:srcCompat="@drawable/bsp_ic_done_24dp" />
+            app:srcCompat="@drawable/nptp_ic_done_24dp" />
 
     </com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadView>
 
