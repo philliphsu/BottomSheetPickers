@@ -184,7 +184,9 @@ final class NumberPadTimePickerBottomSheetComponent extends
             mOkButton.setEnabled(enabled);
         }
 
-        if (enabledDiff && mFabIconTintAnimator != null) {
+        // If the FAB is shown only on valid times, there is no need to animate the tint,
+        // just as there was no need to animate the FAB's background color.
+        if (mShowFabPolicy == SHOW_FAB_ALWAYS && enabledDiff && mFabIconTintAnimator != null) {
             if (!mFabIconTintAnimator.isStarted()) {
                 if (enabled) {
                     mFabIconTintAnimator.start();
