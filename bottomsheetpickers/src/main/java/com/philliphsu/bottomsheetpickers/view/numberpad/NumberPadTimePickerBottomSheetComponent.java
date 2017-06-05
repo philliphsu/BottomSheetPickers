@@ -70,10 +70,13 @@ final class NumberPadTimePickerBottomSheetComponent extends
     @interface ShowFabPolicy {}
 
     private final FloatingActionButton mOkButton;
-    
+
+    // Why aren't we using AnimatorSet? We can't reverse() an AnimatorSet,
+    // except beginning in Android O Developer Preview.
     private ValueAnimator mFabBackgroundColorAnimator;
     private ValueAnimator mFabElevationAnimator;
-    
+    private ValueAnimator mFabIconTintAnimator;
+
     private @BackspaceLocation int mBackspaceLocation;
     private @ShowFabPolicy int mShowFabPolicy;
     private boolean mAnimateFabIn;
@@ -146,6 +149,7 @@ final class NumberPadTimePickerBottomSheetComponent extends
     }
 
     void setOkButtonEnabled(boolean enabled) {
+        final boolean enabledDiff = mOkButton.isEnabled() != enabled;
         if (mShowFabPolicy == SHOW_FAB_VALID_TIME) {
             if (enabled) {
                 mOkButton.show();
@@ -153,7 +157,7 @@ final class NumberPadTimePickerBottomSheetComponent extends
                 mOkButton.hide();
             }
         } else if (mAnimateFabBackgroundColor) {
-            if (mOkButton.isEnabled() != enabled) {
+            if (enabledDiff) {
                 // Started animators are not necessarily running. They may have start delays, in
                 // which case they have not run yet, or they may have been paused during running.
                 // We do not need to be concerned with the latter case, because we don't pause.
@@ -179,6 +183,18 @@ final class NumberPadTimePickerBottomSheetComponent extends
         } else {
             mOkButton.setEnabled(enabled);
         }
+
+        if (enabledDiff && mFabIconTintAnimator != null) {
+            if (!mFabIconTintAnimator.isStarted()) {
+                if (enabled) {
+                    mFabIconTintAnimator.start();
+                } else {
+                    mFabIconTintAnimator.reverse();
+                }
+            } else {
+                mFabIconTintAnimator.end();
+            }
+        }
     }
 
     void setFabBackgroundColor(ColorStateList fabBackgroundColor) {
@@ -194,6 +210,14 @@ final class NumberPadTimePickerBottomSheetComponent extends
     }
 
     void setFabIconTint(ColorStateList tint) {
+        if (tint != null) {
+            int[] colors = extractColors(tint, STATES_FAB_COLORS);
+            if (mFabIconTintAnimator != null) {
+                mFabIconTintAnimator.setIntValues(colors);
+            } else {
+                mFabIconTintAnimator = createFabIconTintAnimator(colors);
+            }
+        }
         DrawableCompat.setTintList(mOkButton.getDrawable(), tint);
     }
     
@@ -270,9 +294,7 @@ final class NumberPadTimePickerBottomSheetComponent extends
 
     @NonNull
     private ValueAnimator createFabBackgroundColorAnimator(int[] colors) {
-        // Equivalent to ValueAnimator.ofArgb() which is only for API 21+.
-        final ValueAnimator fabBackgroundColorAnimator = ValueAnimator.ofInt(colors);
-        fabBackgroundColorAnimator.setEvaluator(new ArgbEvaluator());
+        final ValueAnimator fabBackgroundColorAnimator = newArgbValueAnimator(colors);
         fabBackgroundColorAnimator.setDuration(FAB_ANIM_DURATION);
         fabBackgroundColorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -290,6 +312,20 @@ final class NumberPadTimePickerBottomSheetComponent extends
         });
 
         return fabBackgroundColorAnimator;
+    }
+
+    @NonNull
+    private ValueAnimator createFabIconTintAnimator(int[] colors) {
+        ValueAnimator anim = newArgbValueAnimator(colors);
+        anim.setDuration(FAB_ANIM_DURATION);
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                DrawableCompat.setTintList(mOkButton.getDrawable(), ColorStateList.valueOf(
+                        (int) animation.getAnimatedValue()));
+            }
+        });
+        return anim;
     }
 
     @NonNull
@@ -412,5 +448,13 @@ final class NumberPadTimePickerBottomSheetComponent extends
                     : colorStateList.getColorForState(stateSet, 0);
         }
         return colors;
+    }
+
+    @NonNull
+    private static ValueAnimator newArgbValueAnimator(int[] colors) {
+        // Equivalent to ValueAnimator.ofArgb() which is only for API 21+.
+        ValueAnimator animator = ValueAnimator.ofInt(colors);
+        animator.setEvaluator(new ArgbEvaluator());
+        return animator;
     }
 }
