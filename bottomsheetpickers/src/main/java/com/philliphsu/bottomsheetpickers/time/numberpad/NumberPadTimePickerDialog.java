@@ -141,6 +141,10 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
                 mThemeDark ? R.color.bsp_icon_color_dark : R.color.bsp_icon_color);
         themer.setBackspaceTint(colorBackspace);
 
+        final ColorStateList colorIcon = ContextCompat.getColorStateList(getActivity(),
+                mThemeDark ? R.color.bsp_icon_color_dark : R.color.bsp_fab_icon_color);
+        themer.setFabIconTint(colorIcon);
+
         return null;
     }
 
