@@ -194,7 +194,7 @@ final class NumberPadTimePickerBottomSheetComponent extends
         if (policy != mShowFabPolicy) {
             // We're assuming the dialog has not been shown yet, so prepare the visibility state
             // of the FAB for any animation requirements when the dialog is shown.
-            setInitialFabVisibility(false, policy);
+            setInitialFabVisibility(mAnimateFabIn, policy);
             mShowFabPolicy = policy;
         }
     }
@@ -207,7 +207,10 @@ final class NumberPadTimePickerBottomSheetComponent extends
     }
     
     void setAnimateFabIn(boolean animateIn) {
-        mAnimateFabIn = animateIn;
+        if (animateIn != mAnimateFabIn) {
+            setInitialFabVisibility(animateIn, mShowFabPolicy);
+            mAnimateFabIn = animateIn;
+        }
     }
 
     /**
