@@ -10,7 +10,6 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.ColorInt;
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleableRes;
@@ -23,11 +22,12 @@ import android.view.ViewGroup;
 
 import com.philliphsu.bottomsheetpickers.R;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.BackspaceLocation.LOCATION_FOOTER;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.BackspaceLocation.LOCATION_HEADER;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.ShowFabPolicy.SHOW_FAB_ALWAYS;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.ShowFabPolicy.SHOW_FAB_VALID_TIME;
 
 /**
  * Component that installs {@link NumberPadTimePicker#LAYOUT_BOTTOM_SHEET bottom sheet}
@@ -50,24 +50,6 @@ final class NumberPadTimePickerBottomSheetComponent extends
 
     /** Duration for all FAB animations. */
     private static final int FAB_ANIM_DURATION = 120;
-
-    /** Option to place the backspace button in the header. */
-    static final int LOCATION_HEADER = 0;
-    /** Option to place the backspace button in the footer. */
-    static final int LOCATION_FOOTER = 1;
-
-    @IntDef({LOCATION_HEADER, LOCATION_FOOTER})
-    @Retention(RetentionPolicy.SOURCE)
-    private @interface BackspaceLocation {}
-
-    /** Option to always show the FAB. */
-    static final int SHOW_FAB_ALWAYS = 0;
-    /** Option to only show the FAB when the inputted sequence makes a valid time. */
-    static final int SHOW_FAB_VALID_TIME = 1;
-
-    @IntDef({SHOW_FAB_ALWAYS, SHOW_FAB_VALID_TIME})
-    @Retention(RetentionPolicy.SOURCE)
-    @interface ShowFabPolicy {}
 
     private final FloatingActionButton mOkButton;
 
@@ -257,7 +239,7 @@ final class NumberPadTimePickerBottomSheetComponent extends
      */
     private void setInitialFabVisibility(boolean animateFabIn, @ShowFabPolicy int showFabPolicy) {
         // For the FAB to actually animate in, it cannot be visible initially.
-        mOkButton.setVisibility(animateFabIn || showFabPolicy == SHOW_FAB_VALID_TIME 
+        mOkButton.setVisibility(animateFabIn || showFabPolicy == SHOW_FAB_VALID_TIME
                 ? INVISIBLE : VISIBLE);
     }
 
@@ -409,8 +391,8 @@ final class NumberPadTimePickerBottomSheetComponent extends
 
     @ShowFabPolicy
     private static int retrieveShowFab(TypedArray timePickerAttrs) {
-        final int policy = timePickerAttrs.getInt(
-                R.styleable.BSP_NumberPadTimePicker_bsp_showFab, SHOW_FAB_ALWAYS);
+        final int policy = timePickerAttrs.getInt(R.styleable.
+                BSP_NumberPadTimePicker_bsp_showFab, SHOW_FAB_ALWAYS);
         switch (policy) {
             case SHOW_FAB_ALWAYS:
             case SHOW_FAB_VALID_TIME:
@@ -422,8 +404,8 @@ final class NumberPadTimePickerBottomSheetComponent extends
 
     @BackspaceLocation
     private static int retrieveBackspaceLocation(TypedArray timePickerAttrs) {
-        final int location = timePickerAttrs.getInt(
-                R.styleable.BSP_NumberPadTimePicker_bsp_backspaceLocation, LOCATION_HEADER);
+        final int location = timePickerAttrs.getInt(R.styleable.
+                BSP_NumberPadTimePicker_bsp_backspaceLocation, LOCATION_HEADER);
         switch (location) {
             case LOCATION_HEADER:
             case LOCATION_FOOTER:

@@ -3,40 +3,13 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 /**
  * Adds {@link NumberPadTimePicker#LAYOUT_BOTTOM_SHEET bottom sheet} theming APIs
  * to the {@link NumberPadTimePickerThemer base set of APIs}.
  */
 public class BottomSheetNumberPadTimePickerDialogThemer extends NumberPadTimePickerDialogThemer {
-
-    /** Option to place the backspace button in the header. */
-    public static final int LOCATION_HEADER =
-            NumberPadTimePickerBottomSheetComponent.LOCATION_HEADER;
-    /** Option to place the backspace button in the footer. */
-    public static final int LOCATION_FOOTER =
-            NumberPadTimePickerBottomSheetComponent.LOCATION_FOOTER;
-
-    @IntDef({LOCATION_HEADER, LOCATION_FOOTER})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface BackspaceLocation {}
-
-    /** Option to always show the FAB. */
-    public static final int SHOW_FAB_ALWAYS =
-            NumberPadTimePickerBottomSheetComponent.SHOW_FAB_ALWAYS;
-    /** Option to only show the FAB when the inputted sequence makes a valid time. */
-    public static final int SHOW_FAB_VALID_TIME =
-            NumberPadTimePickerBottomSheetComponent.SHOW_FAB_VALID_TIME;
-
-    @IntDef({SHOW_FAB_ALWAYS, SHOW_FAB_VALID_TIME})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface ShowFabPolicy {}
-
     private final NumberPadTimePickerBottomSheetComponent mTimePickerComponent;
 
     BottomSheetNumberPadTimePickerDialogThemer(@NonNull NumberPadTimePicker timePicker) {

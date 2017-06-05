@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.philliphsu.bottomsheetpickers.R;
 
-import static com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadTimePickerBottomSheetComponent.SHOW_FAB_ALWAYS;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.ShowFabPolicy.SHOW_FAB_ALWAYS;
 
 public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
 
