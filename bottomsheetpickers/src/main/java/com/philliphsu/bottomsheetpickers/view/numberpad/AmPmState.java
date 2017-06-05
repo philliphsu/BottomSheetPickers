@@ -19,5 +19,5 @@ import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmState.UNSPECI
     int UNSPECIFIED = -1;
     int AM = 0;
     int PM = 1;
-    int HRS_24 = 2;
+    int HRS_24 = 2;  // a.k.a. NOT_APPLICABLE
 }

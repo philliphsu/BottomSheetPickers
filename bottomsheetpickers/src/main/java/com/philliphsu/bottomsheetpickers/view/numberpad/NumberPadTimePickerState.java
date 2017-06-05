@@ -12,7 +12,6 @@ final class NumberPadTimePickerState implements INumberPadTimePicker.State {
 
     private final int[] mDigits;
     private final int mCount;
-    // TODO: If annotation is renamed HalfDay, rename field to mHalfDay.
     private final @AmPmState int mAmPmState;
 
     public NumberPadTimePickerState(int[] digits, int count, @AmPmState int amPmState) {

@@ -21,7 +21,6 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
     private static final String KEY_DIGITS = "digits";
     // TODO: Why do we need the count?
     private static final String KEY_COUNT = "count";
-    // TODO: Rename to KEY_HALF_DAY = "half_day" if the AmPmState annotation is renamed to HalfDay.
     private static final String KEY_AM_PM_STATE = "am_pm_state";
 
     private final @NonNull DialogInterface mDelegator;

@@ -47,7 +47,6 @@ interface INumberPadTimePicker {
         int[] getDigits();
         // TODO: Why do we need the count?
         int getCount();
-        // TODO: If we rename the annotation to HalfDay, rename method to getHalfDay().
         @AmPmState
         int getAmPmState();
     }
