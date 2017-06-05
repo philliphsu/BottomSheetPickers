@@ -154,7 +154,7 @@ final class NumberPadTimePickerBottomSheetComponent extends
             if (enabled) {
                 mOkButton.show();
             } else {
-                mOkButton.hide();
+                mOkButton.hide(mFabHideListener);
             }
         } else if (mAnimateFabBackgroundColor) {
             if (enabledDiff) {
@@ -339,6 +339,17 @@ final class NumberPadTimePickerBottomSheetComponent extends
         return ObjectAnimator.ofFloat(mOkButton, elevationProperty, elevation).setDuration(
                 FAB_ANIM_DURATION);
     }
+
+    /**
+     * Switches the visibility of the FAB from GONE to INVISIBLE when hide() is called.
+     */
+    private final FloatingActionButton.OnVisibilityChangedListener mFabHideListener =
+            new FloatingActionButton.OnVisibilityChangedListener() {
+        @Override
+        public void onHidden(FloatingActionButton fab) {
+            fab.setVisibility(INVISIBLE);
+        }
+    };
 
     private final Runnable mApplyBackspaceLocationRunnable = new Runnable() {
         @Override
