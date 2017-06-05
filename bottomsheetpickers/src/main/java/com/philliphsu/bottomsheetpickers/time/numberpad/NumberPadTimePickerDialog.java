@@ -101,7 +101,8 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         // of the views will have the drawable applied.
         themer.setHeaderBackground(new ColorDrawable(mHeaderColor))
                 .setDivider(new ColorDrawable(mHeaderColor));
-        themer.setNumberPadBackground(new ColorDrawable(mBackgroundColor));
+        themer.setNumberPadBackground(new ColorDrawable(mBackgroundColor))
+                .setBackspaceLocation(BottomSheetNumberPadTimePickerDialogThemer.LOCATION_FOOTER);
 
         if (mHint != null || mHintResId != 0) {
             if (mHint != null) {
