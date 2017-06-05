@@ -89,5 +89,12 @@
         <!-- The floating action button's ripple color. This attribute is only applied if
              the time picker is using the bottom sheet layout. -->
         <attr name="bsp_fabRippleColor" format="color" />
+
+        <!-- The tint to apply to the floating action button's icon.
+             This attribute is only applied if the time picker is using the bottom sheet layout.
+
+             This should be a color state list where the enabled state will be used when the
+             floating action button is enabled. -->
+        <attr name="bsp_fabIconTint" format="color" />
     </declare-styleable>
 </resources>

@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleableRes;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.GridLayout;
 import android.util.AttributeSet;
 import android.view.View;
@@ -99,8 +100,11 @@ final class NumberPadTimePickerBottomSheetComponent extends
             mOkButton.setBackgroundTintList(fabBackgroundColor);
         }
 
-        setFabRippleColor(timePickerAttrs.getColor(R.styleable.
-                BSP_NumberPadTimePicker_bsp_fabRippleColor, 0));
+        final int fabRippleColor = timePickerAttrs.getColor(R.styleable.
+                BSP_NumberPadTimePicker_bsp_fabRippleColor, 0);
+        if (fabRippleColor != 0) {
+            setFabRippleColor(fabRippleColor);
+        }
 
         mAnimateFabIn = timePickerAttrs.getBoolean(R.styleable.
                 BSP_NumberPadTimePicker_bsp_animateFabIn, false);
@@ -109,6 +113,12 @@ final class NumberPadTimePickerBottomSheetComponent extends
 
         mBackspaceLocation = retrieveBackspaceLocation(timePickerAttrs);
         applyBackspaceLocation();
+
+        final ColorStateList fabIconTint = timePickerAttrs.getColorStateList(
+                R.styleable.BSP_NumberPadTimePicker_bsp_fabIconTint);
+        if (fabIconTint != null) {
+            setFabIconTint(fabIconTint);
+        }
 
         timePickerAttrs.recycle();
     }
@@ -180,9 +190,11 @@ final class NumberPadTimePickerBottomSheetComponent extends
     }
 
     void setFabRippleColor(@ColorInt int color) {
-        if (color != 0) {
-            mOkButton.setRippleColor(color);
-        }
+        mOkButton.setRippleColor(color);
+    }
+
+    void setFabIconTint(ColorStateList tint) {
+        DrawableCompat.setTintList(mOkButton.getDrawable(), tint);
     }
     
     void setAnimateFabBackgroundColor(boolean animate) {

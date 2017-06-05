@@ -54,6 +54,11 @@ public class BottomSheetNumberPadTimePickerDialogThemer extends NumberPadTimePic
         return this;
     }
 
+    public BottomSheetNumberPadTimePickerDialogThemer setFabIconTint(ColorStateList tint) {
+        mTimePickerComponent.setFabIconTint(tint);
+        return this;
+    }
+
     public BottomSheetNumberPadTimePickerDialogThemer setAnimateFabBackgroundColor(boolean animate) {
         mTimePickerComponent.setAnimateFabBackgroundColor(animate);
         return this;
