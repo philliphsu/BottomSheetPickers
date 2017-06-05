@@ -5,10 +5,10 @@ import android.support.annotation.NonNull;
 import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 
 import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
-import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.AM;
-import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.HRS_24;
-import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.PM;
-import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.UNSPECIFIED;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmState.AM;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmState.HRS_24;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmState.PM;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmState.UNSPECIFIED;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.DigitwiseTimeModel.MAX_DIGITS;
 
 class NumberPadTimePickerPresenter implements
@@ -32,7 +32,7 @@ class NumberPadTimePickerPresenter implements
 
     final DigitwiseTimeModel mTimeModel = new DigitwiseTimeModel(this);
 
-    @AmPmStates.AmPmState
+    @AmPmState
     int mAmPmState = UNSPECIFIED;
 
     NumberPadTimePickerPresenter(@NonNull INumberPadTimePicker.View view,

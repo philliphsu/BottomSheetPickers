@@ -171,7 +171,7 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
             final int[] digits = savedInstanceState.getIntArray(KEY_DIGITS);
             // TODO: Why do we need the count?
             final int count = savedInstanceState.getInt(KEY_COUNT);
-            final @AmPmStates.AmPmState int amPmState = savedInstanceState.getInt(KEY_AM_PM_STATE);
+            final @AmPmState int amPmState = savedInstanceState.getInt(KEY_AM_PM_STATE);
             return new NumberPadTimePickerState(digits, count, amPmState);
         } else {
             return NumberPadTimePickerState.EMPTY;

@@ -3,7 +3,7 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmStates.UNSPECIFIED;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmState.UNSPECIFIED;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.ButtonTextModel.text;
 
 /*

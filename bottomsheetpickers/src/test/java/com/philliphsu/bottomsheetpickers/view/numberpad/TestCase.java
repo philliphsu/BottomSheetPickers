@@ -2,7 +2,7 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 final class TestCase {
     final int[] sequence;
-    final @AmPmStates.AmPmState int ampmState;
+    final @AmPmState int ampmState;
 
     final int numberKeysEnabledStart;
     final int numberKeysEnabledEnd;
@@ -30,7 +30,7 @@ final class TestCase {
 
     static class Builder {
         private final int[] sequence;
-        private final @AmPmStates.AmPmState int ampmState;
+        private final @AmPmState int ampmState;
 
         private int numberKeysEnabledStart;
         private int numberKeysEnabledEnd;
@@ -42,7 +42,7 @@ final class TestCase {
         private CharSequence timeDisplay;
         private CharSequence ampmDisplay;
 
-        public Builder(int[] sequence, @AmPmStates.AmPmState int ampmState) {
+        public Builder(int[] sequence, @AmPmState int ampmState) {
             this.sequence = sequence;
             this.ampmState = ampmState;
         }

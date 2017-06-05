@@ -48,7 +48,7 @@ interface INumberPadTimePicker {
         // TODO: Why do we need the count?
         int getCount();
         // TODO: If we rename the annotation to HalfDay, rename method to getHalfDay().
-        @AmPmStates.AmPmState
+        @AmPmState
         int getAmPmState();
     }
 }
