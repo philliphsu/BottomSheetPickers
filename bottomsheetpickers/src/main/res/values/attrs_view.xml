@@ -2,6 +2,10 @@
 <resources>
     <attr name="bsp_numberPadTimePickerStyle" format="reference" />
 
+    <attr name="bsp_numberPadTimePickerAlertDialogTheme" format="reference" />
+
+    <attr name="bsp_numberPadTimePickerBottomSheetDialogTheme" format="reference" />
+
     <declare-styleable name="BSP_NumberPadTimePicker">
         <!-- Indicates how the NumberPadTimePicker should be laid out. -->
         <attr name="bsp_numberPadTimePickerLayout" format="enum">

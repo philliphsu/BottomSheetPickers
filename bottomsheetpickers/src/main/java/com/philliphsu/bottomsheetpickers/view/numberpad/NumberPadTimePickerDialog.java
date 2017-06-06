@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v7.app.AlertDialog;
+import android.util.TypedValue;
 import android.view.ViewGroup;
 
 import com.philliphsu.bottomsheetpickers.R;
@@ -27,12 +28,7 @@ public class NumberPadTimePickerDialog extends AlertDialog {
 
     public NumberPadTimePickerDialog(@NonNull Context context, @StyleRes int themeResId,
             @Nullable OnTimeSetListener listener, boolean is24HourMode) {
-        // TODO: Assuming you will create an attribute that would allow clients to provide
-        // a reference to a style resource in which it specifies how this Dialog should be
-        // styled, you should resolve the provided theme and pass that up to super. You can
-        // follow the chain of construction through any of our base classes to write an appropriate
-        // resolveDialogTheme() method.
-        super(context, themeResId);
+        super(context, resolveDialogTheme(context, themeResId));
         final NumberPadTimePicker timePicker = new NumberPadTimePicker(context);
         mViewDelegate = new NumberPadTimePickerDialogViewDelegate(this, getContext(), timePicker,
                 null, /* At this point, the AlertDialog has not installed its action buttons yet.
@@ -79,5 +75,16 @@ public class NumberPadTimePickerDialog extends AlertDialog {
     protected void onStop() {
         super.onStop();
         mViewDelegate.onStop();
+    }
+
+    static int resolveDialogTheme(Context context, int resId) {
+        if (resId == 0) {
+            final TypedValue outValue = new TypedValue();
+            context.getTheme().resolveAttribute(R.attr.bsp_numberPadTimePickerAlertDialogTheme,
+                    outValue, true);
+            return outValue.resourceId;
+        } else {
+            return resId;
+        }
     }
 }

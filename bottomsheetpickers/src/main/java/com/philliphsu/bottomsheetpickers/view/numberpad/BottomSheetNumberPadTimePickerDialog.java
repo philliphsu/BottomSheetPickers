@@ -10,6 +10,7 @@ import android.support.annotation.StyleRes;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.FloatingActionButton;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,14 +28,9 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
         this(context, 0, listener, is24HourMode);
     }
 
-    public BottomSheetNumberPadTimePickerDialog(@NonNull Context context, @StyleRes int theme,
+    public BottomSheetNumberPadTimePickerDialog(@NonNull Context context, @StyleRes int themeResId,
             @Nullable OnTimeSetListener listener, boolean is24HourMode) {
-        // TODO: Assuming you will create an attribute that would allow clients to provide
-        // a reference to a style resource in which it specifies how this Dialog should be
-        // styled, you should resolve the provided theme and pass that up to super. You can
-        // follow the chain of construction through any of our base classes to write an appropriate
-        // resolveDialogTheme() method.
-        super(context, theme);
+        super(context, resolveDialogTheme(context, themeResId));
         // This is inflated via the LayoutInflater from this Dialog's Window, which was created
         // with this Dialog's Context. If the Dialog's Context is themed, then the hierarchy
         // inflated is sure to be themed appropriately.
@@ -117,5 +113,16 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
     protected void onStop() {
         super.onStop();
         mViewDelegate.onStop();
+    }
+
+    static int resolveDialogTheme(Context context, int resId) {
+        if (resId == 0) {
+            final TypedValue outValue = new TypedValue();
+            context.getTheme().resolveAttribute(R.attr.bsp_numberPadTimePickerBottomSheetDialogTheme,
+                    outValue, true);
+            return outValue.resourceId;
+        } else {
+            return resId;
+        }
     }
 }
