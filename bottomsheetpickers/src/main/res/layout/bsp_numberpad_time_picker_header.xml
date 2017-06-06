@@ -40,11 +40,13 @@
         app:srcCompat="@drawable/bsp_ic_backspace_24dp"
         style="@style/BSP_NumberPadTimePicker_BackspaceStyle" />
 
-    <View
+    <ImageView
         android:id="@+id/bsp_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@drawable/bsp_list_divider_material"
+        android:src="@drawable/bsp_list_divider_material"
+        android:tint="?android:attr/colorForeground"
+        android:scaleType="fitXY"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
