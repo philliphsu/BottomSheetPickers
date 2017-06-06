@@ -181,6 +181,17 @@ final class NumberPadTimePickerBottomSheetComponent extends
         }
     }
 
+    void showOkButton() {
+        if (mShowFabPolicy == SHOW_FAB_ALWAYS && mAnimateFabIn) {
+            mOkButton.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mOkButton.show();
+                }
+            }, 300);
+        }
+    }
+
     void setFabBackgroundColor(ColorStateList fabBackgroundColor) {
         if (mAnimateFabBackgroundColor) {
             mFabBackgroundColorAnimator.setIntValues(extractColors(

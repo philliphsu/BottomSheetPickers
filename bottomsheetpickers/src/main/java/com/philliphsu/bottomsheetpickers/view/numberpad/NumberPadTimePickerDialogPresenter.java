@@ -36,6 +36,11 @@ final class NumberPadTimePickerDialogPresenter extends NumberPadTimePickerPresen
     }
 
     @Override
+    public void onDialogShow() {
+        mView.showOkButton();
+    }
+
+    @Override
     void updateViewEnabledStates() {
         super.updateViewEnabledStates();
         updateOkButtonState();

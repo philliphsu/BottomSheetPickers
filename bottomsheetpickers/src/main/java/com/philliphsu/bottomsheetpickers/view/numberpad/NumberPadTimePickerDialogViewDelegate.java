@@ -132,6 +132,13 @@ final class NumberPadTimePickerDialogViewDelegate implements DialogView {
         mDelegator.cancel();
     }
 
+    @Override
+    public void showOkButton() {
+        if (mTimePicker.getLayout() == NumberPadTimePicker.LAYOUT_BOTTOM_SHEET) {
+            ((NumberPadTimePickerBottomSheetComponent) mTimePicker.getComponent()).showOkButton();
+        }
+    }
+
     void onCreate(@Nullable Bundle savedInstanceState) {
         mPresenter.onCreate(readStateFromBundle(savedInstanceState));
     }

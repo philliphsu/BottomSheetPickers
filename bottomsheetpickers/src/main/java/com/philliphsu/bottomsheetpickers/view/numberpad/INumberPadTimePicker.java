@@ -23,6 +23,7 @@ interface INumberPadTimePicker {
         void setOkButtonEnabled(boolean enabled);
         void setResult(int hour, int minute);
         void cancel();
+        void showOkButton();
     }
 
     interface Presenter {
@@ -41,6 +42,7 @@ interface INumberPadTimePicker {
     interface DialogPresenter extends Presenter {
         void onCancelClick();
         void onOkButtonClick();
+        void onDialogShow();
     }
 
     interface State {

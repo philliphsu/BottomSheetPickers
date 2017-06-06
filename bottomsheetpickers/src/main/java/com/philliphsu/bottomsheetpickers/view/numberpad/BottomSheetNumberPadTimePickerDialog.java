@@ -16,8 +16,6 @@ import android.view.ViewGroup;
 
 import com.philliphsu.bottomsheetpickers.R;
 
-import static com.philliphsu.bottomsheetpickers.view.numberpad.ShowFabPolicy.SHOW_FAB_ALWAYS;
-
 public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
 
     private final NumberPadTimePickerDialogViewDelegate mViewDelegate;
@@ -66,8 +64,6 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
             }
         });
 
-        final boolean isShowFabAlways = timePickerComponent.getShowFabPolicy() == SHOW_FAB_ALWAYS;
-        final boolean isAnimateFabIn = timePickerComponent.isAnimateFabIn();
         // Overrides the default callback, but we kept the default behavior.
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             private float mSlideOffset;
@@ -81,11 +77,6 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
                     case BottomSheetBehavior.STATE_COLLAPSED:
                         // Do not allow collapsing
                         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                        break;
-                    case BottomSheetBehavior.STATE_EXPANDED:
-                        if (isShowFabAlways && isAnimateFabIn) {
-                            okButton.show();
-                        }
                         break;
                 }
             }
@@ -119,6 +110,12 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
         }
         mViewDelegate.onCreate(savedInstanceState);
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        mViewDelegate.getPresenter().onDialogShow();
     }
 
     @NonNull
