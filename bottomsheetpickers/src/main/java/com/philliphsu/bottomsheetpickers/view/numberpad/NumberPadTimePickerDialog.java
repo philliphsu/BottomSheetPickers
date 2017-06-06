@@ -20,13 +20,13 @@ public class NumberPadTimePickerDialog extends AlertDialog {
     private final NumberPadTimePickerDialogViewDelegate mViewDelegate;
     private final NumberPadTimePickerThemer mThemer;
 
-    public NumberPadTimePickerDialog(@NonNull Context context, @Nullable OnTimeSetListener listener,
-                                     boolean is24HourMode) {
+    public NumberPadTimePickerDialog(@NonNull Context context,
+            @Nullable OnTimeSetListener listener, boolean is24HourMode) {
         this(context, 0, listener, is24HourMode);
     }
 
     public NumberPadTimePickerDialog(@NonNull Context context, @StyleRes int themeResId,
-                                     @Nullable OnTimeSetListener listener, boolean is24HourMode) {
+            @Nullable OnTimeSetListener listener, boolean is24HourMode) {
         // TODO: Assuming you will create an attribute that would allow clients to provide
         // a reference to a style resource in which it specifies how this Dialog should be
         // styled, you should resolve the provided theme and pass that up to super. You can

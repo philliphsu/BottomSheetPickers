@@ -23,14 +23,12 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
     private final BottomSheetNumberPadTimePickerDialogThemer mThemer;
 
     public BottomSheetNumberPadTimePickerDialog(@NonNull Context context,
-                                                @Nullable OnTimeSetListener listener,
-                                                boolean is24HourMode) {
+            @Nullable OnTimeSetListener listener, boolean is24HourMode) {
         this(context, 0, listener, is24HourMode);
     }
 
     public BottomSheetNumberPadTimePickerDialog(@NonNull Context context, @StyleRes int theme,
-                                                @Nullable OnTimeSetListener listener,
-                                                boolean is24HourMode) {
+            @Nullable OnTimeSetListener listener, boolean is24HourMode) {
         // TODO: Assuming you will create an attribute that would allow clients to provide
         // a reference to a style resource in which it specifies how this Dialog should be
         // styled, you should resolve the provided theme and pass that up to super. You can
@@ -74,21 +72,21 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
             // Overrides the default callback, but we kept the default behavior.
             BottomSheetBehavior.from((View) root.getParent()).setBottomSheetCallback(
                     new BottomSheetBehavior.BottomSheetCallback() {
-                        @Override
-                        public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                            switch (newState) {
-                                case BottomSheetBehavior.STATE_HIDDEN:
-                                    cancel();
-                                    break;
-                                case BottomSheetBehavior.STATE_EXPANDED:
-                                    okButton.show();
-                                    break;
-                            }
-                        }
+                @Override
+                public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                    switch (newState) {
+                        case BottomSheetBehavior.STATE_HIDDEN:
+                            cancel();
+                            break;
+                        case BottomSheetBehavior.STATE_EXPANDED:
+                            okButton.show();
+                            break;
+                    }
+                }
 
-                        @Override
-                        public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
-                    });
+                @Override
+                public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
+            });
         }
     }
 
