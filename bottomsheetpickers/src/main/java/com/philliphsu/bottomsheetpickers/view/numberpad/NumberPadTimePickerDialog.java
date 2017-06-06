@@ -29,7 +29,7 @@ public class NumberPadTimePickerDialog extends AlertDialog {
     public NumberPadTimePickerDialog(@NonNull Context context, @StyleRes int themeResId,
             @Nullable OnTimeSetListener listener, boolean is24HourMode) {
         super(context, resolveDialogTheme(context, themeResId));
-        final NumberPadTimePicker timePicker = new NumberPadTimePicker(context);
+        final NumberPadTimePicker timePicker = new NumberPadTimePicker(getContext());
         mViewDelegate = new NumberPadTimePickerDialogViewDelegate(this, getContext(), timePicker,
                 null, /* At this point, the AlertDialog has not installed its action buttons yet.
                 It does not do so until super.onCreate() returns. */
