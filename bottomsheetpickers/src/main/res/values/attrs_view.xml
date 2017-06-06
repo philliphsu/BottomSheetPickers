@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="bsp_numberPadTimePickerStyle" format="reference" />
+
     <declare-styleable name="BSP_NumberPadTimePicker">
         <!-- Indicates how the NumberPadTimePicker should be laid out. -->
         <attr name="bsp_numberPadTimePickerLayout" format="enum">

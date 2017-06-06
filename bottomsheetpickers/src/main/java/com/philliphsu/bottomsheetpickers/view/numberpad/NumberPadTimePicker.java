@@ -20,10 +20,8 @@ import com.philliphsu.bottomsheetpickers.R;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-// TODO: Declare an attribute with format="reference" to allow a style resource to be specified.
-class NumberPadTimePicker extends LinearLayout implements 
-        INumberPadTimePicker.View, 
-        NumberPadTimePickerThemer {
+class NumberPadTimePicker extends LinearLayout implements
+        INumberPadTimePicker.View, NumberPadTimePickerThemer {
 
     /** Option to layout this view for use in an alert dialog. */
     static final int LAYOUT_ALERT = 1;
@@ -44,7 +42,7 @@ class NumberPadTimePicker extends LinearLayout implements
     }
 
     public NumberPadTimePicker(Context context, AttributeSet attrs) {
-        this(context, attrs, 0 /*TODO: Pass our attribute here. This contains a reference to a style resource.*/);
+        this(context, attrs, R.attr.bsp_numberPadTimePickerStyle);
     }
 
     public NumberPadTimePicker(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -58,7 +56,6 @@ class NumberPadTimePicker extends LinearLayout implements
         init(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    // TODO: Apply the style resource, either the one contained in defStyleAttr or defStyleRes itself.
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         setOrientation(VERTICAL);
 
