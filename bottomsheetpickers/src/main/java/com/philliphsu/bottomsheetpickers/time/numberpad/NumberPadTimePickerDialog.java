@@ -35,6 +35,7 @@ import android.widget.TimePicker;
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.view.Preconditions;
+import com.philliphsu.bottomsheetpickers.view.numberpad.BackspaceLocation;
 import com.philliphsu.bottomsheetpickers.view.numberpad.BottomSheetNumberPadTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.view.numberpad.BottomSheetNumberPadTimePickerDialogThemer;
 
@@ -102,7 +103,7 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         themer.setHeaderBackground(new ColorDrawable(mHeaderColor))
                 .setDivider(new ColorDrawable(mHeaderColor));
         themer.setNumberPadBackground(new ColorDrawable(mBackgroundColor))
-                .setBackspaceLocation(BottomSheetNumberPadTimePickerDialogThemer.LOCATION_FOOTER);
+                .setBackspaceLocation(BackspaceLocation.LOCATION_FOOTER);
 
         if (mHint != null || mHintResId != 0) {
             if (mHint != null) {
