@@ -25,6 +25,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
     private OnTimeSetListener mTimeSetListener;
     private TextView mInputField;
 
+    private boolean mSet24HourModeAtRuntime;
     private boolean mIs24HourMode;
     private String mHint;
     private int mTextSize;
@@ -77,8 +79,17 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         mTimeSetListener = callback;
         mThemeDark = false;
         mThemeSetAtRuntime = false;
+        mSet24HourModeAtRuntime = set24HourModeAtRuntime;
         if (set24HourModeAtRuntime) {
             mIs24HourMode = is24HourMode;
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (!mSet24HourModeAtRuntime) {
+            mIs24HourMode = DateFormat.is24HourFormat(getActivity());
         }
     }
 
