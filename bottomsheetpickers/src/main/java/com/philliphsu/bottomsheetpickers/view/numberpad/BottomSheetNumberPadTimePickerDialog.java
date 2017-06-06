@@ -22,6 +22,7 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
 
     private final NumberPadTimePickerDialogViewDelegate mViewDelegate;
     private final BottomSheetNumberPadTimePickerDialogThemer mThemer;
+    private final BottomSheetBehavior<? extends View> mBottomSheetBehavior;
 
     public BottomSheetNumberPadTimePickerDialog(@NonNull Context context,
             @Nullable OnTimeSetListener listener, boolean is24HourMode) {
@@ -53,8 +54,10 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
                 // you to modify or replace the theme of the wrapped context", and it
                 // works by applying the specified theme on top of the base context's theme.
                 getContext(), timePicker, okButton, listener, is24HourMode);
-        mThemer = new BottomSheetNumberPadTimePickerDialogThemer(timePicker);
         setContentView(root);
+
+        mThemer = new BottomSheetNumberPadTimePickerDialogThemer(timePicker);
+        mBottomSheetBehavior = BottomSheetBehavior.from((View) root.getParent());
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,27 +66,41 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
             }
         });
 
-        if (timePickerComponent.getShowFabPolicy() == SHOW_FAB_ALWAYS
-                && timePickerComponent.isAnimateFabIn()) {
-            // Overrides the default callback, but we kept the default behavior.
-            BottomSheetBehavior.from((View) root.getParent()).setBottomSheetCallback(
-                    new BottomSheetBehavior.BottomSheetCallback() {
-                @Override
-                public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                    switch (newState) {
-                        case BottomSheetBehavior.STATE_HIDDEN:
-                            cancel();
-                            break;
-                        case BottomSheetBehavior.STATE_EXPANDED:
+        final boolean isShowFabAlways = timePickerComponent.getShowFabPolicy() == SHOW_FAB_ALWAYS;
+        final boolean isAnimateFabIn = timePickerComponent.isAnimateFabIn();
+        // Overrides the default callback, but we kept the default behavior.
+        mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            private float mSlideOffset;
+
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        cancel();  // Default behavior
+                        break;
+                    case BottomSheetBehavior.STATE_COLLAPSED:
+                        // Do not allow collapsing
+                        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED:
+                        if (isShowFabAlways && isAnimateFabIn) {
                             okButton.show();
-                            break;
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                // Between collapsed and expanded states
+                if (slideOffset >= 0f && slideOffset < 1f) {
+                    if (slideOffset < mSlideOffset) {
+                        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     }
                 }
-
-                @Override
-                public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
-            });
-        }
+                mSlideOffset = slideOffset;
+            }
+        });
     }
 
     public BottomSheetNumberPadTimePickerDialogThemer getThemer() {
@@ -101,6 +118,7 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
             // Do nothing.
         }
         mViewDelegate.onCreate(savedInstanceState);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
     @NonNull
