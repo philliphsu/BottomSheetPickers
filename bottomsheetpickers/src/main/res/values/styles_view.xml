@@ -44,4 +44,16 @@
 
     <style name="BSP_NumberPadTimePicker_BackspaceStyle" parent="BSP_ButtonBackgroundStyle">
     </style>
+    
+    <style name="BSP_NumberPadTimePicker_Base_FabStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/bsp_bottom_sheet_grid_picker_fab_margin</item>
+        <item name="android:layout_marginBottom">@dimen/bsp_bottom_sheet_grid_picker_fab_margin</item>
+        <item name="elevation">@dimen/bsp_bottom_sheet_grid_picker_fab_elevation</item>
+    </style>
+
+    <style name="BSP_NumberPadTimePicker_FabStyle" parent="BSP_NumberPadTimePicker_Base_FabStyle">
+        <item name="fabSize">auto</item>
+    </style>
 </resources>
