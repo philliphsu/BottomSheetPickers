@@ -7,7 +7,7 @@ import android.support.annotation.ColorInt;
 /**
  * APIs to set the colors of a {@link NumberPadTimePicker}.
  */
-public interface NumberPadTimePickerThemer {
+interface NumberPadTimePickerThemer {
     NumberPadTimePickerThemer setInputTimeTextColor(@ColorInt int color);
 
     NumberPadTimePickerThemer setInputAmPmTextColor(@ColorInt int color);

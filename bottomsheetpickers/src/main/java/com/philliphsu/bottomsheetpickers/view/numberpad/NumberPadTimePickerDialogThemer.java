@@ -21,49 +21,49 @@ public class NumberPadTimePickerDialogThemer implements NumberPadTimePickerTheme
     }
 
     @Override
-    public NumberPadTimePickerThemer setInputTimeTextColor(@ColorInt int color) {
+    public NumberPadTimePickerDialogThemer setInputTimeTextColor(@ColorInt int color) {
         mTimePicker.setInputTimeTextColor(color);
         return this;
     }
 
     @Override
-    public NumberPadTimePickerThemer setInputAmPmTextColor(@ColorInt int color) {
+    public NumberPadTimePickerDialogThemer setInputAmPmTextColor(@ColorInt int color) {
         mTimePicker.setInputAmPmTextColor(color);
         return this;
     }
 
     @Override
-    public NumberPadTimePickerThemer setBackspaceTint(ColorStateList colors) {
+    public NumberPadTimePickerDialogThemer setBackspaceTint(ColorStateList colors) {
         mTimePicker.setBackspaceTint(colors);
         return this;
     }
 
     @Override
-    public NumberPadTimePickerThemer setNumberKeysTextColor(ColorStateList colors) {
+    public NumberPadTimePickerDialogThemer setNumberKeysTextColor(ColorStateList colors) {
         mTimePicker.setNumberKeysTextColor(colors);
         return this;
     }
 
     @Override
-    public NumberPadTimePickerThemer setAltKeysTextColor(ColorStateList colors) {
+    public NumberPadTimePickerDialogThemer setAltKeysTextColor(ColorStateList colors) {
         mTimePicker.setAltKeysTextColor(colors);
         return this;
     }
 
     @Override
-    public NumberPadTimePickerThemer setHeaderBackground(Drawable background) {
+    public NumberPadTimePickerDialogThemer setHeaderBackground(Drawable background) {
         mTimePicker.setHeaderBackground(background);
         return this;
     }
 
     @Override
-    public NumberPadTimePickerThemer setNumberPadBackground(Drawable background) {
+    public NumberPadTimePickerDialogThemer setNumberPadBackground(Drawable background) {
         mTimePicker.setNumberPadBackground(background);
         return this;
     }
 
     @Override
-    public NumberPadTimePickerThemer setDivider(Drawable divider) {
+    public NumberPadTimePickerDialogThemer setDivider(Drawable divider) {
         mTimePicker.setDivider(divider);
         return this;
     }

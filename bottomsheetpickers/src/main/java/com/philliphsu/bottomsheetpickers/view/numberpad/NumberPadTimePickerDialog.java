@@ -19,7 +19,7 @@ import com.philliphsu.bottomsheetpickers.R;
 public class NumberPadTimePickerDialog extends AlertDialog {
 
     private final NumberPadTimePickerDialogViewDelegate mViewDelegate;
-    private final NumberPadTimePickerThemer mThemer;
+    private final NumberPadTimePickerDialogThemer mThemer;
 
     public NumberPadTimePickerDialog(@NonNull Context context,
             @Nullable OnTimeSetListener listener, boolean is24HourMode) {
@@ -47,7 +47,7 @@ public class NumberPadTimePickerDialog extends AlertDialog {
                 onDialogButtonClickListener);
     }
 
-    public NumberPadTimePickerThemer getThemer() {
+    public NumberPadTimePickerDialogThemer getThemer() {
         return mThemer;
     }
 
