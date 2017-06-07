@@ -331,6 +331,12 @@ class NumberPadTimePicker extends LinearLayout implements
         @Override
         public final NumberPadTimePickerThemer setDivider(Drawable divider) {
             mDivider.setImageDrawable(divider);
+            if (Build.VERSION.SDK_INT >= 21) {
+                // Clear the tint set in the header's layout resource.
+                // This is not necessary for pre-21, because the tint
+                // doesn't show up when the divider is changed.
+                mDivider.setImageTintList(null);
+            }
             return this;
         }
 
