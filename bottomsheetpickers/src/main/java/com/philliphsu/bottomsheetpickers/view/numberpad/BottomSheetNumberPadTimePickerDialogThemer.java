@@ -12,9 +12,9 @@ import android.support.annotation.NonNull;
 public class BottomSheetNumberPadTimePickerDialogThemer extends NumberPadTimePickerDialogThemer {
     private final NumberPadTimePickerBottomSheetComponent mTimePickerComponent;
 
-    BottomSheetNumberPadTimePickerDialogThemer(@NonNull NumberPadTimePicker timePicker) {
-        super(timePicker);
-        mTimePickerComponent = (NumberPadTimePickerBottomSheetComponent) timePicker.getComponent();
+    BottomSheetNumberPadTimePickerDialogThemer(@NonNull NumberPadTimePickerBottomSheetComponent timePickerComponent) {
+        super(timePickerComponent);
+        mTimePickerComponent = timePickerComponent;
     }
 
     public BottomSheetNumberPadTimePickerDialogThemer setFabBackgroundColor(ColorStateList colors) {

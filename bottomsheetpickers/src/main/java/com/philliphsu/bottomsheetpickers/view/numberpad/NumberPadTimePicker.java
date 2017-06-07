@@ -21,8 +21,7 @@ import com.philliphsu.bottomsheetpickers.R;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-class NumberPadTimePicker extends LinearLayout implements
-        INumberPadTimePicker.View, NumberPadTimePickerThemer {
+class NumberPadTimePicker extends LinearLayout implements INumberPadTimePicker.View {
 
     /** Option to layout this view for use in an alert dialog. */
     static final int LAYOUT_ALERT = 1;
@@ -139,46 +138,6 @@ class NumberPadTimePicker extends LinearLayout implements
     @Override
     public void setHeaderDisplayFocused(boolean focused) {
         // Do nothing.
-    }
-
-    @Override
-    public NumberPadTimePickerThemer setHeaderBackground(Drawable background) {
-        return mTimePickerComponent.setHeaderBackground(background);
-    }
-
-    @Override
-    public NumberPadTimePickerThemer setNumberPadBackground(Drawable background) {
-        return mTimePickerComponent.setNumberPadBackground(background);
-    }
-
-    @Override
-    public NumberPadTimePickerThemer setDivider(Drawable divider) {
-        return mTimePickerComponent.setDivider(divider);
-    }
-
-    @Override
-    public NumberPadTimePickerThemer setInputTimeTextColor(@ColorInt int color) {
-        return mTimePickerComponent.setInputTimeTextColor(color);
-    }
-
-    @Override
-    public NumberPadTimePickerThemer setInputAmPmTextColor(@ColorInt int color) {
-        return mTimePickerComponent.setInputAmPmTextColor(color);
-    }
-
-    @Override
-    public NumberPadTimePickerThemer setBackspaceTint(ColorStateList colors) {
-        return mTimePickerComponent.setBackspaceTint(colors);
-    }
-
-    @Override
-    public NumberPadTimePickerThemer setNumberKeysTextColor(ColorStateList colors) {
-        return mTimePickerComponent.setNumberKeysTextColor(colors);
-    }
-
-    @Override
-    public NumberPadTimePickerThemer setAltKeysTextColor(ColorStateList colors) {
-        return mTimePickerComponent.setAltKeysTextColor(colors);
     }
 
     @NumberPadTimePickerLayout

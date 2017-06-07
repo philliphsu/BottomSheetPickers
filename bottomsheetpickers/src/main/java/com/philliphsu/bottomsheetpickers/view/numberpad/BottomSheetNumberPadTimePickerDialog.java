@@ -54,7 +54,7 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
                 getContext(), timePicker, okButton, listener, is24HourMode);
         setContentView(root);
 
-        mThemer = new BottomSheetNumberPadTimePickerDialogThemer(timePicker);
+        mThemer = new BottomSheetNumberPadTimePickerDialogThemer(timePickerComponent);
         mBottomSheetBehavior = BottomSheetBehavior.from((View) root.getParent());
 
         okButton.setOnClickListener(new View.OnClickListener() {

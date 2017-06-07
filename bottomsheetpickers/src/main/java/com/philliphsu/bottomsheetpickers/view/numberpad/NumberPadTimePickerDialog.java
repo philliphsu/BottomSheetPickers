@@ -34,7 +34,7 @@ public class NumberPadTimePickerDialog extends AlertDialog {
                 null, /* At this point, the AlertDialog has not installed its action buttons yet.
                 It does not do so until super.onCreate() returns. */
                 listener, is24HourMode);
-        mThemer = new NumberPadTimePickerDialogThemer(timePicker);
+        mThemer = new NumberPadTimePickerDialogThemer(timePicker.getComponent());
         setView(timePicker);
 
         final OnDialogButtonClickListener onDialogButtonClickListener
