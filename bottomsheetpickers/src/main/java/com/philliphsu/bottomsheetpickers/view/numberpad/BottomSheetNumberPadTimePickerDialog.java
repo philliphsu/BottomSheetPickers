@@ -64,10 +64,10 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
             }
         });
 
+        mBottomSheetBehavior.setPeekHeight(getContext().getResources().getDimensionPixelSize(
+                R.dimen.bsp_bottom_sheet_grid_picker_peek_height));
         // Overrides the default callback, but we kept the default behavior.
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            private float mSlideOffset;
-
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 switch (newState) {
@@ -82,15 +82,7 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
             }
 
             @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                // Between collapsed and expanded states
-                if (slideOffset >= 0f && slideOffset < 1f) {
-                    if (slideOffset < mSlideOffset) {
-                        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                    }
-                }
-                mSlideOffset = slideOffset;
-            }
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
         });
     }
 

@@ -22,6 +22,11 @@
     <!-- FAB margin in a bottom sheet grid-based picker. -->
     <dimen name="bsp_bottom_sheet_grid_picker_fab_margin">0dp</dimen>
     <dimen name="bsp_bottom_sheet_grid_picker_fab_elevation">6dp</dimen>
+    <!-- bsp_numberpad_time_picker_header_height              (72dp)
+            + bsp_bottom_sheet_grid_picker_padding_top        (16dp)
+            + 4 * bsp_gridpicker_button_height            4 * (64dp)
+            + FAB size and top and bottom margins             (88dp) -->
+    <dimen name="bsp_bottom_sheet_grid_picker_peek_height">432dp</dimen>
 
     <dimen name="bsp_numberpad_time_picker_header_height">72dp</dimen>
     <dimen name="bsp_numberpad_time_picker_backspace_icon_size">24dp</dimen>
