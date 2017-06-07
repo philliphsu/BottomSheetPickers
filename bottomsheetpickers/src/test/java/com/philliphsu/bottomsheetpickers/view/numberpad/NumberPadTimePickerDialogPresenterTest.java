@@ -1,7 +1,5 @@
 package com.philliphsu.bottomsheetpickers.view.numberpad;
 
-import com.philliphsu.bottomsheetpickers.view.LocaleModel;
-
 import org.junit.Test;
 
 import static org.mockito.Mockito.atLeastOnce;

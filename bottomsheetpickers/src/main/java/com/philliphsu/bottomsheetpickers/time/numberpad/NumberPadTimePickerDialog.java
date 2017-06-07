@@ -40,8 +40,6 @@ import com.philliphsu.bottomsheetpickers.view.numberpad.BackspaceLocation;
 import com.philliphsu.bottomsheetpickers.view.numberpad.BottomSheetNumberPadTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.view.numberpad.BottomSheetNumberPadTimePickerDialogThemer;
 
-import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
-
 /**
  * Dialog to type in a time.
  */
@@ -107,7 +105,7 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
                              Bundle savedInstanceState) {
         // Initialize legacy colors.
         super.onCreateView(inflater, container, savedInstanceState);
-        mInputField = (TextView) checkNotNull(mDialog.findViewById(R.id.bsp_input_time));
+        mInputField = (TextView) mDialog.findViewById(R.id.bsp_input_time);
 
         final BottomSheetNumberPadTimePickerDialogThemer themer = mDialog.getThemer();
         // We must create separate Drawables, even for the same color, or else only one

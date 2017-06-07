@@ -2,8 +2,6 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.support.annotation.NonNull;
 
-import com.philliphsu.bottomsheetpickers.view.LocaleModel;
-
 import java.text.DateFormatSymbols;
 
 /**

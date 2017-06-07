@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 
 import com.example.bottomsheetpickers.R;
 import com.example.bottomsheetpickers.TextSwitcherActivity;
-import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;

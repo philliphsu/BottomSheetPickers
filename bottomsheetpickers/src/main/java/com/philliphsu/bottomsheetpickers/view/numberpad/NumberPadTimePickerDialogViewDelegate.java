@@ -9,10 +9,9 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TimePicker;
 
-import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 import com.philliphsu.bottomsheetpickers.view.numberpad.INumberPadTimePicker.DialogView;
 
-import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.Preconditions.checkNotNull;
 
 /**
  * Handles the {@link DialogView DialogView} responsibilities of a number pad time picker dialog.

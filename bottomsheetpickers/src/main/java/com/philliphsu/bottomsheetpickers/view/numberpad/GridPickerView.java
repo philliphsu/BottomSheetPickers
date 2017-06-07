@@ -1,4 +1,4 @@
-package com.philliphsu.bottomsheetpickers.view;
+package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.content.Context;
 import android.support.annotation.IdRes;
@@ -12,7 +12,7 @@ import com.philliphsu.bottomsheetpickers.R;
 /**
  * View to show a 4 x 3 grid of text buttons.
  */
-public class GridPickerView extends GridLayout {
+class GridPickerView extends GridLayout {
 
     private static final @IdRes int[] TEXTVIEW_IDS = {
             R.id.bsp_text0,  R.id.bsp_text1,   R.id.bsp_text2,

@@ -2,8 +2,6 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.support.annotation.NonNull;
 
-import com.philliphsu.bottomsheetpickers.view.LocaleModel;
-
 final class NumberPadTimePickerDialogPresenter extends NumberPadTimePickerPresenter
         implements INumberPadTimePicker.DialogPresenter {
 

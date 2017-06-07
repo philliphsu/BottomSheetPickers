@@ -1,6 +1,5 @@
 package com.philliphsu.bottomsheetpickers.view.numberpad;
 
-import com.philliphsu.bottomsheetpickers.view.LocaleModel;
 import com.philliphsu.bottomsheetpickers.view.numberpad.INumberPadTimePicker.Presenter;
 
 import org.junit.Before;

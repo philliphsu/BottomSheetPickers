@@ -2,9 +2,7 @@ package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.support.annotation.NonNull;
 
-import com.philliphsu.bottomsheetpickers.view.LocaleModel;
-
-import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.Preconditions.checkNotNull;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmState.AM;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmState.HRS_24;
 import static com.philliphsu.bottomsheetpickers.view.numberpad.AmPmState.PM;

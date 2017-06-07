@@ -5,8 +5,6 @@ import android.content.res.ColorStateList;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.philliphsu.bottomsheetpickers.view.GridPickerView;
-
 class NumberPadView extends GridPickerView {
     /**
      * Indices map to buttons that represent those numbers.

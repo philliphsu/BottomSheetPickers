@@ -1,4 +1,4 @@
-package com.philliphsu.bottomsheetpickers.view;
+package com.philliphsu.bottomsheetpickers.view.numberpad;
 
 import android.content.Context;
 import android.content.res.Configuration;

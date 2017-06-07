@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 
-import static com.philliphsu.bottomsheetpickers.view.Preconditions.checkNotNull;
+import static com.philliphsu.bottomsheetpickers.view.numberpad.Preconditions.checkNotNull;
 
 /**
  * Interface through which a {@link NumberPadTimePicker} contained in
