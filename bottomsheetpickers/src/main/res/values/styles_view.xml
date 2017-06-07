@@ -31,6 +31,7 @@
     <style name="BSP_NumberPadTimePicker_Base_InputTimeStyle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/bsp_numberpad_time_picker_input_time_text_size</item>
         <item name="android:includeFontPadding">false</item>
+        <item name="android:gravity">center_horizontal</item>
     </style>
 
     <style name="BSP_NumberPadTimePicker_InputTimeStyle" parent="BSP_NumberPadTimePicker_Base_InputTimeStyle">
