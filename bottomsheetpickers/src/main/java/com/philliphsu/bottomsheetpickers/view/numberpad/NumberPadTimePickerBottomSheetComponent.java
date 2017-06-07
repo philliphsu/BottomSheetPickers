@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.philliphsu.bottomsheetpickers.R;
+import com.philliphsu.bottomsheetpickers.view.numberpad.NumberPadTimePicker.NumberPadTimePickerComponent;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -33,8 +34,8 @@ import static com.philliphsu.bottomsheetpickers.view.numberpad.ShowFabPolicy.SHO
  * Component that installs {@link NumberPadTimePicker#LAYOUT_BOTTOM_SHEET bottom sheet}
  * functionality to a {@link NumberPadTimePicker}.
  */
-final class NumberPadTimePickerBottomSheetComponent extends
-        NumberPadTimePicker.NumberPadTimePickerComponent {
+final class NumberPadTimePickerBottomSheetComponent extends NumberPadTimePickerComponent 
+        implements BottomSheetNumberPadTimePickerThemer {
     /**
      * Color attributes defined in our {@code Context}'s theme.
      *
@@ -106,6 +107,72 @@ final class NumberPadTimePickerBottomSheetComponent extends
         }
 
         timePickerAttrs.recycle();
+    }
+
+    @Override
+    public BottomSheetNumberPadTimePickerThemer setFabBackgroundColor(ColorStateList fabBackgroundColor) {
+        if (mAnimateFabBackgroundColor) {
+            mFabBackgroundColorAnimator.setIntValues(extractColors(
+                    fabBackgroundColor, STATES_FAB_COLORS));
+        }
+        mOkButton.setBackgroundTintList(fabBackgroundColor);
+        return this;
+    }
+
+    @Override
+    public BottomSheetNumberPadTimePickerThemer setFabRippleColor(@ColorInt int color) {
+        mOkButton.setRippleColor(color);
+        return this;
+    }
+
+    @Override
+    public BottomSheetNumberPadTimePickerThemer setFabIconTint(ColorStateList tint) {
+        if (tint != null) {
+            int[] colors = extractColors(tint, STATES_FAB_COLORS);
+            if (mFabIconTintAnimator != null) {
+                mFabIconTintAnimator.setIntValues(colors);
+            } else {
+                mFabIconTintAnimator = createFabIconTintAnimator(colors);
+            }
+        }
+        DrawableCompat.setTintList(mOkButton.getDrawable(), tint);
+        return this;
+    }
+
+    @Override
+    public BottomSheetNumberPadTimePickerThemer setAnimateFabBackgroundColor(boolean animate) {
+        setAnimateFabBackgroundColor(animate, mOkButton.getBackgroundTintList(),
+                mOkButton.getContext());
+        return this;
+    }
+
+    @Override
+    public BottomSheetNumberPadTimePickerThemer setShowFabPolicy(@ShowFabPolicy int policy) {
+        if (policy != mShowFabPolicy) {
+            // We're assuming the dialog has not been shown yet, so prepare the visibility state
+            // of the FAB for any animation requirements when the dialog is shown.
+            setInitialFabVisibility(mAnimateFabIn, policy);
+            mShowFabPolicy = policy;
+        }
+        return this;
+    }
+
+    @Override
+    public BottomSheetNumberPadTimePickerThemer setBackspaceLocation(@BackspaceLocation int location) {
+        if (location != mBackspaceLocation) {
+            mBackspaceLocation = location;
+            applyBackspaceLocation();
+        }
+        return this;
+    }
+
+    @Override
+    public BottomSheetNumberPadTimePickerThemer setAnimateFabIn(boolean animateIn) {
+        if (animateIn != mAnimateFabIn) {
+            setInitialFabVisibility(animateIn, mShowFabPolicy);
+            mAnimateFabIn = animateIn;
+        }
+        return this;
     }
 
     @Override
@@ -189,58 +256,6 @@ final class NumberPadTimePickerBottomSheetComponent extends
                     mOkButton.show();
                 }
             }, 300);
-        }
-    }
-
-    void setFabBackgroundColor(ColorStateList fabBackgroundColor) {
-        if (mAnimateFabBackgroundColor) {
-            mFabBackgroundColorAnimator.setIntValues(extractColors(
-                    fabBackgroundColor, STATES_FAB_COLORS));
-        }
-        mOkButton.setBackgroundTintList(fabBackgroundColor);
-    }
-
-    void setFabRippleColor(@ColorInt int color) {
-        mOkButton.setRippleColor(color);
-    }
-
-    void setFabIconTint(ColorStateList tint) {
-        if (tint != null) {
-            int[] colors = extractColors(tint, STATES_FAB_COLORS);
-            if (mFabIconTintAnimator != null) {
-                mFabIconTintAnimator.setIntValues(colors);
-            } else {
-                mFabIconTintAnimator = createFabIconTintAnimator(colors);
-            }
-        }
-        DrawableCompat.setTintList(mOkButton.getDrawable(), tint);
-    }
-    
-    void setAnimateFabBackgroundColor(boolean animate) {
-        setAnimateFabBackgroundColor(animate, mOkButton.getBackgroundTintList(), 
-                mOkButton.getContext());
-    }
-    
-    void setShowFabPolicy(@ShowFabPolicy int policy) {
-        if (policy != mShowFabPolicy) {
-            // We're assuming the dialog has not been shown yet, so prepare the visibility state
-            // of the FAB for any animation requirements when the dialog is shown.
-            setInitialFabVisibility(mAnimateFabIn, policy);
-            mShowFabPolicy = policy;
-        }
-    }
-
-    void setBackspaceLocation(@BackspaceLocation int location) {
-        if (location != mBackspaceLocation) {
-            mBackspaceLocation = location;
-            applyBackspaceLocation();
-        }
-    }
-    
-    void setAnimateFabIn(boolean animateIn) {
-        if (animateIn != mAnimateFabIn) {
-            setInitialFabVisibility(animateIn, mShowFabPolicy);
-            mAnimateFabIn = animateIn;
         }
     }
 

@@ -6,10 +6,12 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 
 /**
- * Adds {@link NumberPadTimePicker#LAYOUT_BOTTOM_SHEET bottom sheet} theming APIs
- * to the {@link NumberPadTimePickerThemer base set of APIs}.
+ * Interface through which a {@link NumberPadTimePicker} contained in
+ * {@link BottomSheetNumberPadTimePickerDialog} can have its colors
+ * and other attributes customized.
  */
-public class BottomSheetNumberPadTimePickerDialogThemer extends NumberPadTimePickerDialogThemer {
+public class BottomSheetNumberPadTimePickerDialogThemer extends NumberPadTimePickerDialogThemer
+        implements BottomSheetNumberPadTimePickerThemer {
     private final NumberPadTimePickerBottomSheetComponent mTimePickerComponent;
 
     BottomSheetNumberPadTimePickerDialogThemer(@NonNull NumberPadTimePickerBottomSheetComponent timePickerComponent) {
@@ -17,36 +19,43 @@ public class BottomSheetNumberPadTimePickerDialogThemer extends NumberPadTimePic
         mTimePickerComponent = timePickerComponent;
     }
 
+    @Override
     public BottomSheetNumberPadTimePickerDialogThemer setFabBackgroundColor(ColorStateList colors) {
         mTimePickerComponent.setFabBackgroundColor(colors);
         return this;
     }
 
+    @Override
     public BottomSheetNumberPadTimePickerDialogThemer setFabRippleColor(@ColorInt int color) {
         mTimePickerComponent.setFabRippleColor(color);
         return this;
     }
 
+    @Override
     public BottomSheetNumberPadTimePickerDialogThemer setFabIconTint(ColorStateList tint) {
         mTimePickerComponent.setFabIconTint(tint);
         return this;
     }
 
+    @Override
     public BottomSheetNumberPadTimePickerDialogThemer setAnimateFabBackgroundColor(boolean animate) {
         mTimePickerComponent.setAnimateFabBackgroundColor(animate);
         return this;
     }
 
+    @Override
     public BottomSheetNumberPadTimePickerDialogThemer setShowFabPolicy(@ShowFabPolicy int policy) {
         mTimePickerComponent.setShowFabPolicy(policy);
         return this;
     }
 
+    @Override
     public BottomSheetNumberPadTimePickerDialogThemer setAnimateFabIn(boolean animateIn) {
         mTimePickerComponent.setAnimateFabIn(animateIn);
         return this;
     }
 
+    @Override
     public BottomSheetNumberPadTimePickerDialogThemer setBackspaceLocation(@BackspaceLocation int location) {
         mTimePickerComponent.setBackspaceLocation(location);
         return this;
