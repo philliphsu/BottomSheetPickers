@@ -45,6 +45,12 @@ import com.philliphsu.bottomsheetpickers.view.numberpad.BottomSheetNumberPadTime
  */
 public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         implements TimePickerDialog.OnTimeSetListener {
+    private static final String KEY_SET_24_HOUR_MODE_AT_RUNTIME = "set_24_hour_mode_at_runtime";
+    private static final String KEY_IS_24_HOUR_MODE = "is_24_hour_mode";
+    private static final String KEY_HINT = "hint";
+    private static final String KEY_TEXT_SIZE = "text_size";
+    private static final String KEY_HINT_RES_ID = "hint_res_id";
+    private static final String KEY_HEADER_TEXT_COLOR = "header_text_color";
 
     private BottomSheetNumberPadTimePickerDialog mDialog;
     private OnTimeSetListener mTimeSetListener;
@@ -88,8 +94,17 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!mSet24HourModeAtRuntime) {
-            mIs24HourMode = DateFormat.is24HourFormat(getActivity());
+        if (savedInstanceState != null) {
+            mSet24HourModeAtRuntime = savedInstanceState.getBoolean(KEY_SET_24_HOUR_MODE_AT_RUNTIME);
+            mIs24HourMode = savedInstanceState.getBoolean(KEY_IS_24_HOUR_MODE);
+            mHint = savedInstanceState.getString(KEY_HINT);
+            mTextSize = savedInstanceState.getInt(KEY_TEXT_SIZE);
+            mHintResId = savedInstanceState.getInt(KEY_HINT_RES_ID);
+            mHeaderTextColor = savedInstanceState.getInt(KEY_HEADER_TEXT_COLOR);
+        } else {
+            if (!mSet24HourModeAtRuntime) {
+                mIs24HourMode = DateFormat.is24HourFormat(getActivity());
+            }
         }
     }
 
@@ -142,9 +157,9 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
 
         /* Copied from GridPickerView.java */
         int[] buttonIds = { R.id.bsp_text0,  R.id.bsp_text1,   R.id.bsp_text2,
-                R.id.bsp_text3,  R.id.bsp_text4,   R.id.bsp_text5,
-                R.id.bsp_text6,  R.id.bsp_text7,   R.id.bsp_text8,
-                R.id.bsp_text9,  R.id.bsp_text10,  R.id.bsp_text11 };
+                            R.id.bsp_text3,  R.id.bsp_text4,   R.id.bsp_text5,
+                            R.id.bsp_text6,  R.id.bsp_text7,   R.id.bsp_text8,
+                            R.id.bsp_text9,  R.id.bsp_text10,  R.id.bsp_text11 };
         for (int id : buttonIds) {
             Utils.setColorControlHighlight(mDialog.findViewById(id), mAccentColor);
         }
@@ -175,6 +190,17 @@ public class NumberPadTimePickerDialog extends BottomSheetTimePickerDialog
         if (mTimeSetListener != null) {
             mTimeSetListener.onTimeSet(view, hourOfDay, minute);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(KEY_SET_24_HOUR_MODE_AT_RUNTIME, mSet24HourModeAtRuntime);
+        outState.putBoolean(KEY_IS_24_HOUR_MODE, mIs24HourMode);
+        outState.putString(KEY_HINT, mHint);
+        outState.putInt(KEY_TEXT_SIZE, mTextSize);
+        outState.putInt(KEY_HINT_RES_ID, mHintResId);
+        outState.putInt(KEY_HEADER_TEXT_COLOR, mHeaderTextColor);
     }
 
     /**
