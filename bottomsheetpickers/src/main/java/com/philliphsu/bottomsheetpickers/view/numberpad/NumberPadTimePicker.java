@@ -12,6 +12,7 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -226,8 +227,8 @@ class NumberPadTimePicker extends LinearLayout implements
         final TextView mTimeDisplay;
         final TextView mAmPmDisplay;
         final ImageButton mBackspace;
+        final ImageView mDivider;
         final View mHeader;
-        final View mDivider;
 
         NumberPadTimePickerComponent(NumberPadTimePicker timePicker, Context context,
                 AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -236,8 +237,8 @@ class NumberPadTimePicker extends LinearLayout implements
             mTimeDisplay = (TextView) root.findViewById(R.id.bsp_input_time);
             mAmPmDisplay = (TextView) root.findViewById(R.id.bsp_input_ampm);
             mBackspace = (ImageButton) root.findViewById(R.id.bsp_backspace);
+            mDivider = (ImageView) root.findViewById(R.id.bsp_divider);
             mHeader = root.findViewById(R.id.bsp_header);
-            mDivider = root.findViewById(R.id.bsp_divider);
 
             final TypedArray timePickerAttrs = context.obtainStyledAttributes(attrs,
                     R.styleable.BSP_NumberPadTimePicker, defStyleAttr, defStyleRes);
@@ -329,7 +330,7 @@ class NumberPadTimePicker extends LinearLayout implements
 
         @Override
         public final NumberPadTimePickerThemer setDivider(Drawable divider) {
-            setBackground(mDivider, divider);
+            mDivider.setImageDrawable(divider);
             return this;
         }
 
