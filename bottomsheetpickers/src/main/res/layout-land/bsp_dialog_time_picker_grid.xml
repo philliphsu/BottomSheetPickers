@@ -53,13 +53,9 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/bsp_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:contentDescription="@string/bsp_desc_done"
-            android:layout_marginTop="@dimen/bsp_fab_margin_top"
-            android:layout_marginBottom="@dimen/bsp_fab_margin"
-            app:srcCompat="@drawable/bsp_ic_done_24dp" />
+            style="@style/BSP_GridTimePicker_FabStyle" />
 
     </LinearLayout>
 

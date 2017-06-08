@@ -94,4 +94,15 @@
     <style name="BSP_PadButtonStyle" parent="BSP_BasePadButtonStyle">
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
+
+    <style name="BSP_GridTimePicker_BaseFabStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/bsp_fab_margin_top</item>
+        <item name="android:layout_marginBottom">@dimen/bsp_fab_margin</item>
+        <item name="srcCompat">@drawable/bsp_ic_done_24dp</item>
+    </style>
+
+    <style name="BSP_GridTimePicker_FabStyle" parent="BSP_GridTimePicker_BaseFabStyle">
+    </style>
 </resources>

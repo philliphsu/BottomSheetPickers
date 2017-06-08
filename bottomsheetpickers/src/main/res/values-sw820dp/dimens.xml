@@ -70,7 +70,6 @@
     <dimen name="bsp_numeric_keypad_output_box_height">140dp</dimen>
     <dimen name="bsp_numeric_keypad_height">500dp</dimen> <!-- 4 * (numeric_keypad_cell_height) + 100dp FAB/backspace row height -->
     <dimen name="bsp_numeric_keypad_backspace_height">100dp</dimen>
-    <dimen name="bsp_fab_margin">0dp</dimen>
     <dimen name="bsp_text_size_display_3">80sp</dimen>
 
     <!-- GridTimePickerDialog -->
@@ -78,7 +77,6 @@
     <dimen name="bsp_number_grid_24_hour_item_secondary_text_size">20sp</dimen>
     <dimen name="bsp_number_grid_minute_text_size">28sp</dimen>
     <dimen name="bsp_time_picker_pad_height">400dp</dimen>
-    <dimen name="bsp_fab_margin_top">0dp</dimen>
 
     <!-- Bottom sheet specs -->
     <dimen name="bsp_bottom_sheet_edge_margin">40dp</dimen>

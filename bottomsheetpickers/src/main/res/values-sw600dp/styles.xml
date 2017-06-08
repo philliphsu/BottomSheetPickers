@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BSP_GridTimePicker_FabStyle" parent="BSP_GridTimePicker_BaseFabStyle">
+        <item name="android:layout_width">72dp</item>
+        <item name="android:layout_height">72dp</item>
+        <item name="elevation">@dimen/bsp_tablet_fab_elevation</item>
+    </style>
+</resources>
