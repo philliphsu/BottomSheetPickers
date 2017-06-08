@@ -2,4 +2,15 @@
 <resources>
     <dimen name="bsp_alert_dialog_width">560dp</dimen>
     <dimen name="bsp_bottom_sheet_dialog_width">560dp</dimen>
+
+    <!-- Height of a button in a grid-based picker. -->
+    <dimen name="bsp_gridpicker_button_height">96dp</dimen>
+    <!-- bsp_numberpad_time_picker_header_height              (128dp)
+            + bsp_bottom_sheet_grid_picker_padding_top         (24dp)
+            + 4 * bsp_gridpicker_button_height         (4*88 = 352dp)
+            + FAB size and top and bottom margins   (72+2*24 = 120dp) -->
+    <dimen name="bsp_bottom_sheet_grid_picker_peek_height">656dp</dimen>
+
+    <dimen name="bsp_numberpad_time_picker_backspace_icon_size">40dp</dimen>
+    <dimen name="bsp_numberpad_time_picker_backspace_button_width">88dp</dimen>
 </resources>
