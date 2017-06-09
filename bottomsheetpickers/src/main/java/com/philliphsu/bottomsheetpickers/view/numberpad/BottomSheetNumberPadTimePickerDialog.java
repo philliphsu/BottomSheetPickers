@@ -101,6 +101,11 @@ public class BottomSheetNumberPadTimePickerDialog extends BottomSheetDialog {
             // Do nothing.
         }
         mViewDelegate.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
