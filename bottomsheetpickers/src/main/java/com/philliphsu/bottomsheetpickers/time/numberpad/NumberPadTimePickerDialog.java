@@ -36,9 +36,6 @@ import android.widget.TimePicker;
 import com.philliphsu.bottomsheetpickers.R;
 import com.philliphsu.bottomsheetpickers.Utils;
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
-import com.philliphsu.bottomsheetpickers.view.numberpad.BackspaceLocation;
-import com.philliphsu.bottomsheetpickers.view.numberpad.BottomSheetNumberPadTimePickerDialog;
-import com.philliphsu.bottomsheetpickers.view.numberpad.BottomSheetNumberPadTimePickerDialogThemer;
 
 /**
  * Dialog to type in a time.
