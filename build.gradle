@@ -17,6 +17,9 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
     }
 }
 
@@ -40,10 +43,5 @@ ext {
     versionCode = 10
 
     // Library dependencies
-    supportLibraryVersion = '25.3.1'
-    junitVersion = '4.12'
-    mockitoVersion = '1.10.19'
-    runnerVersion = '0.5'
-    rulesVersion = '0.5'
-    espressoVersion = '2.2.2'
+    supportLibraryVersion = '25.4.0'
 }
