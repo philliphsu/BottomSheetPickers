@@ -1,3 +1,3 @@
 <resources>
-    <string name="app_name">BottomSheetPickers</string>
+    <string name="app_name" translatable="false">BottomSheetPickers</string>
 </resources>

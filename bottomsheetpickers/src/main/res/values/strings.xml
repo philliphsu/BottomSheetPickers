@@ -58,34 +58,15 @@
     <string name="bsp_deleted_key"><xliff:g id="key" example="4">%1$s</xliff:g> deleted</string>
 
     <!-- DO NOT TRANSLATE -->
-    <string name="bsp_time_placeholder">--</string>
+    <string name="bsp_time_placeholder" translatable="false">--</string>
     <!-- DO NOT TRANSLATE -->
-    <string name="bsp_time_separator">:</string>
+    <string name="bsp_time_separator" translatable="false">:</string>
 
     <!-- DO NOT TRANSLATE -->
-    <string name="bsp_radial_numbers_typeface">sans-serif</string>
+    <string name="bsp_radial_numbers_typeface" translatable="false">sans-serif</string>
     <!-- DO NOT TRANSLATE -->
-    <string name="bsp_sans_serif">sans-serif</string>
+    <string name="bsp_sans_serif" translatable="false">sans-serif</string>
 
     <!-- DO NOT TRANSLATE -->
-    <string name="bsp_day_of_week_label_typeface">sans-serif</string>
-
-    <!--My stuff-->
-    <string name="bsp_left_alt_24hr">:00</string>
-    <string name="bsp_right_alt_24hr">:30</string>
-    <string name="bsp_hours_00_11">00 &#8211; 11</string>
-    <string name="bsp_hours_12_23">12 &#8211; 23</string>
-
-    <!-- Content description for '00-11' button. [CHAR_LIMIT=NONE] -->
-    <string name="bsp_desc_half_day_1">morning hours</string>
-    <!-- Content description for '12-23' button. [CHAR_LIMIT=NONE] -->
-    <string name="bsp_desc_half_day_2">noon to evening hours</string>
-    <!-- Content description for 'Done' floating action button. [CHAR_LIMIT=NONE] -->
-    <string name="bsp_desc_done">done</string>
-    <!-- Description of the button to move to the previous month. [CHAR LIMIT=NONE] -->
-    <string name="bsp_date_picker_prev_month_button">Previous month</string>
-    <!-- Description of the button to move to the next month. [CHAR LIMIT=NONE] -->
-    <string name="bsp_date_picker_next_month_button">Next month</string>
-    <!-- Description of the button that displays the month and year title and also accesses the month picker. [CHAR LIMIT=NONE] -->
-    <string name="bsp_date_picker_month_year_title">Switch to month picker</string>
+    <string name="bsp_day_of_week_label_typeface" translatable="false">sans-serif</string>
 </resources>
