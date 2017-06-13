@@ -15,3 +15,7 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+# TODO: If we ever remove the duplicate number pad classes in this library and instead
+# import our NumberPadTimePicker library, we can safely remove this line.
+-dontwarn com.philliphsu.bottomsheetpickers.time.numberpad.**
