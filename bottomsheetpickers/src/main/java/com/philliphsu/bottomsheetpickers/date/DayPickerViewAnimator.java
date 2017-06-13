@@ -14,7 +14,7 @@ import static com.philliphsu.bottomsheetpickers.date.PagingDayPickerView.MONTH_P
 /**
  * Parent of {@link PagingDayPickerView} and {@link MonthPickerView}.
  */
-final class DayPickerViewAnimator extends ViewAnimator {
+public final class DayPickerViewAnimator extends ViewAnimator {
 
     private final Animation mDayPickerInAnimation;
     private final Animation mDayPickerOutAnimation;

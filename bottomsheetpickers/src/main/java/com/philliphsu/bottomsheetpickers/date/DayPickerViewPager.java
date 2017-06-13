@@ -33,7 +33,7 @@ import java.util.ArrayList;
 /**
  * This displays a list of months in a calendar format with selectable days.
  */
-class DayPickerViewPager extends ViewPager {
+public class DayPickerViewPager extends ViewPager {
     private static final String TAG = DayPickerViewPager.class.getSimpleName();
 
     private final ArrayList<View> mMatchParentChildren = new ArrayList<>(1);

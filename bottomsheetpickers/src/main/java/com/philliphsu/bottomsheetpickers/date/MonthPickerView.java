@@ -24,7 +24,7 @@ import static com.philliphsu.bottomsheetpickers.date.PagingDayPickerView.MONTH_N
 /**
  * Grid view of selectable months.
  */
-final class MonthPickerView extends View {
+public final class MonthPickerView extends View {
     private static final String TAG = "MonthPickerView";
     
     private static final int NUM_COLUMNS = 3;
