@@ -39,8 +39,8 @@ ext {
     buildToolsVersion = '25.0.3'
 
     // BottomSheetPickers versioning
-    versionName = '2.4.0'
-    versionCode = 10
+    versionName = '2.4.1'
+    versionCode = 11
 
     // Library dependencies
     supportLibraryVersion = '25.4.0'

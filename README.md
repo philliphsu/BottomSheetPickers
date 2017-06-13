@@ -47,7 +47,7 @@ libraries.
 ```groovy
 dependencies {
     // Recommended
-    compile('com.philliphsu:bottomsheetpickers:2.4.0') {
+    compile('com.philliphsu:bottomsheetpickers:2.4.1') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.android.support', module: 'gridlayout-v7'
@@ -57,7 +57,7 @@ dependencies {
     compile 'com.android.support:gridlayout-v7:[LATEST_VERSION]'
 
     // Standard -- not recommended!
-    compile 'com.philliphsu:bottomsheetpickers:2.4.0'
+    compile 'com.philliphsu:bottomsheetpickers:2.4.1'
 }
 ```
 
