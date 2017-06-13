@@ -5,7 +5,7 @@ import android.content.res.ColorStateList;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-class NumberPadView extends GridPickerView {
+public class NumberPadView extends GridPickerView {
     /**
      * Indices map to buttons that represent those numbers.
      * E.g. index 0 -> zero button (located at position 10 in the grid).
